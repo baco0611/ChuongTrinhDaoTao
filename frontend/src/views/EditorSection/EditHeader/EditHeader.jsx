@@ -15,6 +15,10 @@ function EditHeader({ currentSection, setData }) {
     const navigate = useNavigate()
     const [ navHeight, setNavHeight ] = useState(0)
 
+    /**
+     * useEffect này để cập nhật giá trị cuộn trang để đẩy thanh navigate lên trên
+     * Vì có padding (né header)
+     */
     useEffect(() => {
         const handleChangeNav = () => {
             if(window.scrollY <= 52) {
