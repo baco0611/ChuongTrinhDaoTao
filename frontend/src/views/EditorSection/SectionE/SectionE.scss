@@ -1,0 +1,121 @@
+@import '../../../variable.scss';
+
+.section-E {
+    &-details {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        text-align: justify;
+        color: $primary-color;
+    }
+
+    &-main {
+        padding-top: 20px;
+    }
+}
+
+.section-E-main {
+    table {
+        border-collapse: collapse;
+        overflow-x:auto;
+        width: 100%;
+
+        thead {
+            position: sticky;
+            top: calc(90px - 2.5px);
+            z-index: 100;
+        }
+
+        th, td {
+            height: 30px;
+            font-size: 13px;
+            vertical-align: middle;
+        }
+
+        th {
+            border: .1px solid white;
+            background-clip: content-box;
+            background-color: $primary-color;
+            color: white;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        td {
+            border: .5px solid black;
+            color: black;
+            padding-left: 10px;
+            position: relative;
+
+            input {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 20px;
+
+                appearance: none;
+                -webkit-appearance: none;
+                height: 18px;
+                width: 18px;
+                background-color: $button-color;
+                cursor: pointer;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                    
+                &:after {
+                    content: '\e646';
+                    font-weight: 900;
+                    font-family: 'themify';
+                    -webkit-font-smoothing: antialiased;
+	                -moz-osx-font-smoothing: grayscale;
+                    color: white;
+                    display: none;
+                    font-size: 12px;
+                }
+
+                &:hover {
+                    background-color: $gray-color;
+                }
+
+                &:checked {
+                    background-color: $primary-color;
+
+                    &:after {
+                        display: block;
+                    }
+                }
+            }
+        }
+
+        tr.title {
+            td {
+                font-weight: 700;
+                height: 45px;
+                background: white;
+            }
+
+            &.sticky {
+                position: sticky;
+                top: calc(180px - 2.5px);
+                z-index: 100;
+            }
+
+            &.cursorPointer:hover {
+                td {
+                    color: $primary-color;
+                }
+            }
+        }
+
+        .block {
+            td:nth-child(2) {
+                padding: 7px 7px;
+                line-height: 14px;
+                text-align: justify;
+            }
+        }
+    }
+}

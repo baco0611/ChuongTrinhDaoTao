@@ -1,0 +1,54 @@
+@import '../../variable.scss';
+
+#list-section {
+    padding: 150px 0;
+    header {
+        padding-bottom: 75px;
+
+        h1 {
+            text-align: center;
+            color: $primary-color;
+        }
+    }
+}
+
+.list {
+    &-table {
+        font-size: 13px;
+        // border: 1px solid #dddddd;
+        text-align: center;
+        line-height: 35px;
+        color: black;
+
+        th {
+            font-size: 15px;
+            color: $primary-color;
+            font-weight: 700;
+        }
+
+        td:not(:last-child),
+        th:not(:last-child) {
+            border-right: 1px solid #dddddd;
+        }
+
+        tr:hover {
+            background-color: $button-color;
+        }
+
+        td a {
+            color: inherit;
+            font-size: inherit;
+            line-height: 18px;
+            display: block;
+        }
+
+        .text-left {
+            text-align: left;
+            padding-left: 15px;
+        }
+
+        td {
+            padding: 5px 5px;
+        }
+    }
+}

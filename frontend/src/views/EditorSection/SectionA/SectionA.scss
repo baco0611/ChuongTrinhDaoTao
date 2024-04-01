@@ -1,0 +1,142 @@
+@import '../../../variable.scss';
+
+.section-A {
+
+    &-main {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    &-block {
+        display: flex;
+        justify-content: space-between;
+
+        & > div {
+            &:nth-child(1) {
+                width: 25%;
+                
+                h4 {
+                    font-weight: 700;
+                    font-size: 14px;
+                    line-height: 20px;
+                    align-items: center;
+                    color: $primary-color;
+                    min-height: 30px;
+                    display: flex;
+                    align-items: center;
+                }
+
+                li {
+                    font-weight: 400;
+                    font-size: 13px;
+                    line-height: 20px;
+                    color: $primary-color;
+                    list-style: circle;
+                }
+            }
+
+            &:nth-child(2) {
+                width: 73%;
+                position: relative;
+
+                input, textarea, select {
+                    width: 100%;
+                    border: none;
+                    background-color: $gray-color;
+                    font-size: 13px;
+                    font-weight: 400;
+                    padding: 0 25px;
+                }
+
+                input, select {
+                    height: 30px;
+                }
+
+                textarea {
+                    height: 180px;
+                    resize: none;
+                    padding: 12px 25px !important;
+                    overflow: auto !important;
+                    line-height: 22px;
+                }
+
+                i {
+                    position: absolute;
+                    font-size: 15px;
+                    top: 50%;
+                    right: 20px;
+                    transform: rotate(90deg) translate(-50%, 0);
+                }
+
+                select {
+                    appearance: none;
+                }
+
+                option {
+                    width: 100%;
+                    height: 40px;
+                    font-size: 16px;
+                    line-height: 40px;
+                }
+
+                table {
+                    width: 100%;
+                    border-collapse: collapse;
+                    th, td {
+                        width: calc(100% / 3);
+                        height: 40px;
+                        text-align: center;
+                        border: .5px solid black;
+                    }
+                }
+            }
+        }
+    }
+
+    &-chuyenNganh {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .add-btn {
+            width: 100%;
+            height: 40px;
+            border: 1.6px $primary-color dashed;
+            background-color: transparent;
+            color: $primary-color;
+            font-size: 18px;
+            font-weight: 500;
+            opacity: 0.4;
+            &:hover {
+                opacity: 0.8;
+                border: 1px $primary-color solid;
+            }
+        }
+    }
+
+    &-element {
+        width: 100%;
+        display: flex;
+        gap: 15px;
+
+        button {
+            // height: 40px;
+            height: 100%;
+            width: 40px;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $highlight-color;
+            border-radius: 10px;
+
+            i {
+                color: white;
+                position: unset !important;
+                font-size: 22px !important;
+                transform: none !important;
+            }
+        }
+    }
+}

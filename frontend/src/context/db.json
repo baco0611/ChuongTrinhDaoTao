@@ -1,0 +1,88 @@
+{
+    "sectionH": [
+        {
+            "id": 10005,
+            "data": [
+                {
+                    "id": 1,
+                    "PLO": 1,
+                    "idCTCT": 1,
+                    "mucDoDapUng": 1
+                },
+                {
+                    "id": 2,
+                    "PLO": 2,
+                    "idCTCT": 1,
+                    "mucDoDapUng": 4
+                },
+                {
+                    "id": 3,
+                    "PLO": 6,
+                    "idCTCT": 1,
+                    "mucDoDapUng": 20
+                }
+            ] 
+        }
+    ],
+    "sectionH-update": {
+        "id": 10005,
+        "data": [
+            {
+                "id": 1,
+                "mucDoDapUng": 2
+            },
+            {
+                "id": 23,
+                "mucDoDapUng": 5
+            }
+        ]
+    },
+    "sectionH-create":{
+        "id": 10005,
+        "data": [
+            {
+                "PLO": 1,
+                "idCTCT": 1,
+                "mucDoDapUng": 1
+            },
+            {
+                "PLO": 2,
+                "idCTCT": 1,
+                "mucDoDapUng": 4
+            },
+            {
+                "PLO": 6,
+                "idCTCT": 1,
+                "mucDoDapUng": 20
+            }
+        ] 
+    },
+    "sectionH-delete": {
+        "id": 10005,
+        "deleteData": [1, 2, 3, 4]
+    },
+    "sectionG-soTinChi": {
+        "id": 10005,
+        "data": {
+            "daiCuong": 30,
+            "coSoNganh": 25,
+            "nganh": 30,
+            "boTro": 10,
+            "thucTap": 15,
+            "doAnKhoaLuan": 10,
+            "chuyenNganh": 21
+        }
+    },
+    "sectionG-soTinChi-update": {
+        "id": 10005,
+        "data": {
+            "daiCuong": 30,
+            "coSoNganh": 25,
+            "nganh": 30,
+            "boTro": 10,
+            "thucTap": 15,
+            "doAnKhoaLuan": 10,
+            "chuyenNganh": 21
+        }
+    }
+}

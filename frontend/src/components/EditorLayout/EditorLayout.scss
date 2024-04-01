@@ -1,0 +1,18 @@
+@import '../../variable.scss';
+
+.section {
+    padding-bottom: 75px;
+    padding-top: 35px;
+}
+
+.section-header {
+    padding-bottom: 20px;
+    h1 {
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 28px;
+        align-items: center;
+        color: $primary-color;
+        border-bottom: 1.5px solid #C7C5C5;
+    }
+}
