@@ -57,55 +57,55 @@ const deleteStorage = (section, id) => {
 }
 
 const handleSwitchSection = async ({ currentSection, currentId, apiURL, thisE, setData, handleChangeLocation, isDataSaved }) => {
-    console.log(isDataSaved)
-    if(currentSection!='G' && !isDataSaved) {
-        thisE.preventDefault()
+    // console.log(isDataSaved)
+    // if(currentSection!='G' && !isDataSaved) {
+    //     thisE.preventDefault()
     
-        swal({
-            title: 'Bạn muốn lưu thông tin không?',
-            text: ``,
-            icon: 'warning',
-            buttons: {
-                no: {
-                    text: "Không",
-                    closeModal: true,
-                    className: 'swalNot'
-                },
-                yes: {
-                    text: "Có",
-                    closeModal: false
-                }
-            }
-        })
-        .then(async (name) => {
-            if(name == 'yes') {
+    //     swal({
+    //         title: 'Bạn muốn lưu thông tin không?',
+    //         text: ``,
+    //         icon: 'warning',
+    //         buttons: {
+    //             no: {
+    //                 text: "Không",
+    //                 closeModal: true,
+    //                 className: 'swalNot'
+    //             },
+    //             yes: {
+    //                 text: "Có",
+    //                 closeModal: false
+    //             }
+    //         }
+    //     })
+    //     .then(async (name) => {
+    //         if(name == 'yes') {
                 
-                let isSuccess = await handleUpdateDatabase({ currentSection, currentId, apiURL, setData })
+    //             let isSuccess = await handleUpdateDatabase({ currentSection, currentId, apiURL, setData })
                 
-                if(isSuccess) {
-                    swal.stopLoading();
-                    swal.close();
-                    handleChangeLocation()
-                } else {
-                    throw err
-                }
-            }
-            else {
-                swal.stopLoading();
-                swal.close();
-                handleChangeLocation()
-            }
-        })
-        .catch(() => {
-            swal.stopLoading();
-            swal.close();
-            swal({
-                title: 'Đã có lỗi',
-                text: 'Vui lòng thử lại',
-                icon: 'error'
-            })
-        })
-    }
+    //             if(isSuccess) {
+    //                 swal.stopLoading();
+    //                 swal.close();
+    //                 handleChangeLocation()
+    //             } else {
+    //                 throw err
+    //             }
+    //         }
+    //         else {
+    //             swal.stopLoading();
+    //             swal.close();
+    //             handleChangeLocation()
+    //         }
+    //     })
+    //     .catch(() => {
+    //         swal.stopLoading();
+    //         swal.close();
+    //         swal({
+    //             title: 'Đã có lỗi',
+    //             text: 'Vui lòng thử lại',
+    //             icon: 'error'
+    //         })
+    //     })
+    // }
 }
 
 const handleSavingData = async ({ currentSection, currentId, api, setData }) => {

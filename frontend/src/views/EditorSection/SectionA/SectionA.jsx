@@ -170,7 +170,7 @@ function SectionA() {
                 <div className="section-A-main wrapper">
                     <p className="section-D-details">
                         <span style={{ fontWeight: 600, fontSize: '14px', color: '#BE0000' }}>
-                            Lưu ý: Dữ liệu sẽ được lưu khi bấm nút ưu hoặc click chuột ra khỏi ô nhập dữ liệu
+                            Lưu ý: Dữ liệu sẽ được lưu tự động khi click chuột ra khỏi ô nhập dữ liệu hoặc chuyển đổi giữa các phần.
                         </span>
                     </p>
                     <div className="section-A-block">

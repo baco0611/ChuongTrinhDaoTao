@@ -94,7 +94,7 @@ function EditHeader({ currentSection, setData }) {
                                                 apiURL,
                                                 setData,
                                                 isDataSaved,
-                                                // handleChangeLocation: () => {navigate(`/edit/section${element}/${id}`)}
+                                                handleChangeLocation: () => {navigate(`/edit/section${element}/${id}`)}
                                             }) 
                                             : () => {}
                                         }

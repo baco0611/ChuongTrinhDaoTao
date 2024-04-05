@@ -16,6 +16,7 @@ const handleUpdateSectionB = async (id, api, setData) => {
     
     console.log(updateB)
 
+    setData.setIsDataSaved(true)
     return updateB.status == 200
 }
 
