@@ -7,7 +7,10 @@ const UserContext = createContext({
     setToken:() => {},
     apiURL: null,
     fakeApi: null,
-    sectionList: null
+    sectionList: null,
+    isDataSaved: null,
+    setIsDataSaved: () => {},
+    handleBeforeUnload: () => {}
 })
 
 function StateContext({ children }) {
@@ -29,12 +32,24 @@ function StateContext({ children }) {
         }
     } 
 
+    const [isDataSaved, setIsDataSaved] = useState(true); // Giả sử ban đầu dữ liệu đã được lưu
+
     // Default path of API
     const apiURL = "http://localhost:8000/api"
     const fakeApi = "http://localhost:3001"
 
     // Handle current editing
     const sectionList = ['A', 'B', 'C', 'D', 'E', 'G', 'H']
+
+    // Hàm này sẽ được gọi khi người dùng cố gắng rời khỏi trang
+    const handleBeforeUnload = (event) => {
+        console.log(isDataSaved)
+        if (!isDataSaved) {
+            const message = 'Bạn có chắc chắn muốn rời khỏi? Dữ liệu chưa hoặc đang được lưu có thể bị mất.';
+            event.returnValue = message; // Chuẩn cho một số trình duyệt
+            return message; // Chuẩn cho một số trình duyệt khác
+        }
+    };
 
     return (
         <UserContext.Provider value={{
@@ -44,7 +59,10 @@ function StateContext({ children }) {
                 setToken,
                 apiURL,
                 fakeApi,
-                sectionList
+                sectionList,
+                isDataSaved,
+                setIsDataSaved,
+                handleBeforeUnload
             }
         }>
             {children}

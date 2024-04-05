@@ -23,6 +23,8 @@ const handleUpdateSectionA = async (id, api, setData) => {
         setData.setDeleteElement([])
     }
 
+    setData.setIsDataSaved(true)
+
     return (
         updateA.status == 200 && 
         deleteCN.status == 200 &&

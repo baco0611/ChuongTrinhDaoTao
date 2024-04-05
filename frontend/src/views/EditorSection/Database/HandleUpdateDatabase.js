@@ -56,8 +56,9 @@ const deleteStorage = (section, id) => {
     })
 }
 
-const handleSwitchSection = async ({ currentSection, currentId, api, thisE, setData, handleChangeLocation }) => {
-    if(currentSection!='G') {
+const handleSwitchSection = async ({ currentSection, currentId, api, thisE, setData, handleChangeLocation, isDataSaved }) => {
+    console.log(isDataSaved)
+    if(currentSection!='G' && !isDataSaved) {
         thisE.preventDefault()
     
         swal({

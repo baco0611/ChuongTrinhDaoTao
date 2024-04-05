@@ -8,14 +8,27 @@ import Loader from '../../../components/Loader/Loader'
 import EditHeader from "../EditHeader/EditHeader"
 import EditFooter from "../EditFooter/EditFooter"
 import ChuyenNganhBlock from "./ChuyenNganhBlock"
-import { resetPage } from "../Database/HandleUpdateDatabase"
+import { handleUpdateDatabase, resetPage } from "../Database/HandleUpdateDatabase"
 
 function SectionA() {
 
     const { id } = useParams()
-    const { apiURL, fakeApi } = useContext(UserContext)
+    const { apiURL, fakeApi, handleBeforeUnload, isDataSaved, setIsDataSaved } = useContext(UserContext)
     const navigate = useNavigate()
+    const currentSection = 0
+    const currentId = id
 
+    useEffect(() => {
+        // Thêm event listener khi component được mount
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Dọn dẹp event listener khi component bị unmount
+        return () => {
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [isDataSaved]); // Phụ thuộc vào trạng thái của isDataSaved và isApiDone
+
+    // Use effect này để chuyển session ở trên edit header
     useEffect(() => {
         resetPage('A', id)
     }, [])
@@ -43,6 +56,7 @@ function SectionA() {
 
     const [ deleteElement, setDeleteElement ] = useState([])
 
+    // Lưu vào session storage để tiện cho việc chuyển đổi giữa các phần
     useEffect(() => {
         sessionStorage.setItem(`sectionA-${id}`, JSON.stringify(sectionAValue))
         sessionStorage.setItem(`sectionA-ChuyenNganh-${id}`, JSON.stringify(chuyenNganh))
@@ -50,6 +64,7 @@ function SectionA() {
     })
 
     console.log(sectionAValue)
+    console.log(isDataSaved)
     const fecthAPI = (id) => {
         const sectionAValueApi = `${apiURL}/sectionA/${id}`
         const chuyenNganhValueApi = `${apiURL}/ChuyenNganhDaoTao/${id}`
@@ -71,10 +86,12 @@ function SectionA() {
                             const restData = response.data
                             if(restData.data)
                                 setChuyenNganh(restData.data)
+                            setIsDataSaved(true)
                         })
                         .catch(error => {
                             console.log(error)
                             navigate('/error')
+                            setIsDataSaved(true)
                         })
                 }
         }
@@ -100,6 +117,10 @@ function SectionA() {
             ...sectionAValue,
             [e.target.name]: e.target.value
         })
+
+        console.log(1)
+
+        setIsDataSaved(false)
     }
 
     const handleChangeNumberValue = e => {
@@ -108,6 +129,8 @@ function SectionA() {
                 ...sectionAValue,
                 [e.target.name]: e.target.value
             })
+
+        setIsDataSaved(false)
     }
 
     const handleChangeTextArea = (e, max) => {
@@ -123,23 +146,33 @@ function SectionA() {
                 ...sectionAValue,
                 [e.target.name]: value
             })
+        
+        setIsDataSaved(false)
+    }
+
+    const setData = {
+        setSectionAValue,
+        setChuyenNganh,
+        setDeleteElement,
+        setIsDataSaved
     }
 
     return (
         <>
             <EditHeader 
-                currentSection={0} 
-                setData={{
-                    setSectionAValue,
-                    setChuyenNganh,
-                    setDeleteElement
-                }}
+                currentSection={currentSection}
+                setData={setData}
             />
             <div id="section-A" className="section">
                 <div className="section-header wrapper">
                     <h1>A. THÔNG TIN TỔNG QUÁT</h1>
                 </div>
                 <div className="section-A-main wrapper">
+                    <p className="section-D-details">
+                        <span style={{ fontWeight: 600, fontSize: '14px', color: '#BE0000' }}>
+                            Lưu ý: Dữ liệu sẽ được lưu khi bấm nút ưu hoặc click chuột ra khỏi ô nhập dữ liệu
+                        </span>
+                    </p>
                     <div className="section-A-block">
                         <div>
                             <h4>1. Tên chương trình đào tạo (tiếng Việt)</h4>
@@ -151,6 +184,7 @@ function SectionA() {
                                 value={sectionAValue.tenTiengViet}
                                 onChange={handleChangeValue}
                                 autoComplete="off"
+                                onBlur = {() => handleUpdateDatabase({ currentSection, currentId, apiURL, setData })}
                             />
                         </div>
                     </div>
@@ -165,6 +199,7 @@ function SectionA() {
                                 value={sectionAValue.tenTiengAnh}
                                 onChange={handleChangeValue}
                                 autoComplete="off"
+                                onBlur = {() => handleUpdateDatabase({ currentSection, currentId, apiURL, setData })}
                             />
                         </div>
                     </div>
@@ -179,6 +214,7 @@ function SectionA() {
                                 value={sectionAValue.trinhDoDaoTao}
                                 onChange={handleChangeValue}
                                 autoComplete="off"
+                                onBlur = {() => handleUpdateDatabase({ currentSection, currentId, apiURL, setData })}
                             />
                         </div>
                     </div>
@@ -193,6 +229,7 @@ function SectionA() {
                                 value={sectionAValue.maNganhDaoTao}
                                 onChange={handleChangeValue}
                                 autoComplete="off"
+                                onBlur = {() => handleUpdateDatabase({ currentSection, currentId, apiURL, setData })}
                             />
                         </div>
                     </div>
@@ -207,6 +244,7 @@ function SectionA() {
                                 value={sectionAValue.tenNganhDaoTao}
                                 onChange={handleChangeValue}
                                 autoComplete="off"
+                                onBlur = {() => handleUpdateDatabase({ currentSection, currentId, apiURL, setData })}
                             />
                         </div>
                     </div>
@@ -221,6 +259,7 @@ function SectionA() {
                                 value={sectionAValue.khoaQuanLyChuongTrinh}
                                 onChange={handleChangeValue}
                                 autoComplete="off"
+                                onBlur = {() => handleUpdateDatabase({ currentSection, currentId, apiURL, setData })}
                             />
                         </div>
                     </div>
@@ -235,6 +274,7 @@ function SectionA() {
                                 value={sectionAValue.doiTuongTuyenSinh}
                                 onChange={handleChangeValue}
                                 autoComplete="off"
+                                onBlur = {() => handleUpdateDatabase({ currentSection, currentId, apiURL, setData })}
                             />
                         </div>
                     </div>
@@ -285,6 +325,7 @@ function SectionA() {
                                 name="soTinChiYeuCauTichLuy"
                                 value={sectionAValue.soTinChiYeuCauTichLuy}
                                 onChange={handleChangeNumberValue}
+                                onBlur = {() => handleUpdateDatabase({ currentSection, currentId, apiURL, setData })}
                                 autoComplete="off"
                                 style={{
                                     width: '120px',
@@ -353,6 +394,7 @@ function SectionA() {
                                 onChange={ e => handleChangeTextArea(e, 1500)}
                                 rows={20}
                                 autoComplete="off"
+                                onBlur = {() => handleUpdateDatabase({ currentSection, currentId, apiURL, setData })}
                             />
                         </div>
                     </div>
@@ -390,6 +432,7 @@ function SectionA() {
                                 onChange={ e => handleChangeTextArea(e, 1500)}
                                 rows={20}
                                 autoComplete="off"
+                                onBlur = {() => handleUpdateDatabase({ currentSection, currentId, apiURL, setData })}
                             />
                         </div>
                     </div>
@@ -409,6 +452,7 @@ function SectionA() {
                                 onChange={e => handleChangeTextArea(e, 200)}
                                 rows={20}
                                 autoComplete="off"
+                                onBlur = {() => handleUpdateDatabase({ currentSection, currentId, apiURL, setData })}
                             />
                         </div>
                     </div>
@@ -429,6 +473,7 @@ function SectionA() {
                                 onChange={ e => handleChangeTextArea(e, 1500)}
                                 rows={20}
                                 autoComplete="off"
+                                onBlur = {() => handleUpdateDatabase({ currentSection, currentId, apiURL, setData })}
                             />
                         </div>
                     </div>

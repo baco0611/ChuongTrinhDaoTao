@@ -11,7 +11,7 @@ import { handleSwitchSection } from '../Database/HandleUpdateDatabase'
 function EditHeader({ currentSection, setData }) {
 
     const { id } = useParams()
-    const { sectionList, apiURL } = useContext(UserContext)
+    const { sectionList, apiURL, isDataSaved } = useContext(UserContext)
     const navigate = useNavigate()
     const [ navHeight, setNavHeight ] = useState(0)
 
@@ -93,6 +93,7 @@ function EditHeader({ currentSection, setData }) {
                                                 currentId: id, 
                                                 api: apiURL,
                                                 setData,
+                                                isDataSaved,
                                                 handleChangeLocation: () => {navigate(`/edit/section${element}/${id}`)}
                                             }) 
                                             : () => {}
