@@ -74,7 +74,7 @@ function EditFooter({ currentSection, setData }) {
                     </Link>
                 </div>
             </div>
-            {
+            {/* {
                 currentSection != 5 
                 &&
                 <div 
@@ -88,7 +88,7 @@ function EditFooter({ currentSection, setData }) {
                 >
                     <i className='ti-save'></i>
                 </div>
-            }
+            } */}
         </footer>
     )
 }
