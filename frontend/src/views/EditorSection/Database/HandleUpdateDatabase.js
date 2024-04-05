@@ -56,7 +56,7 @@ const deleteStorage = (section, id) => {
     })
 }
 
-const handleSwitchSection = async ({ currentSection, currentId, api, thisE, setData, handleChangeLocation, isDataSaved }) => {
+const handleSwitchSection = async ({ currentSection, currentId, apiURL, thisE, setData, handleChangeLocation, isDataSaved }) => {
     console.log(isDataSaved)
     if(currentSection!='G' && !isDataSaved) {
         thisE.preventDefault()
@@ -80,7 +80,7 @@ const handleSwitchSection = async ({ currentSection, currentId, api, thisE, setD
         .then(async (name) => {
             if(name == 'yes') {
                 
-                let isSuccess = await handleUpdateDatabase({ currentSection, currentId, api, setData })
+                let isSuccess = await handleUpdateDatabase({ currentSection, currentId, apiURL, setData })
                 
                 if(isSuccess) {
                     swal.stopLoading();
@@ -128,7 +128,7 @@ const handleSavingData = async ({ currentSection, currentId, api, setData }) => 
     .then(async (name) => {
         if(name == 'yes') {
             
-            let isSuccess = await handleUpdateDatabase({ currentSection, currentId, api, setData })
+            let isSuccess = await handleUpdateDatabase({ currentSection, currentId, apiURL, setData })
             if(isSuccess) {
                 swal.stopLoading();
                 swal.close();
@@ -152,20 +152,20 @@ const handleSavingData = async ({ currentSection, currentId, api, setData }) => 
     })
 }
 
-const handleUpdateDatabase = async ({ currentSection, currentId, api, setData }) => {
+const handleUpdateDatabase = async ({ currentSection, currentId, apiURL, setData }) => {
     switch(currentSection) {
         case 'A':
-            return await handleUpdateSectionA(currentId, api, setData)
+            return await handleUpdateSectionA(currentId, apiURL, setData)
         case 'B':
-            return await handleUpdateSectionB(currentId, api, setData)
+            return await handleUpdateSectionB(currentId, apiURL, setData)
         case 'C':
-            return await handleUpdateSectionC(currentId, api, setData)
+            return await handleUpdateSectionC(currentId, apiURL, setData)
         case 'D':
-            return await handleUpdateSectionD(currentId, api, setData)
+            return await handleUpdateSectionD(currentId, apiURL, setData)
         case 'E':
-            return await handleUpdateSectionE(currentId, api, setData)
+            return await handleUpdateSectionE(currentId, apiURL, setData)
         case 'H':
-            return await handleUpdateSectionH(currentId, api, setData)
+            return await handleUpdateSectionH(currentId, apiURL, setData)
     }
 }
 

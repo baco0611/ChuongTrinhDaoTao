@@ -43,7 +43,7 @@ function StateContext({ children }) {
 
     // Hàm này sẽ được gọi khi người dùng cố gắng rời khỏi trang
     const handleBeforeUnload = (event) => {
-        console.log(isDataSaved)
+        // console.log(isDataSaved)
         if (!isDataSaved) {
             const message = 'Bạn có chắc chắn muốn rời khỏi? Dữ liệu chưa hoặc đang được lưu có thể bị mất.';
             event.returnValue = message; // Chuẩn cho một số trình duyệt

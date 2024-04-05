@@ -15,7 +15,7 @@ function SectionA() {
     const { id } = useParams()
     const { apiURL, fakeApi, handleBeforeUnload, isDataSaved, setIsDataSaved } = useContext(UserContext)
     const navigate = useNavigate()
-    const currentSection = 0
+    const currentSection = "A"
     const currentId = id
 
     useEffect(() => {
@@ -160,7 +160,7 @@ function SectionA() {
     return (
         <>
             <EditHeader 
-                currentSection={currentSection}
+                currentSection={0}
                 setData={setData}
             />
             <div id="section-A" className="section">
