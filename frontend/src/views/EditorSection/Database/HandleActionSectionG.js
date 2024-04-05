@@ -23,7 +23,7 @@ const getChuyenNganh = async (data, apiURL, id) => {
             idChuyenNganh: CN.idChuyenNganh,
             tenChuyenNganh: CN.tenChuyenNganh,
             type: 'CHUYEN_NGANH',
-            data: value
+            data: resetOrder(value)
         }
     })
 
@@ -52,7 +52,7 @@ const getTTKL = async (data, apiURL, id) => {
             idChuyenNganh: CN.idChuyenNganh,
             tenChuyenNganh: CN.tenChuyenNganh,
             type: 'THAY_THE_KHOA_LUAN',
-            data: value
+            data: resetOrder(value)
         }
     })
 
@@ -69,7 +69,7 @@ const handleSplitSectionG = async (data, setState, apiURL, id) => {
             ...prev,
             DAI_CUONG: {
                 ...DAI_CUONGValue,
-                data: DAI_CUONG
+                data: resetOrder(DAI_CUONG)
             }
         }
     })
@@ -89,23 +89,23 @@ const handleSplitSectionG = async (data, setState, apiURL, id) => {
                 CHUYEN_NGHIEP: {
                     type: 'CHUYEN_NGHIEP',
                 CO_SO_NGANH: {
-                    data: CO_SO_NGANH,
+                    data: resetOrder(CO_SO_NGANH),
                     type: 'CO_SO_NGANH',    
                 },
                 NGANH: {
-                    data: NGANH,
+                    data: resetOrder(NGANH),
                     type: 'NGANH',    
                 },
                 BO_TRO: {
-                    data: BO_TRO,
+                    data: resetOrder(BO_TRO),
                     type: 'BO_TRO',    
                 },
                 THUC_TAP: {
-                    data: THUC_TAP,
+                    data: resetOrder(THUC_TAP),
                     type: 'THUC_TAP',    
                 },
                 DO_AN_KHOA_LUAN: {
-                    data: DO_AN_KHOA_LUAN,
+                    data: resetOrder(DO_AN_KHOA_LUAN),
                     type: 'DO_AN_KHOA_LUAN',
                 },
                 THAY_THE_KHOA_LUAN: {
@@ -119,6 +119,23 @@ const handleSplitSectionG = async (data, setState, apiURL, id) => {
             }
         }
     })
+}
+
+const sortCondition = (a, b) => {
+    return a.stt >= b.stt ? 1 : -1;
+}
+
+const resetOrder = (data) => {
+    data.sort(sortCondition)
+
+    data = data.map((item, index) => {
+        return {
+            ...item,
+            stt: index+1
+        }
+    })
+
+    return data
 }
 
 const searchHocPhan = async (value, apiURL, api) => {
@@ -149,6 +166,7 @@ const createSubject = async (id, apiURL, data, setState) => {
         khoiKienThuc: data.khoiKienThuc,
         chiTietKhoiKienThuc: data.chiTietKhoiKienThuc,
         idChuyenNganh: data.idChuyenNganh ? data.idChuyenNganh : '',
+        stt: data.stt
     }
 
     const payload = {
@@ -156,12 +174,11 @@ const createSubject = async (id, apiURL, data, setState) => {
         data: [createValues]
     }
     const createResult = await getData()
-    console.log(createResult)
     handleSplitSectionG(createResult.data.data, setState, apiURL, id)
 }
 
 const updateSubject = async (id, apiURL, data, setState) => {
-    const createValues = {
+    const updateValues = {
         idDeCuongHocPhan: data.idDeCuongHocPhan,
         thayTheKhoaLuan: data.thayTheKhoaLuan,
         batBuoc: data.batBuoc,
@@ -172,15 +189,16 @@ const updateSubject = async (id, apiURL, data, setState) => {
         khoiKienThuc: data.khoiKienThuc,
         chiTietKhoiKienThuc: data.chiTietKhoiKienThuc,
         idChuyenNganh: data.idChuyenNganh ? data.idChuyenNganh : '',
-        id: data.id
+        id: data.id,
+        stt: data.stt
     }
 
     const payload = {
         idCTDT: id,
-        data: [createValues]
+        data: [updateValues]
     }
-    const createResult = await postData(apiURL, '/update_sectionG', payload, 'UPDATE_SUBJECT')
-    handleSplitSectionG(createResult.data.data, setState, apiURL, id)
+    const updateResult = await postData(apiURL, '/update_sectionG', payload, 'UPDATE_SUBJECT')
+    handleSplitSectionG(updateResult.data.data, setState, apiURL, id)
 }
 
 const deleteSubject = async (id, apiURL, data, setState) => {
@@ -190,7 +208,6 @@ const deleteSubject = async (id, apiURL, data, setState) => {
     }
 
     const deleteResult = await deleteData(apiURL, '/delete_sectionG', payload, 'DELETE_SUBJECT')
-    console.log(deleteResult)
 
     handleSplitSectionG(deleteResult.data.data, setState, apiURL, id)
 

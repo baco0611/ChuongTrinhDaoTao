@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { getParent } from "../Database/HandleUpdateDatabase"
 import EditElement from "./EditElement"
 
@@ -11,6 +11,18 @@ function SectionGElement({ index, data, setState }) {
         if(!parent) {
             setIsEdit(true)
         }
+    }
+
+    const orderRef = useRef(null)
+
+    const handleUp = () => {
+        if(!orderRef) {
+            
+        }
+    }
+
+    const handleDown = () => {
+
     }
 
     return (
@@ -79,6 +91,12 @@ function SectionGElement({ index, data, setState }) {
                 </h4>
             </td>
             <td>{data.hocKy}</td>
+            <td>
+                <div className="orderEdit">
+                    <button onClick={handleUp}><i className="fa-solid fa-caret-up"></i></button>
+                    <button onClick={handleDown}><i className="fa-solid fa-caret-down"></i></button>
+                </div>
+            </td>
         </tr>
     )
 }

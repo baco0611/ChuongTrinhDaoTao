@@ -12,6 +12,7 @@ function EditElement({ data, setEdit, setState }) {
 
     const { id } = useParams()
     const { apiURL, fakeApi } = useContext(UserContext)
+    const elementValue = {...data}
 
     const {
         idDeCuongHocPhan,
@@ -25,11 +26,12 @@ function EditElement({ data, setEdit, setState }) {
         chiTietKhoiKienThuc,
         idChuyenNganh,
         maHocPhan,
-        tenHocPhan
-    } = data
+        tenHocPhan, 
+        stt
+    } = elementValue
 
     const [ editValue, setEditValue ] = useState({
-        id: data.id,
+        id: elementValue.id,
         idDeCuongHocPhan: idDeCuongHocPhan,
         thayTheKhoaLuan: thayTheKhoaLuan,
         batBuoc: batBuoc,
@@ -41,8 +43,12 @@ function EditElement({ data, setEdit, setState }) {
         chiTietKhoiKienThuc: chiTietKhoiKienThuc,
         idChuyenNganh: idChuyenNganh,
         maHocPhan: maHocPhan,
-        tenHocPhan: tenHocPhan
+        tenHocPhan: tenHocPhan,
+        stt: stt
     })
+
+    console.log(data, editValue)
+
 
     const [ soHocKy, setSoHocKy ] = useState(8)
     const [ isSearch, setIsSearch ] = useState(false)
@@ -192,14 +198,35 @@ function EditElement({ data, setEdit, setState }) {
                 }
             }
         })
-        .then(name => {
+        .then(async(name) => {
             if(name == 'delete') {
-                const response = deleteSubject(id, apiURL, editValue.id, setState)
-                console.log(response)
-                swal.stopLoading();
-                swal.close();
+                const response = await deleteSubject(id, apiURL, editValue.id, setState)
+                if(response.status==200)
+                {
+                    swal.stopLoading();
+                    swal.close();
+                    handleClose()
+                }
             }
         })
+    }
+
+    const handleDeleteTQ = e => {
+        const element = e.target
+        const name = element.dataset.name
+        const index = element.dataset.index
+
+        setEditValue(prev => {
+
+            const dataElement = prev[name]
+            dataElement.splice(index, 1)
+
+            return {
+                ...prev,
+                [name]: dataElement
+            }
+        })
+        
     }
 
     return (
@@ -286,7 +313,12 @@ function EditElement({ data, setEdit, setState }) {
                             <ul>
                                 {
                                     editValue.tienQuyet.map((item, index) => {
-                                        return <li key={index}>{item}</li>
+                                        return <li 
+                                            key={index}
+                                            data-name='tienQuyet'
+                                            data-index={index}
+                                            onDoubleClick={handleDeleteTQ}
+                                        >{item}</li>
                                     })
                                 }
                                 <li>
@@ -314,7 +346,11 @@ function EditElement({ data, setEdit, setState }) {
                             <ul>
                                 {
                                     editValue.hocTruoc.map((item, index) => {
-                                        return <li key={index}>{item}</li>
+                                        return <li 
+                                            key={index}
+                                            data-name='hocTruoc'
+                                            onDoubleClick={handleDeleteTQ}
+                                        >{item}</li>
                                     })
                                 }
                             </ul>
@@ -342,7 +378,11 @@ function EditElement({ data, setEdit, setState }) {
                             <ul>
                                 {
                                     editValue.songHanh.map((item, index) => {
-                                        return <li key={index}>{item}</li>
+                                        return <li 
+                                            key={index}
+                                            data-name='songHanh'
+                                            onDoubleClick={handleDeleteTQ}
+                                        >{item}</li>
                                     })
                                 }
                             </ul>

@@ -10,13 +10,19 @@ import axios from "axios"
 import SectionGBlock from "./SectionGBlock"
 import { handleSplitSectionG } from "../Database/HandleActionSectionG"
 import NavIcon from "./NavIcon"
-import { resetPage } from "../Database/HandleUpdateDatabase"
+import { postData, resetPage } from "../Database/HandleUpdateDatabase"
+import { DragDropContext } from "react-beautiful-dnd"
 
 function SectionG() {
 
     const { id } = useParams()
     const { apiURL, fakeApi } = useContext(UserContext)
     const navigate = useNavigate()
+    const [ first, setFirst ] = useState({
+        create: true,
+        first: true,
+        second: true
+    })
 
     const [ sectionGValue, setSectionGValue ] = useState({
         DAI_CUONG: {
@@ -59,6 +65,56 @@ function SectionG() {
         resetPage('G', id)
     }, [])
 
+    useEffect(() => {
+        if(first.create) {
+            setFirst({...first, create: false})
+        } else
+        if(first.first) {
+            setFirst({...first, first: false})
+        }
+        else
+        if(first.second) {
+            console.log(sectionGValue)
+            setFirst({...first, second: false})
+            const TTKL = sectionGValue.CHUYEN_NGHIEP.THAY_THE_KHOA_LUAN.data
+            ?
+            Object.keys(sectionGValue.CHUYEN_NGHIEP.THAY_THE_KHOA_LUAN.data).map(CN => {
+                return sectionGValue.CHUYEN_NGHIEP.THAY_THE_KHOA_LUAN.data[CN].data
+            }).reduce((result, item) => [...result, ...item], [])
+            : []
+
+            const CN = sectionGValue.CHUYEN_NGHIEP.CHUYEN_NGANH.data 
+            ?
+             Object.keys(sectionGValue.CHUYEN_NGHIEP.CHUYEN_NGANH.data).map(CN => {
+                return sectionGValue.CHUYEN_NGHIEP.CHUYEN_NGANH.data[CN].data
+            }).reduce((result, item) => [...result, ...item], [])
+            : []
+
+            const updateData = [
+                ...sectionGValue.DAI_CUONG.data,
+                ...sectionGValue.CHUYEN_NGHIEP.CO_SO_NGANH.data,
+                ...sectionGValue.CHUYEN_NGHIEP.NGANH.data,
+                ...sectionGValue.CHUYEN_NGHIEP.BO_TRO.data,
+                ...sectionGValue.CHUYEN_NGHIEP.THUC_TAP.data,
+                ...sectionGValue.CHUYEN_NGHIEP.DO_AN_KHOA_LUAN.data,
+                ...TTKL,
+                ...CN
+            ]
+
+            const payload = {
+                idCTDT: id,
+                data: updateData.map(item => {
+                    return {
+                        ...item,
+                        idChuyenNganh: item.idChuyenNganh ? item.idChuyenNganh : ''
+                    }
+                })
+            }
+
+            postData(apiURL, '/update_sectionG', payload, 'UPDATE_SUBJECT')
+        }
+    }, [sectionGValue])
+
     const fecthAPI = (id) => {
         const sectionGValueApi = `${apiURL}/sectionG/${id}`
         return async () => {
@@ -95,7 +151,7 @@ function SectionG() {
             <EditHeader
                 currentSection={5}
             />
-            <div id="section-D" className="section">
+            <div id="section-G" className="section">
                 <div className="section-header wrapper">
                     <h1>G. KHUNG CHƯƠNG TRÌNH ĐÀO TẠO</h1>
                 </div>
@@ -117,6 +173,7 @@ function SectionG() {
                                 <th colSpan={6}>Phân bố giờ</th>
                                 <th colSpan={3}>Quan hệ với các học phần</th>
                                 <th style={{minWidth: '50px'}} rowSpan={2}>Học<br/>kỳ</th>
+                                <th style={{minWidth: '50px'}} rowSpan={2}>Thao<br/>tác</th>
                             </tr>
                             <tr>
                                 <th style={{minWidth: '50px'}}>LT</th>
@@ -131,18 +188,20 @@ function SectionG() {
                             </tr>
                         </thead>
                         <tbody>
-                            <SectionGBlock
-                                title={'KIẾN THỨC GIÁO DỤC ĐẠI CƯƠNG'}
-                                index={'I.'}
-                                data={sectionGValue.DAI_CUONG}
-                                setState={setSectionGValue}
-                            />  
-                            <SectionGBlock
-                                title={'KIẾN THỨC GIÁO DỤC CHUYÊN NGHIỆP'}
-                                index={"II."}
-                                data={sectionGValue.CHUYEN_NGHIEP}
-                                setState={setSectionGValue}
-                            />   
+                            <DragDropContext>
+                                <SectionGBlock
+                                    title={'KIẾN THỨC GIÁO DỤC ĐẠI CƯƠNG'}
+                                    index={'I.'}
+                                    data={sectionGValue.DAI_CUONG}
+                                    setState={setSectionGValue}
+                                />  
+                                <SectionGBlock
+                                    title={'KIẾN THỨC GIÁO DỤC CHUYÊN NGHIỆP'}
+                                    index={"II."}
+                                    data={sectionGValue.CHUYEN_NGHIEP}
+                                    setState={setSectionGValue}
+                                />   
+                            </DragDropContext>
                         </tbody>
                     </table>
                 </div>

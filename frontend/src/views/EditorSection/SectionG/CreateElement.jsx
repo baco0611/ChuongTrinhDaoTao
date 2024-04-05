@@ -8,7 +8,7 @@ import SearchItem from "./SearchItem"
 import swal from 'sweetalert'
 import TienQuyetRecommend from "./TienQuyetRecommend"
 
-function CreateElement({ khoiKienThuc, chiTietKhoiKienThuc, idChuyenNganh, setCreate, setState, type }) {
+function CreateElement({ khoiKienThuc, chiTietKhoiKienThuc, idChuyenNganh, setCreate, setState, stt }) {
     
     console.log(chiTietKhoiKienThuc)
     const { id } = useParams()
@@ -26,9 +26,11 @@ function CreateElement({ khoiKienThuc, chiTietKhoiKienThuc, idChuyenNganh, setCr
         chiTietKhoiKienThuc: chiTietKhoiKienThuc ? chiTietKhoiKienThuc : '',
         idChuyenNganh: idChuyenNganh ? idChuyenNganh : '',
         maHocPhan: '',
-        tenHocPhan: ''
+        tenHocPhan: '',
+        stt: stt
     })
-    console.log(createValue)
+
+    console.log(stt)
 
     const [ soHocKy, setSoHocKy ] = useState(8)
     const [ isSearch, setIsSearch ] = useState(false)
@@ -175,6 +177,24 @@ function CreateElement({ khoiKienThuc, chiTietKhoiKienThuc, idChuyenNganh, setCr
         if(!element) setIsSearch(false)
     }
 
+    const handleDeleteTQ = e => {
+        const element = e.target
+        const name = element.dataset.name
+        const index = element.dataset.index
+
+        setCreateValue(prev => {
+
+            const dataElement = prev[name]
+            dataElement.splice(index, 1)
+
+            return {
+                ...prev,
+                [name]: dataElement
+            }
+        })
+        
+    }
+
     return (
         <div className="section-G-create" onClick={handleBlurSearch}>
             <div className="section-G-createMain">
@@ -269,7 +289,11 @@ function CreateElement({ khoiKienThuc, chiTietKhoiKienThuc, idChuyenNganh, setCr
                             <ul>
                                 {
                                     createValue.tienQuyet.map((item, index) => {
-                                        return <li key={index}>{item}</li>
+                                        return <li 
+                                            key={index}
+                                            data-name='tienQuyet'
+                                            onDoubleClick={handleDeleteTQ}
+                                        >{item}</li>
                                     })
                                 }
                                 <li>
@@ -297,7 +321,11 @@ function CreateElement({ khoiKienThuc, chiTietKhoiKienThuc, idChuyenNganh, setCr
                             <ul>
                                 {
                                     createValue.hocTruoc.map((item, index) => {
-                                        return <li key={index}>{item}</li>
+                                        return <li 
+                                            key={index}
+                                            data-name='hocTruoc'
+                                            onDoubleClick={handleDeleteTQ}
+                                        >{item}</li>
                                     })
                                 }
                                 <li>
@@ -325,7 +353,11 @@ function CreateElement({ khoiKienThuc, chiTietKhoiKienThuc, idChuyenNganh, setCr
                             <ul>
                                 {
                                     createValue.songHanh.map((item, index) => {
-                                        return <li key={index}>{item}</li>
+                                        return <li 
+                                            key={index}
+                                            data-name='songHanh'
+                                            onDoubleClick={handleDeleteTQ}
+                                        >{item}</li>
                                     })
                                 }
                                 <li>

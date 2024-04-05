@@ -17,7 +17,7 @@ function SectionGSection({ title, index, data, setState, idChuyenNganh }) {
         <>
             <tr className="title cursorPointer">
                 <td style={{textAlign: 'center', paddingLeft: 0}}>{index}</td>
-                <td colSpan={14}>{title}</td>            
+                <td colSpan={15}>{title}</td>            
             </tr>
             {
                 data.data.map((item, index) => 
@@ -31,7 +31,7 @@ function SectionGSection({ title, index, data, setState, idChuyenNganh }) {
             }
             <tr>
                 <td 
-                    colSpan={15} 
+                    colSpan={16} 
                     className="addBtn"
                     onClick={e => handleOpen(e)}
                 >
@@ -44,6 +44,7 @@ function SectionGSection({ title, index, data, setState, idChuyenNganh }) {
                             idChuyenNganh={idChuyenNganh}
                             setCreate={setIsCreate}
                             setState={setState}
+                            stt={data.data.length + 1}
                         />
                     }
                 </td>
