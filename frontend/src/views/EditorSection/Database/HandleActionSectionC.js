@@ -100,29 +100,38 @@ const handleClickDeleteC = ({ e, setState, data, setDelete, idctdt, type }) => {
     setDelete(prev => [...prev, deleteElement])
 }
 
-const handleClickAddC = ({ idCTDT, type, typeIndex, setState }) => {
-    setState(prev => {
-        const dataType = prev[type]
-        const data = dataType.data
-
-        const list = [
-            ...data,
-            {
-                kiHieu: '',
-                loaiMucTieu: '',
-                noiDung: '',
-                id: '',
-                idCTDT: Number.parseInt(idCTDT)
-            }
-        ]
-        
-        return {
-            ...prev,
-            [type]: {
-                ...dataType,
-                data: handleChangeDataC(list, dataType.type, dataType.typeIndex, idCTDT)
-            }
+const handleClickAddC = async({ idCTDT, type, setData, dataSectionC, apiURL }) => {
+    const dataType = dataSectionC[type]
+    const data = dataType.data
+    let list = [
+        ...data,
+        {
+            kiHieu: '',
+            loaiMucTieu: '',
+            noiDung: '',
+            id: '',
+            idCTDT: Number.parseInt(idCTDT)
         }
+    ]
+
+    
+    list = handleChangeDataC(list, dataType.type, dataType.typeIndex, idCTDT)
+    const createElement = list.filter(item => item.id == '').map(item => {
+    return {
+            kiHieu:item.kiHieu, 
+            noiDung: item.noiDung, 
+            loaiMucTieu: item.loaiMucTieu, 
+            idCTDT: item.idCTDT
+        }
+    })
+    console.log( { idCTDT: idCTDT, data: createElement }) 
+    const createC = await postData(apiURL, '/create_sectionC', { idCTDT: idCTDT, data: createElement }, 'CREATE_SECIONC')
+    console.log(createC)
+
+    handleSplitSectionC({
+        data: createC.data.data,
+        setSectionCValue: setData.setSectionCValue,
+        idctdt: idCTDT
     })
 }
 

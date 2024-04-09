@@ -3,7 +3,7 @@ import POElement from "./POElement"
 import { handleClickAddC } from "../Database/HandleActionSectionC"
 import { useState } from "react"
 
-function POBlock({ title, data, setDelete, idCTDT, setState }) {
+function POBlock({ title, data, setDelete, idCTDT, setState, currentId, currentSection, setData, dataSectionC, apiURL }) {
 
     const [ isHidden, setIsHidden ] = useState(true)
 
@@ -28,7 +28,13 @@ function POBlock({ title, data, setDelete, idCTDT, setState }) {
                                 <h4>Kí hiệu</h4>
                                 <h4>Chủ đề mục tiêu cụ thể</h4>
                                 <button
-                                    onClick={() => handleClickAddC({ idCTDT, type: data.type, typeIndex: data.typeIndex, setState })}
+                                    onClick={() => handleClickAddC({ 
+                                        idCTDT, 
+                                        type: data.type, 
+                                        setData,
+                                        dataSectionC,
+                                        apiURL
+                                    })}
                                 >
                                     <i className="iconoir-add-square"></i>
                                 </button>

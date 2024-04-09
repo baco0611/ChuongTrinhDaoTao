@@ -35,6 +35,15 @@ function SectionC() {
         }
     })
     const [ deleteElement, setDeleteElement ] = useState([])
+    const [ isLoaded, setIsLoaded ] = useState(false)
+    const currentSection = "B"
+    const currentId = id
+    const setData = {
+        setSectionCValue,
+        setDeleteElement
+    }
+
+    // console.log(sectionCValue)
 
     useEffect(() => {
         resetPage('C', id)
@@ -47,19 +56,28 @@ function SectionC() {
             await axios.get(sectionCValueApi) 
                 .then(response => {
                     const restData = response.data
+                    console.log(restData)
                     if(restData.data)
                         handleSplitSectionC({ 
                             data: restData.data,
                             setSectionCValue,
                             idctdt: id
                         })
+                    setIsLoaded(true)
                 })
                 .catch(error => {
                     console.log(error)
                     navigate('/error')
+                    setIsLoaded(true)
                 })
         }
     }
+
+    // useEffect(() => {
+    //     if(isLoaded) {
+    //         handleUpdateSectionC(currentId, apiURL, setData)
+    //     }
+    // }, [sectionCValue])
 
     useEffect(() => {
         sessionStorage.setItem(`sectionC-${id}`, JSON.stringify([...sectionCValue.KIEN_THUC.data, ...sectionCValue.KY_NANG.data, ...sectionCValue.THAI_DO.data]))
@@ -152,10 +170,7 @@ function SectionC() {
         <>
             <EditHeader 
                 currentSection={2} 
-                setData={{
-                    setSectionCValue,
-                    setDeleteElement
-                }}
+                setData={setData}
             />
             <div id="section-C" className="section">
                 <div className="section-header wrapper">
@@ -164,7 +179,10 @@ function SectionC() {
                 <div className="section-C wrapper">
                     <p className="section-C-details">Tối đa 05 mục tiêu cụ thể cho mỗi phần về kiến thức, kỹ năng và thái độ của sinh viên sau khi tốt nghiệp, PO = Program Objectives.<br/>
                         Sinh viên sau khi tốt nghiệp có các kiến thức, kỹ năng và thái độ được thể hiện như bên dưới.<br/>
-                        <span style={{ fontWeight: 600, fontSize: '12px', color: '#BE0000' }}>Lưu ý: Dữ liệu chỉ được lưu lại khi bấm nút lưu hoặc nút hoàn tất. Khi đã xóa một mục tiêu cụ thể thì dữ liệu về mục tiêu đó ở ma trận mục tiêu - chuẩn đầu ra sẽ bị xóa. Vì vậy, hãy cẩn trọng trước khi lưu lại những thao tác đó!</span>
+                        <span style={{ fontWeight: 600, fontSize: '12px', color: '#BE0000' }}>
+                            Lưu ý: Dữ liệu được lưu tự động khi click chuột ra khỏi ô nhập dữ liệu, thêm/xóa mục hoặc chuyển đổi giữa các phần. 
+                            <br/>Khi đã xóa một mục tiêu cụ thể thì dữ liệu về mục tiêu đó ở ma trận mục tiêu - chuẩn đầu ra sẽ bị xóa. Vì vậy, hãy cẩn trọng trước khi thực hiện thao tác xóa!
+                        </span>
                     </p>
                     <div className="section-C-main">
                         <DragDropContext onDragEnd={handleDragEnd}>
@@ -174,6 +192,10 @@ function SectionC() {
                                 setDelete = {setDeleteElement}
                                 setState = {setSectionCValue}
                                 idCTDT = {id}
+                                currentSection = {currentSection}
+                                setData={setData}
+                                dataSectionC = {sectionCValue}
+                                apiURL = {apiURL}
                             />
                             <POBlock
                                 title = {'2. KỸ NĂNG'}
@@ -181,6 +203,10 @@ function SectionC() {
                                 setDelete = {setDeleteElement}
                                 setState = {setSectionCValue}
                                 idCTDT = {id}
+                                currentSection = {currentSection}
+                                setData={setData}
+                                dataSectionC = {sectionCValue}
+                                apiURL = {apiURL}
                             />
                             <POBlock
                                 title = {'3. THÁI ĐỘ'}
@@ -188,6 +214,10 @@ function SectionC() {
                                 setDelete = {setDeleteElement}
                                 setState = {setSectionCValue}
                                 idCTDT = {id}
+                                currentSection = {currentSection}
+                                setData={setData}
+                                dataSectionC = {sectionCValue}
+                                apiURL = {apiURL}
                             />
                         </DragDropContext>
                     </div>

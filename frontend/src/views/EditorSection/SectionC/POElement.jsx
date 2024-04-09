@@ -34,7 +34,7 @@ function POElement({ item, type, index, typeIndex, setState, data, setDelete }) 
                     <textarea 
                         id={`${type}-${index}`}
                         placeholder="Mục tiêu cụ thể"
-                        value={item.noiDung}    
+                        value={item.noiDung || " "}    
                         data-typeindex={typeIndex}
                         data-type={type}
                         data-index={index+1}
