@@ -80,6 +80,17 @@ const handleChangeDataC = (element, type, typeIndex, idCTDT) => {
     return value
 }
 
+const handleSaveDragC = ({ data, setData, apiURL, idCTDT }) => {
+    const updateData = [...data.KIEN_THUC.data, ...data.KY_NANG.data, ...data.THAI_DO.data]
+    const updateC = postData(apiURL, '/update_sectionC', { idCTDT: idCTDT, data: updateData }, 'UPDATE_SECTIONC')
+
+    // handleSplitSectionC({
+    //     data: updateC.data.data,
+    //     setSectionCValue: setData.setSectionCValue,
+    //     idctdt: idCTDT
+    // })
+}
+
 const handleAutoSaveC = async ({id, apiURL, setData, setIsDataSaved}) => {
     const sectionCElement = JSON.parse(sessionStorage.getItem(`sectionC-${id}`))
     const updateElement = sectionCElement.filter(item => item.id != '')
@@ -90,7 +101,7 @@ const handleAutoSaveC = async ({id, apiURL, setData, setIsDataSaved}) => {
         setSectionCValue: setData.setSectionCValue,
         idctdt: id
     })
-    
+
     setIsDataSaved(true)
 }
 
@@ -209,5 +220,6 @@ export {
     handleChangeValueC, 
     handleSplitSectionC, 
     handleUpdateSectionC,
-    handleAutoSaveC 
+    handleAutoSaveC,
+    handleSaveDragC
 }

@@ -9,7 +9,7 @@ import { useQuery } from "react-query"
 import axios from "axios"
 import POBlock from "./POBlock"
 import { DragDropContext } from 'react-beautiful-dnd' 
-import { handleChangeDataC, handleSplitSectionC, handleUpdateSectionC } from "../Database/HandleActionSectionC"
+import { handleChangeDataC, handleSaveDragC, handleSplitSectionC, handleUpdateSectionC } from "../Database/HandleActionSectionC"
 import { resetPage } from "../Database/HandleUpdateDatabase"
 
 function SectionC() {
@@ -37,13 +37,12 @@ function SectionC() {
     const [ deleteElement, setDeleteElement ] = useState([])
     const [ isLoaded, setIsLoaded ] = useState(false)
     const currentSection = "B"
-    const currentId = id
     const setData = {
         setSectionCValue,
         setDeleteElement
     }
 
-    // console.log(sectionCValue)
+    console.log(sectionCValue)
 
     useEffect(() => {
         resetPage('C', id)
@@ -96,7 +95,7 @@ function SectionC() {
         navigate('/error')
 
     const handleDragEnd = (results) => {
-        // console.log(results)
+        console.log(results)
         const { source, destination, type } = results
     
         if(!destination) return
@@ -109,64 +108,72 @@ function SectionC() {
                 const sourceType = source.droppableId
                 const destinationType = destination.droppableId
 
-                setSectionCValue(prev => {
-                    const dataSource = prev[sourceType]
-                    const listSource = dataSource.data
-                    const data = listSource[source.index]
-
-                    const dataDestination = prev[destinationType]
-                    const listDestination = dataDestination.data
-                
-                    return {
-                        ...prev,
-                        [sourceType]: {
-                            ...dataSource,
-                            data: handleChangeDataC([...listSource.slice(0, source.index), ...listSource.slice(source.index + 1)], dataSource.type, dataSource.typeIndex, id)
-                        },
-                        [destinationType]: {
-                            ...dataDestination,
-                            data: handleChangeDataC([...listDestination.slice(0, destination.index), data, ...listDestination.slice(destination.index)], dataDestination.type, dataDestination.typeIndex, id)
-                        }
+                const dataSource = sectionCValue[sourceType]
+                const listSource = dataSource.data
+                const data = listSource[source.index]
+                const dataDestination = sectionCValue[destinationType]
+                const listDestination = dataDestination.data
+            
+                result = {
+                    ...sectionCValue,
+                    [sourceType]: {
+                        ...dataSource,
+                        data: handleChangeDataC([...listSource.slice(0, source.index), ...listSource.slice(source.index + 1)], dataSource.type, dataSource.typeIndex, id)
+                    },
+                    [destinationType]: {
+                        ...dataDestination,
+                        data: handleChangeDataC([...listDestination.slice(0, destination.index), data, ...listDestination.slice(destination.index)], dataDestination.type, dataDestination.typeIndex, id)
                     }
-                })
+                }
+
+                setSectionCValue(result)
+
+                return result
             }
 
             const changeIndex = ({ source, destination }) => {
 
                 const type = source.droppableId
 
-                setSectionCValue(prev => {
-                    const dataType = prev[type]
-                    const list = dataType.data
-
-                    const removedElement = list.splice(source.index, 1)[0]
-                    list.splice(destination.index, 0, removedElement)
-                
-                    return {
-                        ...prev,
-                        [type]: {
-                            ...dataType,
-                            data: handleChangeDataC(list, type, dataType.typeIndex, id)
-                        }
+                const dataType = sectionCValue[type]
+                const list = dataType.data
+                const removedElement = list.splice(source.index, 1)[0]
+                list.splice(destination.index, 0, removedElement)
+            
+                const result = {
+                    ...sectionCValue,
+                    [type]: {
+                        ...dataType,
+                        data: handleChangeDataC(list, type, dataType.typeIndex, id)
                     }
-                })
+                }
+
+                setSectionCValue(result)
+
+                return result
             }
 
+            let result = []
             // If The drag is in 1 PO block
             if(source.droppableId === destination.droppableId) {
-                changeIndex({
+                result = changeIndex({
                     source,
                     destination
                 })
-                return
+            } else {
+                // Handle change index and component
+                result = handleChangeIndexComponent({ source, destination })
             }
 
-            // Handle change index and component
-            handleChangeIndexComponent({ source, destination })
+            handleSaveDragC({ 
+                data: result, 
+                setData,
+                apiURL,
+                idCTDT: id
+            })
         }
     }
 
-    console.log()
 
     return(
         <>
