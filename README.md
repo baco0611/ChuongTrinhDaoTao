@@ -4,9 +4,12 @@ This is a project by students Huynh Van Nguyen Bao and Nguyen Thi Van Anh, who a
 
 The project structure consists of two parts: a front end using React and a back end implemented with Java, which are connected to each other through RestAPIs.
 The file structure includes two main folders named frontend and backend, organized as follows:
+
+```bash
 QLCTDT
 |_ backend
 |_ frontend
+```
 
 You can download the project using the following command:
 ```bash
