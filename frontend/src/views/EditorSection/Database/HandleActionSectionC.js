@@ -78,26 +78,29 @@ const handleChangeDataC = (element, type, typeIndex, idCTDT) => {
     return value
 }
 
-const handleClickDeleteC = ({ e, setState, data, setDelete, idctdt, type }) => {
+const handleClickDeleteC = async ({ e, setState, data, setDelete, idctdt, type, apiURL, setData }) => {
     const parentElement = getParent(e.target, 'element')
     const inputElement = parentElement.querySelector('textarea')
     const dataset = inputElement.dataset
     
     const list = [...data]
-    const deleteElement = list[dataset.index - 1]
-    list.splice(dataset.index - 1, 1)
-    setState(prev => {
-        const dataType = prev[type]
-        
-        return {
-            ...prev,
-            [type]: {
-                ...dataType,
-                data: handleChangeDataC(list, dataType.type, dataType.typeIndex, idctdt)
-            }
-        }
+    let deleteElement = list[dataset.index - 1]
+    console.log(deleteElement)
+    deleteElement = [{
+        id: deleteElement.id, 
+        idCTDT: deleteElement.idCTDT
+    }] 
+    
+    console.log(deleteElement)
+    const deleteC = await deleteData(apiURL, '/delete_sectionC', { idCTDT: idctdt, deleteData: deleteElement }, 'DELETE_SECTIONC')
+    
+    console.log(setData)
+
+    handleSplitSectionC({
+        data: deleteC.data.data,
+        setSectionCValue: setData.setSectionCValue,
+        idctdt: idctdt
     })
-    setDelete(prev => [...prev, deleteElement])
 }
 
 const handleClickAddC = async({ idCTDT, type, setData, dataSectionC, apiURL }) => {
@@ -126,7 +129,7 @@ const handleClickAddC = async({ idCTDT, type, setData, dataSectionC, apiURL }) =
     })
     console.log( { idCTDT: idCTDT, data: createElement }) 
     const createC = await postData(apiURL, '/create_sectionC', { idCTDT: idCTDT, data: createElement }, 'CREATE_SECIONC')
-    console.log(createC)
+    // console.log(createC)
 
     handleSplitSectionC({
         data: createC.data.data,

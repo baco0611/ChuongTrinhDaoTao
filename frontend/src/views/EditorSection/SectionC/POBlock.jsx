@@ -52,7 +52,8 @@ function POBlock({ title, data, setDelete, idCTDT, setState, currentId, currentS
                                             innerRef={provided.innerRef}
                                             setState={setState}
                                             data={data}
-                                            setDelete={setDelete}
+                                            apiURL={apiURL}
+                                            setData={setData}
                                         />
                                     )
                                 })

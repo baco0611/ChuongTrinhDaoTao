@@ -3,7 +3,7 @@ import { handleChangeValueC, handleClickDeleteC } from "../Database/HandleAction
 import { Draggable } from "react-beautiful-dnd"
 import { useEffect } from "react"
 
-function POElement({ item, type, index, typeIndex, setState, data, setDelete }) {
+function POElement({ item, type, index, typeIndex, setState, data, apiURL, setData }) {
 
     const { id } = useParams()
     const sourceData = data.data
@@ -45,7 +45,13 @@ function POElement({ item, type, index, typeIndex, setState, data, setDelete }) 
                     />
                     <button 
                         className="minus"
-                        onClick={(e) => {handleClickDeleteC({ e, setState, setDelete, idctdt: Number.parseInt(id), data: sourceData, type: data.type })}}
+                        onClick={(e) => {handleClickDeleteC({ 
+                            e, 
+                            idctdt: Number.parseInt(id), 
+                            data: sourceData, 
+                            apiURL,
+                            setData
+                        })}}
                     >
                         <i className="iconoir-minus-square"></i>
                     </button>
