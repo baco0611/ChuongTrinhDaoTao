@@ -33,7 +33,7 @@ const handleSplitSectionC = ({ data, setSectionCValue, idctdt }) => {
 }
 
 // Handle changing value in an input element
-const handleChangeValueC = ({ type, setState }) => {
+const handleChangeValueC = ({ type, setState, setIsDataSaved }) => {
     const element = document.querySelectorAll(`#${type} input, #${type} textarea`)
 
     const value = Array.from(element).map((item, index) => {
@@ -47,6 +47,8 @@ const handleChangeValueC = ({ type, setState }) => {
     })
 
     value.sort(sortCondition)
+
+    setIsDataSaved(false)
 
     setState(prev => {
         const dataType = prev[type]
@@ -78,7 +80,7 @@ const handleChangeDataC = (element, type, typeIndex, idCTDT) => {
     return value
 }
 
-const handleAutoSaveC = async ({id, apiURL, setData}) => {
+const handleAutoSaveC = async ({id, apiURL, setData, setIsDataSaved}) => {
     const sectionCElement = JSON.parse(sessionStorage.getItem(`sectionC-${id}`))
     const updateElement = sectionCElement.filter(item => item.id != '')
     const updateC = await postData(apiURL, '/update_sectionC', { idCTDT: id, data: updateElement }, 'UPDATE_SECTIONC')
@@ -88,6 +90,8 @@ const handleAutoSaveC = async ({id, apiURL, setData}) => {
         setSectionCValue: setData.setSectionCValue,
         idctdt: id
     })
+    
+    setIsDataSaved(true)
 }
 
 const handleClickDeleteC = async ({ e, data, idctdt, apiURL, setData }) => {
@@ -103,10 +107,10 @@ const handleClickDeleteC = async ({ e, data, idctdt, apiURL, setData }) => {
         idCTDT: deleteElement.idCTDT
     }] 
     
-    console.log(deleteElement)
+    // console.log(deleteElement)
     const deleteC = await deleteData(apiURL, '/delete_sectionC', { idCTDT: idctdt, deleteData: deleteElement }, 'DELETE_SECTIONC')
     
-    console.log(setData)
+    // console.log(setData)
 
     handleSplitSectionC({
         data: deleteC.data.data,
@@ -139,7 +143,7 @@ const handleClickAddC = async({ idCTDT, type, setData, dataSectionC, apiURL }) =
             idCTDT: item.idCTDT
         }
     })
-    console.log( { idCTDT: idCTDT, data: createElement }) 
+    // console.log( { idCTDT: idCTDT, data: createElement }) 
     const createC = await postData(apiURL, '/create_sectionC', { idCTDT: idCTDT, data: createElement }, 'CREATE_SECIONC')
     // console.log(createC)
 
