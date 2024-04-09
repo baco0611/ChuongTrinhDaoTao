@@ -78,7 +78,19 @@ const handleChangeDataC = (element, type, typeIndex, idCTDT) => {
     return value
 }
 
-const handleClickDeleteC = async ({ e, setState, data, setDelete, idctdt, type, apiURL, setData }) => {
+const handleAutoSaveC = async ({id, apiURL, setData}) => {
+    const sectionCElement = JSON.parse(sessionStorage.getItem(`sectionC-${id}`))
+    const updateElement = sectionCElement.filter(item => item.id != '')
+    const updateC = await postData(apiURL, '/update_sectionC', { idCTDT: id, data: updateElement }, 'UPDATE_SECTIONC')
+
+    handleSplitSectionC({
+        data: updateC.data.data,
+        setSectionCValue: setData.setSectionCValue,
+        idctdt: id
+    })
+}
+
+const handleClickDeleteC = async ({ e, data, idctdt, apiURL, setData }) => {
     const parentElement = getParent(e.target, 'element')
     const inputElement = parentElement.querySelector('textarea')
     const dataset = inputElement.dataset
@@ -192,5 +204,6 @@ export {
     handleClickDeleteC, 
     handleChangeValueC, 
     handleSplitSectionC, 
-    handleUpdateSectionC 
+    handleUpdateSectionC,
+    handleAutoSaveC 
 }

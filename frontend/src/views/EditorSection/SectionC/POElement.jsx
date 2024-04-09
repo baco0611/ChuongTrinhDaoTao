@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { handleChangeValueC, handleClickDeleteC } from "../Database/HandleActionSectionC"
+import { handleAutoSaveC, handleChangeValueC, handleClickDeleteC } from "../Database/HandleActionSectionC"
 import { Draggable } from "react-beautiful-dnd"
 import { useEffect } from "react"
 
@@ -42,6 +42,11 @@ function POElement({ item, type, index, typeIndex, setState, data, apiURL, setDa
                         onChange={() => handleChangeValueC({ type, setState })}
                         data-idctdt={id}
                         autoComplete="off"
+                        onBlur={() => handleAutoSaveC({
+                            id: Number.parseInt(id),
+                            apiURL,
+                            setData
+                        })}
                     />
                     <button 
                         className="minus"
