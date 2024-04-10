@@ -96,11 +96,11 @@ const handleAutoSaveC = async ({id, apiURL, setData, setIsDataSaved}) => {
     const updateElement = sectionCElement.filter(item => item.id != '')
     const updateC = await postData(apiURL, '/update_sectionC', { idCTDT: id, data: updateElement }, 'UPDATE_SECTIONC')
 
-    handleSplitSectionC({
-        data: updateC.data.data,
-        setSectionCValue: setData.setSectionCValue,
-        idctdt: id
-    })
+    // handleSplitSectionC({
+    //     data: updateC.data.data,
+    //     setSectionCValue: setData.setSectionCValue,
+    //     idctdt: id
+    // })
 
     setIsDataSaved(true)
 }

@@ -9,6 +9,8 @@ The file structure includes two main folders named frontend and backend, organiz
 QLCTDT
 |_ backend
 |_ frontend
+    |_ ...
+    |_ src (Modify the code here)
 ```
 
 You can download the project using the following command:
@@ -19,14 +21,14 @@ git clone https://github.com/baco0611/ChuongTrinhDaoTao.git
 ## Front-end
 To run the frontend code, ensure that Node.js is installed on your computer. If not, you can download it from <a target="_blank" href="https://nodejs.org/en">Node.js</a>.
 
-After installing and ensuring Node.js is installed on your machine, follow these steps:
+After installing and ensuring Node.js is installed on your computer, follow these steps:
 
 - Step 1: Navigate to the frontend directory in your bash:
 ```bash
 cd frontend
 ```
 
-- Step 2: Install necessary libraries and packages using the following command:
+- Step 2: Install necessary libraries and packages:
 ```bash
 npm install
 ```
@@ -35,3 +37,6 @@ npm install
 ```bash
 npm run dev
 ```
+
+# Back-end
+...
