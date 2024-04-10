@@ -1,7 +1,7 @@
 import ChuyenNganhCreate from "./ChuyenNganhCreate"
 import ChuyenNganhElement from "./ChuyenNganhElement"
 
-function ChuyenNganhBlock({ chuyenNganh, setState, setDelete }) {
+function ChuyenNganhBlock({ chuyenNganh, setState, setDelete, setData, currentId, currentSection }) {
 
     return (
         <div className="section-A-chuyenNganh">
@@ -15,12 +15,17 @@ function ChuyenNganhBlock({ chuyenNganh, setState, setDelete }) {
                             setDelete={setDelete}
                             chuyenNganh={chuyenNganh}
                             index={index}
+                            setData={setData}
+                            currentId={currentId}
+                            currentSection={currentSection}
                         />
                     )
                 })
             }
             <ChuyenNganhCreate
                 setState={setState}
+                chuyenNganh={chuyenNganh}
+                currentId={currentId}
             />
         </div>
     )
