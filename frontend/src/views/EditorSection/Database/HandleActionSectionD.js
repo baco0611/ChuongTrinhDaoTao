@@ -205,6 +205,24 @@ const handleClickDeleteD = async ({  e, setState, data , setDelete, idctdt, apiU
 
 }
 
+const handleSaveDragD = async ({ data, apiURL, currentId }) => {
+    const sectionDElement = [
+        ...data.KIEN_THUC.KIEN_THUC_DAI_HOC_HUE.data,
+        ...data.KIEN_THUC.KIEN_THUC_DAI_HOC_KHOA_HOC.data,
+        ...data.KIEN_THUC.KIEN_THUC_LINH_VUC.data,
+        ...data.KIEN_THUC.KIEN_THUC_NHOM_NGANH.data,
+        ...data.KIEN_THUC.KIEN_THUC_NGANH.data,
+        ...data.KY_NANG.KY_NANG_CHUYEN_MON.data,
+        ...data.KY_NANG.KY_NANG_MEM.data,
+        ...data.THAI_DO.THAI_DO_CA_NHAN.data,
+        ...data.THAI_DO.THAI_DO_NGHE_NGHIEP.data,
+        ...data.THAI_DO.THAI_DO_XA_HOI.data
+    ]
+
+    const updateElement = sectionDElement.filter(item => item.id != '')
+    const updateD = await postData(apiURL, '/update_sectionD', { idCTDT: currentId, data: updateElement }, 'UPDATE_SECTIOND')
+}
+
 const handleUpdateSectionD = async (id, api, setData) => {
     const sectionDElement = JSON.parse(sessionStorage.getItem(`sectionD-${id}`))
     const sectionDDelete = JSON.parse(sessionStorage.getItem(`sectionD-delete-${id}`))
@@ -261,5 +279,6 @@ export {
     handleClickDeleteD, 
     handleChangeDataD, 
     handleUpdateSectionD,
-    handleAutoSaveD 
+    handleAutoSaveD ,
+    handleSaveDragD
 }

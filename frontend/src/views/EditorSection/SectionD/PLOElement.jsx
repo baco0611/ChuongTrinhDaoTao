@@ -60,7 +60,7 @@ function PLOElement({ item, type, index, typeDetail, setState, setDelete, data, 
                     />
                     <button 
                         className="minus"
-                        onClick={(e) => {handleClickDeleteD({ e, setState, data: sourceData, setDelete, idctdt: Number.parseInt(id), apiURL })}}
+                        onDoubleClick={(e) => {handleClickDeleteD({ e, setState, data: sourceData, setDelete, idctdt: Number.parseInt(id), apiURL })}}
                     >
                         <i className="iconoir-minus-square"></i>
                     </button>
