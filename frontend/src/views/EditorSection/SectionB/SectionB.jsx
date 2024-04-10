@@ -8,6 +8,7 @@ import { useQuery } from "react-query"
 import axios from "axios"
 import Loader from "../../../components/Loader/Loader"
 import { handleUpdateDatabase, resetPage } from "../Database/HandleUpdateDatabase"
+import { handleUpdateSectionB } from "../Database/HandleActionSectionB"
 
 function SectionB() {
 
@@ -118,7 +119,7 @@ function SectionB() {
                         name="mucTieuTongQuat"
                         value={sectionBValue.mucTieuTongQuat || ''}
                         onChange={handleChangeTextArea}
-                        onBlur={() => handleUpdateDatabase({ currentSection, currentId, apiURL, setData})}
+                        onBlur={() => handleUpdateSectionB( currentId, apiURL, setData )}
                         rows={20}
                         autoComplete="off"
                     />

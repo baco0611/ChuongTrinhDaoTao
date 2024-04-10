@@ -137,6 +137,10 @@
                 font-size: 22px !important;
                 transform: none !important;
             }
+
+            &:hover {
+                opacity: 0.8;
+            }
         }
     }
 }
