@@ -17,7 +17,7 @@ git clone https://github.com/baco0611/ChuongTrinhDaoTao.git
 ```
 
 ## Front-end
-To run the frontend code, ensure that Node.js is installed on your computer. If not, you can download it from <a href="https://nodejs.org/en">Node.js</a>.
+To run the frontend code, ensure that Node.js is installed on your computer. If not, you can download it from <a target="_blank" href="https://nodejs.org/en">Node.js</a>.
 
 After installing and ensuring Node.js is installed on your machine, follow these steps:
 

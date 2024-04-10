@@ -190,7 +190,7 @@ function SectionC() {
                         Sinh viên sau khi tốt nghiệp có các kiến thức, kỹ năng và thái độ được thể hiện như bên dưới.<br/>
                         <span style={{ fontWeight: 600, fontSize: '12px', color: '#BE0000' }}>
                             Lưu ý: Dữ liệu được lưu tự động khi click chuột ra khỏi ô nhập dữ liệu, thêm/xóa mục hoặc chuyển đổi giữa các phần.  Vui lòng không reload hay thoát khỏi trang khi dữ liệu chưa được lưu.
-                            Khi đã xóa một mục tiêu cụ thể thì dữ liệu về mục tiêu đó ở ma trận mục tiêu - chuẩn đầu ra sẽ bị xóa. Vì vậy, hãy cẩn trọng trước khi thực hiện thao tác xóa!
+                            Vui lòng double-click vào nút tương ứng mục muốn xóa. Khi đã xóa một mục tiêu cụ thể thì dữ liệu về mục tiêu đó ở ma trận mục tiêu - chuẩn đầu ra sẽ bị xóa. Vì vậy, hãy cẩn trọng trước khi thực hiện thao tác xóa!
                         </span>
                     </p>
                     <div className="section-C-main">

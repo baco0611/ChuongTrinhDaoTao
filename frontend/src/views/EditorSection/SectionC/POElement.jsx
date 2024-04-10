@@ -64,12 +64,13 @@ function POElement({ item, type, index, typeIndex, setState, data, apiURL, setDa
                     />
                     <button 
                         className="minus"
-                        onClick={(e) => {handleClickDeleteC({ 
+                        onDoubleClick={(e) => {handleClickDeleteC({ 
                             e, 
                             idctdt: Number.parseInt(id), 
                             data: sourceData, 
                             apiURL,
                             setData,
+                            type
                         })}}
                     >
                         <i className="iconoir-minus-square"></i>
