@@ -48,7 +48,7 @@ const handleSplitSectionD = ({ data, setSectionDValue, idCTDT }) => {
 }
 
 // Handle changing value in an input element
-const handleChangeValueD = ({ typeDetail, setState, type }) => {
+const handleChangeValueD = ({ typeDetail, setState, type, setIsDataSaved }) => {
     const element = document.querySelectorAll(`#${typeDetail} div.element`)
 
     const value = Array.from(element).map((item, index) => {
@@ -83,6 +83,22 @@ const handleChangeValueD = ({ typeDetail, setState, type }) => {
             }
         }
     })
+
+    setIsDataSaved(false)
+}
+
+const handleAutoSaveD = async({ currentId, apiURL, setData }) => {
+    const sectionDElement = JSON.parse(sessionStorage.getItem(`sectionD-${currentId}`))
+    const updateElement = sectionDElement.filter(item => item.id != '')
+    const updateD = await postData(apiURL, '/update_sectionD', { idCTDT: currentId, data: updateElement }, 'UPDATE_SECTIOND')
+
+    // handleSplitSectionD({
+    //     data: updateD.data.data,
+    //     setSectionDValue: setData.setSectionDValue,
+    //     idCTDT: currentId
+    // })
+
+    setData.setIsDataSaved(true)
 }
 
 // Handle changing many thing (like drop, ...)
@@ -104,44 +120,65 @@ const handleChangeDataD = (element, type, typeDetail, typeIndex, idCTDT) => {
     return value
 }
 
-const handleClickAddD = ({ setState, idCTDT, type, typeDetail, typeIndex }) => {
-    setState(prev => {
-        const typeData = prev[type]
-        const typeDetailData = typeData[typeDetail]
+const handleClickAddD = async ({ data, setState, idCTDT, type, typeDetail, typeIndex, apiURL, setData }) => {
+    const typeData = data[type]
+    const typeDetailData = typeData[typeDetail]
 
-        const value = [
-            ...typeDetailData.data,
-            {
-                id: '',
-                idCTDT: idCTDT,
-                kiHieu: '',
-                noiDung: '',
-                loaiChuanDauRa: '',
-                loaiChuanDauRaChiTiet: '',
-                trinhDoNangLuc: ''
-            }
-        ]
+    let value = [
+        ...typeDetailData.data,
+        {
+            id: '',
+            idCTDT: idCTDT,
+            kiHieu: '',
+            noiDung: 'a',
+            loaiChuanDauRa: '',
+            loaiChuanDauRaChiTiet: '',
+            trinhDoNangLuc: '1'
+        }
+    ]
 
-        return {
-            ...prev,
-            [type]: {
-                ...typeData,
-                [typeDetail]: {
-                    ...typeDetailData,
-                    data: handleChangeDataD(value, type, typeDetail, typeIndex, idCTDT)
-                }
+    value = handleChangeDataD(value, type, typeDetail, typeIndex, idCTDT)
+
+    const result = {
+        ...data,
+        [type]: {
+            ...typeData,
+            [typeDetail]: {
+                ...typeDetailData,
+                data: value
             }
         }
+    }
+    setState(result)
+
+    const createElement = value.filter(item => item.id == '').map(item => {
+        return {
+            kiHieu:item.kiHieu, 
+            noiDung: item.noiDung, 
+            loaiChuanDauRa: item.loaiChuanDauRa,
+            loaiChuanDauRaChiTiet: item.loaiChuanDauRaChiTiet,
+            trinhDoNangLuc: item.trinhDoNangLuc,
+            idCTDT: item.idCTDT
+        }
+    })
+
+    // console.log(createElement)
+    const createD = await postData(apiURL, '/create_sectionD', { idCTDT , data: createElement }, 'CREATE_SECIOND')
+
+    handleSplitSectionD({
+        data: createD.data.data,
+        setSectionDValue: setData.setSectionDValue,
+        idCTDT
     })
 }
 
-const handleClickDeleteD = ({  e, setState, data , setDelete, idctdt }) => {
+const handleClickDeleteD = async ({  e, setState, data , setDelete, idctdt, apiURL }) => {
     const parentElement = getParent(e.target, 'element')
     const inputElement = parentElement.querySelector('textarea')
     const dataset = inputElement.dataset
 
     const list = [...data]
-    const deleteElement = list[dataset.index - 1]
+    let deleteElement = list[dataset.index - 1]
     list.splice(dataset.index - 1, 1)
 
     setState(prev => {
@@ -161,7 +198,11 @@ const handleClickDeleteD = ({  e, setState, data , setDelete, idctdt }) => {
             }
         }
     })
-    setDelete(prev => [...prev, deleteElement])
+
+    deleteElement = [deleteElement]
+    // console.log(deleteElement)
+    const deleteD = await deleteData(apiURL, '/delete_sectionD', { idCTDT: idctdt, deleteData: deleteElement }, 'DELETE_SECTIOND')
+
 }
 
 const handleUpdateSectionD = async (id, api, setData) => {
@@ -219,5 +260,6 @@ export {
     handleClickAddD,
     handleClickDeleteD, 
     handleChangeDataD, 
-    handleUpdateSectionD 
+    handleUpdateSectionD,
+    handleAutoSaveD 
 }

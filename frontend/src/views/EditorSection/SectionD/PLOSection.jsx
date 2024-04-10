@@ -1,9 +1,12 @@
 import { Droppable } from "react-beautiful-dnd"
 import { handleClickAddD } from "../Database/HandleActionSectionD"
 import PLOElement from "./PLOElement"
+import { useContext } from "react"
+import { UserContext } from "../../../context/ContextProvider"
 
-function PLOSection({ title, type, typeDetail, idCTDT, data, setState, setDelete }) {
+function PLOSection({ title, type, typeDetail, idCTDT, data, setState, setDelete, setData }) {
 
+    const { apiURL, fakeApi, isDataSaved, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
     const typeDetailData = data[type][typeDetail]
     const sectionData = typeDetailData.data
 
@@ -30,7 +33,16 @@ function PLOSection({ title, type, typeDetail, idCTDT, data, setState, setDelete
                                 <i className="iconoir-help-circle cursorPointer"/>
                             </h4>
                             <button
-                                onClick={() => handleClickAddD({ setState, idCTDT, type, typeDetail, typeIndex: typeDetailData.typeIndex })}
+                                onClick={() => handleClickAddD({ 
+                                    data, 
+                                    setState, 
+                                    idCTDT, 
+                                    type, 
+                                    typeDetail, 
+                                    typeIndex: typeDetailData.typeIndex, 
+                                    apiURL,
+                                    setData 
+                                })}
                             >
                                 <i className="iconoir-add-square"></i>
                             </button>
@@ -48,6 +60,7 @@ function PLOSection({ title, type, typeDetail, idCTDT, data, setState, setDelete
                                         data={sectionData}
                                         setDelete={setDelete}
                                         index={index}
+                                        setData={setData}
                                     />
                                 )
                             })

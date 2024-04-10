@@ -15,7 +15,7 @@ import { resetPage } from "../Database/HandleUpdateDatabase"
 function SectionD() {
 
     const { id } = useParams()
-    const { apiURL, fakeApi } = useContext(UserContext)
+    const { apiURL, fakeApi, isDataSaved, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
     const navigate = useNavigate()
     const [ isHiddenA, setIsHiddenA ] = useState(true)
     const [ isHiddenB, setIsHiddenB ] = useState(true)
@@ -89,10 +89,26 @@ function SectionD() {
         }
     })
     const [ deleteElement, setDeleteElement ] = useState([])
+    const setData = {
+        setSectionDValue,
+        setDeleteElement,
+        setIsDataSaved
+    }
 
     useEffect(() => {
         resetPage('D', id)
     }, [])
+
+    //Use effec6t này để thêm phần remind thông tin chưa đc lưu
+    useEffect(() => {
+        // Thêm event listener khi component được mount
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Dọn dẹp event listener khi component bị unmount
+        return () => {
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [isDataSaved]); // Phụ thuộc vào trạng thái của isDataSaved và isApiDone
 
     useEffect(() => {
         sessionStorage.setItem(`sectionD-${id}`, JSON.stringify([
@@ -249,10 +265,7 @@ function SectionD() {
         <>
             <EditHeader
                 currentSection={3}
-                setData={{
-                    setSectionDValue,
-                    setDeleteElement
-                }}
+                setData={setData}
             />
             <div id="section-D" className="section">
                 <div className="section-header wrapper">
@@ -279,6 +292,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                         <PLOSection
                                             title={'1.2. Kiến thức chung trong Trường Đại học Khoa học'}
@@ -288,6 +302,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                         <PLOSection
                                             title={'1.3. Kiến thức chung theo lĩnh vực'}
@@ -297,6 +312,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                         <PLOSection
                                             title={'1.4. Kiến thức chung của nhóm ngành'}
@@ -306,6 +322,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                         <PLOSection
                                             title={'1.5. Kiến thức của ngành'}
@@ -315,6 +332,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                     </>
                                 }
@@ -333,6 +351,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                         <PLOSection
                                             title={'2.2. Kỹ năng mềm'}
@@ -342,6 +361,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                     </>
                                 }
@@ -359,6 +379,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                         <PLOSection
                                             title={'3.2. Phẩm chất, đạo đức và thái độ đối với nghề nghiệp'}
@@ -368,6 +389,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                         <PLOSection
                                             title={'3.3. Phẩm chất, đạo đức và thái độ đối với xã hội'}
@@ -377,6 +399,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                     </>
                                 }
