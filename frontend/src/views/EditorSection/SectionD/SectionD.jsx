@@ -7,7 +7,7 @@ import EditFooter from "../EditFooter/EditFooter"
 import { useQuery } from "react-query"
 import Loader from "../../../components/Loader/Loader"
 import axios from "axios"
-import { handleSplitSectionD, handleChangeDataD } from "../Database/HandleActionSectionD"
+import { handleSplitSectionD, handleChangeDataD, handleSaveDragD } from "../Database/HandleActionSectionD"
 import PLOSection from "./PLOSection.jsx"
 import { DragDropContext } from "react-beautiful-dnd"
 import { resetPage } from "../Database/HandleUpdateDatabase"
@@ -15,7 +15,7 @@ import { resetPage } from "../Database/HandleUpdateDatabase"
 function SectionD() {
 
     const { id } = useParams()
-    const { apiURL, fakeApi } = useContext(UserContext)
+    const { apiURL, fakeApi, isDataSaved, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
     const navigate = useNavigate()
     const [ isHiddenA, setIsHiddenA ] = useState(true)
     const [ isHiddenB, setIsHiddenB ] = useState(true)
@@ -89,10 +89,26 @@ function SectionD() {
         }
     })
     const [ deleteElement, setDeleteElement ] = useState([])
+    const setData = {
+        setSectionDValue,
+        setDeleteElement,
+        setIsDataSaved
+    }
 
     useEffect(() => {
         resetPage('D', id)
     }, [])
+
+    //Use effec6t này để thêm phần remind thông tin chưa đc lưu
+    useEffect(() => {
+        // Thêm event listener khi component được mount
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Dọn dẹp event listener khi component bị unmount
+        return () => {
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [isDataSaved]); // Phụ thuộc vào trạng thái của isDataSaved và isApiDone
 
     useEffect(() => {
         sessionStorage.setItem(`sectionD-${id}`, JSON.stringify([
@@ -156,47 +172,48 @@ function SectionD() {
                 const [ sourceType, sourceTypeDetail ] = source.droppableId.split('/')
                 const [ destinationType, destinationTypeDetail ] = destination.droppableId.split('/')
 
-                setSectionDValue(prev => {
-                    const dataSource = prev[sourceType]
-                    const dataSourceDetail = dataSource[sourceTypeDetail]
-                    const sourceList = dataSourceDetail.data 
-                    const data = sourceList[source.index]
+                const dataSource = sectionDValue[sourceType]
+                const dataSourceDetail = dataSource[sourceTypeDetail]
+                const sourceList = dataSourceDetail.data 
+                const data = sourceList[source.index]
 
-                    const dataDestination = prev[destinationType]
-                    const dataDestinationDetail = dataDestination[destinationTypeDetail]
-                    const destinationList = dataDestinationDetail.data
+                const dataDestination = sectionDValue[destinationType]
+                const dataDestinationDetail = dataDestination[destinationTypeDetail]
+                const destinationList = dataDestinationDetail.data
 
-                    const sourceData = handleChangeDataD(
-                        [...sourceList.slice(0, source.index), ...sourceList.slice(source.index + 1)],
-                        sourceType, sourceTypeDetail, dataSourceDetail.typeIndex, id
-                    )
+                const sourceData = handleChangeDataD(
+                    [...sourceList.slice(0, source.index), ...sourceList.slice(source.index + 1)],
+                    sourceType, sourceTypeDetail, dataSourceDetail.typeIndex, id
+                )
 
-                    const destinationData = handleChangeDataD(
-                        [...destinationList.slice(0, destination.index), data, ...destinationList.slice(destination.index)],
-                        destinationType, destinationTypeDetail, dataDestinationDetail.typeIndex, id
-                    )
+                const destinationData = handleChangeDataD(
+                    [...destinationList.slice(0, destination.index), data, ...destinationList.slice(destination.index)],
+                    destinationType, destinationTypeDetail, dataDestinationDetail.typeIndex, id
+                )
 
-                    if(sourceType !== destinationType)
-                        return {
-                            ...prev,
-                            [sourceType]: {
-                                ...dataSource,
-                                [sourceTypeDetail]: {
-                                    ...dataSourceDetail,
-                                    data: sourceData
-                                }
-                            },
-                            [destinationType]: {
-                                ...dataDestination,
-                                [destinationTypeDetail]: {
-                                    ...dataDestinationDetail,
-                                    data: destinationData
-                                }
+                let result
+
+                if(sourceType !== destinationType)
+                    result = {
+                        ...sectionDValue,
+                        [sourceType]: {
+                            ...dataSource,
+                            [sourceTypeDetail]: {
+                                ...dataSourceDetail,
+                                data: sourceData
+                            }
+                        },
+                        [destinationType]: {
+                            ...dataDestination,
+                            [destinationTypeDetail]: {
+                                ...dataDestinationDetail,
+                                data: destinationData
                             }
                         }
-                    else 
-                    return {
-                        ...prev,
+                    }
+                else 
+                    result = {
+                        ...sectionDValue,
                         [sourceType]: {
                             ...dataSource,
                             [sourceTypeDetail]: {
@@ -209,39 +226,47 @@ function SectionD() {
                             }
                         },
                     }
-                })
+
+
+                setSectionDValue(result)
+                return result
             }
 
             const changeIndex = ({ source, destination }) => {
                 const [type, typeDetail] = source.droppableId.split('/')
-                
-                setSectionDValue(prev => {
-                    const typeData = prev[type]
-                    const typeDetailData = typeData[typeDetail]
-                    const list = typeDetailData.data
+                const typeData = sectionDValue[type]
+                const typeDetailData = typeData[typeDetail]
+                const list = typeDetailData.data
 
-                    const removedElement = list.splice(source.index, 1)[0]
-                    list.splice(destination.index, 0, removedElement)
+                const removedElement = list.splice(source.index, 1)[0]
+                list.splice(destination.index, 0, removedElement)
 
-                    return {
-                        ...prev,
-                        [type]: {
-                            ...typeData,
-                            [typeDetail]: {
-                                ...typeDetailData,
-                                data: handleChangeDataD(list, type, typeDetail, typeDetailData.typeIndex, id)
-                            }
+                const result = {
+                    ...sectionDValue,
+                    [type]: {
+                        ...typeData,
+                        [typeDetail]: {
+                            ...typeDetailData,
+                            data: handleChangeDataD(list, type, typeDetail, typeDetailData.typeIndex, id)
                         }
                     }
-                })
+                }
+
+                setSectionDValue(result)
+                return result
             }
 
-            if(source.droppableId === destination.droppableId) {
-                changeIndex({ source, destination })
-                return
-            }
+            let result
+            if(source.droppableId === destination.droppableId)
+                result = changeIndex({ source, destination })
+            else
+                result = handleChangeIndexComponent({ source, destination })
 
-            handleChangeIndexComponent({ source, destination })
+            handleSaveDragD({
+                data: result,
+                apiURL,
+                currentId: id
+            })
         }
     }
 
@@ -249,10 +274,7 @@ function SectionD() {
         <>
             <EditHeader
                 currentSection={3}
-                setData={{
-                    setSectionDValue,
-                    setDeleteElement
-                }}
+                setData={setData}
             />
             <div id="section-D" className="section">
                 <div className="section-header wrapper">
@@ -261,7 +283,10 @@ function SectionD() {
                 <div className="section-D wrapper">
                     <p className="section-D-details">
                         Viết theo từng chuẩn đầu ra, bao gồm các chủ đề chuẩn đầu ra và trình độ năng lực (TĐNL – tham khảo thêm tài liệu và thang trình độ năng lực kèm theo) mà chuẩn đầu ra yêu cầu khi sinh viên tốt nghiệp, PLO = Program Learning Outcomes.<br/>
-                        <span style={{ fontWeight: 600, fontSize: '14px', color: '#BE0000' }}>Lưu ý: Dữ liệu chỉ được lưu lại khi bấm nút lưu hoặc nút hoàn tất. Khi đã xóa một chuẩn đầu ra thì dữ liệu về mục tiêu đó ở ma trận mục tiêu - chuẩn đầu ra sẽ bị xóa. Vì vậy, hãy cẩn trọng trước khi lưu lại những thao tác đó!</span>
+                        <span style={{ fontWeight: 600, fontSize: '12px', color: '#BE0000' }}>
+                            Lưu ý: Dữ liệu được lưu tự động khi click chuột ra khỏi ô nhập dữ liệu, thêm/xóa mục hoặc chuyển đổi giữa các phần.  Vui lòng không reload hay thoát khỏi trang khi dữ liệu chưa được lưu.
+                            Vui lòng double-click vào nút tương ứng mục muốn xóa. Khi đã xóa một chuẩn đầu ra thì dữ liệu về mục tiêu đó ở ma trận mục tiêu - chuẩn đầu ra sẽ bị xóa. Vì vậy, hãy cẩn trọng trước khi thực hiện thao tác xóa!
+                        </span>
                     </p>
                     <p className="section-D-details" style={{ fontWeight: 700, padding: '10px 0'}}>Hãy bấm vào từng tiêu đề để thao tác.</p>
                     <div className="section-D-main">
@@ -279,6 +304,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                         <PLOSection
                                             title={'1.2. Kiến thức chung trong Trường Đại học Khoa học'}
@@ -288,6 +314,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                         <PLOSection
                                             title={'1.3. Kiến thức chung theo lĩnh vực'}
@@ -297,6 +324,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                         <PLOSection
                                             title={'1.4. Kiến thức chung của nhóm ngành'}
@@ -306,6 +334,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                         <PLOSection
                                             title={'1.5. Kiến thức của ngành'}
@@ -315,6 +344,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                     </>
                                 }
@@ -333,6 +363,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                         <PLOSection
                                             title={'2.2. Kỹ năng mềm'}
@@ -342,6 +373,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                     </>
                                 }
@@ -359,6 +391,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                         <PLOSection
                                             title={'3.2. Phẩm chất, đạo đức và thái độ đối với nghề nghiệp'}
@@ -368,6 +401,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                         <PLOSection
                                             title={'3.3. Phẩm chất, đạo đức và thái độ đối với xã hội'}
@@ -377,6 +411,7 @@ function SectionD() {
                                             data={sectionDValue}
                                             setState={setSectionDValue}
                                             setDelete={setDeleteElement}
+                                            setData={setData}
                                         />
                                     </>
                                 }

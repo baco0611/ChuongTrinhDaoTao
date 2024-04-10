@@ -17,7 +17,7 @@
         margin-bottom: 15px;
         h1 {
             position: sticky;
-            top: calc(90px - 1.95px);
+            top: calc(80px - 1.95px);
             background-color: white;
             font-weight: 700;
             font-size: 20px;
@@ -84,6 +84,10 @@
             i {
                 color: white;
                 font-size: 16px;
+            }
+
+            &:hover {
+                opacity: 0.8;
             }
         }
     }

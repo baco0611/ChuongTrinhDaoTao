@@ -96,23 +96,40 @@ const handleAutoSaveC = async ({id, apiURL, setData, setIsDataSaved}) => {
     const updateElement = sectionCElement.filter(item => item.id != '')
     const updateC = await postData(apiURL, '/update_sectionC', { idCTDT: id, data: updateElement }, 'UPDATE_SECTIONC')
 
-    handleSplitSectionC({
-        data: updateC.data.data,
-        setSectionCValue: setData.setSectionCValue,
-        idctdt: id
-    })
+    // handleSplitSectionC({
+    //     data: updateC.data.data,
+    //     setSectionCValue: setData.setSectionCValue,
+    //     idctdt: id
+    // })
 
     setIsDataSaved(true)
 }
 
-const handleClickDeleteC = async ({ e, data, idctdt, apiURL, setData }) => {
+const handleClickDeleteC = async ({ e, data, idctdt, apiURL, setData, type }) => {
     const parentElement = getParent(e.target, 'element')
     const inputElement = parentElement.querySelector('textarea')
     const dataset = inputElement.dataset
     
     const list = [...data]
     let deleteElement = list[dataset.index - 1]
-    console.log(deleteElement)
+    // console.log(deleteElement)
+    list.splice(dataset.index - 1, 1)
+
+    // Set state to performance
+    setData.setSectionCValue(prev => {
+        const dataType = prev[type]
+        
+        return {
+            ...prev,
+            [type]: {
+                ...dataType,
+                data: handleChangeDataC(list, dataType.type, dataType.typeIndex, idctdt)
+            }
+        }
+    })
+
+
+    // Call api to delete element
     deleteElement = [{
         id: deleteElement.id, 
         idCTDT: deleteElement.idCTDT
@@ -120,8 +137,6 @@ const handleClickDeleteC = async ({ e, data, idctdt, apiURL, setData }) => {
     
     // console.log(deleteElement)
     const deleteC = await deleteData(apiURL, '/delete_sectionC', { idCTDT: idctdt, deleteData: deleteElement }, 'DELETE_SECTIONC')
-    
-    // console.log(setData)
 
     handleSplitSectionC({
         data: deleteC.data.data,
@@ -146,6 +161,20 @@ const handleClickAddC = async({ idCTDT, type, setData, dataSectionC, apiURL }) =
 
     
     list = handleChangeDataC(list, dataType.type, dataType.typeIndex, idCTDT)
+
+
+    // Set state to performance
+    setData.setSectionCValue(prev => {
+        return {
+            ...prev,
+            [type]: {
+                ...dataType,
+                data: list
+            }
+        }
+    })
+
+    // Call api to create
     const createElement = list.filter(item => item.id == '').map(item => {
     return {
             kiHieu:item.kiHieu, 
