@@ -8,9 +8,15 @@ The file structure includes two main folders named frontend and backend, organiz
 ```bash
 QLCTDT
 |_ backend
+|   |_ ...
+|   |_ ...
 |_ frontend
     |_ ...
     |_ src (Modify the code here)
+        |_ assets (images, CSS files of fonts)
+        |_ components (general layout of each section/session)
+        |_ context (contains contexts and API definitions for each part)
+        |_ view (components displayed on the UI)
 ```
 
 You can download the project using the following command:
