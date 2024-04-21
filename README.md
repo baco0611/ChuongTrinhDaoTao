@@ -59,4 +59,44 @@ npm run dev
 ```
 
 ## Back-end
-
+To run project ChuongTrinhDaoTao_version2, follow these steps:
+- Step 1: Download the following tools
+    - Eclipse version 2023-09
+    - MySQL version 8.0.17
+    - Tomcat version 8.5
+- Step 2: Add project to eclipse and download library
+    - Open Eclipse -> Select the Workspace -> Import Maven Project -> Go to File -> Import -> Select Maven folder -> Select Existing Maven Projects -> click Next -> Browse -> Select Project -> Finish
+    - Complete downloading the library for the project: right click on project -> maven -> update project
+- Step 3: Connect database and create table
+      - Open MySQL and create database with name "database_chuongtrinhdaotao"
+      - Open the JPAConfig file 
+      ```bash
+          ..
+        |_ config (config jpa and connect database)
+          |_JPAConfig.java
+      ```
+      - Change the {password} part of the code below in the dataSource() function to suit your computer
+      ```bash
+        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/"database_chuongtrinhdaotao");
+		dataSource.setUsername("root");
+		dataSource.setPassword("{password}");
+      ```
+      - Just run below command in extraProperties() function
+       ```bash
+        properties.setProperty("hibernate.hbm2ddl.auto", "create");
+       ```
+      - After the table is successfully created, open the files in the project's database folder
+             - Just run below command in extraProperties() function
+               ```bash
+                properties.setProperty("hibernate.hbm2ddl.auto", "none");
+		        properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
+               ```
+       ```bash
+          ..
+        |_ database 
+          |_insert.sql
+          |_function.sql
+          |_procedure.sql
+      ```
+      - Copy the code in 3 files into the database_chuongtrinhdaotao database in mysql to execute
