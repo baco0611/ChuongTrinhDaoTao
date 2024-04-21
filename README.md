@@ -77,14 +77,14 @@ To run project ChuongTrinhDaoTao_version2, follow these steps:
       	```
 	  	- Change the {password} part of the code below in the dataSource() function to suit your computer
       		```bash
-     			dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-			dataSource.setUrl("jdbc:mysql://localhost:3306/database_chuongtrinhdaotao");
-			dataSource.setUsername("root");
-			dataSource.setPassword("{password}");
+  		    dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+  		    dataSource.setUrl("jdbc:mysql://localhost:3306/database_chuongtrinhdaotao");
+  		    dataSource.setUsername("root");
+  		    dataSource.setPassword("{password}");
        		```
-      		- Just run below command in extraProperties() function
+  		- Just run below command in extraProperties() function
        		```bash
-     		properties.setProperty("hibernate.hbm2ddl.auto", "create");
+  		     properties.setProperty("hibernate.hbm2ddl.auto", "create");
        		```
   	  	- After the table is successfully created
   	  		- Just run below command in extraProperties() function
