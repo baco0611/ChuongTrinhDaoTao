@@ -69,29 +69,30 @@ To run project ChuongTrinhDaoTao_version2, follow these steps:
     - Complete downloading the library for the project: right click on project -> maven -> update project
 - Step 3: Connect database and create table
   	- Open MySQL and create database with name "database_chuongtrinhdaotao"
-      - Open the JPAConfig file 
-      ```bash
+  	- Open the JPAConfig file 
+      	```bash
           ..
         |_ config (config jpa and connect database)
           |_JPAConfig.java
-      ```
-      - Change the {password} part of the code below in the dataSource() function to suit your computer
-      ```bash
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+      	```
+	  	- Change the {password} part of the code below in the dataSource() function to suit your computer
+      	```bash
+        	dataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/"database_chuongtrinhdaotao");
 		dataSource.setUsername("root");
 		dataSource.setPassword("{password}");
-      ```
-      - Just run below command in extraProperties() function
+     	 ```
+      		- Just run below command in extraProperties() function
        ```bash
         properties.setProperty("hibernate.hbm2ddl.auto", "create");
        ```
-      - After the table is successfully created, open the files in the project's database folder
-             - Just run below command in extraProperties() function
+		- After the table is successfully created
+  	  	  	- Just run below command in extraProperties() function
                ```bash
-                properties.setProperty("hibernate.hbm2ddl.auto", "none");
+                	properties.setProperty("hibernate.hbm2ddl.auto", "none");
 		        properties.setProperty("hibernate.enable_lazy_load_no_trans", "true");
                ```
+  		-  Open the files in the project's database folder
        ```bash
           ..
         |_ database 
@@ -99,4 +100,4 @@ To run project ChuongTrinhDaoTao_version2, follow these steps:
           |_function.sql
           |_procedure.sql
       ```
-      - Copy the code in 3 files into the database_chuongtrinhdaotao database in mysql to execute
+      		- Copy the code in 3 files into the database_chuongtrinhdaotao database in mysql to execute
