@@ -68,7 +68,7 @@ To run project ChuongTrinhDaoTao_version2, follow these steps:
     - Open Eclipse -> Select the Workspace -> Import Maven Project -> Go to File -> Import -> Select Maven folder -> Select Existing Maven Projects -> click Next -> Browse -> Select Project -> Finish
     - Complete downloading the library for the project: right click on project -> maven -> update project
 - Step 3: Connect database and create table
-      - Open MySQL and create database with name "database_chuongtrinhdaotao"
+  	- Open MySQL and create database with name "database_chuongtrinhdaotao"
       - Open the JPAConfig file 
       ```bash
           ..
