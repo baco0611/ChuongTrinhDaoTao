@@ -100,4 +100,4 @@ To run project ChuongTrinhDaoTao_version2, follow these steps:
           |_function.sql
           |_procedure.sql
       	```
-  	Copy the code in 3 files into the database_chuongtrinhdaotao database in mysql to execute
+  	Copy the code in 3 files into the "database_chuongtrinhdaotao" database in mysql to execute
