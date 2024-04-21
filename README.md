@@ -8,8 +8,22 @@ The file structure includes two main folders named frontend and backend, organiz
 ```bash
 QLCTDT
 |_ backend
-|   |_ ...
-|   |_ ...
+|   |_ ChuongTrinhDaoTao_version2
+|       |_ ...
+|       |_ database (insert, function, procedure)
+|       |_ src
+|           |_ main
+|               |_ java
+|                   |_ com
+|                       |_ laptrinhjavaweb (Modify the code here)
+|                           |_ api (create api)
+|                           |_ config (config jpa and connect database)
+|                           |_ converter (convert dto to entity and entity to dto)
+|                           |_ dto
+|                           |_ entity (create table)
+|                           |_ repository 
+|                           |_ service
+|
 |_ frontend
     |_ ...
     |_ src (Modify the code here)
@@ -44,5 +58,5 @@ npm install
 npm run dev
 ```
 
-# Back-end
-...
+## Back-end
+
