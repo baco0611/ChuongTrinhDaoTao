@@ -159,7 +159,7 @@ function SectionD() {
         navigate('/error')
 
     const handleDragEnd = (results) => {
-        console.log(results)
+        // console.log(results)
         const { source, destination, type } = results
 
         if(!destination) return
