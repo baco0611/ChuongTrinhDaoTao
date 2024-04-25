@@ -7,7 +7,7 @@ import EditFooter from "../EditFooter/EditFooter"
 import { useQuery } from "react-query"
 import Loader from "../../../components/Loader/Loader"
 import axios from "axios"
-import { handleSplitSectionD, handleChangeDataD, handleSaveDragD } from "../Database/HandleActionSectionD"
+import { handleSplitSectionD, handleChangeDataD, handleSaveDragD, handleSplitSectionD_forMount } from "../Database/HandleActionSectionD"
 import PLOSection from "./PLOSection.jsx"
 import { DragDropContext } from "react-beautiful-dnd"
 import { resetPage } from "../Database/HandleUpdateDatabase"
@@ -134,7 +134,7 @@ function SectionD() {
                 .then(response => {
                     const restData = response.data
                     if(restData.data)
-                        handleSplitSectionD({ 
+                        handleSplitSectionD_forMount({ 
                             data: restData.data,
                             setSectionDValue,
                             idCTDT: id

@@ -1,3 +1,4 @@
+import { debounce } from "lodash"
 import { deleteData, getParent, postData } from "./HandleUpdateDatabase"
 
 const sortCondition = (a, b) => {
@@ -6,6 +7,12 @@ const sortCondition = (a, b) => {
 
     const aK = Number.parseInt(aKiHieu.pop())
     const bK = Number.parseInt(bKiHieu.pop())
+
+    const cK = Number.parseInt(aKiHieu.pop())
+    const dK = Number.parseInt(bKiHieu.pop())
+
+    if(aK == bK)
+        return cK < dK ? -1 : 1
 
     return aK < bK ? -1 : 1
 }
@@ -40,6 +47,46 @@ const handleSplitSectionD = ({ data, setSectionDValue, idCTDT }) => {
                     [typeDetail]: {
                         ...typeDetailData,
                         data: handleChangeDataD(value, type, typeDetail, typeDetailData.typeIndex, idCTDT)
+                        // data: value.sort(sortCondition)
+                    }
+                }
+            }
+        })
+    })
+}
+
+const handleSplitSectionD_forMount = ({ data, setSectionDValue, idCTDT }) => {
+    const typeList = [
+        {type: 'KIEN_THUC', typeDetail: 'KIEN_THUC_DAI_HOC_HUE'},
+        {type: 'KIEN_THUC', typeDetail: 'KIEN_THUC_DAI_HOC_KHOA_HOC'},
+        {type: 'KIEN_THUC', typeDetail: 'KIEN_THUC_LINH_VUC'},
+        {type: 'KIEN_THUC', typeDetail: 'KIEN_THUC_NHOM_NGANH'},
+        {type: 'KIEN_THUC', typeDetail: 'KIEN_THUC_NGANH'},
+        {type: 'KY_NANG', typeDetail: 'KY_NANG_CHUYEN_MON'},
+        {type: 'KY_NANG', typeDetail: 'KY_NANG_MEM'},
+        {type: 'THAI_DO', typeDetail: 'THAI_DO_CA_NHAN'},
+        {type: 'THAI_DO', typeDetail: 'THAI_DO_NGHE_NGHIEP'},
+        {type: 'THAI_DO', typeDetail: 'THAI_DO_XA_HOI'}
+    ]
+
+    typeList.forEach(item => {
+        const type = item.type
+        const typeDetail = item.typeDetail
+
+        const value = data.filter(element => element.loaiChuanDauRa === type && element.loaiChuanDauRaChiTiet === typeDetail)
+        // console.log(value)
+        setSectionDValue(prev => {
+            const typeData = prev[type]
+            const typeDetailData = typeData[typeDetail]
+
+            return {
+                ...prev,
+                [type]: {
+                    ...typeData,
+                    [typeDetail]: {
+                        ...typeDetailData,
+                        // data: handleChangeDataD(value, type, typeDetail, typeDetailData.typeIndex, idCTDT)
+                        data: value.sort(sortCondition)
                     }
                 }
             }
@@ -120,6 +167,8 @@ const handleChangeDataD = (element, type, typeDetail, typeIndex, idCTDT) => {
     return value
 }
 
+// const handleChangeDataD = debounce(de_handleChangeDataD, 250)
+
 const handleClickAddD = async ({ data, setState, idCTDT, type, typeDetail, typeIndex, apiURL, setData }) => {
     const typeData = data[type]
     const typeDetailData = typeData[typeDetail]
@@ -149,7 +198,7 @@ const handleClickAddD = async ({ data, setState, idCTDT, type, typeDetail, typeI
             }
         }
     }
-    setState(result)
+    setData.setSectionDValue(result)
 
     const createElement = value.filter(item => item.id == '').map(item => {
         return {
@@ -280,5 +329,6 @@ export {
     handleChangeDataD, 
     handleUpdateSectionD,
     handleAutoSaveD ,
-    handleSaveDragD
+    handleSaveDragD,
+    handleSplitSectionD_forMount
 }

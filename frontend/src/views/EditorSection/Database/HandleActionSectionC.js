@@ -25,6 +25,7 @@ const handleSplitSectionC = ({ data, setSectionCValue, idctdt }) => {
                 ...prev,
                 [type]: {
                     ...dataType,
+                    // data: handleChangeDataC(dataList, type, dataType.typeIndex, idctdt)
                     data: handleChangeDataC(dataList, type, dataType.typeIndex, idctdt)
                 }
             }
