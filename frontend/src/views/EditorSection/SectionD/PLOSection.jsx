@@ -3,6 +3,7 @@ import { handleClickAddD } from "../Database/HandleActionSectionD"
 import PLOElement from "./PLOElement"
 import { useContext } from "react"
 import { UserContext } from "../../../context/ContextProvider"
+import { debounce } from 'lodash';
 
 function PLOSection({ title, type, typeDetail, idCTDT, data, setState, setDelete, setData }) {
 
