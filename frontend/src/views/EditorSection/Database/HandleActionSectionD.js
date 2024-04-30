@@ -120,7 +120,23 @@ const handleChangeDataD = (element, type, typeDetail, typeIndex, idCTDT) => {
     return value
 }
 
-const handleClickAddD = async ({ data, setState, idCTDT, type, typeDetail, typeIndex, apiURL, setData }) => {
+const handleClickAddD = async ({ e, data, setState, idCTDT, type, typeDetail, typeIndex, apiURL, setData }) => {
+    const getButton = (element) => {
+        if(element.tagName.toLowerCase() === 'button')
+            return element
+        
+        while(element.parentElement) {
+            if(element.parentElement.tagName.toLowerCase() === 'button')
+                return element.parentElement
+            
+            element = element.parentElement
+        }
+    }
+
+    // Set button into non-active to ignore many request
+    const button = getButton(e)
+    button.classList.add('nonactive');
+
     const typeData = data[type]
     const typeDetailData = typeData[typeDetail]
 
@@ -170,6 +186,8 @@ const handleClickAddD = async ({ data, setState, idCTDT, type, typeDetail, typeI
         setSectionDValue: setData.setSectionDValue,
         idCTDT
     })
+
+    button.classList.remove('nonactive');
 }
 
 const handleClickDeleteD = async ({  e, setState, data , setDelete, idctdt, apiURL }) => {

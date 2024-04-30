@@ -33,7 +33,8 @@ function PLOSection({ title, type, typeDetail, idCTDT, data, setState, setDelete
                                 <i className="iconoir-help-circle cursorPointer"/>
                             </h4>
                             <button
-                                onClick={() => handleClickAddD({ 
+                                onClick={(e) => handleClickAddD({ 
+                                    e: e.target,
                                     data, 
                                     setState, 
                                     idCTDT, 

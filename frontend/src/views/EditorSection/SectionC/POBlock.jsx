@@ -28,7 +28,8 @@ function POBlock({ title, data, setDelete, idCTDT, setState, currentId, currentS
                                 <h4>Kí hiệu</h4>
                                 <h4>Chủ đề mục tiêu cụ thể</h4>
                                 <button
-                                    onClick={() => handleClickAddC({ 
+                                    onClick={(e) => handleClickAddC({
+                                        e: e.target, 
                                         idCTDT, 
                                         type: data.type, 
                                         setData,
