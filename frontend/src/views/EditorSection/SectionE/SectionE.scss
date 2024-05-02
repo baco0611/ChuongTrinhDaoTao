@@ -143,19 +143,37 @@
     min-width: 100%;
     margin: 0 auto;
 
-    
     .table-wrapper {
-        
-        // overflow-x: hidden;
         overflow-x: auto;
-        // overflow-y: auto;
-        // max-height: 100vh;
+        overflow-y: auto;
+        max-height: calc(100vh - 110px); 
+
+        
+        &::-webkit-scrollbar {
+            width: 8px; /* Width of the vertical scrollbar */
+            height: 8px; /* Height of the horizontal scrollbar */
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1; /* Light grey track */
+            border-radius: 4px; /* Optional: roundness of the track */
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #ccc; /* Dark grey thumb */
+            border-radius: 4px; /* Optional: roundness of the thumb */
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #888; /* Darker grey on hover */
+        }
     }
     
     table {
         // width: 1440px; /* Your specific width, can be more than 100% of the parent */
         width: 100%; /* Your specific width, can be more than 100% of the parent */
         border-collapse: collapse;
+       
     }
     
     th, td {
@@ -178,6 +196,18 @@
     }
     
     thead {
+        
+        // position: sticky;
+        // top: 85px;
+        
+        th {
+            border: .1px solid white;
+            background-color: $primary-color;
+            color: white;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
         .row1 th {
             position: sticky;
             top: 0;
@@ -192,17 +222,20 @@
             position: sticky;
             top: 66px;
             z-index: 10;
+
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
     
     tr.title { 
         td {
             color: $primary-color;
-            position: sticky;
             font-weight: 700;
-            top: 148px; /* Height of your header */
             z-index: 6;
             background-color: white;
+            top: 148px; /* Height of your header */
 
             &:nth-child(2) {
                 left: 100px;
@@ -216,14 +249,6 @@
             background-color: $primary-color;
         }
     } 
-
-    thead th {
-        border: .1px solid white;
-        background-color: $primary-color;
-        color: white;
-        font-weight: 700;
-        white-space: nowrap;
-    }
 
     td {
         border: .5px solid black;

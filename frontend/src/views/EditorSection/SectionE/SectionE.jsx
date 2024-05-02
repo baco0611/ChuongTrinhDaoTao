@@ -12,6 +12,7 @@ import { handleSplitSectionC } from "../Database/HandleActionSectionC"
 import RowBlock from "./RowBlock"
 import { convertValueE } from "../Database/HandleActionSectionE"
 import { resetPage } from "../Database/HandleUpdateDatabase"
+import clsx from "clsx"
 
 function SectionE() {
 
@@ -19,6 +20,8 @@ function SectionE() {
     const { apiURL, fakeApi } = useContext(UserContext)
     const navigate = useNavigate()
     const [ sectionEValue, setSectionEValue ] = useState()
+    const [ valueY, setValueY ] = useState(0)
+    console.log(valueY)
 
     const [ POValue, setPOValue ] = useState({
         KIEN_THUC: {
@@ -118,6 +121,35 @@ function SectionE() {
     })
 
     const [ POSize, setPOSize ] = useState(0)
+
+    // Function to handle scroll event
+    const handleScroll = () => {
+        const newPositionY = window.scrollY;
+    
+        // Check if the new position Y is greater than 290
+        if (newPositionY > 320) {
+            // If it is, set valueY to 290 and scroll to that position
+            setValueY(320);
+            window.scrollTo({
+                top: 320,
+                behavior: 'instant' // Use 'smooth' for smooth scrolling, 'instant' for immediate jump
+            });
+        } else {
+            // If it is not, update valueY normally
+            setValueY(newPositionY);
+        }
+    };
+
+    // Setup event listener for scrolling
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        // Cleanup function to remove the event listener
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
 
     useEffect(() => {
         const POList = [
@@ -233,8 +265,12 @@ function SectionE() {
                                     <tr className="row3">
                                         {
                                             POValue.KIEN_THUC.data.map((item, index) => {
+                                                {/* console.log(item) */}
                                                 return (
-                                                    <th style={{minWidth: '50px'}} key={index}>{
+                                                    <th style={{minWidth: '50px'}} 
+                                                        key={index}
+                                                        title={item.noiDung}
+                                                    >{
                                                         <>
                                                             {splitItem(item.kiHieu)[0]} 
                                                             <br/>

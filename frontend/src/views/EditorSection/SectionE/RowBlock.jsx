@@ -24,7 +24,12 @@ function RowBlock({ index, title, POList, POSize, PLOList, value, setState }) {
                                 className="title"
                             >
                                 <td>{PLO.typeIndex}.</td>
-                                <td colSpan={POSize && POSize + 1 || 4}>{PLO.title}</td>
+                                <td 
+                                    colSpan={POSize && POSize + 1 || 4}
+                                    style={{
+                                        left: "100px",
+                                    }}
+                                >{PLO.title}</td>
                             </tr>
                             {
                                 PLO.data.map((data, index) => {
