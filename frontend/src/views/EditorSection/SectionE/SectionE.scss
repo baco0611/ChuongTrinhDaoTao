@@ -180,20 +180,6 @@
         padding: 8px;
         border: 1px solid #ddd;
     }
-
-    /* Cố định cột đầu tiên */
-    td:first-child {
-        position: sticky;
-        left: 0;
-        z-index: 4; /* Đảm bảo cột này sẽ ở trên các cột khác khi cuộn */
-    }
-
-    td:nth-child(2) {
-        position: sticky;
-        left: 100px; /* Thay đổi giá trị này dựa vào chiều rộng thực tế của cột đầu tiên */
-        z-index: 4;
-        background-color: white;
-    }
     
     thead {
         
@@ -249,6 +235,20 @@
             background-color: $primary-color;
         }
     } 
+
+    /* Cố định cột đầu tiên */
+    td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 4; /* Đảm bảo cột này sẽ ở trên các cột khác khi cuộn */
+    }
+
+    td:nth-child(2) {
+        position: sticky;
+        left: 100px; /* Thay đổi giá trị này dựa vào chiều rộng thực tế của cột đầu tiên */
+        z-index: 4;
+        background-color: white;
+    }
 
     td {
         border: .5px solid black;

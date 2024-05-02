@@ -21,7 +21,6 @@ function SectionE() {
     const navigate = useNavigate()
     const [ sectionEValue, setSectionEValue ] = useState()
     const [ valueY, setValueY ] = useState(0)
-    console.log(valueY)
 
     const [ POValue, setPOValue ] = useState({
         KIEN_THUC: {
@@ -254,7 +253,7 @@ function SectionE() {
                                 <thead>
                                     <tr className="row1">
                                         <th style={{minWidth: '100px', left: 0, zIndex: 15}} rowSpan={3}>Ký kiệu</th>
-                                        <th style={{minWidth: '450px', left: "100px", zIndex: 15}} className="title" rowSpan={3}>Chuẩn đầu ra</th>
+                                        <th style={{minWidth: '450px', maxWidth: '500px', left: "100px", zIndex: 15}} className="title" rowSpan={3}>Chuẩn đầu ra</th>
                                         <th colSpan={POSize || 3}>Mục tiêu</th>
                                     </tr>
                                     <tr className="row2">
@@ -263,13 +262,15 @@ function SectionE() {
                                         <th colSpan={POValue.THAI_DO.data.length}>Thái độ</th>
                                     </tr>
                                     <tr className="row3">
-                                        {
+                                        {   
+                                            POValue.KIEN_THUC.data.length 
+                                            ?
                                             POValue.KIEN_THUC.data.map((item, index) => {
                                                 {/* console.log(item) */}
                                                 return (
-                                                    <th style={{minWidth: '50px'}} 
+                                                    <th style={{minWidth: '40px'}} 
                                                         key={index}
-                                                        title={item.noiDung}
+                                                        title={item.noiDung || "null"}
                                                     >{
                                                         <>
                                                             {splitItem(item.kiHieu)[0]} 
@@ -279,11 +280,19 @@ function SectionE() {
                                                     }</th>
                                                 )
                                             })
+                                            :
+                                            <th style={{ minWidth: '40px' }}>N/A<br/>Loading</th>
                                         }
-                                        {
+                                        {   
+                                            POValue.KY_NANG.data.length 
+                                            ?
                                             POValue.KY_NANG.data.map((item, index) => {
+                                                {/* console.log(item) */}
                                                 return (
-                                                    <th style={{minWidth: '50px'}} key={index}>{
+                                                    <th style={{minWidth: '40px'}} 
+                                                        key={index}
+                                                        title={item.noiDung || "null"}
+                                                    >{
                                                         <>
                                                             {splitItem(item.kiHieu)[0]} 
                                                             <br/>
@@ -292,11 +301,19 @@ function SectionE() {
                                                     }</th>
                                                 )
                                             })
+                                            :
+                                            <th style={{ minWidth: '40px' }}>N/A<br/>Loading</th>
                                         }
-                                        {
+                                        {   
+                                            POValue.THAI_DO.data.length 
+                                            ?
                                             POValue.THAI_DO.data.map((item, index) => {
+                                                {/* console.log(item) */}
                                                 return (
-                                                    <th style={{minWidth: '50px'}} key={index}>{
+                                                    <th style={{minWidth: '40px'}} 
+                                                        key={index}
+                                                        title={item.noiDung || "null"}
+                                                    >{
                                                         <>
                                                             {splitItem(item.kiHieu)[0]} 
                                                             <br/>
@@ -305,7 +322,10 @@ function SectionE() {
                                                     }</th>
                                                 )
                                             })
+                                            :
+                                            <th style={{ minWidth: '40px' }}>N/A<br/>Loading</th>
                                         }
+
                                     </tr>
                                 </thead>
                                 <tbody>
