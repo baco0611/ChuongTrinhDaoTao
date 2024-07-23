@@ -1,4 +1,4 @@
-package java.com.springboot;
+package com.laptrinhjavaweb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,5 +9,5 @@ public class ChuongTrinhDaoTaoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ChuongTrinhDaoTaoApplication.class, args);
 	}
-
+	
 }

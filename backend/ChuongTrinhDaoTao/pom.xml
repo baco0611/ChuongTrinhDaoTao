@@ -1,23 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<!-- Phần định nghĩa phiên bản mô hình và schema -->
+
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
+		<!-- Định nghĩa parent POM. Điều này giúp kế thừa các cấu hình từ Spring
+		Boot Starter Parent -->
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.3.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>ChuongTrinhDaoTao</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
-	<name>ChuongTrinhDaoTao</name>
-	<description>Demo project for Spring Boot</description>
+
+	<groupId>com.example</groupId> <!-- Định nghĩa group ID của dự án -->
+	<artifactId>ChuongTrinhDaoTao</artifactId> <!-- Định nghĩa artifact ID của dự
+	án -->
+	<version>0.0.1-SNAPSHOT</version> <!-- Định nghĩa phiên bản của dự án -->
+	<packaging>war</packaging> <!-- Định nghĩa kiểu đóng gói (ở đây là WAR, phù
+	hợp với ứng dụng web) -->
+
+	<name>ChuongTrinhDaoTao</name> <!-- Định nghĩa tên dự án -->
+	<description>Demo project for Spring Boot</description> <!-- Định nghĩa mô tả
+	ngắn về dự án -->
+
 	<properties>
-		<java.version>17</java.version>
+		<java.version>17</java.version> <!-- Định nghĩa phiên bản Java sử dụng
+		trong dự án -->
 	</properties>
+
 	<dependencies>
+		<!-- Các dependencies của dự án -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -25,9 +40,23 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.microsoft.sqlserver</groupId>
+			<artifactId>mssql-jdbc</artifactId>
+			<version>12.6.0.jre11</version> <!-- Phiên bản phù hợp với Java 11 -->
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.30</version>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -35,13 +64,15 @@
 		</dependency>
 	</dependencies>
 
+
 	<build>
+		<!-- Phần cấu hình build của dự án -->
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<artifactId>spring-boot-maven-plugin</artifactId> <!-- Plugin để
+				build và chạy ứng dụng Spring Boot -->
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
