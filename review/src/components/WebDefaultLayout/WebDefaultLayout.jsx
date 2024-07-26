@@ -2,7 +2,7 @@ import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-
 import Header from "../../views/WebDefaultLayout/Header/Header"
 import { useContext, useEffect } from "react"
 import { UserContext } from "../../context/ContextProvider"
-// import Footer from "../../views/WebDefaultLayout/Footer/Footer"
+import Footer from "../../views/WebDefaultLayout/Footer/Footer"
 
 function WebDefaultLayout () {
     const { token } = useContext(UserContext)
@@ -24,7 +24,7 @@ function WebDefaultLayout () {
             
             <Outlet/>
     
-            {/* <Footer/> */}
+            <Footer/>
         </div>
     )
 }
