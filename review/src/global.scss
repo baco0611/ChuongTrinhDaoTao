@@ -21,3 +21,8 @@ body{
 .swalNot {
     background-color: $highlight-color;
 }
+
+.body-container {
+    min-height: calc(100vh - 50px);
+    padding-top: 45px;
+}

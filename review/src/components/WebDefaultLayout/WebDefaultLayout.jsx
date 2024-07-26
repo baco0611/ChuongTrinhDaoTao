@@ -13,7 +13,7 @@ function WebDefaultLayout () {
         if(!token) 
             navigate("/login")
         else {
-            if(location.pathname = "/login")
+            if(location.pathname == "/login")
                 navigate("/")
         }
     }, [token, location.pathname])

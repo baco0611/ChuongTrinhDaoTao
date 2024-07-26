@@ -57,23 +57,23 @@ export default function Header() {
                     <div className="header-menu">
                         <ul className="header-component">
                             <li className="primary">Từ điển dữ liệu</li>
-                            <li><a href="#">Điều kiện tốt nghiêp</a></li>
-                            <li><a href="#">Chứng chỉ điều kiện</a></li>
+                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Điều kiện tốt nghiêp</Link></li>
+                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Chứng chỉ điều kiện</Link></li>
                         </ul>
                         <ul className="header-component">
                             <li className="primary">Học phần</li>
-                            <li><a href="#">Quản lý học phần</a></li>
-                            <li><a href="#">Tra cứu học phần</a></li>
+                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý học phần</Link></li>
+                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Tra cứu học phần</Link></li>
                         </ul>
                         <ul className="header-component">
                             <li className="primary">Chương trình đào tạo</li>
-                            <li><a href="#">Quản lý chương trình đào tạo</a></li>
-                            <li><a href="#">Tra cứu chương trình đào tạo</a></li>
+                            <li><Link to={"/program/manage"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý chương trình đào tạo</Link></li>
+                            <li><Link to={"/program/search"} onClick={() => setMenuOpen(!menuOpen)}>Tra cứu chương trình đào tạo</Link></li>
                         </ul>
                         <ul className="header-component">
                             <li className="primary">Quản trị</li>
-                            <li><a href="#">Giảng viên phụ trách</a></li>
-                            <li><a href="#">Phân quyền</a></li>
+                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Giảng viên phụ trách</Link></li>
+                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Phân quyền</Link></li>
                         </ul>
                     </div> 
                 }
