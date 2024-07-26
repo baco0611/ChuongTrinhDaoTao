@@ -1,4 +1,5 @@
-import { createContext, useState } from "react"
+import { createContext, useEffect, useState } from "react"
+import Cookies from 'js-cookie'
 
 const UserContext = createContext({
     user: null,
@@ -12,15 +13,40 @@ const UserContext = createContext({
 })
 
 function StateContext({ children }) {
-    const [user, setUser] = useState("")
-    const [token, _setToken] = useState("")
+    const [user, _setUser] = useState({})
+    const [token, _setToken] = useState("bewfbnncknksdnnrgiu")
+
+    useEffect(() => {
+        const storedUser = Cookies.get("USER");
+        const storedToken = Cookies.get("ACCESS_TOKEN");
+
+        console.log(storedUser)
+        console.log(storedToken)
+        if (storedUser) {
+            _setUser(JSON.parse(storedUser));
+        }
+        if (storedToken) {
+            _setToken(storedToken);
+        }
+    }, []);
+
+    const setUser = user => {
+        _setUser(user);
+        Cookies.set("USER", JSON.stringify(user));
+    }
 
     const setToken = token => {
-        _setToken(token)
-        if(token) {
-            localStorage.setItem("ACCESS_TOKEN", token)
+        _setToken(token);
+        if (token) {
+            Cookies.set("ACCESS_TOKEN", token);
         } else {
-            localStorage.removeItem("ACCESS_TOKEN")
+            Cookies.remove("ACCESS_TOKEN");
+            Cookies.remove("USER");
+            _setUser({
+                lastName: "Lương",
+                firstName: "Trần Thanh",
+                donVi: ""
+            });
         }
     }
 
@@ -47,6 +73,7 @@ function StateContext({ children }) {
                 setUser,
                 setToken,
                 apiURL,
+                convertAPI,
                 fakeApi,
                 sectionList,
                 isDataSaved,
@@ -60,3 +87,4 @@ function StateContext({ children }) {
 }
 
 export default StateContext
+export { UserContext }

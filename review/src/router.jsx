@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import WebDefaultLayout from './components/WebDefaultLayout/WebDefaultLayout'
 // import ListSection from './views/ListSection/ListSection'
 import Error from './components/Error/Error'
+import Login from './views/Login/Login'
 // import SectionA from './views/EditorSection/SectionA/SectionA'
 // import SectionB from './views/EditorSection/SectionB/SectionB'
 // import SectionC from './views/EditorSection/SectionC/SectionC'
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
         path: '/',
         element: <WebDefaultLayout/>,
         children: [
+            {
+                path: '/login',
+                element: <Login/>
+            },
             // {
             //     path: '/list',
             //     element: <ListSection/>
