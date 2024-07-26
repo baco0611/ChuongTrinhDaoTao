@@ -1,0 +1,47 @@
+@import '../../variable.scss';
+
+#error-section {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $base-color;
+
+    h1 {
+        color: $primary-color;
+        font-size: 12em;
+        font-weight: 900;
+
+        span {
+            color: white;
+        }
+    }
+
+    h2 {
+        padding: 20px;
+        font-weight: 600;
+        font-size: 3em;
+        color: white;
+    }
+
+    a {
+        color: $primary-color;
+        font-weight: 900;
+        padding-top: 10px;
+        font-size: 18px;
+        animation: gelatine .5s infinite ;
+
+        &:hover {
+            color: $highlight-color;
+        }
+    }
+}
+
+@keyframes gelatine {
+    from, to { transform: scale(1, 1); }
+    25% { transform: scale(0.9, 1.1); }
+    50% { transform: scale(1.1, 0.9); }
+    75% { transform: scale(0.95, 1.05); }
+}

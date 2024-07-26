@@ -1,0 +1,23 @@
+@import './variable.scss';
+
+.wrapper{
+    max-width: min(90%, 1440px);
+    margin: 0 auto;
+}
+
+body{
+    line-height: 1;
+    min-width: 740px;
+}
+
+.none {
+    display: none;
+}
+
+.cursorPointer {
+    cursor: pointer;
+}
+
+.swalNot {
+    background-color: $highlight-color;
+}
