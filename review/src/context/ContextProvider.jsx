@@ -14,7 +14,7 @@ const UserContext = createContext({
 
 function StateContext({ children }) {
     const [user, _setUser] = useState({})
-    const [token, _setToken] = useState("bewfbnncknksdnnrgiu")
+    const [token, _setToken] = useState("")
 
     useEffect(() => {
         const storedUser = Cookies.get("USER");
