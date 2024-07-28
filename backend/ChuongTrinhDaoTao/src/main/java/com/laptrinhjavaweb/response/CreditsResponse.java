@@ -1,9 +1,9 @@
-package com.laptrinhjavaweb.output;
+package com.laptrinhjavaweb.response;
 
 import lombok.Data;
 
 @Data
-public class CreditsOutput {
+public class CreditsResponse {
 	private int generalModule;
 	
 	private int basicFieldModule;

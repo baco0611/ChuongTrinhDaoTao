@@ -1,9 +1,9 @@
-package com.laptrinhjavaweb.output;
+package com.laptrinhjavaweb.response;
 
 import lombok.Data;
 
 @Data
-public class ItemListOutput {
+public class ItemListResponse {
     private String programCode;
     
     private String vietnameseName;

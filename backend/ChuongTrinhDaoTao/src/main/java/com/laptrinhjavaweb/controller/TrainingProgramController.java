@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.laptrinhjavaweb.converter.TrainingProgramConverter;
 import com.laptrinhjavaweb.dto.TrainingProgramDTO;
-import com.laptrinhjavaweb.input.CreditsUpdateInput;
-import com.laptrinhjavaweb.output.CreditsOutput;
-import com.laptrinhjavaweb.output.ItemListOutput;
-import com.laptrinhjavaweb.output.SectionAHeaderOutput;
-import com.laptrinhjavaweb.output.TrainingProgramOutput;
+import com.laptrinhjavaweb.request.CreditsUpdateRequest;
+import com.laptrinhjavaweb.response.CreditsResponse;
+import com.laptrinhjavaweb.response.ItemListResponse;
+import com.laptrinhjavaweb.response.SectionAHeaderResponse;
+import com.laptrinhjavaweb.response.TrainingProgramResponse;
 import com.laptrinhjavaweb.service.ITrainingProgramService;
 
 // TODO: Auto-generated Javadoc
@@ -44,7 +44,7 @@ public class TrainingProgramController {
 	/**
 	 * show CTDT by ID
 	 *
-	 * @param programId the id chuong trinh
+	 * @param programId the id program
 	 * @return the response entity
 	 * 
 	 */
@@ -59,7 +59,7 @@ public class TrainingProgramController {
 			} else {
 				Object jsonData = new Object() {
 					public final Long id = ctdtDTO.getProgramId();
-					public final TrainingProgramOutput data = trainingProgramConverter.toOutput(ctdtDTO);
+					public final TrainingProgramResponse data = trainingProgramConverter.toOutput(ctdtDTO);
 				};
 				return ResponseEntity.ok(jsonData);
 			}
@@ -72,7 +72,7 @@ public class TrainingProgramController {
 	/**
 	 * Show header CTDT by ID
 	 *
-	 * @param idChuongTrinh the id chuong trinh
+	 * @param idChuongTrinh the id program
 	 * @return the response entity
 	 */
 	@GetMapping(value = "sectionHeader/{id}")
@@ -86,7 +86,7 @@ public class TrainingProgramController {
 			} else {
 				Object jsonData = new Object() {
 					public final Long id = ctdtDTO.getProgramId();
-					public final SectionAHeaderOutput data = trainingProgramConverter.toOutputSectionAHeader(ctdtDTO);
+					public final SectionAHeaderResponse data = trainingProgramConverter.toOutputSectionAHeader(ctdtDTO);
 				};
 				return ResponseEntity.ok(jsonData);
 			}
@@ -99,7 +99,7 @@ public class TrainingProgramController {
 	/**
 	 * Show all credits by IdCTDT
 	 *
-	 * @param idChuongTrinh the id chuong trinh
+	 * @param idChuongTrinh the id program
 	 * @return the response entity
 	 */
 	@GetMapping(value = "showCredits/{id}")
@@ -113,7 +113,7 @@ public class TrainingProgramController {
 			} else {
 				Object jsonData = new Object() {
 					public final Long id = ctdtDTO.getProgramId();
-					public final CreditsOutput data = trainingProgramConverter.toOutputCredits(ctdtDTO);
+					public final CreditsResponse data = trainingProgramConverter.toOutputCredits(ctdtDTO);
 				};
 				return ResponseEntity.ok(jsonData);
 			}
@@ -137,14 +137,14 @@ public class TrainingProgramController {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 						.body("{\"status\": " + HttpStatus.INTERNAL_SERVER_ERROR.value() + "}");
 			} else {
-				List<ItemListOutput> lstMain = new ArrayList<ItemListOutput>();
+				List<ItemListResponse> lstMain = new ArrayList<ItemListResponse>();
 				for (TrainingProgramDTO dto : lstDTO) {
-					ItemListOutput item = new ItemListOutput();
+					ItemListResponse item = new ItemListResponse();
 					item = trainingProgramConverter.toOutputItemList(dto);
 					lstMain.add(item);
 				}
 				Object jsonData = new Object() {
-					public final List<ItemListOutput> data = lstMain;
+					public final List<ItemListResponse> data = lstMain;
 				};
 				return ResponseEntity.ok(jsonData);
 			}
@@ -183,7 +183,7 @@ public class TrainingProgramController {
 	 */
 	// PENDING
 	@PostMapping("/update_Credits")
-	public ResponseEntity<?> storeUpdateCredits(@RequestBody CreditsUpdateInput request) {
+	public ResponseEntity<?> storeUpdateCredits(@RequestBody CreditsUpdateRequest request) {
 		return null;
 	}
 

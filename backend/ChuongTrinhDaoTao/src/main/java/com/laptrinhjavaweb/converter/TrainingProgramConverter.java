@@ -6,10 +6,10 @@ import org.springframework.stereotype.Component;
 
 import com.laptrinhjavaweb.dto.TrainingProgramDTO;
 import com.laptrinhjavaweb.entity.TrainingProgramEntity;
-import com.laptrinhjavaweb.output.CreditsOutput;
-import com.laptrinhjavaweb.output.ItemListOutput;
-import com.laptrinhjavaweb.output.SectionAHeaderOutput;
-import com.laptrinhjavaweb.output.TrainingProgramOutput;
+import com.laptrinhjavaweb.response.CreditsResponse;
+import com.laptrinhjavaweb.response.ItemListResponse;
+import com.laptrinhjavaweb.response.SectionAHeaderResponse;
+import com.laptrinhjavaweb.response.TrainingProgramResponse;
 
 @Component
 public class TrainingProgramConverter {
@@ -84,8 +84,8 @@ public class TrainingProgramConverter {
         return entity;
     }
 	
-	public TrainingProgramOutput toOutput(TrainingProgramDTO ctdtDTO) {
-	    TrainingProgramOutput output = new TrainingProgramOutput();
+	public TrainingProgramResponse toOutput(TrainingProgramDTO ctdtDTO) {
+	    TrainingProgramResponse output = new TrainingProgramResponse();
 	    output.setProgramId(ctdtDTO.getProgramId());
 	    output.setVietnameseName(ctdtDTO.getVietnameseName());
 	    output.setEnglishName(ctdtDTO.getEnglishName());
@@ -108,16 +108,16 @@ public class TrainingProgramConverter {
 	    return output;
 	}
 
-	public SectionAHeaderOutput toOutputSectionAHeader(TrainingProgramDTO ctdtDTO) {
-	    SectionAHeaderOutput output = new SectionAHeaderOutput();
+	public SectionAHeaderResponse toOutputSectionAHeader(TrainingProgramDTO ctdtDTO) {
+	    SectionAHeaderResponse output = new SectionAHeaderResponse();
 	    output.setProgramCode(ctdtDTO.getProgramCode());
 	    output.setFieldName(ctdtDTO.getFieldName());
 	    output.setVersion(ctdtDTO.getVersion());
 	    return output;
 	}
 
-	public CreditsOutput toOutputCredits(TrainingProgramDTO ctdtDTO) {
-	    CreditsOutput output = new CreditsOutput();
+	public CreditsResponse toOutputCredits(TrainingProgramDTO ctdtDTO) {
+	    CreditsResponse output = new CreditsResponse();
 	    output.setGeneralModule(ctdtDTO.getGeneralModule());
 	    output.setBasicFieldModule(ctdtDTO.getBasicFieldModule());
 	    output.setMajorFieldModule(ctdtDTO.getMajorFieldModule());
@@ -128,8 +128,8 @@ public class TrainingProgramConverter {
 	    return output;
 	}
 
-	public ItemListOutput toOutputItemList(TrainingProgramDTO ctdtDTO) {
-	    ItemListOutput output = new ItemListOutput();
+	public ItemListResponse toOutputItemList(TrainingProgramDTO ctdtDTO) {
+	    ItemListResponse output = new ItemListResponse();
 	    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	    output.setProgramCode(ctdtDTO.getProgramCode()); 
 	    output.setVietnameseName(ctdtDTO.getVietnameseName());
