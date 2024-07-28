@@ -7,7 +7,9 @@
     "dev": "vite --port 3030",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "json": "json-server -w ./src/context/db.json --port 3001",
+    "server": "nodemon ./src/context/API/server.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -26,6 +28,7 @@
     "json-server": "^0.17.3",
     "localforage": "^1.10.0",
     "lodash": "^4.17.21",
+    "nodemon": "^3.1.4",
     "react": "^18.2.0",
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",

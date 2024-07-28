@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import "./Login.scss"
 import clsx from "clsx"
-import { handleChangeValue, handleSubmit } from "./login_function"
+import { checkValid, handleChangeValue, handleSubmit, handleValid } from "./login_function"
+import { UserContext } from "../../context/ContextProvider"
 
 export default function Login() {
 
@@ -9,6 +10,8 @@ export default function Login() {
         userId: "",
         password: ""
     })
+
+    const { serverAPI, setUser, setToken } = useContext(UserContext)
 
     return (
         <div className='login' id='login'>
@@ -24,8 +27,13 @@ export default function Login() {
                             className={clsx({"filled": userInformation.userId})}
                             onChange={e => handleChangeValue(e, setUserInformation)}
                             autoComplete="off"
+                            onBlur={() => checkValid("userId")}
+                            onFocus={() => handleValid("userId")}
+                            style={{
+                                textTransform: "uppercase"
+                            }}
                         />
-                        <span className="message"></span>
+                        <span className="error-message"></span>
                     </div>
                     <div className="input-block">
                         <label htmlFor="login-userPassword">Mật khẩu</label>
@@ -36,11 +44,20 @@ export default function Login() {
                             className={clsx({"filled": userInformation.password})}
                             onChange={e => handleChangeValue(e, setUserInformation)}
                             autoComplete="off"
+                            onBlur={() => checkValid("userPassword")}
+                            onFocus={() => handleValid("userPassword")}
                         />
-                        <span className="message"></span>
+                        <span className="error-message"></span>
                     </div>
                     <button
-                        onClick={e => handleSubmit(e, userInformation)}
+                        onClick={
+                            e => handleSubmit({ 
+                                e, 
+                                userInformation, 
+                                serverAPI, 
+                                setUser, 
+                                setToken,
+                            })}
                     >Đăng nhập</button>
                 </form>
             </div>

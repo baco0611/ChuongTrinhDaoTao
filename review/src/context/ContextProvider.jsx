@@ -6,9 +6,11 @@ const UserContext = createContext({
     token: null,
     setUser: () => {},
     setToken: () => {},
-    apiURL: null,
+    apiUrl: null,
+    jsonAPI: null,
+    serverAPI: null,
     convertAPI: null,
-    fakeApi: null,
+    fakeAPI: null,
     sectionList: null,
 })
 
@@ -52,9 +54,10 @@ function StateContext({ children }) {
 
     const [isDataSaved, setIsDataSaved] = useState(true); // Giả sử ban đầu dữ liệu đã được lưu
 
-    const apiURL = "http://localhost:8000/api"
+    const apiUrl = "http://localhost:8000/API"
     const convertAPI = "http://localhost:8081"
-    const fakeApi = "http://localhost:3001"
+    const fakeAPI = "http://localhost:3001"
+    const serverAPI = "http://localhost:3002"
     const sectionList = ['A', 'B', 'C', 'D', 'E', 'G', 'H']
 
     const handleBeforeUnload = (event) => {
@@ -72,9 +75,10 @@ function StateContext({ children }) {
                 token,
                 setUser,
                 setToken,
-                apiURL,
+                apiUrl,
                 convertAPI,
-                fakeApi,
+                fakeAPI,
+                serverAPI,
                 sectionList,
                 isDataSaved,
                 setIsDataSaved,

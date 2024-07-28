@@ -5,11 +5,11 @@ import "./Header.scss"
 import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../../context/ContextProvider"
 import { getParentElementByClass } from "../../../utils/function"
+import swal from 'sweetalert'
 
 export default function Header() {
-    const { user, token } = useContext(UserContext)
+    const { user, token, setToken, setUser } = useContext(UserContext)
     const [ menuOpen, setMenuOpen ] = useState(false)
-    console.log(menuOpen)
 
     const handleDocumentClick = e => {
         const element = e.target
@@ -26,6 +26,25 @@ export default function Header() {
             document.removeEventListener('click', handleDocumentClick)
         }
     })
+
+    const deleteUserInformation = () => {
+        setUser()
+        setToken()
+    }
+
+    const handleLogout = () => {
+        swal({
+            title: "ĐĂNG XUẤT",
+            text: "Bạn có muốn đăng xuất?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((willLogout) => {
+            if (willLogout) {
+                deleteUserInformation();
+            }
+        });
+    };
 
     return (
         <header id='layout-header'>
@@ -44,11 +63,15 @@ export default function Header() {
                         <div className='header-user-main'>
                             <div>
                                 <h3>{user.lastName} {user.firstName}</h3>
-                                <h4>{user.workUnit}</h4>
+                                <h4>{user.departmentName}</h4>
                             </div>
                             <FontAwesomeIcon icon={faUser} />
                         </div>
-                        <FontAwesomeIcon icon={faArrowRightFromBracket} className='logout-icon cursorPointer'/>
+                        <FontAwesomeIcon 
+                            icon={faArrowRightFromBracket} 
+                            className='logout-icon cursorPointer'
+                            onClick={handleLogout}
+                        />
                     </div>
                 }
                 {
