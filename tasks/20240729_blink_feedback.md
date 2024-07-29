@@ -17,7 +17,7 @@
 #### Bảng mục tiêu cụ thể 
 - Chỉ cần đổi tên bảng thành ```program_objective```
 
-#### Bảng chuẩn đầu ra
+#### Bảng chuẩn đầu ra (fix ngang đây)
 - Đổi tên bảng thành ```program_learning_outcomes```
 - Đổi các trường có chứa ```output_standard``` sang ```learning_outcome```
 
