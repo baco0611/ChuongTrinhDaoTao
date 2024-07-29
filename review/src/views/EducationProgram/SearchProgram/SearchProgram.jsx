@@ -9,6 +9,11 @@ export default function SearchProgram() {
                 <h1>Tra cứu chương trình đào tạo</h1>
                 {/* <button><FontAwesomeIcon icon={faCodeMerge} />Cập nhật dữ liệu</button> */}
             </div>
+            <div className="search-request">
+                <div className="department">
+                    
+                </div>
+            </div>
             <div className="main">
                 <table>
                     
