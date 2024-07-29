@@ -3,6 +3,8 @@ import "./Login.scss"
 import clsx from "clsx"
 import { checkValid, handleChangeValue, handleSubmit, handleValid } from "./login_function"
 import { UserContext } from "../../context/ContextProvider"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
 export default function Login() {
 
@@ -10,6 +12,8 @@ export default function Login() {
         userId: "",
         password: ""
     })
+
+    const [ showPassword, setShowPassword ] = useState(true)
 
     const { serverAPI, setUser, setToken } = useContext(UserContext)
 
@@ -23,6 +27,7 @@ export default function Login() {
                         <input
                             id="login-userId"
                             name="userId"
+                            type="text"
                             value={userInformation.userId}
                             className={clsx({"filled": userInformation.userId})}
                             onChange={e => handleChangeValue(e, setUserInformation)}
@@ -40,14 +45,33 @@ export default function Login() {
                         <input
                             id="login-userPassword"
                             name="password"
+                            type={showPassword && "text" || "password"}
                             value={userInformation.password}
                             className={clsx({"filled": userInformation.password})}
                             onChange={e => handleChangeValue(e, setUserInformation)}
                             autoComplete="off"
                             onBlur={() => checkValid("userPassword")}
                             onFocus={() => handleValid("userPassword")}
+                            style={{
+                                paddingRight:"35px",
+                            }}
                         />
                         <span className="error-message"></span>
+                        {
+                            showPassword
+                            &&
+                            <FontAwesomeIcon 
+                                icon={faEyeSlash} 
+                                className="eye-icon cursorPointer" 
+                                onClick={() => setShowPassword(false)}
+                            />
+                            ||
+                            <FontAwesomeIcon 
+                                icon={faEye} 
+                                className="eye-icon cursorPointer" 
+                                onClick={() => setShowPassword(true)}
+                            />
+                        }
                     </div>
                     <button
                         onClick={
