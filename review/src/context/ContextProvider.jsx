@@ -21,9 +21,7 @@ function StateContext({ children }) {
     useEffect(() => {
         const storedUser = Cookies.get("USER");
         const storedToken = Cookies.get("ACCESS_TOKEN");
-
-        console.log(storedUser)
-        console.log(storedToken)
+        
         if (storedUser) {
             _setUser(JSON.parse(storedUser));
         }

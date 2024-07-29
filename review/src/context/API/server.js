@@ -53,6 +53,15 @@ server.post('/login', (req, res) => {
     }
 });
 
+server.post("/search-program", (req, res) => {
+    const dbFilePath = path.join(__dirname, '../db.json');
+    const dbContent = JSON.parse(fs.readFileSync(dbFilePath, 'utf-8'));
+
+    const data = dbContent.searchProgram
+
+    res.jsonp(data)
+})
+
 server.use(router);
 server.listen(3002, () => {
     console.log('JSON Server is running');

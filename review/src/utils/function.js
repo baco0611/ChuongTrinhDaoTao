@@ -16,6 +16,8 @@ const getParentElementById = (element, id) => {
 
 const getData = async (api, url, token, payload, completeMessage, errorMessage) => {
     const apiURL = api + url
+    console.log(apiURL)
+
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     }

@@ -13,7 +13,7 @@ export default function Login() {
         password: ""
     })
 
-    const [ showPassword, setShowPassword ] = useState(true)
+    const [ showPassword, setShowPassword ] = useState(false)
 
     const { serverAPI, setUser, setToken } = useContext(UserContext)
 

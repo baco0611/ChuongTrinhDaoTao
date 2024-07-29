@@ -1,14 +1,25 @@
 import "../EducationProgram.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCodeMerge } from '@fortawesome/free-solid-svg-icons'
-import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import { useQuery } from 'react-query'
-import { useContext, useEffect } from 'react'
-import { UserContext } from "../../../../../frontend/src/context/ContextProvider"
-import Loader from "../../../../../frontend/src/components/Loader/Loader"
+import RequestBlock from "../RequestBlock/RequestBlock"
+import { useState } from "react"
 
 export default function SearchProgram() {
+
+    const [ programListInformation, setProgramListInformation ] = useState({
+        data: [],
+        pageInformation: {
+            numOfElement: 0,
+            pageSize: 0,
+            offset: 0,
+            firstPage: true,
+            lastPage: false,
+            totalPages: 1,
+            totalElements: 0
+        },
+    })
+
+    console.log(programListInformation)
 
 
     return (
@@ -17,11 +28,10 @@ export default function SearchProgram() {
                 <h1>Tra cứu chương trình đào tạo</h1>
                 {/* <button><FontAwesomeIcon icon={faCodeMerge} />Cập nhật dữ liệu</button> */}
             </div>
-            <div className="search-request">
-                <div className="department">
-                    <span>Đơn vị</span>
-                </div>
-            </div>
+            <RequestBlock
+                name="manage"
+                setProgram={setProgramListInformation}
+            />
             <div className="main">
                 <table>
                     
