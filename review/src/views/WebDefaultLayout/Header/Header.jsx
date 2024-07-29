@@ -50,10 +50,13 @@ export default function Header() {
         <header id='layout-header'>
             <div className="header wrapper">
                 <div className='header-navigate'>
-                    <i 
-                        className='ti-menu cursorPointer'
-                        onClick={() => setMenuOpen(!menuOpen)}
-                    ></i>
+                    {
+                        token &&
+                        <i 
+                            className='ti-menu cursorPointer'
+                            onClick={() => setMenuOpen(!menuOpen)}
+                        ></i>
+                    }
                     <Link to={'/'}>QUẢN LÝ CHƯƠNG TRÌNH ĐÀO TẠO - TRƯỜNG ĐẠI HỌC KHOA HỌC</Link>
                 </div>
                 {

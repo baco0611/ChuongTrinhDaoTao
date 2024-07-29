@@ -1,8 +1,16 @@
 import "../EducationProgram.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCodeMerge } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { useQuery } from 'react-query'
+import { useContext, useEffect } from 'react'
+import { UserContext } from "../../../../../frontend/src/context/ContextProvider"
+import Loader from "../../../../../frontend/src/components/Loader/Loader"
 
 export default function SearchProgram() {
+
+
     return (
         <div className='wrapper body-container program-section' id="search-program"> 
             <div className="title">
@@ -11,7 +19,7 @@ export default function SearchProgram() {
             </div>
             <div className="search-request">
                 <div className="department">
-                    
+                    <span>Đơn vị</span>
                 </div>
             </div>
             <div className="main">
