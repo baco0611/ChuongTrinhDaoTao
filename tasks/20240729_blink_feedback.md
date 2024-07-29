@@ -4,6 +4,7 @@
 
 ### Token
 - Token t có nói là thêm hạn vô cho hắn unique thì t mới check thấy hắn có iat (issues at time - thời gian tạo) với exp (expiration - thời hạn) nên hắn unique rồi, nhưng t cần hắn dạng datetime nên convert lại dùm t hấy.
+- Cái ni đang dùng thư viện có sẵn của jwt, nếu chuyển thì không tạo ra được token. Nếu m cần ở dưới dạng datetime thì m có thể trích từ token về rồi convert ở phía client thôi chứ t thì không được.
 
 ### Database
 #### Bảng Chương trình đào tạo (training program)
