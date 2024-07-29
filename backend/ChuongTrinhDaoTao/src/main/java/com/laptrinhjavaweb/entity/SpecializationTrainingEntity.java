@@ -1,0 +1,27 @@
+package com.laptrinhjavaweb.entity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.*;
+import lombok.Data;
+
+@Entity
+@Table(name="SpecializationTraining")
+@Data
+public class SpecializationTrainingEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long specializationId;
+
+    @Column
+    private String specializationName;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="programId")
+    private TrainingProgramEntity trainingProgram;
+
+    @OneToMany(mappedBy = "specializationTraining")
+    private List<DetailedProgramEntity> detailedPrograms = new ArrayList<>();
+}
