@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { memo, useContext, useEffect, useState } from "react";
 import "./RequestBlock.scss"
 import { useNavigate } from "react-router-dom";
 import { getData } from "../../../utils/function.js";
@@ -7,7 +7,7 @@ import { UserContext } from "../../../context/ContextProvider.jsx";
 import Loader from "../../../components/Loader/Loader.jsx";
 import { handleChangeRequest, searchProgram } from "./requestBlock-function.js";
 
-export default function RequestBlock({ name, setProgram, request, setRequest }) {
+function RequestBlock({ name, setProgram, request, setRequest }) {
     const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
     const navigate = useNavigate()
     const [ department, setDepartment ] = useState([])
@@ -131,3 +131,5 @@ export default function RequestBlock({ name, setProgram, request, setRequest }) 
         </div>
     )
 }
+
+export default memo(RequestBlock)

@@ -4,6 +4,10 @@ import Error from './components/Error/Error'
 import Login from './views/Login/Login'
 import SearchProgram from './views/EducationProgram/SearchProgram/SearchProgram'
 import ManageProgram from './views/EducationProgram/ManageProgram/ManageProgram'
+import EditProgramLayout from './components/EditProgramLayout/EditProgramLayout'
+import ViewProgramLayout from './components/ViewProgramLayout/ViewProgramLayout'
+import SectionA from './views/EditorSection/SectionA/SectionA'
+import SectionB from './views/EditorSection/SectionB/SectionB'
 // import SectionA from './views/EditorSection/SectionA/SectionA'
 // import SectionB from './views/EditorSection/SectionB/SectionB'
 // import SectionC from './views/EditorSection/SectionC/SectionC'
@@ -29,6 +33,24 @@ const router = createBrowserRouter([
                 path: '/program/manage',
                 element: <ManageProgram/>
             },
+            {
+                path: "/view/program/:id",
+                element: <ViewProgramLayout/>
+            },
+            {
+                path: "/edit/program",
+                element: <EditProgramLayout/>,
+                children: [
+                    {
+                        path: "/edit/program/sectionA/:id",
+                        element: <SectionA/>
+                    },
+                    {
+                        path: "/edit/program/sectionB/:id",
+                        element: <SectionB/>
+                    },
+                ]
+            }
             // {
             //     path: '/list',
             //     element: <ListSection/>

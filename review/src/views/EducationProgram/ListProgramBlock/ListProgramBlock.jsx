@@ -8,58 +8,6 @@ import { useContext, useEffect, useState } from "react"
 import { searchProgram } from "../RequestBlock/requestBlock-function"
 import { UserContext } from "../../../context/ContextProvider"
 
-// "searchProgram": {
-//         "data": [
-//             {
-//                 "programCode": "KH23671",
-//                 "programName": "Công nghệ thông tin",
-//                 "fieldName": "Công nghệ thông tin",
-//                 "status": "DANG_THUC_HIEN",
-//                 "programId": "10005",
-//                 "responsiblePerson": "Trần Thanh Lương",
-//                 "responsiblePersonCode": "GVDHKH1",
-//                 "department":"Khoa công nghệ và kĩ thuật",
-//                 "createdAt": "23/06/2023",
-//                 "updatedAt": "23/06/2023"
-//             },
-//             {
-//                 "programCode": "KH23671",
-//                 "programName": "Công nghệ thông tin",
-//                 "fieldName": "Công nghệ thông tin",
-//                 "status": "DANG_THUC_HIEN",
-//                 "programId": "10005",
-//                 "responsiblePerson": "Trần Thanh Lương",
-//                 "responsiblePersonCode": "GVDHKH1",
-//                 "department":"Khoa công nghệ và kĩ thuật",
-//                 "createdAt": "23/06/2023",
-//                 "updatedAt": "23/06/2023"
-//             },
-//             {
-//                 "programCode": "KH23671",
-//                 "programName": "Công nghệ thông tin",
-//                 "fieldName": "Công nghệ thông tin",
-//                 "status": "DANG_THUC_HIEN",
-//                 "programId": "10005",
-//                 "responsiblePerson": "Trần Thanh Lương",
-//                 "responsiblePersonCode": "GVDHKH1",
-//                 "department":"Khoa công nghệ và kĩ thuật",
-//                 "createdAt": "23/06/2023",
-//                 "updatedAt": "23/06/2023"
-//             }
-//         ],
-//         "pageInformation": {
-//             "numOfElement": 3,
-//             "pageSize": 10,
-//             "offset": 0,
-//             "firstPage": true,
-//             "lastPage": false,
-//             "pageOrder": 1,
-//             "totalPages": 3,
-//             "totalElements": 25
-//         },
-//         "status": 200
-//     },
-
 export default function ListProgramBlock({ name, data, request, setProgram }) {
 
     const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
