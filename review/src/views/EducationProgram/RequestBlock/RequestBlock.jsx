@@ -5,47 +5,36 @@ import { getData } from "../../../utils/function.js";
 import { useQuery } from "react-query";
 import { UserContext } from "../../../context/ContextProvider.jsx";
 import Loader from "../../../components/Loader/Loader.jsx";
-import { handleChangeRequest, searchProgram } from "./requestBlock.js";
+import { handleChangeRequest, searchProgram } from "./requestBlock-function.js";
 
-export default function RequestBlock({ name, setProgram }) {
+export default function RequestBlock({ name, setProgram, request, setRequest }) {
     const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
     const navigate = useNavigate()
     const [ department, setDepartment ] = useState([])
     const pageSizeList = [ 15, 30, 50, 100 ]
     const statusList = {
+        DA_PHAN_CONG: "Đã phân công",
         DANG_THUC_HIEN: "Đang thực hiện",
         DA_NOP: "Đã nộp",
+        DA_DUYET_CAP_KHOA: "Đã duyệt cấp khoa",
         DA_DUYET: "Đã duyệt",
         DA_HUY: "Đã hủy"
     }
-    const [ request, setRequest ] = useState({
-        department: "",
-        departmentName: "",
-        keyWord: "",
-        pageSize: 15,
-        status: ""
-    })
+
+    console.log(request)
 
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
 
-    useEffect(() => {
-        async function fetchData() {
-            await searchProgram(serverAPI, "/search-program", token, request, setProgram)
-        }
-        fetchData();
-    }, [])
-
-    const fecthAPI = (api) => {
+    const fecthDepartmentAPI = (api) => {
         return async () => {
             const departmentResult = await getData(api, "/department", token)
-            setDepartment(departmentResult.data.data) 
-            
+            setDepartment(departmentResult.data.data)   
         }
     }
 
-    const { data , isLoading, isError} = useQuery(`introduce`, fecthAPI(fakeAPI),{
+    const { data , isLoading, isError} = useQuery(`introduce`, fecthDepartmentAPI(fakeAPI),{
         cacheTime: Infinity,
         refetchOnWindowFocus: false,
     })

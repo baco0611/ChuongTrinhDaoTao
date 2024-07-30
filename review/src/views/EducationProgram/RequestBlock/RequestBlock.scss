@@ -13,7 +13,7 @@
     .block {
         p {
             display: block;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             color: $primary-color;
             padding-bottom: 10px;
@@ -23,12 +23,13 @@
         .dropdown {
             color: $primary-color;
             font-weight: 500;
-
+            
             li {
                 color: inherit;
                 font-weight: inherit;
+                font-size: 14px;
             }
-
+            
             button {
                 width: 100%;
                 height: 35px;
@@ -40,9 +41,10 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 padding-right: 20px;
-
+                
                 color: inherit;
                 font-weight: inherit;
+                font-size: 14px;
 
                 &:after {
                     position: absolute;

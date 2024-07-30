@@ -21,7 +21,9 @@ const handleChangeRequest = (name, setRequest, element) => {
 }
 
 const searchProgram = async (api, url, token, payload, setProgram) => {
-    console.log(123)
+    if(!payload.pageOrder) {
+        payload.pageOrder = 1
+    }
     const result = await postData(api, url, token, payload)
     console.log(result)
     if(result.status == 200) 
