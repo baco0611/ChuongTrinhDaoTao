@@ -1,14 +1,25 @@
-import React from 'react'
-import EditHeader from '../../../../../frontend/src/views/EditorSection/EditHeader/EditHeader'
+import "./SectionA.scss"
 import EditorHeader from '../EditorHeader/EditorHeader'
+import { useEffect } from "react"
+import EditorFooter from "../EditorFooter/EditorFooter"
 
 export default function SectionA() {
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
+
+
     return (
         <>
             <EditorHeader
                 currentSection={0}
             />
-            <div style={{height: "200vh"}}>SectionA</div>
+            <div>SectionA</div>
+            <EditorFooter
+                currentSection={0}
+            />
         </>
     )
 }
