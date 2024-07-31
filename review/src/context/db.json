@@ -11,8 +11,8 @@
             "email": "ttluong@gmail.com",
             "lecturerCode": "GVDHKH1",
             "role": [
-                "tao_ctdt",
-                "duyet_ctdt"
+                "approve_program",
+                "delete_program"
             ]
         },
         "token": "bsjbdnvknkfgvnrnnfkv",
@@ -50,10 +50,10 @@
             },
             {
                 "programCode": "KH23671",
-                "programName": "Công nghệ thông tin",
+                "programName": "Kỹ thuật phần mềm",
                 "fieldName": "Công nghệ thông tin",
-                "status": "DANG_THUC_HIEN",
-                "programId": "10005",
+                "status": "DA_DUYET",
+                "programId": "10006",
                 "version": "2023.01",
                 "responsiblePerson": "Trần Thanh Lương",
                 "responsiblePersonCode": "GVDHKH1",
@@ -64,13 +64,13 @@
             },
             {
                 "programCode": "KH23671",
-                "programName": "Công nghệ thông tin",
+                "programName": "Khoa học máy tính",
                 "fieldName": "Công nghệ thông tin",
                 "status": "DANG_THUC_HIEN",
-                "programId": "10005",
+                "programId": "10007",
                 "version": "2023.01",
-                "responsiblePerson": "Trần Thanh Lương",
-                "responsiblePersonCode": "GVDHKH1",
+                "responsiblePerson": "Lê Quang Chiến",
+                "responsiblePersonCode": "GVDHKH2",
                 "department":"Khoa công nghệ và kĩ thuật",
                 "processAt": "23/06/2023",
                 "createdAt": "23/06/2023",

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons'
 import "./Header.scss"
@@ -10,6 +10,7 @@ import swal from 'sweetalert'
 export default function Header() {
     const { user, token, setToken, setUser } = useContext(UserContext)
     const [ menuOpen, setMenuOpen ] = useState(false)
+    const navigate = useNavigate()
 
     const handleDocumentClick = e => {
         const element = e.target
@@ -30,6 +31,7 @@ export default function Header() {
     const deleteUserInformation = () => {
         setUser()
         setToken()
+        navigate("/")
     }
 
     const handleLogout = () => {

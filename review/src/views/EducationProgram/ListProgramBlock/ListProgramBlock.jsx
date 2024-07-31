@@ -10,7 +10,7 @@ import { UserContext } from "../../../context/ContextProvider"
 
 export default function ListProgramBlock({ name, data, request, setProgram }) {
 
-    const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
+    const { apiURL, fakeAPI, token, serverAPI, user } = useContext(UserContext); 
 
     const statusList = {
         DA_PHAN_CONG: "Đã phân công",
@@ -32,7 +32,13 @@ export default function ListProgramBlock({ name, data, request, setProgram }) {
             const payload = request
             payload.pageOrder = currentPage
 
-            await searchProgram(serverAPI, "/search-program", token, request, setProgram)
+            if(name == "manage") {
+                payload.role = user.role
+                await searchProgram(serverAPI, "/search-program", token, request, setProgram)
+            } else {
+                await searchProgram(serverAPI, "/search-program", token, request, setProgram)
+            }
+
         }
         fetchData();
     }, [currentPage])
@@ -115,12 +121,20 @@ export default function ListProgramBlock({ name, data, request, setProgram }) {
                                         name == "manage" 
                                         && 
                                         <>
-                                            <Link to={`/view/program/${element.programId}`} className="green">
-                                                <FontAwesomeIcon icon={faPenClip} />
-                                            </Link>
-                                            <Link to={`/view/program/${element.programId}`} className="red">
-                                                <FontAwesomeIcon icon={faTrashCan} />
-                                            </Link>
+                                            {
+                                                user.lecturerCode == element.responsiblePersonCode 
+                                                && element.status == "DANG_THUC_HIEN"
+                                                &&
+                                                <Link to={`/view/program/${element.programId}`} className="green">
+                                                    <FontAwesomeIcon icon={faPenClip} />
+                                                </Link>
+                                            }
+                                            {
+                                                user.role.includes("delete_program") &&
+                                                <Link to={`/view/program/${element.programId}`} className="red">
+                                                    <FontAwesomeIcon icon={faTrashCan} />
+                                                </Link>
+                                            }
                                         </>
                                     }
                                 </td>

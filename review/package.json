@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "json": "json-server -w ./src/context/db.json --port 3001",
+    "json": "json-server -w ./src/context/db.json --port 3001 -d 1000",
     "server": "nodemon ./src/context/API/server.js"
   },
   "dependencies": {

@@ -62,7 +62,16 @@ server.post("/search-program", (req, res) => {
     res.jsonp(data)
 })
 
-server.use(router);
-server.listen(3002, () => {
-    console.log('JSON Server is running');
+server.use((req, res, next) => {
+        setTimeout(next, 1000); // 1000 ms = 1 second
+    });
+    
+    server.use(router);
+    server.listen(3002, () => {
+    console.log('JSON Server is running on port 3002');
 });
+
+// server.use(router);
+// server.listen(3002, () => {
+//     console.log('JSON Server is running');
+// });
