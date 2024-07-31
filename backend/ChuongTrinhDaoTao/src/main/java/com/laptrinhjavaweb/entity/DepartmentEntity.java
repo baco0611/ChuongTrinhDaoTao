@@ -2,6 +2,7 @@ package com.laptrinhjavaweb.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,6 +14,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+//Table: DonVi 
 @Data
 @Builder
 @AllArgsConstructor
@@ -28,6 +30,6 @@ public class DepartmentEntity {
 	
 	private String departmentName;
 	
-	@OneToMany(mappedBy = "deparment")
+	@OneToMany(mappedBy = "department")
     private List<LecturersEntity> lecturers = new ArrayList<>();
 }

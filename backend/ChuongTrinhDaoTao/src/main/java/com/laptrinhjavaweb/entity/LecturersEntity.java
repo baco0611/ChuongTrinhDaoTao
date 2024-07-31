@@ -24,6 +24,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+//Table: GiangVien
 @Data
 @Builder
 @AllArgsConstructor
@@ -49,7 +50,7 @@ public class LecturersEntity implements UserDetails {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="departmentId")
-    private DepartmentEntity deparment;
+    private DepartmentEntity department;
 	
 	@Enumerated(EnumType.STRING)
 	private Role role;

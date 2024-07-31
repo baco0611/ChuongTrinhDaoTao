@@ -11,10 +11,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+//Table: MaTranHocPhanChuanDauRa
 @Entity
-@Table(name="CourseOutputStandardMatrix")
+@Table(name="CourseLearningOutcomeMatrix")
 @Data
-public class CourseOutputStandardMatrixEntity {
+public class CourseLearningOutcomeMatrixEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,10 +29,10 @@ public class CourseOutputStandardMatrixEntity {
     private DetailedProgramEntity detailedProgram;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="outputStandardId")
-    private OutputStandardEntity outputStandard;
+    @JoinColumn(name="learningOutcomeId")
+    private ProgramLearningOutComesEntity learningOutcome;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="programId")
-    private TrainingProgramEntity trainingProgram;
+    private EducationProgramEntity educationProgram;
 }

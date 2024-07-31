@@ -6,10 +6,11 @@ import jakarta.persistence.*;
 
 import lombok.Data;
 
+//Table: MucTieu
 @Entity
-@Table(name = "DetailObjective")
+@Table(name = "ProgramObjective")
 @Data
-public class DetailObjectiveEntity {
+public class ProgramObjectiveEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +27,8 @@ public class DetailObjectiveEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="programId")
-    private TrainingProgramEntity trainingProgram;
+    private EducationProgramEntity educationProgram;
 
-    @OneToMany(mappedBy = "detailObjective")
-    private List<OutputStandardDetailObjectiveMatrixEntity> outputStandardDetailObjectiveMatrixs = new ArrayList<>();
+    @OneToMany(mappedBy = "objective")
+    private List<LearningOutComesObjectiveMatrixEntity> outputStandardDetailObjectiveMatrixs = new ArrayList<>();
 }

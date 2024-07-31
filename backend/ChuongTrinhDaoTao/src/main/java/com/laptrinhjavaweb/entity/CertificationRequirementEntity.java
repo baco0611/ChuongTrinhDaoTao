@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.*;
 import lombok.Data;
 
+//Table: DanhMucChungChiDieuKien
 @Entity
 @Table(name="CertificationRequirement")
 @Data
@@ -22,5 +23,6 @@ public class CertificationRequirementEntity {
     private List<DetailedProgramEntity> detailedPrograms = new ArrayList<>();
 
     @OneToMany(mappedBy = "certificationRequirement")
-    private List<CertificationOutputStandardMatrixEntity> certificationOutputStandardMatrixs = new ArrayList<>();
+    private List<CertificationLearningOutcomeMatrixEntity> certificationOutputStandardMatrixs = new ArrayList<>();
+
 }

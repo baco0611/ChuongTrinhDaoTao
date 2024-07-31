@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.*;
 import lombok.Data;
 
+//Table: DeCuongHocPhan
 @Entity
 @Table(name="CourseOutline")
 @Data

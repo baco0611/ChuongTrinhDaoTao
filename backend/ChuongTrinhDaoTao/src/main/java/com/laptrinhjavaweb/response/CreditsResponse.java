@@ -6,7 +6,7 @@ import lombok.Data;
 public class CreditsResponse {
 	private int generalModule;
 	
-	private int basicFieldModule;
+	private int foundationModule;
 	
 	private int majorFieldModule;
 	

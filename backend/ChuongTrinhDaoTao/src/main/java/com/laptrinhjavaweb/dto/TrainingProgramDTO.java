@@ -5,8 +5,6 @@ import lombok.Data;
 
 @Data
 public class TrainingProgramDTO {
-    
-    private Integer sequence;
 
     private Long programId;
 
@@ -24,7 +22,7 @@ public class TrainingProgramDTO {
 
     private String fieldName;
 
-    private String programManagementDepartment;
+    private String managingDepartment;
 
     private String admissionTarget;
 
@@ -34,7 +32,7 @@ public class TrainingProgramDTO {
 
     private Integer requiredCredits;
 
-    private String graduationRequirements;
+    private String graduationConditions;
 
     private String diploma;
 
@@ -54,7 +52,7 @@ public class TrainingProgramDTO {
 
     private Integer generalModule;
 
-    private Integer basicFieldModule;
+    private Integer foundationModule;
 
     private Integer majorFieldModule;
 

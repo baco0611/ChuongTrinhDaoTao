@@ -7,14 +7,12 @@ import java.util.List;
 import jakarta.persistence.*;
 import lombok.Data;
 
+//Table: ChuongTrinhDaoTao
 @Entity
-@Table(name = "TrainingProgram")
+@Table(name = "EducationProgram")
 @Data
-public class TrainingProgramEntity {
+public class EducationProgramEntity {
     
-    @Column(nullable = true, columnDefinition = "INTEGER DEFAULT 1")
-    private Integer sequence;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long programId;
@@ -41,7 +39,7 @@ public class TrainingProgramEntity {
     private String fieldName;
 
     @Column
-    private String programManagementDepartment;
+    private String managingDepartment;
 
     @Column(length = 50)
     private String admissionTarget;
@@ -56,7 +54,7 @@ public class TrainingProgramEntity {
     private Integer requiredCredits;
 
     @Column(columnDefinition = "TEXT")
-    private String graduationRequirements;
+    private String graduationConditions;
 
     @Column(length = 50)
     private String diploma;
@@ -86,7 +84,7 @@ public class TrainingProgramEntity {
     private Integer generalModule;
 
     @Column
-    private Integer basicFieldModule;
+    private Integer foundationModule;
 
     @Column
     private Integer majorFieldModule;
@@ -121,24 +119,24 @@ public class TrainingProgramEntity {
         this.updatedAt = new Date();
     }
 
-    @OneToMany(mappedBy = "trainingProgram")
+    @OneToMany(mappedBy = "educationProgram")
     private List<SpecializationTrainingEntity> specializations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "trainingProgram")
-    private List<DetailObjectiveEntity> detailObjectives = new ArrayList<>();
+    @OneToMany(mappedBy = "educationProgram")
+    private List<ProgramObjectiveEntity> detailObjectives = new ArrayList<>();
 
-    @OneToMany(mappedBy = "trainingProgram")
-    private List<OutputStandardEntity> outputStandards = new ArrayList<>();
+    @OneToMany(mappedBy = "educationProgram")
+    private List<ProgramLearningOutComesEntity> outputStandards = new ArrayList<>();
 
-    @OneToMany(mappedBy = "trainingProgram")
-    private List<OutputStandardDetailObjectiveMatrixEntity> outputStandardDetailObjectiveMatrixs = new ArrayList<>();
+    @OneToMany(mappedBy = "educationProgram")
+    private List<LearningOutComesObjectiveMatrixEntity> outputStandardDetailObjectiveMatrixs = new ArrayList<>();
 
-    @OneToMany(mappedBy = "trainingProgram")
+    @OneToMany(mappedBy = "educationProgram")
     private List<DetailedProgramEntity> detailedPrograms = new ArrayList<>();
 
-    @OneToMany(mappedBy = "trainingProgram")
-    private List<CourseOutputStandardMatrixEntity> courseOutputStandardMatrixs = new ArrayList<>();
+    @OneToMany(mappedBy = "educationProgram")
+    private List<CourseLearningOutcomeMatrixEntity> courseOutputStandardMatrixs = new ArrayList<>();
 
-    @OneToMany(mappedBy = "trainingProgram")
-    private List<CertificationOutputStandardMatrixEntity> certificationOutcomeMatrixs = new ArrayList<>();
+    @OneToMany(mappedBy = "educationProgram")
+    private List<CertificationLearningOutcomeMatrixEntity> certificationOutcomeMatrixs = new ArrayList<>();
 }
