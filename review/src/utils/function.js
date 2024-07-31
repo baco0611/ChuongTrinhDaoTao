@@ -41,6 +41,8 @@ const getData = async (api, url, token, payload, completeMessage, errorMessage) 
 
 const postData = async (api, url, token, payload, completeMessage, errorMessage) => {
     const apiURL = api + url
+    console.log(apiURL, payload)
+
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     }

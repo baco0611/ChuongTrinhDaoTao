@@ -5,7 +5,7 @@ import { getData } from "../../../utils/function.js";
 import { useQuery } from "react-query";
 import { UserContext } from "../../../context/ContextProvider.jsx";
 import Loader from "../../../components/Loader/Loader.jsx";
-import { handleChangeRequest, searchProgram } from "./requestBlock-function.js";
+import { handleChangeRequest, searchProgram } from "../educationProgram_function.js";
 
 function RequestBlock({ name, setProgram, request, setRequest }) {
     const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
@@ -21,7 +21,7 @@ function RequestBlock({ name, setProgram, request, setRequest }) {
         DA_HUY: "Đã hủy"
     }
 
-    console.log(request)
+    // console.log(request)
 
     useEffect(() => {
         window.scrollTo(0, 0)

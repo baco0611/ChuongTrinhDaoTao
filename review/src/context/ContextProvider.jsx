@@ -22,8 +22,8 @@ function StateContext({ children }) {
     const [token, _setToken] = useState("")
 
     useEffect(() => {
-        const storedUser = Cookies.get("USER");
-        const storedToken = Cookies.get("ACCESS_TOKEN");
+        const storedUser = Cookies.get("USER") || sessionStorage.getItem("USER");
+        const storedToken = Cookies.get("ACCESS_TOKEN") || sessionStorage.getItem("ACCESS_TOKEN");
         
         if (storedUser) {
             _setUser(JSON.parse(storedUser));
@@ -35,21 +35,23 @@ function StateContext({ children }) {
 
     const setUser = user => {
         _setUser(user);
-        Cookies.set("USER", JSON.stringify(user));
+        if(user) {
+            Cookies.set("USER", JSON.stringify(user));
+            sessionStorage.setItem("USER", JSON.stringify(user));
+        } else {
+            Cookies.remove("USER");
+            sessionStorage.removeItem("USER");
+        }
     }
-
+    
     const setToken = token => {
         _setToken(token);
         if (token) {
             Cookies.set("ACCESS_TOKEN", token);
+            sessionStorage.setItem("ACCESS_TOKEN", token);
         } else {
             Cookies.remove("ACCESS_TOKEN");
-            Cookies.remove("USER");
-            _setUser({
-                lastName: "Lương",
-                firstName: "Trần Thanh",
-                donVi: ""
-            });
+            sessionStorage.removeItem("ACCESS_TOKEN");
         }
     }
 

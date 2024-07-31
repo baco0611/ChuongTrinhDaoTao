@@ -5,8 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faPenClip, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import Pagination from '@mui/material/Pagination';
 import { useContext, useEffect, useState } from "react"
-import { searchProgram } from "../RequestBlock/requestBlock-function"
+import { searchProgram } from "../educationProgram_function"
 import { UserContext } from "../../../context/ContextProvider"
+import Cookies from 'js-cookie'
+
 
 export default function ListProgramBlock({ name, data, request, setProgram }) {
 
@@ -21,7 +23,7 @@ export default function ListProgramBlock({ name, data, request, setProgram }) {
         DA_HUY: "Đã hủy"
     }
 
-    const [currentPage, setCurrentPage] = useState(data.pageInformation.pageOrder || 1);
+    const [currentPage, setCurrentPage] = useState(data.pageInformation.pageOrder || 2);
     
     const handlePageChange = (e, value) => {
         setCurrentPage(value);
@@ -29,12 +31,15 @@ export default function ListProgramBlock({ name, data, request, setProgram }) {
 
     useEffect(() => {
         async function fetchData() {
-            const payload = request
-            payload.pageOrder = currentPage
+            const payload = { ...request, pageOrder: currentPage };
 
             if(name == "manage") {
-                payload.role = user.role
-                await searchProgram(serverAPI, "/search-program", token, request, setProgram)
+                const information = JSON.parse(sessionStorage.getItem("USER"))
+                payload.role = information.role
+                payload.lecturerCode = information.lecturerCode
+
+                console.log(payload)
+                await searchProgram(serverAPI, "/manage-program", token, payload, setProgram)
             } else {
                 await searchProgram(serverAPI, "/search-program", token, request, setProgram)
             }

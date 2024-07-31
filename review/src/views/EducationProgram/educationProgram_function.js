@@ -1,4 +1,4 @@
-import { postData } from "../../../utils/function"
+import { postData } from "../../utils/function"
 
 const handleChangeRequest = (name, setRequest, element) => {
 
@@ -25,7 +25,7 @@ const searchProgram = async (api, url, token, payload, setProgram) => {
         payload.pageOrder = 1
     }
     const result = await postData(api, url, token, payload)
-    console.log(result)
+    // console.log(result)
     if(result.status == 200) 
         setProgram(result.data)
 }
