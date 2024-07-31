@@ -31,6 +31,7 @@
 
 #### Bảng chuyên ngành đào tạo
 - Thống nhất dùng ```major``` hay ```specialization```, nhưng khuyến khích specialization nha. Thống nhất bảng ni với bảng chương trình đào tạo.
+- Dùng specialization
 
 #### Bảng chi tiết chương trình đào tạo
 - Khối kiến thức và chi tiết khối kiến tức đổi ```block``` sang ```module``` cho thống nhất với bảng chương trình đào tạo.
