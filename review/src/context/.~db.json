@@ -1,0 +1,85 @@
+{
+  "login": {
+    "lecturerCode": "GVDHKH1",
+    "password": "123456"
+  },
+  "user": {
+    "data": {
+      "firstName": "Lương",
+      "lastName": "Trần Thanh",
+      "departmentName": "Khoa công nghệ và kĩ thuật",
+      "email": "ttluong@gmail.com",
+      "lecturerCode": "GVDHKH1",
+      "role": [
+        "tao_ctdt",
+        "duyet_ctdt"
+      ]
+    },
+    "token": "bsjbdnvknkfgvnrnnfkv",
+    "status": 200
+  },
+  "user-invalid": {
+    "data": {
+      "lecturerCode": "Message nếu có lỗi",
+      "password": "Message nếu có lỗi"
+    },
+    "status": 401
+  },
+  "search-program-request": {
+    "department": "",
+    "departmentName": "",
+    "keyWord": "",
+    "pageSize": 15,
+    "status": ""
+  },
+  "searchProgram": {
+    "data": [
+      {
+        "maChuongTrinhDaoTao": "KH23671",
+        "tenChuongTrinhDaoTao": "Công nghệ thông tin",
+        "tenNganhDaoTao": "Công nghệ thông tin",
+        "trangThai": "",
+        "id": "10005",
+        "nguoiPhuTrach": "Trần Thanh Lương",
+        "department": "Khoa công nghệ và kĩ thuật",
+        "created_at": "23/06/2023",
+        "updated_at": "23/06/2023"
+      },
+      {
+        "maChuongTrinhDaoTao": "KH24125",
+        "tenChuongTrinhDaoTao": "Kĩ thuật phần mềm",
+        "tenNganhDaoTao": "Kỹ thuật phần mềm",
+        "trangThai": "",
+        "id": "10006",
+        "nguoiPhuTrach": "Hoàng Hà",
+        "department": "Khoa công nghệ và kĩ thuật",
+        "created_at": "23/06/2023",
+        "updated_at": "23/06/2023"
+      },
+      {
+        "maChuongTrinhDaoTao": "KH24123",
+        "tenChuongTrinhDaoTao": "Kiến Trúc",
+        "tenNganhDaoTao": "Kiến trúc",
+        "trangThai": "",
+        "id": "10007",
+        "nguoiPhuTrach": "Thái Nhật Trường",
+        "department": "Khoa kiến trúc",
+        "created_at": "13/07/2023",
+        "updated_at": "13/07/2023"
+      }
+    ],
+    "pageInformation": {
+      "numOfElement": 3,
+      "pageSize": 10,
+      "offset": 0,
+      "firstPage": true,
+      "lastPage": false,
+      "totalPages": 3,
+      "totalElements": 25
+    },
+    "status": 200
+  },
+  "department": {
+    "query": "\n    query IntrospectionQuery {\n      __schema {\n        \n        queryType { name }\n        mutationType { name }\n        subscriptionType { name }\n        types {\n          ...FullType\n        }\n        directives {\n          name\n          description\n          \n          locations\n          args {\n            ...InputValue\n          }\n        }\n      }\n    }\n\n    fragment FullType on __Type {\n      kind\n      name\n      description\n      \n      fields(includeDeprecated: true) {\n        name\n        description\n        args {\n          ...InputValue\n        }\n        type {\n          ...TypeRef\n        }\n        isDeprecated\n        deprecationReason\n      }\n      inputFields {\n        ...InputValue\n      }\n      interfaces {\n        ...TypeRef\n      }\n      enumValues(includeDeprecated: true) {\n        name\n        description\n        isDeprecated\n        deprecationReason\n      }\n      possibleTypes {\n        ...TypeRef\n      }\n    }\n\n    fragment InputValue on __InputValue {\n      name\n      description\n      type { ...TypeRef }\n      defaultValue\n      \n      \n    }\n\n    fragment TypeRef on __Type {\n      kind\n      name\n      ofType {\n        kind\n        name\n        ofType {\n          kind\n          name\n          ofType {\n            kind\n            name\n            ofType {\n              kind\n              name\n              ofType {\n                kind\n                name\n                ofType {\n                  kind\n                  name\n                  ofType {\n                    kind\n                    name\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  "
+  }
+}

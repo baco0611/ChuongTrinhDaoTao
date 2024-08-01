@@ -1,0 +1,118 @@
+@import "../../variable.scss";
+
+.login {
+    min-height: 90vh;
+    background: url("./image/background-blur.png") no-repeat center center;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &-container {
+        width: 380px;
+        height: 450px;
+        position: relative;
+        background-color: #043c6c89; /* Nền màu đen trong suốt 80% */
+        border-radius: 25px;
+        box-shadow: 0 3px 20px rgba(0, 0, 0, 0.54);
+
+        form {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 35px;
+
+            h1 {
+                color: white;
+                text-transform: uppercase;
+                font-weight: 900;
+                font-size: 30px;
+                padding-bottom: 35px;
+            }
+
+            .input-block {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding-bottom: 10px;
+                position: relative;
+
+                label {
+                    font-size: 14px;
+                    color: white;
+                    font-weight: 600;
+                    padding-bottom: 10px;
+                }
+
+                input {
+                    width: 100%;
+                    height: 40px;
+                    font-size: 18px;
+                    line-height: 40px;
+                    padding: 0 15px;
+                    border-radius: 10px;
+                    border: 2px solid #ccc;    
+                    
+                    &.filled, &:focus {
+                        border: 2px solid $primary-color;
+                        color: $primary-color
+                    }
+                }
+
+                span {
+                    width: 100%;
+                    height: 26px;
+                    font-size: 14px;
+                    line-height: 26px;
+                    color: white;
+                    font-weight: 400;
+                }
+
+                &.invalid {
+                    label, input, span {
+                        color: $highlight-color;
+                    }
+
+                    input {
+                        border: 2px solid $highlight-color;
+                        color: $highlight-color
+                    }
+                }
+
+                .eye-icon {
+                    color: $primary-color;
+                    font-size: 20px;
+
+                    position: absolute;
+                    top: 44px;
+                    right: 10px;
+                    transform: translateY(-50%);
+
+                    &:hover {
+                        opacity: 0.7;
+                    }
+                }
+            }
+
+            button {
+                width: 150px;
+                height: 35px;
+                font-weight: 600;  
+                background: white;
+                color: $primary-color;
+                border-radius: 1.5px solid $primary-color;
+                border-radius: 10px;     
+                
+                &:hover {
+                    background: $primary-color;
+                    color: white;
+                    border-radius: 1.5px solid white;
+                }
+            }
+        }
+    }
+}
