@@ -25,7 +25,10 @@
 
                 a {
                     color: black;
-                    // font-weight: 400;
+
+                    &:hover {
+                        color: blue;
+                    }
                 }
             }
 
@@ -49,7 +52,7 @@
                 height: 20px;
                 border: none;
                 border-radius: 5px;
-                color: white;
+                color: white !important;
                 text-align: center;
                 line-height: 20px;
 

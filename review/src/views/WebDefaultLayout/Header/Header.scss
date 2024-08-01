@@ -70,50 +70,57 @@
                 height: 22px;
             }
         }
+    }
+}
 
-        &-menu {
-            width: 100%;
-            position: absolute;
-            padding: 25px 40px;
-            background-color: white;
-            top: 100%;
-            box-shadow: 0 3px 10px rgba(77, 77, 77, 0.411);
-            border-bottom-left-radius: 30px;
-            border-bottom-right-radius: 30px;
+#header-menu .header {
+    &-menu {
+        width: 100%;
+        position: absolute;
+        padding: 25px 25px;
+        background-color: white;
+        top: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 50;
+        box-shadow: 0 3px 10px rgba(77, 77, 77, 0.411);
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
 
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-        }
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
 
-        .header-component {
-            width: calc(25% - 15px);
-            li {
-                height: 45px;
-                padding-left: 15px;
-    
-                a {
-                    font-size: 18px;
-                    line-height: 45px;
-                    color: black;
-                    font-weight: 600;
-    
-                    &:hover {
-                        color: $primary-color;
-                    }
-                }
-    
-                &.primary {
-                    background-color: $primary-color;
-                    border-radius: 15px;
-                    color: white;
-                    font-size: 18px;
-                    line-height: 45px;
-                    font-weight: 700;
-                    margin-bottom: 10px;
+    &-component {
+        width: calc(25% - 15px);
+        padding: 0;
+        margin-bottom: 0;
+
+        li {
+            height: 45px;
+            padding-left: 15px;
+
+            a {
+                font-size: 18px;
+                line-height: 45px;
+                color: black;
+                font-weight: 600;
+
+                &:hover {
+                    color: $primary-color;
                 }
             }
+
+            &.primary {
+                background-color: $primary-color;
+                border-radius: 15px;
+                color: white;
+                font-size: 18px;
+                line-height: 45px;
+                font-weight: 700;
+                margin-bottom: 10px;
+            }
         }
-        
     }
 }

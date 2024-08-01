@@ -49,40 +49,45 @@ export default function Header() {
     };
 
     return (
-        <header id='layout-header'>
-            <div className="header wrapper">
-                <div className='header-navigate'>
-                    {
-                        token &&
-                        <i 
-                            className='ti-menu cursorPointer'
-                            onClick={() => setMenuOpen(!menuOpen)}
-                        ></i>
-                    }
-                    <Link to={'/'}>QUẢN LÝ CHƯƠNG TRÌNH ĐÀO TẠO - TRƯỜNG ĐẠI HỌC KHOA HỌC</Link>
-                </div>
-                {
-                    token
-                    &&
-                    <div className='header-user'>
-                        <div className='header-user-main'>
-                            <div>
-                                <h3>{user.lastName} {user.firstName}</h3>
-                                <h4>{user.departmentName}</h4>
-                            </div>
-                            <FontAwesomeIcon icon={faUser} />
-                        </div>
-                        <FontAwesomeIcon 
-                            icon={faArrowRightFromBracket} 
-                            className='logout-icon cursorPointer'
-                            onClick={handleLogout}
-                        />
+        <>
+
+            <header id='layout-header'>
+                <div className="header wrapper">
+                    <div className='header-navigate'>
+                        {
+                            token &&
+                            <i 
+                                className='ti-menu cursorPointer'
+                                onClick={() => setMenuOpen(!menuOpen)}
+                            ></i>
+                        }
+                        <Link to={'/'}>QUẢN LÝ CHƯƠNG TRÌNH ĐÀO TẠO - TRƯỜNG ĐẠI HỌC KHOA HỌC</Link>
                     </div>
-                }
-                {
-                    menuOpen 
-                    &&
-                    <div className="header-menu">
+                    {
+                        token
+                        &&
+                        <div className='header-user'>
+                            <div className='header-user-main'>
+                                <div>
+                                    <h3>{user.lastName} {user.firstName}</h3>
+                                    <h4>{user.departmentName}</h4>
+                                </div>
+                                <FontAwesomeIcon icon={faUser} />
+                            </div>
+                            <FontAwesomeIcon 
+                                icon={faArrowRightFromBracket} 
+                                className='logout-icon cursorPointer'
+                                onClick={handleLogout}
+                            />
+                        </div>
+                    }
+                </div>
+            </header>
+            {
+                menuOpen 
+                &&
+                <div id="header-menu">
+                    <div className="header-menu wrapper">
                         <ul className="header-component">
                             <li className="primary">Từ điển dữ liệu</li>
                             <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Điều kiện tốt nghiêp</Link></li>
@@ -104,8 +109,8 @@ export default function Header() {
                             <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Phân quyền</Link></li>
                         </ul>
                     </div> 
-                }
-            </div>
-        </header>
+                </div>
+            }
+        </>
     )
 }

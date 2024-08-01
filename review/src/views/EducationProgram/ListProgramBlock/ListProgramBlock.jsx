@@ -23,7 +23,7 @@ export default function ListProgramBlock({ name, data, request, setProgram }) {
         DA_HUY: "Đã hủy"
     }
 
-    const [currentPage, setCurrentPage] = useState(data.pageInformation.pageOrder || 2);
+    const [currentPage, setCurrentPage] = useState(data.pageInformation.pageOrder || 1);
     
     const handlePageChange = (e, value) => {
         setCurrentPage(value);
@@ -130,7 +130,7 @@ export default function ListProgramBlock({ name, data, request, setProgram }) {
                                                 user.lecturerCode == element.responsiblePersonCode 
                                                 && element.status == "DANG_THUC_HIEN"
                                                 &&
-                                                <Link to={`/view/program/${element.programId}`} className="green">
+                                                <Link to={`/edit/program/sectionA/${element.programId}`} className="green">
                                                     <FontAwesomeIcon icon={faPenClip} />
                                                 </Link>
                                             }
