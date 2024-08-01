@@ -1,28 +1,17 @@
 import {
+  _extends,
+  _inheritsLoose,
+  init_extends
+} from "./chunk-JPAL4Q2L.js";
+import {
   require_react_dom
-} from "./chunk-PXJLUKTU.js";
+} from "./chunk-FBRNPY62.js";
 import {
   require_react
-} from "./chunk-FQO5W7GE.js";
+} from "./chunk-UM3JHGVO.js";
 import {
   __toESM
-} from "./chunk-ZS7NZCD4.js";
-
-// node_modules/@babel/runtime/helpers/esm/setPrototypeOf.js
-function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf2(o2, p2) {
-    o2.__proto__ = p2;
-    return o2;
-  };
-  return _setPrototypeOf(o, p);
-}
-
-// node_modules/@babel/runtime/helpers/esm/inheritsLoose.js
-function _inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  _setPrototypeOf(subClass, superClass);
-}
+} from "./chunk-CEQRFMJQ.js";
 
 // node_modules/react-query/es/core/subscribable.js
 var Subscribable = function() {
@@ -54,23 +43,8 @@ var Subscribable = function() {
   return Subscribable2;
 }();
 
-// node_modules/@babel/runtime/helpers/esm/extends.js
-function _extends() {
-  _extends = Object.assign ? Object.assign.bind() : function(target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-    return target;
-  };
-  return _extends.apply(this, arguments);
-}
-
 // node_modules/react-query/es/core/utils.js
+init_extends();
 var isServer = typeof window === "undefined";
 function noop() {
   return void 0;
@@ -580,6 +554,9 @@ var Retryer = function Retryer2(config) {
   };
   run();
 };
+
+// node_modules/react-query/es/core/query.js
+init_extends();
 
 // node_modules/react-query/es/core/notifyManager.js
 var NotifyManager = function() {
@@ -1166,7 +1143,11 @@ var QueryCache = function(_Subscribable) {
   return QueryCache2;
 }(Subscribable);
 
+// node_modules/react-query/es/core/queryClient.js
+init_extends();
+
 // node_modules/react-query/es/core/mutation.js
+init_extends();
 var Mutation = function() {
   function Mutation2(config) {
     this.options = _extends({}, config.defaultOptions, config.options);
@@ -1822,6 +1803,7 @@ var QueryClient = function() {
 }();
 
 // node_modules/react-query/es/core/queryObserver.js
+init_extends();
 var QueryObserver = function(_Subscribable) {
   _inheritsLoose(QueryObserver2, _Subscribable);
   function QueryObserver2(client, options) {
@@ -2403,6 +2385,7 @@ var QueriesObserver = function(_Subscribable) {
 }(Subscribable);
 
 // node_modules/react-query/es/core/infiniteQueryObserver.js
+init_extends();
 var InfiniteQueryObserver = function(_QueryObserver) {
   _inheritsLoose(InfiniteQueryObserver2, _QueryObserver);
   function InfiniteQueryObserver2(client, options) {
@@ -2468,6 +2451,7 @@ var InfiniteQueryObserver = function(_QueryObserver) {
 }(QueryObserver);
 
 // node_modules/react-query/es/core/mutationObserver.js
+init_extends();
 var MutationObserver = function(_Subscribable) {
   _inheritsLoose(MutationObserver2, _Subscribable);
   function MutationObserver2(client, options) {
@@ -2561,6 +2545,7 @@ var MutationObserver = function(_Subscribable) {
 }(Subscribable);
 
 // node_modules/react-query/es/core/hydration.js
+init_extends();
 function dehydrateMutation(mutation) {
   return {
     mutationKey: mutation.options.mutationKey,
@@ -2778,6 +2763,7 @@ function useIsMutating(arg1, arg2) {
 }
 
 // node_modules/react-query/es/react/useMutation.js
+init_extends();
 var import_react5 = __toESM(require_react());
 
 // node_modules/react-query/es/react/utils.js
