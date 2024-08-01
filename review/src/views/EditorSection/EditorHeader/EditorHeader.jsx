@@ -1,6 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom"
 import "./EditorHeader.scss"
-import { useContext } from "react"
+import { memo, useContext } from "react"
 import { UserContext } from "../../../context/ContextProvider"
 import clsx from "clsx"
 import { useQuery } from "react-query"
@@ -8,7 +8,7 @@ import axios from "axios"
 import Loader from "../../../components/Loader/Loader"
 import { getData } from "../../../utils/function"
 
-export default function EditorHeader({ currentSection }) {
+function EditorHeader({ currentSection }) {
     const { id } = useParams()
     const { sectionList, apiURL, fakeAPI, serverAPI, isDataSaved, token } = useContext(UserContext)
     const navigate = useNavigate()
@@ -59,3 +59,5 @@ export default function EditorHeader({ currentSection }) {
         </>
     )
 }
+
+export default memo(EditorHeader)
