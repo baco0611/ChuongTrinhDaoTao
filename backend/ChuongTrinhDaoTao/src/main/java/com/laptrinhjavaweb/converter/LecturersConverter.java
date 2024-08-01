@@ -15,7 +15,7 @@ public class LecturersConverter {
         LecturersResponse response = new LecturersResponse();
         response.setFirstName(entity.getFirstName());
         response.setLastName(entity.getLastName());
-        response.setDepartmentName(entity.getDeparment() != null ? entity.getDeparment().getDepartmentName() : null);
+        response.setDepartmentName(entity.getDepartment() != null ? entity.getDepartment().getDepartmentName() : null);
         response.setEmail(entity.getEmail());
         response.setLecturersCode(entity.getLecturersCode());
         response.setRole(Collections.singletonList(entity.getRole().name())); // Single enum value to list

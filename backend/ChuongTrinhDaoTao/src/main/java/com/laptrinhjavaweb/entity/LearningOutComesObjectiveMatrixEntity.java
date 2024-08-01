@@ -3,24 +3,25 @@ package com.laptrinhjavaweb.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+//Table: MaTranChuanDaRaMucTieu
 @Entity
-@Table(name="OutputStandardDetailObjectiveMatrix")
+@Table(name="LearningOutComesObjectiveMatrix")
 @Data
-public class OutputStandardDetailObjectiveMatrixEntity {
+public class LearningOutComesObjectiveMatrixEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long matrixId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="outputStandardId")
-    private OutputStandardEntity outputStandard;
+    @JoinColumn(name="learningOutcomeId")
+    private ProgramLearningOutComesEntity learningOutcome;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="objectiveId")
-    private DetailObjectiveEntity detailObjective;
+    private ProgramObjectiveEntity objective;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="programId")
-    private TrainingProgramEntity trainingProgram;
+    private EducationProgramEntity educationProgram;
 }

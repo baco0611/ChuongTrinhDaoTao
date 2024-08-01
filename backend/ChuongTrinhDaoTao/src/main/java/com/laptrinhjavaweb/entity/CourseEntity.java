@@ -10,6 +10,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Data;
 
+//Table: HocPhan
 @Entity
 @Table(name="Course")
 @Data

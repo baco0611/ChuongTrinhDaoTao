@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.laptrinhjavaweb.converter.TrainingProgramConverter;
+import com.laptrinhjavaweb.converter.EducationProgramConverter;
 import com.laptrinhjavaweb.dto.TrainingProgramDTO;
 import com.laptrinhjavaweb.request.CreditsUpdateRequest;
 import com.laptrinhjavaweb.response.CreditsResponse;
@@ -39,7 +39,7 @@ public class TrainingProgramController {
 
 	/** The chuong trinh dao tao converter. */
 	@Autowired
-	private TrainingProgramConverter trainingProgramConverter;
+	private EducationProgramConverter trainingProgramConverter;
 
 	/**
 	 * show CTDT by ID

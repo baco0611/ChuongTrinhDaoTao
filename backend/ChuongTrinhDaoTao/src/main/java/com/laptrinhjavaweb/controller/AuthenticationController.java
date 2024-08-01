@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.laptrinhjavaweb.request.AuthenticationRequest;
-import com.laptrinhjavaweb.request.RegisterRequest;
 import com.laptrinhjavaweb.response.AuthenticationResponse;
 import com.laptrinhjavaweb.service.impl.AuthenticationService;
 
@@ -18,12 +17,13 @@ public class AuthenticationController {
 	@Autowired
 	private AuthenticationService service;
 	
-	@PostMapping("/register")
-	public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
-		return ResponseEntity.ok(service.register(request));
-	}
+	/*
+	 * @PostMapping("/login") public ResponseEntity<AuthenticationResponse>
+	 * register(@RequestBody RegisterRequest request) { return
+	 * ResponseEntity.ok(service.register(request)); }
+	 */
 
-	@PostMapping("/authenticate")
+	@PostMapping("/authentication")
 	public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
 		return ResponseEntity.ok(service.authenticate(request));
 	}

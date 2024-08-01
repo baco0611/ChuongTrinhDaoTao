@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.laptrinhjavaweb.converter.TrainingProgramConverter;
+import com.laptrinhjavaweb.converter.EducationProgramConverter;
 import com.laptrinhjavaweb.dto.TrainingProgramDTO;
-import com.laptrinhjavaweb.entity.TrainingProgramEntity;
+import com.laptrinhjavaweb.entity.EducationProgramEntity;
 import com.laptrinhjavaweb.repository.TrainingProgramRepository;
 import com.laptrinhjavaweb.service.ITrainingProgramService;
 
@@ -19,11 +19,11 @@ public class TrainingProgramService implements ITrainingProgramService {
 	private TrainingProgramRepository trainingProgramRepository;
 	
 	@Autowired
-	private TrainingProgramConverter trainingProgramConverter;
+	private EducationProgramConverter trainingProgramConverter;
 	
 	@Override
 	public TrainingProgramDTO findbyIdProgram(Long programId) throws Exception {
-		TrainingProgramEntity trainingProgramEntity = trainingProgramRepository.findByProgramId(programId);
+		EducationProgramEntity trainingProgramEntity = trainingProgramRepository.findByProgramId(programId);
 		if (trainingProgramEntity==null) {
 			return null;
 		}
@@ -33,14 +33,14 @@ public class TrainingProgramService implements ITrainingProgramService {
 	
 	@Override
 	public TrainingProgramDTO save(TrainingProgramDTO ctdtDTO) throws Exception {
-		TrainingProgramEntity ctdtEntity = trainingProgramRepository.save(trainingProgramConverter.toEntity(ctdtDTO));
+		EducationProgramEntity ctdtEntity = trainingProgramRepository.save(trainingProgramConverter.toEntity(ctdtDTO));
 		return trainingProgramConverter.toDTO(ctdtEntity);
 	}
 	@Override
 	public List<TrainingProgramDTO> findAll() {
 		List<TrainingProgramDTO> lstDTO = new ArrayList<TrainingProgramDTO>();
-		List<TrainingProgramEntity> lstEntity = trainingProgramRepository.findAll();
-		for (TrainingProgramEntity trainingProgramEntity : lstEntity) {
+		List<EducationProgramEntity> lstEntity = trainingProgramRepository.findAll();
+		for (EducationProgramEntity trainingProgramEntity : lstEntity) {
 			TrainingProgramDTO dto = new TrainingProgramDTO();
 			dto= trainingProgramConverter.toDTO(trainingProgramEntity);
 			lstDTO.add(dto);

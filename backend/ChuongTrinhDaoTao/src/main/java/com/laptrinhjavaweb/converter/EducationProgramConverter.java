@@ -5,17 +5,16 @@ import java.text.SimpleDateFormat;
 import org.springframework.stereotype.Component;
 
 import com.laptrinhjavaweb.dto.TrainingProgramDTO;
-import com.laptrinhjavaweb.entity.TrainingProgramEntity;
+import com.laptrinhjavaweb.entity.EducationProgramEntity;
 import com.laptrinhjavaweb.response.CreditsResponse;
 import com.laptrinhjavaweb.response.ItemListResponse;
 import com.laptrinhjavaweb.response.SectionAHeaderResponse;
 import com.laptrinhjavaweb.response.TrainingProgramResponse;
 
 @Component
-public class TrainingProgramConverter {
-	public TrainingProgramDTO toDTO(TrainingProgramEntity trainingProgramEntity) {
+public class EducationProgramConverter {
+	public TrainingProgramDTO toDTO(EducationProgramEntity trainingProgramEntity) {
         TrainingProgramDTO dto = new TrainingProgramDTO();
-        dto.setSequence(trainingProgramEntity.getSequence());
         dto.setProgramId(trainingProgramEntity.getProgramId());
         dto.setProgramCode(trainingProgramEntity.getProgramCode());
         dto.setVersion(trainingProgramEntity.getVersion());
@@ -24,12 +23,12 @@ public class TrainingProgramConverter {
         dto.setEducationLevel(trainingProgramEntity.getEducationLevel());
         dto.setFieldCode(trainingProgramEntity.getFieldCode());
         dto.setFieldName(trainingProgramEntity.getFieldName());
-        dto.setProgramManagementDepartment(trainingProgramEntity.getProgramManagementDepartment());
+        dto.setManagingDepartment(trainingProgramEntity.getManagingDepartment());
         dto.setAdmissionTarget(trainingProgramEntity.getAdmissionTarget());
         dto.setDuration(trainingProgramEntity.getDuration());
         dto.setTrainingMode(trainingProgramEntity.getTrainingMode());
         dto.setRequiredCredits(trainingProgramEntity.getRequiredCredits());
-        dto.setGraduationRequirements(trainingProgramEntity.getGraduationRequirements());
+        dto.setGraduationConditions(trainingProgramEntity.getGraduationConditions());
         dto.setDiploma(trainingProgramEntity.getDiploma());
         dto.setEmploymentPositionAfterGraduation(trainingProgramEntity.getEmploymentPositionAfterGraduation());
         dto.setAdvancedSkillsDevelopment(trainingProgramEntity.getAdvancedSkillsDevelopment());
@@ -39,7 +38,7 @@ public class TrainingProgramConverter {
         dto.setCurrentStep(trainingProgramEntity.getCurrentStep());
         dto.setStatus(trainingProgramEntity.getStatus());
         dto.setGeneralModule(trainingProgramEntity.getGeneralModule());
-        dto.setBasicFieldModule(trainingProgramEntity.getBasicFieldModule());
+        dto.setFoundationModule(trainingProgramEntity.getFoundationModule());
         dto.setMajorFieldModule(trainingProgramEntity.getMajorFieldModule());
         dto.setSupportModule(trainingProgramEntity.getSupportModule());
         dto.setInternshipModule(trainingProgramEntity.getInternshipModule());
@@ -49,9 +48,8 @@ public class TrainingProgramConverter {
         dto.setUpdatedAt(trainingProgramEntity.getUpdatedAt());
         return dto;
     }
-	public TrainingProgramEntity toEntity(TrainingProgramDTO dto) {
-        TrainingProgramEntity entity = new TrainingProgramEntity();
-        entity.setSequence(dto.getSequence());
+	public EducationProgramEntity toEntity(TrainingProgramDTO dto) {
+        EducationProgramEntity entity = new EducationProgramEntity();
         entity.setProgramId(dto.getProgramId());
         entity.setProgramCode(dto.getProgramCode());
         entity.setVersion(dto.getVersion());
@@ -60,12 +58,12 @@ public class TrainingProgramConverter {
         entity.setEducationLevel(dto.getEducationLevel());
         entity.setFieldCode(dto.getFieldCode());
         entity.setFieldName(dto.getFieldName());
-        entity.setProgramManagementDepartment(dto.getProgramManagementDepartment());
+        entity.setManagingDepartment(dto.getManagingDepartment());
         entity.setAdmissionTarget(dto.getAdmissionTarget());
         entity.setDuration(dto.getDuration());
         entity.setTrainingMode(dto.getTrainingMode());
         entity.setRequiredCredits(dto.getRequiredCredits());
-        entity.setGraduationRequirements(dto.getGraduationRequirements());
+        entity.setGraduationConditions(dto.getGraduationConditions());
         entity.setDiploma(dto.getDiploma());
         entity.setEmploymentPositionAfterGraduation(dto.getEmploymentPositionAfterGraduation());
         entity.setAdvancedSkillsDevelopment(dto.getAdvancedSkillsDevelopment());
@@ -75,7 +73,7 @@ public class TrainingProgramConverter {
         entity.setCurrentStep(dto.getCurrentStep());
         entity.setStatus(dto.getStatus());
         entity.setGeneralModule(dto.getGeneralModule());
-        entity.setBasicFieldModule(dto.getBasicFieldModule());
+        entity.setFoundationModule(dto.getFoundationModule());
         entity.setMajorFieldModule(dto.getMajorFieldModule());
         entity.setSupportModule(dto.getSupportModule());
         entity.setInternshipModule(dto.getInternshipModule());
@@ -92,12 +90,12 @@ public class TrainingProgramConverter {
 	    output.setEducationLevel(ctdtDTO.getEducationLevel());
 	    output.setFieldCode(ctdtDTO.getFieldCode());
 	    output.setFieldName(ctdtDTO.getFieldName());
-	    output.setProgramManagementDepartment(ctdtDTO.getProgramManagementDepartment());
+	    output.setProgramManagementDepartment(ctdtDTO.getManagingDepartment());
 	    output.setAdmissionTarget(ctdtDTO.getAdmissionTarget());
 	    output.setDuration(ctdtDTO.getDuration());
 	    output.setTrainingMode(ctdtDTO.getTrainingMode());
 	    output.setRequiredCredits(ctdtDTO.getRequiredCredits());
-	    output.setGraduationRequirements(ctdtDTO.getGraduationRequirements());
+	    output.setGraduationRequirements(ctdtDTO.getGraduationConditions());
 	    output.setDiploma(ctdtDTO.getDiploma());
 	    output.setEmploymentPositionAfterGraduation(ctdtDTO.getEmploymentPositionAfterGraduation());
 	    output.setAdvancedSkillsDevelopment(ctdtDTO.getAdvancedSkillsDevelopment());
@@ -119,7 +117,7 @@ public class TrainingProgramConverter {
 	public CreditsResponse toOutputCredits(TrainingProgramDTO ctdtDTO) {
 	    CreditsResponse output = new CreditsResponse();
 	    output.setGeneralModule(ctdtDTO.getGeneralModule());
-	    output.setBasicFieldModule(ctdtDTO.getBasicFieldModule());
+	    output.setFoundationModule(ctdtDTO.getFoundationModule());
 	    output.setMajorFieldModule(ctdtDTO.getMajorFieldModule());
 	    output.setSupportModule(ctdtDTO.getSupportModule());
 	    output.setInternshipModule(ctdtDTO.getInternshipModule());
@@ -135,7 +133,6 @@ public class TrainingProgramConverter {
 	    output.setVietnameseName(ctdtDTO.getVietnameseName());
 	    output.setFieldName(ctdtDTO.getFieldName()); 
 	    output.setStatus(ctdtDTO.getStatus()); 
-	    output.setSequence(ctdtDTO.getSequence()); 
 	    output.setProgramId(ctdtDTO.getProgramId());
 	    output.setResponsiblePerson(ctdtDTO.getResponsiblePerson()); 
 	    output.setCreatedAt(sdf.format(ctdtDTO.getCreatedAt())); 

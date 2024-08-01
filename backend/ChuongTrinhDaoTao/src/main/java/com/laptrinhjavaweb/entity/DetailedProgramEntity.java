@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.*;
 import lombok.Data;
 
+//Table: ChuongTrinhChiTiet
 @Entity
 @Table(name="DetailedProgram")
 @Data
@@ -22,7 +23,7 @@ public class DetailedProgramEntity {
     private Boolean replacesThesis;
 
     @Column(length = 50)
-    private String prerequisite;
+    private String prerequisiteCourse;
 
     @Column(length = 50)
     private String priorCourse;
@@ -34,10 +35,10 @@ public class DetailedProgramEntity {
     private int semester;
 
     @Column
-    private String knowledgeBlock;
+    private String knowledgeModule;
 
     @Column 
-    private String detailedKnowledgeBlock;
+    private String detailedKnowledgeModule;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="idCourseOutline")
@@ -48,8 +49,8 @@ public class DetailedProgramEntity {
     private SpecializationTrainingEntity specializationTraining;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="idProgram")
-    private TrainingProgramEntity trainingProgram;
+    @JoinColumn(name="programId")
+    private EducationProgramEntity educationProgram;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "detailedProgram_certificationRequirement", joinColumns = @JoinColumn(name = "detailedProgramId"), 
@@ -57,6 +58,6 @@ public class DetailedProgramEntity {
     private List<CertificationRequirementEntity> certificationRequirements = new ArrayList<>();
 
     @OneToMany(mappedBy = "detailedProgram")
-    private List<CourseOutputStandardMatrixEntity> courseOutputStandardMatrixs = new ArrayList<>();
+    private List<CourseLearningOutcomeMatrixEntity> courseOutputStandardMatrixs = new ArrayList<>();
 }
 

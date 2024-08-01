@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.*;
 import lombok.Data;
 
+//Table: ChuyenNganhDaoTao
 @Entity
 @Table(name="SpecializationTraining")
 @Data
@@ -20,7 +21,7 @@ public class SpecializationTrainingEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="programId")
-    private TrainingProgramEntity trainingProgram;
+    private EducationProgramEntity educationProgram;
 
     @OneToMany(mappedBy = "specializationTraining")
     private List<DetailedProgramEntity> detailedPrograms = new ArrayList<>();
