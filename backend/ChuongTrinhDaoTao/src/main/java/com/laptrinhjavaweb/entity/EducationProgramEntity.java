@@ -23,7 +23,7 @@ public class EducationProgramEntity {
     @Column(length = 50)
     private String version;
 
-    @Column
+    @Column(columnDefinition = "nvarchar(255)")
     private String vietnameseName;
 
     @Column
@@ -35,19 +35,19 @@ public class EducationProgramEntity {
     @Column(length = 50)
     private String fieldCode;
 
-    @Column(length = 500)
+    @Column(length = 500, columnDefinition = "nvarchar(255)")
     private String fieldName;
 
-    @Column
+    @Column(columnDefinition = "nvarchar(255)")
     private String managingDepartment;
 
-    @Column(length = 50)
+    @Column(length = 50, columnDefinition = "nvarchar(255)")
     private String admissionTarget;
 
     @Column
     private Integer duration;
 
-    @Column
+    @Column(columnDefinition = "nvarchar(255)")
     private String trainingMode;
 
     @Column
@@ -56,7 +56,7 @@ public class EducationProgramEntity {
     @Column(columnDefinition = "TEXT")
     private String graduationConditions;
 
-    @Column(length = 50)
+    @Column(length = 50, columnDefinition = "nvarchar(255)")
     private String diploma;
 
     @Column(columnDefinition = "TEXT")
@@ -71,7 +71,7 @@ public class EducationProgramEntity {
     @Column(columnDefinition = "TEXT")
     private String overallObjectives;
 
-    @Column
+    @Column(columnDefinition = "nvarchar(255)")
     private String responsiblePerson;
 
     @Column

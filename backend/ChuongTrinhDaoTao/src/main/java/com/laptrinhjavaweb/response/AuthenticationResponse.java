@@ -1,7 +1,5 @@
 package com.laptrinhjavaweb.response;
 
-import com.laptrinhjavaweb.request.LecturersResponse;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +17,7 @@ public class AuthenticationResponse {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class UserResponse {
-        private LecturersResponse data;
+        private Object data;
         private String token;
         private int status;
     }

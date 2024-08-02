@@ -2,6 +2,7 @@ package com.laptrinhjavaweb.entity;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.laptrinhjavaweb.dataEnum.Role;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -38,11 +40,11 @@ public class LecturersEntity implements UserDetails {
 	
 	private String lecturersCode;
 	
+	@Column(columnDefinition = "nvarchar(255)")
 	private String firstName;
 	
+	@Column(columnDefinition = "nvarchar(255)")
 	private String lastName;
-	
-	private String gender;
 	
 	private String email;
 	

@@ -24,7 +24,7 @@ public class SecurityConfiguration {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/v1/auth/**").permitAll()//Tất cả các url có đường dẫn như vậy thì không cần xác thực
+                .requestMatchers("/auth/**").permitAll()//Tất cả các url có đường dẫn như vậy thì không cần xác thực
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session

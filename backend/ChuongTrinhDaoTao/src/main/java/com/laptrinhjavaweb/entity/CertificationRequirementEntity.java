@@ -16,7 +16,7 @@ public class CertificationRequirementEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long certificationId;
 
-    @Column(length = 500)
+    @Column(length = 500, columnDefinition = "nvarchar(255)")
     private String certificationName;
 
     @ManyToMany(mappedBy = "certificationRequirements")

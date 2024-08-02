@@ -24,7 +24,7 @@ public class ProgramLearningOutComesEntity {
     @Column
     private String learningOutcomeType;
 
-    @Column(length = 500)
+    @Column(length = 500, columnDefinition = "nvarchar(255)")
     private String detailedlearningOutcomeType;
 
     @Column
