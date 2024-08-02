@@ -105,8 +105,8 @@ export default function Header() {
                         </ul>
                         <ul className="header-component">
                             <li className="primary">Quản trị</li>
-                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Giảng viên phụ trách</Link></li>
-                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Phân quyền</Link></li>
+                            <li><Link to={"/responsibility"} onClick={() => setMenuOpen(!menuOpen)}>Phân công phụ trách</Link></li>
+                            <li><Link to={"/authorization"} onClick={() => setMenuOpen(!menuOpen)}>Phân quyền</Link></li>
                         </ul>
                     </div> 
                 </div>

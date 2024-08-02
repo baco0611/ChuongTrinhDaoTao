@@ -71,6 +71,15 @@ server.post("/manage-program", (req, res) => {
     res.jsonp(data)
 })
 
+server.post("/lecturer-search", (req, res) => {
+    const dbFilePath = path.join(__dirname, '../db.json');
+    const dbContent = JSON.parse(fs.readFileSync(dbFilePath, 'utf-8'));
+
+    const data = dbContent.searchLecturer
+
+    res.jsonp(data)
+})
+
 server.use((req, res, next) => {
         setTimeout(next, 1000); // 1000 ms = 1 second
     });

@@ -13,6 +13,8 @@ import SectionD from './views/EditorSection/SectionD/SectionD'
 import SectionE from './views/EditorSection/SectionE/SectionE'
 import SectionG from './views/EditorSection/SectionG/SectionG'
 import SectionH from './views/EditorSection/SectionH/SectionH'
+import Authorization from './views/LecturerManage/Authorization/Authorization'
+import Responsibility from './views/LecturerManage/Responsibility/Responsibility'
 
 const router = createBrowserRouter([
     {
@@ -68,7 +70,15 @@ const router = createBrowserRouter([
                         element: <SectionH/>
                     },
                 ]
-            }
+            },
+            {
+                path: "/authorization",
+                element: <Authorization/>
+            },
+            {
+                path: "/responsibility",
+                element: <Responsibility/>
+            },
         ]
     },
     {
