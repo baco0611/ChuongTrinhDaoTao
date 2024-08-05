@@ -32,6 +32,29 @@
             td {
                 font-weight: 500;
             }
+
+            .btn {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                button {
+                    width: 125px;
+                    height: 28px;
+                    margin: 5px;
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: $primary-color;
+                    border: 1.5px solid $primary-color;
+                    border-radius: 5px;
+                    background-color: transparent;
+
+                    &:hover {
+                        color: white;
+                        background-color: $primary-color;    
+                    }
+                }
+            }
         }
 
         .lecturer-list {

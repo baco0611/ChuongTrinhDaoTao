@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { handleToggleAuthor } from './authorization-function'
+import { handleSubmitRole, handleToggleAuthor } from './authorization-function'
 
 export default function AuthorBlock({ data }) {
     const [ selectedUser, setSelectedUser ] = useState()
@@ -154,6 +154,13 @@ export default function AuthorBlock({ data }) {
                                     )
                                 })
                             }
+                            <tr>
+                                <th colSpan={2}>
+                                    <div className='btn'>
+                                        <button onClick={() => handleSubmitRole(selectedUser)}>Xác nhận</button>
+                                    </div>
+                                </th>
+                            </tr>
                         </>
                         ||
                         <tr>

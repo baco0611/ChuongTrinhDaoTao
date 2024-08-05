@@ -27,7 +27,12 @@ const handleToggleAuthor = (e, setState) => {
     })
 }
 
+const handleSubmitRole = (user) => {
+    console.log(user)
+}
+
 export {
     searchLecturer,
-    handleToggleAuthor
+    handleToggleAuthor,
+    handleSubmitRole
 }

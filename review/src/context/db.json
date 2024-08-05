@@ -207,6 +207,182 @@
           "delete_program"
         ],
         "departmentName": "Khoa công nghệ và kĩ thuật"
+      },
+      {
+        "firstName": "Tú",
+        "lastName": "Võ Anh",
+        "lecturerCode":"GVDHKH1",
+        "lecturerId": "1",
+        "role": [
+          "approve_program",
+          "delete_program"
+        ],
+        "departmentName": "Khoa công nghệ và kĩ thuật"
+      },
+      {
+        "firstName": "Lương",
+        "lastName": "Trần Thanh",
+        "lecturerCode":"GVDHKH2",
+        "lecturerId": "2",
+        "role": [
+          "approve_program",
+          "delete_program"
+        ],
+        "departmentName": "Khoa công nghệ và kĩ thuật"
+      },
+      {
+        "firstName": "Chiến",
+        "lastName": "Lê Quang",
+        "lecturerCode":"GVDHKH3",
+        "lecturerId": "3",
+        "role": [
+          "approve_program",
+          "delete_program"
+        ],
+        "departmentName": "Khoa công nghệ và kĩ thuật"
+      },
+      {
+        "firstName": "Quang",
+        "lastName": "Hoàng",
+        "lecturerCode":"GVDHK4",
+        "lecturerId": "4",
+        "role": [
+          "approve_program",
+          "delete_program"
+        ],
+        "departmentName": "Khoa công nghệ và kĩ thuật"
+      },
+      {
+        "firstName": "Tú",
+        "lastName": "Võ Anh",
+        "lecturerCode":"GVDHKH1",
+        "lecturerId": "1",
+        "role": [
+          "approve_program",
+          "delete_program"
+        ],
+        "departmentName": "Khoa công nghệ và kĩ thuật"
+      },
+      {
+        "firstName": "Lương",
+        "lastName": "Trần Thanh",
+        "lecturerCode":"GVDHKH2",
+        "lecturerId": "2",
+        "role": [
+          "approve_program",
+          "delete_program"
+        ],
+        "departmentName": "Khoa công nghệ và kĩ thuật"
+      },
+      {
+        "firstName": "Chiến",
+        "lastName": "Lê Quang",
+        "lecturerCode":"GVDHKH3",
+        "lecturerId": "3",
+        "role": [
+          "approve_program",
+          "delete_program"
+        ],
+        "departmentName": "Khoa công nghệ và kĩ thuật"
+      },
+      {
+        "firstName": "Quang",
+        "lastName": "Hoàng",
+        "lecturerCode":"GVDHK4",
+        "lecturerId": "4",
+        "role": [
+          "approve_program",
+          "delete_program"
+        ],
+        "departmentName": "Khoa công nghệ và kĩ thuật"
+      },
+      {
+        "firstName": "Tú",
+        "lastName": "Võ Anh",
+        "lecturerCode":"GVDHKH1",
+        "lecturerId": "1",
+        "role": [
+          "approve_program",
+          "delete_program"
+        ],
+        "departmentName": "Khoa công nghệ và kĩ thuật"
+      },
+      {
+        "firstName": "Lương",
+        "lastName": "Trần Thanh",
+        "lecturerCode":"GVDHKH2",
+        "lecturerId": "2",
+        "role": [
+          "approve_program",
+          "delete_program"
+        ],
+        "departmentName": "Khoa công nghệ và kĩ thuật"
+      },
+      {
+        "firstName": "Chiến",
+        "lastName": "Lê Quang",
+        "lecturerCode":"GVDHKH3",
+        "lecturerId": "3",
+        "role": [
+          "approve_program",
+          "delete_program"
+        ],
+        "departmentName": "Khoa công nghệ và kĩ thuật"
+      },
+      {
+        "firstName": "Quang",
+        "lastName": "Hoàng",
+        "lecturerCode":"GVDHK4",
+        "lecturerId": "4",
+        "role": [
+          "approve_program",
+          "delete_program"
+        ],
+        "departmentName": "Khoa công nghệ và kĩ thuật"
+      },
+      {
+        "firstName": "Tú",
+        "lastName": "Võ Anh",
+        "lecturerCode":"GVDHKH1",
+        "lecturerId": "1",
+        "role": [
+          "approve_program",
+          "delete_program"
+        ],
+        "departmentName": "Khoa công nghệ và kĩ thuật"
+      },
+      {
+        "firstName": "Lương",
+        "lastName": "Trần Thanh",
+        "lecturerCode":"GVDHKH2",
+        "lecturerId": "2",
+        "role": [
+          "approve_program",
+          "delete_program"
+        ],
+        "departmentName": "Khoa công nghệ và kĩ thuật"
+      },
+      {
+        "firstName": "Chiến",
+        "lastName": "Lê Quang",
+        "lecturerCode":"GVDHKH3",
+        "lecturerId": "3",
+        "role": [
+          "approve_program",
+          "delete_program"
+        ],
+        "departmentName": "Khoa công nghệ và kĩ thuật"
+      },
+      {
+        "firstName": "Quang",
+        "lastName": "Hoàng",
+        "lecturerCode":"GVDHK4",
+        "lecturerId": "4",
+        "role": [
+          "approve_program",
+          "delete_program"
+        ],
+        "departmentName": "Khoa công nghệ và kĩ thuật"
       }
     ],
     "pageInformation": {
