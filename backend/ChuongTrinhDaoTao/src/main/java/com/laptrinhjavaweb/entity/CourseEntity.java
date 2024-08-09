@@ -20,7 +20,7 @@ public class CourseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long courseId;
 
-    @Column
+    @Column(columnDefinition = "nvarchar(255)")
     private String courseName;
 
     @Column

@@ -4,17 +4,18 @@ import java.text.SimpleDateFormat;
 
 import org.springframework.stereotype.Component;
 
-import com.laptrinhjavaweb.dto.TrainingProgramDTO;
+import com.laptrinhjavaweb.dto.EducationProgramDTO;
 import com.laptrinhjavaweb.entity.EducationProgramEntity;
 import com.laptrinhjavaweb.response.CreditsResponse;
+import com.laptrinhjavaweb.response.EducationProgramResponse;
 import com.laptrinhjavaweb.response.ItemListResponse;
 import com.laptrinhjavaweb.response.SectionAHeaderResponse;
 import com.laptrinhjavaweb.response.TrainingProgramResponse;
 
 @Component
 public class EducationProgramConverter {
-	public TrainingProgramDTO toDTO(EducationProgramEntity trainingProgramEntity) {
-        TrainingProgramDTO dto = new TrainingProgramDTO();
+	public EducationProgramDTO toDTO(EducationProgramEntity trainingProgramEntity) {
+        EducationProgramDTO dto = new EducationProgramDTO();
         dto.setProgramId(trainingProgramEntity.getProgramId());
         dto.setProgramCode(trainingProgramEntity.getProgramCode());
         dto.setVersion(trainingProgramEntity.getVersion());
@@ -23,7 +24,6 @@ public class EducationProgramConverter {
         dto.setEducationLevel(trainingProgramEntity.getEducationLevel());
         dto.setFieldCode(trainingProgramEntity.getFieldCode());
         dto.setFieldName(trainingProgramEntity.getFieldName());
-        dto.setManagingDepartment(trainingProgramEntity.getManagingDepartment());
         dto.setAdmissionTarget(trainingProgramEntity.getAdmissionTarget());
         dto.setDuration(trainingProgramEntity.getDuration());
         dto.setTrainingMode(trainingProgramEntity.getTrainingMode());
@@ -46,9 +46,10 @@ public class EducationProgramConverter {
         dto.setSpecializationModule(trainingProgramEntity.getSpecializationModule());
         dto.setCreatedAt(trainingProgramEntity.getCreatedAt());
         dto.setUpdatedAt(trainingProgramEntity.getUpdatedAt());
+        dto.setDepartment(trainingProgramEntity.getDepartment());
         return dto;
     }
-	public EducationProgramEntity toEntity(TrainingProgramDTO dto) {
+	public EducationProgramEntity toEntity(EducationProgramDTO dto) {
         EducationProgramEntity entity = new EducationProgramEntity();
         entity.setProgramId(dto.getProgramId());
         entity.setProgramCode(dto.getProgramCode());
@@ -58,7 +59,6 @@ public class EducationProgramConverter {
         entity.setEducationLevel(dto.getEducationLevel());
         entity.setFieldCode(dto.getFieldCode());
         entity.setFieldName(dto.getFieldName());
-        entity.setManagingDepartment(dto.getManagingDepartment());
         entity.setAdmissionTarget(dto.getAdmissionTarget());
         entity.setDuration(dto.getDuration());
         entity.setTrainingMode(dto.getTrainingMode());
@@ -79,10 +79,11 @@ public class EducationProgramConverter {
         entity.setInternshipModule(dto.getInternshipModule());
         entity.setThesisModule(dto.getThesisModule());
         entity.setSpecializationModule(dto.getSpecializationModule());
+        entity.setDepartment(dto.getDepartment());
         return entity;
     }
 	
-	public TrainingProgramResponse toOutput(TrainingProgramDTO ctdtDTO) {
+	public TrainingProgramResponse toOutput(EducationProgramDTO ctdtDTO) {
 	    TrainingProgramResponse output = new TrainingProgramResponse();
 	    output.setProgramId(ctdtDTO.getProgramId());
 	    output.setVietnameseName(ctdtDTO.getVietnameseName());
@@ -90,7 +91,7 @@ public class EducationProgramConverter {
 	    output.setEducationLevel(ctdtDTO.getEducationLevel());
 	    output.setFieldCode(ctdtDTO.getFieldCode());
 	    output.setFieldName(ctdtDTO.getFieldName());
-	    output.setProgramManagementDepartment(ctdtDTO.getManagingDepartment());
+	    output.setDepartment(ctdtDTO.getDepartment());
 	    output.setAdmissionTarget(ctdtDTO.getAdmissionTarget());
 	    output.setDuration(ctdtDTO.getDuration());
 	    output.setTrainingMode(ctdtDTO.getTrainingMode());
@@ -106,7 +107,7 @@ public class EducationProgramConverter {
 	    return output;
 	}
 
-	public SectionAHeaderResponse toOutputSectionAHeader(TrainingProgramDTO ctdtDTO) {
+	public SectionAHeaderResponse toOutputSectionAHeader(EducationProgramDTO ctdtDTO) {
 	    SectionAHeaderResponse output = new SectionAHeaderResponse();
 	    output.setProgramCode(ctdtDTO.getProgramCode());
 	    output.setFieldName(ctdtDTO.getFieldName());
@@ -114,7 +115,7 @@ public class EducationProgramConverter {
 	    return output;
 	}
 
-	public CreditsResponse toOutputCredits(TrainingProgramDTO ctdtDTO) {
+	public CreditsResponse toOutputCredits(EducationProgramDTO ctdtDTO) {
 	    CreditsResponse output = new CreditsResponse();
 	    output.setGeneralModule(ctdtDTO.getGeneralModule());
 	    output.setFoundationModule(ctdtDTO.getFoundationModule());
@@ -126,7 +127,7 @@ public class EducationProgramConverter {
 	    return output;
 	}
 
-	public ItemListResponse toOutputItemList(TrainingProgramDTO ctdtDTO) {
+	public ItemListResponse toOutputItemList(EducationProgramDTO ctdtDTO) {
 	    ItemListResponse output = new ItemListResponse();
 	    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	    output.setProgramCode(ctdtDTO.getProgramCode()); 
@@ -140,5 +141,21 @@ public class EducationProgramConverter {
 	    return output;
 	}
 
+	public EducationProgramResponse convertToDTO(EducationProgramEntity entity) {
+        EducationProgramResponse dto = new EducationProgramResponse();
+        dto.setProgramCode(entity.getProgramCode());
+        dto.setProgramName(entity.getVietnameseName());
+        dto.setFieldName(entity.getFieldName());
+        dto.setStatus(entity.getStatus().toString()); // Chuyển đổi sang chuỗi
+        dto.setProgramId(entity.getProgramId().toString());
+        dto.setResponsiblePerson(entity.getLecturer().getLastName()+entity.getLecturer().getFirstName());
+        dto.setResponsiblePersonCode(entity.getLecturer().getLecturersId().toString());
+        dto.setDepartment(entity.getDepartment().getDepartmentName());
+        
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dto.setCreatedAt(dateFormat.format(entity.getCreatedAt()));
+        dto.setUpdatedAt(dateFormat.format(entity.getUpdatedAt()));
 
+        return dto;
+    }
 }

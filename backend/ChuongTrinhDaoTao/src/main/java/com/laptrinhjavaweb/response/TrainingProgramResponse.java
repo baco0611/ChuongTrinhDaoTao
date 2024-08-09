@@ -1,5 +1,8 @@
 package com.laptrinhjavaweb.response;
 
+import com.laptrinhjavaweb.dto.DepartmentDTO;
+import com.laptrinhjavaweb.entity.DepartmentEntity;
+
 import lombok.Data;
 
 @Data
@@ -16,7 +19,7 @@ public class TrainingProgramResponse {
 
     private String fieldName;
 
-    private String programManagementDepartment;
+    private DepartmentEntity department;
 
     private String admissionTarget;
 
