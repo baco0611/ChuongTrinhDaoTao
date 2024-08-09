@@ -7,8 +7,7 @@ import Pagination from '@mui/material/Pagination';
 import { useContext, useEffect, useState } from "react"
 import { searchProgram } from "../educationProgram_function"
 import { UserContext } from "../../../context/ContextProvider"
-import Cookies from 'js-cookie'
-
+import { basic_encode } from "../../../utils/function"
 
 export default function ListProgramBlock({ name, data, request, setProgram }) {
 
@@ -75,52 +74,52 @@ export default function ListProgramBlock({ name, data, request, setProgram }) {
                         data.data.map((element, index) => {
                             return <tr key={index}>
                                 <td className="center">
-                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
                                         {data.pageInformation.offset + index}    
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
                                         {element.programCode}
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
                                         {element.programName}
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
                                         {element.fieldName}
                                     </Link>
                                 </td>
                                 <td className="center">
-                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
                                         {element.version}
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
                                         {element.responsiblePerson}
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
                                         {element.department}
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
                                         {statusList[element.status]}
                                     </Link> 
                                 </td>
                                 <td className="center">
-                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
                                         {element.processAt}
                                     </Link>
                                 </td>
                                 <td className="action">
-                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`} className="blue">
+                                    <Link to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`} className="blue">
                                         <FontAwesomeIcon icon={faEye} />
                                     </Link>
                                     {
@@ -131,7 +130,7 @@ export default function ListProgramBlock({ name, data, request, setProgram }) {
                                                 user.lecturersCode == element.responsiblePersonCode 
                                                 && element.status == "DANG_THUC_HIEN"
                                                 &&
-                                                <Link to={`/edit/program/sectionA/${element.programId}?t=${element.responsiblePersonCode}`} className="green">
+                                                <Link to={`/edit/program/sectionA/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`} className="green">
                                                     <FontAwesomeIcon icon={faPenClip} />
                                                 </Link>
                                             }

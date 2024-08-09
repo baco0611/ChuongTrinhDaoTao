@@ -7,6 +7,7 @@ import { useQuery } from "react-query"
 import axios from "axios"
 import Loader from "../../../components/Loader/Loader"
 import { getData } from "../../../utils/function"
+import { basic_decode } from "../../../utils/function"
 
 function EditorHeader({ currentSection }) {
     const { id } = useParams()
@@ -17,10 +18,15 @@ function EditorHeader({ currentSection }) {
     // Check user có quyền để truy cập chỉnh sửa không
     // Nhưng đang không ổn lắm do lỡ nhiều người ko biết query ==> check bằng api
     useEffect(() => {
-        const responsiveTeacher = queryParams.get("t")
+        const responsiveTeacher = basic_decode(queryParams.get("t"))
         const information = JSON.parse(sessionStorage.getItem("USER"))
-        if(information.lecturersCode != responsiveTeacher || !responsiveTeacher) {
-            navigate("/error")
+        if(!responsiveTeacher) {
+            alert("KHÔNG THỂ XÁC MINH QUYỀN TRUY CẬP")
+            navigate("/program/manage")
+        }
+        else if(information.lecturersCode != responsiveTeacher) {
+            alert("NGƯỜI DÙNG KHÔNG ĐƯỢC CẤP QUYỀN TRUY CẬP")
+            navigate("/program/manage")
         }
     }, [])
 
