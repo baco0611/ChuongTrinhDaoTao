@@ -1,6 +1,6 @@
 import { Link, useNavigate, useParams } from "react-router-dom"
 import "./EditorHeader.scss"
-import { memo, useContext } from "react"
+import { memo, useContext, useEffect } from "react"
 import { UserContext } from "../../../context/ContextProvider"
 import clsx from "clsx"
 import { useQuery } from "react-query"
@@ -10,8 +10,19 @@ import { getData } from "../../../utils/function"
 
 function EditorHeader({ currentSection }) {
     const { id } = useParams()
-    const { sectionList, apiURL, fakeAPI, serverAPI, isDataSaved, token } = useContext(UserContext)
+    const { sectionList, apiURL, fakeAPI, serverAPI, isDataSaved, token, user } = useContext(UserContext)
     const navigate = useNavigate()
+    const queryParams = new URLSearchParams(window.location.search)
+
+    // Check user có quyền để truy cập chỉnh sửa không
+    // Nhưng đang không ổn lắm do lỡ nhiều người ko biết query ==> check bằng api
+    useEffect(() => {
+        const responsiveTeacher = queryParams.get("t")
+        const information = JSON.parse(sessionStorage.getItem("USER"))
+        if(information.lecturersCode != responsiveTeacher || !responsiveTeacher) {
+            navigate("/error")
+        }
+    }, [])
 
     const fecthAPI = (id) => {
         return async () => {
@@ -23,8 +34,6 @@ function EditorHeader({ currentSection }) {
         cacheTime: Infinity,
         refetchOnWindowFocus: false,
     })
-
-    console.log(data)
 
     if(isLoading)
         return <Loader/>

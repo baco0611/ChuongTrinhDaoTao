@@ -13,6 +13,7 @@ import Cookies from 'js-cookie'
 export default function ListProgramBlock({ name, data, request, setProgram }) {
 
     const { apiURL, fakeAPI, token, serverAPI, user } = useContext(UserContext); 
+    console.log(data)
 
     const statusList = {
         DA_PHAN_CONG: "Đã phân công",
@@ -74,52 +75,52 @@ export default function ListProgramBlock({ name, data, request, setProgram }) {
                         data.data.map((element, index) => {
                             return <tr key={index}>
                                 <td className="center">
-                                    <Link to={`/view/program/${element.programId}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
                                         {data.pageInformation.offset + index}    
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link to={`/view/program/${element.programId}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
                                         {element.programCode}
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link to={`/view/program/${element.programId}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
                                         {element.programName}
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link to={`/view/program/${element.programId}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
                                         {element.fieldName}
                                     </Link>
                                 </td>
                                 <td className="center">
-                                    <Link to={`/view/program/${element.programId}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
                                         {element.version}
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link to={`/view/program/${element.programId}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
                                         {element.responsiblePerson}
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link to={`/view/program/${element.programId}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
                                         {element.department}
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link to={`/view/program/${element.programId}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
                                         {statusList[element.status]}
                                     </Link> 
                                 </td>
                                 <td className="center">
-                                    <Link to={`/view/program/${element.programId}`}>
+                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`}>
                                         {element.processAt}
                                     </Link>
                                 </td>
                                 <td className="action">
-                                    <Link to={`/view/program/${element.programId}`} className="blue">
+                                    <Link to={`/view/program/${element.programId}?t=${element.responsiblePersonCode}`} className="blue">
                                         <FontAwesomeIcon icon={faEye} />
                                     </Link>
                                     {
@@ -127,10 +128,10 @@ export default function ListProgramBlock({ name, data, request, setProgram }) {
                                         && 
                                         <>
                                             {
-                                                user.lecturerCode == element.responsiblePersonCode 
+                                                user.lecturersCode == element.responsiblePersonCode 
                                                 && element.status == "DANG_THUC_HIEN"
                                                 &&
-                                                <Link to={`/edit/program/sectionA/${element.programId}`} className="green">
+                                                <Link to={`/edit/program/sectionA/${element.programId}?t=${element.responsiblePersonCode}`} className="green">
                                                     <FontAwesomeIcon icon={faPenClip} />
                                                 </Link>
                                             }
