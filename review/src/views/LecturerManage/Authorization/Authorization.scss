@@ -1,0 +1,72 @@
+@import "../../../variable.scss";
+
+#authorization {
+    .content {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        table {
+            width: 100%;
+
+            tr {
+                height: 30px;
+            }
+
+            th, td {
+                font-size: 13px;
+                border-bottom: 1px solid $button-color;
+
+                &.center {
+                    text-align: center;
+                    position: relative;
+
+
+                    input {
+                        margin: 0 auto;
+                    }
+                }
+            }
+
+            td {
+                font-weight: 500;
+            }
+
+            .btn {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                button {
+                    width: 125px;
+                    height: 28px;
+                    margin: 5px;
+                    font-size: 13px;
+                    font-weight: 500;
+                    color: $primary-color;
+                    border: 1.5px solid $primary-color;
+                    border-radius: 5px;
+                    background-color: transparent;
+
+                    &:hover {
+                        color: white;
+                        background-color: $primary-color;    
+                    }
+                }
+            }
+        }
+
+        .lecturer-list {
+            width: 60%;
+
+            tr:hover {
+                background-color: $gray-color;
+            }
+        }
+
+        .authorization {
+            width: 35%;
+        }
+    }
+}

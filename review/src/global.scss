@@ -27,3 +27,49 @@ body{
     padding-top: 45px;
     padding-bottom: 75px;
 }
+
+input[type="checkbox"] {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+
+    appearance: none;
+    -webkit-appearance: none;
+    height: 18px;
+    width: 18px;
+    background-color: $button-color;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &.xmark:after{
+        content: '\e646';
+    }
+    
+    &:after {
+        content: '\e64c';
+        font-weight: 900;
+        font-family: 'themify';
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        color: white;
+        display: none;
+        font-size: 12px;
+    }
+
+    &:hover {
+        background-color: $gray-color;
+    }
+
+    &:checked {
+        background-color: $primary-color;
+
+        &:after {
+            display: block;
+        }
+    }
+}

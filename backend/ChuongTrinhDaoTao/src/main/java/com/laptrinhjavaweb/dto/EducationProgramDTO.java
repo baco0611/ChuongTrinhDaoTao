@@ -1,10 +1,13 @@
 package com.laptrinhjavaweb.dto;
 
 import java.util.Date;
+
+import com.laptrinhjavaweb.entity.DepartmentEntity;
+
 import lombok.Data;
 
 @Data
-public class TrainingProgramDTO {
+public class EducationProgramDTO {
 
     private Long programId;
 
@@ -22,7 +25,7 @@ public class TrainingProgramDTO {
 
     private String fieldName;
 
-    private String managingDepartment;
+    private DepartmentEntity department;
 
     private String admissionTarget;
 

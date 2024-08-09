@@ -1,6 +1,8 @@
 package com.laptrinhjavaweb.converter;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.laptrinhjavaweb.entity.LecturersEntity;
 import com.laptrinhjavaweb.request.LecturersResponse;
@@ -18,7 +20,12 @@ public class LecturersConverter {
         response.setDepartmentName(entity.getDepartment() != null ? entity.getDepartment().getDepartmentName() : null);
         response.setEmail(entity.getEmail());
         response.setLecturersCode(entity.getLecturersCode());
-        response.setRole(Collections.singletonList(entity.getRole().name())); // Single enum value to list
+        
+        // Convert List<Role> to List<String> for roles
+        List<String> roles = entity.getRoles().stream()
+                                    .map(role -> role.name())
+                                    .collect(Collectors.toList());
+        response.setRole(roles);
 
         return response;
     }

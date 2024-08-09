@@ -34,10 +34,10 @@ public class DetailedProgramEntity {
     @Column
     private int semester;
 
-    @Column
+    @Column(columnDefinition = "nvarchar(255)")
     private String knowledgeModule;
 
-    @Column 
+    @Column(columnDefinition = "nvarchar(255)")
     private String detailedKnowledgeModule;
 
     @ManyToOne(fetch = FetchType.LAZY)

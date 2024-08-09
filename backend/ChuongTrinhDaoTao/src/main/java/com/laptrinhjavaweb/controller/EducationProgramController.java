@@ -11,16 +11,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.laptrinhjavaweb.converter.EducationProgramConverter;
-import com.laptrinhjavaweb.dto.TrainingProgramDTO;
+import com.laptrinhjavaweb.dto.EducationProgramDTO;
 import com.laptrinhjavaweb.request.CreditsUpdateRequest;
+import com.laptrinhjavaweb.request.SearchProgramRequest;
 import com.laptrinhjavaweb.response.CreditsResponse;
 import com.laptrinhjavaweb.response.ItemListResponse;
+import com.laptrinhjavaweb.response.SearchProgramResponse;
 import com.laptrinhjavaweb.response.SectionAHeaderResponse;
 import com.laptrinhjavaweb.response.TrainingProgramResponse;
-import com.laptrinhjavaweb.service.ITrainingProgramService;
+import com.laptrinhjavaweb.service.IEducationProgramService;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -31,28 +34,20 @@ import com.laptrinhjavaweb.service.ITrainingProgramService;
  */
 @CrossOrigin
 @RestController
-public class TrainingProgramController {
+@RequestMapping("/api/education-programs")
+public class EducationProgramController {
 
-	/** The chuong trinh dao tao service. */
 	@Autowired
-	private ITrainingProgramService trainingProgramService;
+	private IEducationProgramService trainingProgramService;
 
-	/** The chuong trinh dao tao converter. */
 	@Autowired
 	private EducationProgramConverter trainingProgramConverter;
 
-	/**
-	 * show CTDT by ID
-	 *
-	 * @param programId the id program
-	 * @return the response entity
-	 * 
-	 */
 	@GetMapping(value = "sectionA/{id}")
 	public ResponseEntity<Object> showCTDT(@PathVariable("id") Long programId) {
 
 		try {
-			TrainingProgramDTO ctdtDTO = trainingProgramService.findbyIdProgram(programId);
+			EducationProgramDTO ctdtDTO = trainingProgramService.findbyIdProgram(programId);
 			if (ctdtDTO == null) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 						.body("{\"status\": " + HttpStatus.INTERNAL_SERVER_ERROR.value() + "}");
@@ -69,17 +64,11 @@ public class TrainingProgramController {
 		}
 	}
 
-	/**
-	 * Show header CTDT by ID
-	 *
-	 * @param idChuongTrinh the id program
-	 * @return the response entity
-	 */
 	@GetMapping(value = "sectionHeader/{id}")
 	public ResponseEntity<Object> showHeader(@PathVariable("id") Long programId) {
 
 		try {
-			TrainingProgramDTO ctdtDTO = trainingProgramService.findbyIdProgram(programId);
+			EducationProgramDTO ctdtDTO = trainingProgramService.findbyIdProgram(programId);
 			if (ctdtDTO == null) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 						.body("{\"status\": " + HttpStatus.INTERNAL_SERVER_ERROR.value() + "}");
@@ -96,17 +85,11 @@ public class TrainingProgramController {
 		}
 	}
 
-	/**
-	 * Show all credits by IdCTDT
-	 *
-	 * @param idChuongTrinh the id program
-	 * @return the response entity
-	 */
 	@GetMapping(value = "showCredits/{id}")
 	public ResponseEntity<Object> showCredits(@PathVariable("id") Long programId) {
 
 		try {
-			TrainingProgramDTO ctdtDTO = trainingProgramService.findbyIdProgram(programId);
+			EducationProgramDTO ctdtDTO = trainingProgramService.findbyIdProgram(programId);
 			if (ctdtDTO == null) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 						.body("{\"status\": " + HttpStatus.INTERNAL_SERVER_ERROR.value() + "}");
@@ -123,22 +106,17 @@ public class TrainingProgramController {
 		}
 	}
 
-	/**
-	 * Main list.
-	 *
-	 * @return the response entity
-	 */
 	// UNFINISHED
 	@GetMapping(value = "/mainList")
 	public ResponseEntity<Object> mainList() {
 		try {
-			List<TrainingProgramDTO> lstDTO = trainingProgramService.findAll();
+			List<EducationProgramDTO> lstDTO = trainingProgramService.findAll();
 			if (lstDTO == null) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 						.body("{\"status\": " + HttpStatus.INTERNAL_SERVER_ERROR.value() + "}");
 			} else {
 				List<ItemListResponse> lstMain = new ArrayList<ItemListResponse>();
-				for (TrainingProgramDTO dto : lstDTO) {
+				for (EducationProgramDTO dto : lstDTO) {
 					ItemListResponse item = new ItemListResponse();
 					item = trainingProgramConverter.toOutputItemList(dto);
 					lstMain.add(item);
@@ -154,16 +132,10 @@ public class TrainingProgramController {
 		}
 	}
 
-	/**
-	 * Creates the section A.
-	 *
-	 * @param DTO the dto
-	 * @return the response entity
-	 */
 	@PostMapping(value = "/create_sectionA")
-	public ResponseEntity<Object> createSectionA(@RequestBody TrainingProgramDTO DTO) {
+	public ResponseEntity<Object> createSectionA(@RequestBody EducationProgramDTO DTO) {
 		try {
-			TrainingProgramDTO ctdtDTO = trainingProgramService.save(DTO);
+			EducationProgramDTO ctdtDTO = trainingProgramService.save(DTO);
 			Object jsonData = new Object() {
 				public final Long id = ctdtDTO.getProgramId();
 			};
@@ -175,15 +147,22 @@ public class TrainingProgramController {
 		}
 	}
 
-	/**
-	 * Store update credits.
-	 *
-	 * @param request the request
-	 * @return the response entity
-	 */
 	// PENDING
 	@PostMapping("/update_Credits")
 	public ResponseEntity<?> storeUpdateCredits(@RequestBody CreditsUpdateRequest request) {
+		return null;
+	}
+
+	@PostMapping("/search")
+	public SearchProgramResponse searchPrograms(@RequestBody SearchProgramRequest searchRequest)  {
+		try {
+			SearchProgramResponse.SearchProgramWrapper wrapper = trainingProgramService.searchPrograms(
+					searchRequest.getKeyword(), searchRequest.getDepartment(), searchRequest.getPageSize(),
+					searchRequest.getPageOrder());
+			return SearchProgramResponse.builder().searchProgram(wrapper).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 

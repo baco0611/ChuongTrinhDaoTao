@@ -21,20 +21,14 @@ function RequestBlock({ name, setProgram, request, setRequest }) {
         DA_HUY: "Đã hủy"
     }
 
-    // console.log(request)
-
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
-
-    const fecthDepartmentAPI = (api) => {
+    const fetchDepartmentAPI = (api) => {
         return async () => {
             const departmentResult = await getData(api, "/department", token)
             setDepartment(departmentResult.data.data)   
         }
     }
 
-    const { data , isLoading, isError} = useQuery(`introduce`, fecthDepartmentAPI(fakeAPI),{
+    const { data , isLoading, isError} = useQuery(`department-program`, fetchDepartmentAPI(fakeAPI),{
         cacheTime: Infinity,
         refetchOnWindowFocus: false,
     })
@@ -125,7 +119,7 @@ function RequestBlock({ name, setProgram, request, setRequest }) {
             </div>
             <div className="submit">
                 <button
-                    onClick={() => searchProgram(serverAPI, "/search-program", token, request, setProgram)}
+                    onClick={async () => await searchProgram(serverAPI, "/search-program", token, request, setProgram)}
                 >Tìm kiếm</button>
             </div>
         </div>

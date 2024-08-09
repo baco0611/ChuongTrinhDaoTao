@@ -20,7 +20,7 @@ public class ProgramObjectiveEntity {
     private String symbol;
 
     @Column(columnDefinition = "TEXT")
-    private String content;
+    private String content;  
 
     @Column
     private String objectiveType;
