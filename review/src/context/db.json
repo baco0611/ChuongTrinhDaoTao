@@ -1,6 +1,6 @@
 {
   "login": {
-    "lecturerCode": "GVDHKH1",
+    "lecturersCode": "GVDHKH1",
     "password": "123456"
   },
   "user": {
@@ -9,7 +9,7 @@
       "lastName": "Trần Thanh",
       "departmentName": "Khoa công nghệ và kĩ thuật",
       "email": "ttluong@gmail.com",
-      "lecturerCode": "GVDHKH1",
+      "lecturersCode": "GVDHKH1",
       "role": [
         "approve_program",
         "delete_program"
@@ -20,7 +20,7 @@
   },
   "user-invalid": {
     "data": {
-      "lecturerCode": "Message nếu có lỗi",
+      "lecturersCode": "Message nếu có lỗi",
       "password": "Message nếu có lỗi"
     },
     "status": 401

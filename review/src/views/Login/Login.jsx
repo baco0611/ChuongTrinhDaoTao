@@ -13,9 +13,11 @@ export default function Login() {
         password: ""
     })
 
+    console.log(userInformation)
+
     const [ showPassword, setShowPassword ] = useState(false)
 
-    const { serverAPI, setUser, setToken } = useContext(UserContext)
+    const { apiURL, serverAPI, setUser, setToken } = useContext(UserContext)
 
     return (
         <div className='login' id='login'>
@@ -78,9 +80,13 @@ export default function Login() {
                             e => handleSubmit({ 
                                 e, 
                                 userInformation, 
-                                serverAPI, 
+                                // api: apiURL, 
+                                api: serverAPI, 
+                                url: "/login",
+                                // url: "/auth/login",
                                 setUser, 
                                 setToken,
+                                setUserInformation
                             })}
                     >Đăng nhập</button>
                 </form>
