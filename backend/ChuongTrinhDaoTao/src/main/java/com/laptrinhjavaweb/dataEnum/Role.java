@@ -1,6 +1,14 @@
 package com.laptrinhjavaweb.dataEnum;
 
 public enum Role {
-	USER, 
-	ADMIN
+    ADMIN,
+    USER,
+    ASSIGN_RESPONSIBILITY,
+    MANAGE_DICTIONARY,
+    UPDATE_FIELD,
+    APPROVE_PROGRAM,
+    DELETE_PROGRAM,
+    UPDATE_COURSE,
+    APPROVE_COURSE_PLAN,
+    DELETE_COURSE_PLAN
 }

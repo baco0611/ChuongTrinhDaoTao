@@ -1,5 +1,9 @@
 package com.laptrinhjavaweb.request;
 
+import java.util.List;
+
+import com.laptrinhjavaweb.dataEnum.Role;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,4 +20,5 @@ public class RegisterRequest {
 	private String email;
 	private String password;
 	private Long departmentId;
+	private List<Role> roles;
 }

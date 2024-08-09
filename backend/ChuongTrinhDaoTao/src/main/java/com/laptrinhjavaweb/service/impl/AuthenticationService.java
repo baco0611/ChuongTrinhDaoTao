@@ -1,5 +1,8 @@
 package com.laptrinhjavaweb.service.impl;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -17,7 +20,7 @@ import com.laptrinhjavaweb.repository.LecturersRepository;
 import com.laptrinhjavaweb.request.AuthenticationRequest;
 import com.laptrinhjavaweb.request.RegisterRequest;
 import com.laptrinhjavaweb.response.AuthenticationResponse;
-import com.laptrinhjavaweb.response.ErrorResponse;
+import com.laptrinhjavaweb.response.ErrorLoginResponse;
 
 @Service
 public class AuthenticationService {
@@ -34,16 +37,22 @@ public class AuthenticationService {
 	private AuthenticationManager authenticationManager;
 
 	public AuthenticationResponse register(RegisterRequest request) {
+		// Tạo danh sách roles từ request
+		List<Role> roles = request.getRoles() != null ? request.getRoles() : Collections.singletonList(Role.USER);
+
 		var lecturers = LecturersEntity.builder().firstName(request.getFirstname()).lastName(request.getLastname())
 				.email(request.getEmail()).lecturersCode(request.getLecturersCode())
-				.password(passwordEncoder.encode(request.getPassword())).role(Role.USER).department(departmentRepository.findByDepartmentId(request.getDepartmentId())).build();
+				.password(passwordEncoder.encode(request.getPassword())).roles(roles) // Cập nhật roles từ request
+				.department(departmentRepository.findByDepartmentId(request.getDepartmentId())).build();
+
 		repository.save(lecturers);
+
 		var jwtToken = jwtService.generateToken(lecturers);
+
 		return AuthenticationResponse.builder()
 				.user(AuthenticationResponse.UserResponse.builder()
 						.data(LecturersConverter.convertToResponse(lecturers)).token(jwtToken).status(200).build())
 				.build();
-
 	}
 
 	public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -64,19 +73,24 @@ public class AuthenticationService {
 			// Xử lý lỗi khi mã giảng viên không hợp lệ
 			return AuthenticationResponse.builder()
 					.user(AuthenticationResponse.UserResponse.builder()
-							.data(ErrorResponse.builder().lecturersCodeError("Invalid lecturers code").build())
+							.data(ErrorLoginResponse.builder().lecturersCodeError("Invalid lecturers code").build())
 							.status(401).build())
 					.build();
 		} catch (BadCredentialsException e) {
-			 //Xử lý lỗi khi mật khẩu không hợp lệ
+			// Xử lý lỗi khi mật khẩu không hợp lệ
 			return AuthenticationResponse.builder().user(AuthenticationResponse.UserResponse.builder()
-					.data(ErrorResponse.builder().passwordError("Invalid password").build()).status(401).build())
+					.data(ErrorLoginResponse.builder()
+							.passwordError("Invalid password")
+							.lecturersCodeError(request.getLecturersCode())
+							.build())
+					.status(401).build())
 					.build();
 		} catch (AuthenticationException e) {
-			//Xử lý lỗi khi mật khẩu và mã giảng viên không hợp lệ
+			e.printStackTrace();
+			// Xử lý lỗi khi mật khẩu và mã giảng viên không hợp lệ
 			return AuthenticationResponse.builder()
 					.user(AuthenticationResponse.UserResponse.builder()
-							.data(ErrorResponse.builder().lecturersCodeError("Invalid lecturers code or password")
+							.data(ErrorLoginResponse.builder().lecturersCodeError("Invalid lecturers code or password")
 									.passwordError("Invalid password").build())
 							.status(401).build())
 					.build();

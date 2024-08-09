@@ -23,6 +23,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table (name = "Department")
 public class DepartmentEntity {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long departmentId;
@@ -34,4 +35,8 @@ public class DepartmentEntity {
 	
 	@OneToMany(mappedBy = "department")
     private List<LecturersEntity> lecturers = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "department")
+    private List<EducationProgramEntity> educationProgram = new ArrayList<>();
+
 }

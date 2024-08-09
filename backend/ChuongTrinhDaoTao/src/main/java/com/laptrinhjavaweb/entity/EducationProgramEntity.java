@@ -38,9 +38,6 @@ public class EducationProgramEntity {
     @Column(length = 500, columnDefinition = "nvarchar(255)")
     private String fieldName;
 
-    @Column(columnDefinition = "nvarchar(255)")
-    private String managingDepartment;
-
     @Column(length = 50, columnDefinition = "nvarchar(255)")
     private String admissionTarget;
 
@@ -139,4 +136,15 @@ public class EducationProgramEntity {
 
     @OneToMany(mappedBy = "educationProgram")
     private List<CertificationLearningOutcomeMatrixEntity> certificationOutcomeMatrixs = new ArrayList<>();
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="departmentId")
+    private DepartmentEntity department;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="lecturersId")
+    private LecturersEntity lecturer;
+    
+    
+
 }
