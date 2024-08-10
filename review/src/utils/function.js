@@ -87,6 +87,10 @@ const deleteData = async (api, url, token, payload, completeMessage, errorMessag
     }
 }
 
+function transformChar(charMap, str) {
+    return str.split('').map(char => charMap[char] || char).join('');
+}
+
 function basic_encode(code) {
     const charMap = {
         'A': 'Q', 'B': 'W', 'C': 'E', 'D': 'R', 'E': 'T', 'F': 'Y', 'G': 'U', 'H': 'I', 'I': 'O', 'J': 'P',

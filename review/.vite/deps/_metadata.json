@@ -1,74 +1,74 @@
 {
-  "hash": "719c023e",
-  "configHash": "d15d4764",
+  "hash": "1981cc37",
+  "configHash": "f73cab62",
   "lockfileHash": "52aeba9a",
-  "browserHash": "3bfa3439",
+  "browserHash": "3de944f0",
   "optimized": {
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "aee0ab95",
+      "fileHash": "0c211c8f",
       "needsInterop": true
     },
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "44f3499f",
+      "fileHash": "657c6759",
       "needsInterop": true
     },
     "react-router-dom": {
       "src": "../../node_modules/react-router-dom/dist/index.js",
       "file": "react-router-dom.js",
-      "fileHash": "f93eea2f",
+      "fileHash": "47cb60ab",
       "needsInterop": false
     },
     "react-query": {
       "src": "../../node_modules/react-query/es/index.js",
       "file": "react-query.js",
-      "fileHash": "8802a573",
+      "fileHash": "2eda34dd",
       "needsInterop": false
     },
     "js-cookie": {
       "src": "../../node_modules/js-cookie/dist/js.cookie.mjs",
       "file": "js-cookie.js",
-      "fileHash": "2200775f",
+      "fileHash": "0d113832",
       "needsInterop": false
     },
     "@fortawesome/react-fontawesome": {
       "src": "../../node_modules/@fortawesome/react-fontawesome/index.es.js",
       "file": "@fortawesome_react-fontawesome.js",
-      "fileHash": "363031b7",
+      "fileHash": "b1c2a55e",
       "needsInterop": false
     },
     "@fortawesome/free-solid-svg-icons": {
       "src": "../../node_modules/@fortawesome/free-solid-svg-icons/index.mjs",
       "file": "@fortawesome_free-solid-svg-icons.js",
-      "fileHash": "cfeea892",
+      "fileHash": "8cae645f",
       "needsInterop": false
     },
     "clsx": {
       "src": "../../node_modules/clsx/dist/clsx.m.js",
       "file": "clsx.js",
-      "fileHash": "7b4d8c29",
-      "needsInterop": false
-    },
-    "@mui/material/Pagination": {
-      "src": "../../node_modules/@mui/material/Pagination/index.js",
-      "file": "@mui_material_Pagination.js",
-      "fileHash": "2ea2fe92",
-      "needsInterop": false
-    },
-    "axios": {
-      "src": "../../node_modules/axios/index.js",
-      "file": "axios.js",
-      "fileHash": "ccc24a41",
+      "fileHash": "3e9f70b2",
       "needsInterop": false
     },
     "sweetalert": {
       "src": "../../node_modules/sweetalert/dist/sweetalert.min.js",
       "file": "sweetalert.js",
-      "fileHash": "e68bd544",
+      "fileHash": "df94409d",
       "needsInterop": true
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "151668e4",
+      "needsInterop": false
+    },
+    "@mui/material/Pagination": {
+      "src": "../../node_modules/@mui/material/Pagination/index.js",
+      "file": "@mui_material_Pagination.js",
+      "fileHash": "e7724070",
+      "needsInterop": false
     }
   },
   "chunks": {

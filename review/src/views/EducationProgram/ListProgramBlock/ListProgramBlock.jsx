@@ -72,6 +72,8 @@ export default function ListProgramBlock({ name, data, request, setProgram }) {
                     <tbody>
                     {
                         data.data.map((element, index) => {
+                            console.log(element, user.lecturersCode)
+
                             return <tr key={index}>
                                 <td className="center">
                                     <Link to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
@@ -119,7 +121,7 @@ export default function ListProgramBlock({ name, data, request, setProgram }) {
                                     </Link>
                                 </td>
                                 <td className="action">
-                                    <Link to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`} className="blue">
+                                    <Link to={`/view/program/${element.programId}`} className="blue">
                                         <FontAwesomeIcon icon={faEye} />
                                     </Link>
                                     {

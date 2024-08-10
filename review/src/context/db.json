@@ -395,5 +395,10 @@
       "totalElements": 25
     },
     "status": 200
-  }
+  },
+  "sectionA": [
+    {
+      "id": 10005
+    }
+  ]
 }
