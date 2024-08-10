@@ -578,7 +578,8 @@
         "trainingMode": "",
         "vietnameseName": "Công nghệ thông tin chất lượng cao",
         "id": "10005"
-      }
+      },
+      "status": 200
     }
   ],
   "specialization": [
@@ -597,7 +598,8 @@
           "specializationName": "Khoa học máy tính",
           "specializationId": "123"
         }
-      ]
+      ],
+      "status": 200
     }
   ]
 }
