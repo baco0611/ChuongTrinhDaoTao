@@ -30,13 +30,13 @@ function EditorHeader({ currentSection }) {
         }
     }, [])
 
-    const fecthAPI = (id) => {
+    const fetchAPI = (id) => {
         return async () => {
             return (await getData(fakeAPI, `/editorHeader/${id}`, token)).data.data
         }
     }
 
-    const { data , isLoading, isError} = useQuery(`editorHeader-${id}`, fecthAPI(id),{
+    const { data , isLoading, isError} = useQuery(`editorHeader-${id}`, fetchAPI(id),{
         cacheTime: Infinity,
         refetchOnWindowFocus: false,
     })

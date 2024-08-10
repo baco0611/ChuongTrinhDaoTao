@@ -6,7 +6,9 @@ import EditorFooter from "../EditorFooter/EditorFooter"
 import { UserContext } from "../../../context/ContextProvider"
 import SpecializationBlock from "./SpecializationBlock"
 import { useNavigate, useParams } from "react-router-dom"
-import { handleChangeValue } from "../database/sectionA"
+import { getDataSectionA, handleChangeValue, saveChangeSectionAInfo } from "../database/sectionA"
+import { useQuery } from "react-query"
+import Loader from "../../../components/Loader/Loader"
 
 export default function SectionA() {
 
@@ -14,7 +16,21 @@ export default function SectionA() {
     const currentId = id
     const navigate = useNavigate()
 
-    const { user, token, isDataSaved, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
+    const { user, token, fakeAPI, serverAPI, isDataSaved, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
+    useEffect(() => {
+        // Thêm event listener khi component được mount
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Dọn dẹp event listener khi component bị unmount
+        return () => {
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [isDataSaved])
 
     const [ sectionAValue, setSectionAValue ] = useState({
         vietnameseName: "",
@@ -34,38 +50,33 @@ export default function SectionA() {
         referenceProgram: "",
     })
 
-    const [ specialization, setSpecialization ] = useState([
-        {
-            specializationName: "Khoa học máy tính",
-            specializationId: "123",
-        },
-        {
-            specializationName: "Khoa học máy tính",
-            specializationId: "123",
-        },
-        {
-            specializationName: "Khoa học máy tính",
-            specializationId: "123",
-        }
-    ])
+    const [ specialization, setSpecialization ] = useState([])
 
     console.log(sectionAValue, specialization)
 
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
+    const fecthAPI = (id) => {
+        return async () => {
+            return await getDataSectionA({
+                id,
+                api: fakeAPI,
+                token,
+                setIsDataSaved,
+                setSpecialization,
+                setSectionAValue
+            })
+        }
+    }
 
-    useEffect(() => {
-        // Thêm event listener khi component được mount
-        window.addEventListener('beforeunload', handleBeforeUnload);
+    const { data , isLoading, isError} = useQuery(`sectionA-${id}`, fecthAPI(id),{
+        cacheTime: Infinity,
+        refetchOnWindowFocus: false,
+    })
 
-        // Dọn dẹp event listener khi component bị unmount
-        return () => {
-        window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, [isDataSaved])
+    if(isLoading)
+        return <Loader/>
 
-
+    if(isError)
+        navigate('/error')
 
     return (
         <>
@@ -104,6 +115,7 @@ export default function SectionA() {
                                 autoComplete="off"
                                 value={sectionAValue.englishName}
                                 onChange={e => handleChangeValue({ e, setSectionAValue, setIsDataSaved })}
+                                onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
                             />
                         </div>
                     </div>

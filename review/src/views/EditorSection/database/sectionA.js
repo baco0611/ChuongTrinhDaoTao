@@ -1,3 +1,5 @@
+import { getData, postData } from "../../../utils/function";
+
 const handleChangeValue = ({ e, name, max, setSectionAValue, setIsDataSaved}) => {
     function isInteger(str) {
         return Number.isInteger(+str);
@@ -9,27 +11,33 @@ const handleChangeValue = ({ e, name, max, setSectionAValue, setIsDataSaved}) =>
 
     if(name == "textarea" && value.length) {
         if(value.length > max)
-            setSectionAValue({
-                ...sectionAValue,
-                [e.target.name]: value.slice(0, max)
+            setSectionAValue(prev => {
+                return {
+                    ...prev,
+                    [e.target.name]: value.slice(0, max)
+                }
             })
         else 
-        setSectionAValue({
-            ...sectionAValue,
-            [e.target.name]: value
+        setSectionAValue(prev => {
+            return {
+                ...prev,
+                [e.target.name]: value
+            }
         })
     } else 
     if(name == "number") {
         if(isInteger(value))
-            setSectionAValue({
-                ...sectionAValue,
-                [e.target.name]: value
+            setSectionAValue(prev => {
+                return {
+                    ...prev,
+                    [e.target.name]: value
+                }
             })
     } else {
         setSectionAValue(prev => {
             return {
                 ...prev,
-                [e.target.name]: e.target.value
+                [e.target.name]: value
             }
         })
     }
@@ -49,7 +57,53 @@ const handleChangeValueSpecial = (e, setSpecialization, currentIndex) => {
     })
 }
 
+const getDataSectionA = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, setSectionAValue, setSpecialization }) => {
+    const sectionAValue = await getData(api, `/sectionA/${id}`, token, completeMessage, errorMessage)
+    console.log(sectionAValue)
+    if(sectionAValue.status == 200) {
+        setSectionAValue(sectionAValue.data.data)
+
+        const specialization = await getData(api, `/specialization/${id}`, token, completeMessage, errorMessage)
+        if(specialization.status == 200) {
+            setSpecialization(specialization.data.data)
+            setIsDataSaved(true)
+        } else {
+            setIsDataSaved(true)
+            throw "wrong"
+        }
+    } else {
+        setIsDataSaved(true)
+        throw "wrong"
+    }
+}
+
+const saveChangeSectionAInfo = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, payload}) => {
+    payload.id = id
+    const result = await postData(api, "/sectionA-info", token, payload)
+
+    if(result.status == 200) {
+        setIsDataSaved(true)
+    }
+}
+
+const saveChangeSectionSpecialize = async () => {
+
+}
+
+const handleCreateSpecialize = async () => {
+
+}
+
+const handleDeleteSpecialize = async () => {
+
+}
+
 export {
     handleChangeValue,
-    handleChangeValueSpecial
+    handleChangeValueSpecial,
+    getDataSectionA,
+    saveChangeSectionAInfo,
+    saveChangeSectionSpecialize,
+    handleCreateSpecialize,
+    handleDeleteSpecialize
 }
