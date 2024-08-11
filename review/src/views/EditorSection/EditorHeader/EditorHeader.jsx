@@ -7,24 +7,29 @@ import { useQuery } from "react-query"
 import axios from "axios"
 import Loader from "../../../components/Loader/Loader"
 import { getData } from "../../../utils/function"
-import { basic_decode } from "../../../utils/function"
+import { basic_decode, basic_encode } from "../../../utils/function"
 
 function EditorHeader({ currentSection }) {
     const { id } = useParams()
     const { sectionList, apiURL, fakeAPI, serverAPI, isDataSaved, token, user } = useContext(UserContext)
     const navigate = useNavigate()
     const queryParams = new URLSearchParams(window.location.search)
+    const responsiveTeacher = basic_decode(queryParams.get("t"))
+    const programStatus = queryParams.get("s")
 
     // Check user có quyền để truy cập chỉnh sửa không
     // Nhưng đang không ổn lắm do lỡ nhiều người ko biết query ==> check bằng api
     useEffect(() => {
-        const responsiveTeacher = basic_decode(queryParams.get("t"))
         const information = JSON.parse(sessionStorage.getItem("USER"))
+        if(programStatus != "true") {
+            alert("CHƯƠNG TRÌNH KHÔNG THỂ CHỈNH SỬA")
+            navigate("/program/manage")
+        }
         if(!responsiveTeacher) {
             alert("KHÔNG THỂ XÁC MINH QUYỀN TRUY CẬP")
             navigate("/program/manage")
         }
-        else if(information.lecturersCode != responsiveTeacher) {
+        if(information.lecturersCode != responsiveTeacher) {
             alert("NGƯỜI DÙNG KHÔNG ĐƯỢC CẤP QUYỀN TRUY CẬP")
             navigate("/program/manage")
         }
@@ -57,7 +62,7 @@ function EditorHeader({ currentSection }) {
                             key={index} 
                             className={clsx("element", {active: index == currentSection})}
                         >
-                            <Link to={`/edit/program/section${element}/${id}`}>{element}</Link>
+                            <Link to={`/edit/program/section${element}/${id}?t=${basic_encode(responsiveTeacher)}&s=${programStatus}`}>{element}</Link>
                         </div>
                     })
                 }
