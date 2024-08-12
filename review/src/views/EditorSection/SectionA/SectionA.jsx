@@ -59,6 +59,7 @@ export default function SectionA() {
     // Lấy dữ liệu từ db
     const fetchAPI = (id) => {
         return async () => {
+            console.log(123)
             return await getDataSectionA({
                 id,
                 api: fakeAPI,
@@ -72,7 +73,7 @@ export default function SectionA() {
 
     const { data , isLoading, isError} = useQuery(`sectionA-${id}`, fetchAPI(id),{
         cacheTime: Infinity,
-        // refetchOnWindowFocus: false,
+        refetchOnWindowFocus: false,
     })
 
     if(isLoading)
@@ -395,8 +396,6 @@ export default function SectionA() {
                                 data={specialization}
                                 setSpecialization={setSpecialization}
                                 isDataSaved={isDataSaved}
-                                setIsDataSaved={setIsDataSaved}
-                                token={token}
                             />
                         </div>
                     </div>

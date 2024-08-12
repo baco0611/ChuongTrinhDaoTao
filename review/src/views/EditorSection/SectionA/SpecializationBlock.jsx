@@ -1,7 +1,13 @@
 import { memo } from 'react'
-import { handleChangeValueSpecial } from '../database/sectionA'
+import { handleChangeValueSpecial, saveChangeSectionSpecialize } from '../database/sectionA'
+import { useContext } from 'react'
+import { UserContext } from '../../../context/ContextProvider'
+import { useParams } from 'react-router-dom'
 
-function SpecializationBlock({ data, setSpecialization, isDataSaved, setIsDataSaved, token }) {
+function SpecializationBlock({ data, setSpecialization, isDataSaved }) {
+    const { fakeAPI, serverAPI, apiURL, token, setIsDataSaved } = useContext(UserContext)
+    const { id } = useParams()
+
     return (
         <div className='sectionA-special'>
         {
@@ -12,7 +18,8 @@ function SpecializationBlock({ data, setSpecialization, isDataSaved, setIsDataSa
                             value={element.specializationName}
                             type='text'
                             autoComplete='off'
-                            onChange={e => handleChangeValueSpecial(e, setSpecialization, index)}
+                            onChange={e => handleChangeValueSpecial(e, setSpecialization, index, setIsDataSaved)}
+                            onBlur={() => saveChangeSectionSpecialize({ id, api: apiURL, token, payload: element, setIsDataSaved })}
                         />
                         <button 
                         >

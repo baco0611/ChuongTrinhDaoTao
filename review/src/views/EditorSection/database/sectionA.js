@@ -49,7 +49,8 @@ const handleChangeValue = ({ e, name, max, setSectionAValue, setIsDataSaved}) =>
 }
 
 // Xử lý việc thay đổi dữ liệu ô chuyên ngành đào tạo
-const handleChangeValueSpecial = (e, setSpecialization, currentIndex) => {
+const handleChangeValueSpecial = (e, setSpecialization, currentIndex, setIsDataSaved) => {
+    setIsDataSaved(false)
     setSpecialization(prev => {
         return prev.map((element, index) => {
             if(index == currentIndex) {
@@ -94,8 +95,9 @@ const saveChangeSectionAInfo = async ({ id, api, token, completeMessage, errorMe
     }
 }
 
-const saveChangeSectionSpecialize = async () => {
-
+const saveChangeSectionSpecialize = async ({ id, api, token, setIsDataSaved, payload, completeMessage, errorMessage }) => {
+    console.log(payload, api)
+    setIsDataSaved(true)
 }
 
 const handleCreateSpecialize = async () => {
