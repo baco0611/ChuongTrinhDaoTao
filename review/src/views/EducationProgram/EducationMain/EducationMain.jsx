@@ -4,8 +4,11 @@ import { faCodeMerge } from '@fortawesome/free-solid-svg-icons'
 import RequestBlock from "../RequestBlock/RequestBlock"
 import { useState } from "react"
 import ListProgramBlock from "../ListProgramBlock/ListProgramBlock"
+import { useLocation } from "react-router-dom"
 
-export default function ManageProgram() {
+export default function EducationMain() {
+
+    const location = useLocation().pathname.split("/").pop()
     const [ programListInformation, setProgramListInformation ] = useState({
         data: [],
         pageInformation: {
@@ -27,20 +30,29 @@ export default function ManageProgram() {
         status: ""
     })
 
+    console.log(programListInformation)
+
+
     return (
-        <div className='wrapper body-container program-section' id="manage-program"> 
+        <div className='wrapper body-container program-section' id="search-program"> 
             <div className="title">
-                <h1>Quản lý chương trình đào tạo</h1>
+            {
+                location == "search"
+                &&
+                    <h1>Tra cứu chương trình đào tạo</h1>
+                ||
+                    <h1>Quản lý chương trình đào tạo</h1>
+            }
                 {/* <button><FontAwesomeIcon icon={faCodeMerge} />Cập nhật dữ liệu</button> */}
             </div>
             <RequestBlock
-                name="manage"
+                name={location}
                 setProgram={setProgramListInformation}
                 request={request}
                 setRequest={setRequest}
             />
             <ListProgramBlock
-                name="manage"
+                name={location}
                 data={programListInformation}
                 request={request}
                 setProgram={setProgramListInformation}

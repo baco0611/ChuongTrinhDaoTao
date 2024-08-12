@@ -23,12 +23,20 @@ export default function ListProgramBlock({ name, data, request, setProgram }) {
         DA_HUY: "Đã hủy"
     }
 
+    // Init trang hiện tại, default là 1, không thì theo API.
     const [currentPage, setCurrentPage] = useState(data.pageInformation.pageOrder || 1);
     
     const handlePageChange = (e, value) => {
         setCurrentPage(value);
     };
 
+    /* 
+        Tìm kiếm khi số trang thay đổi
+        - Nếu name = manage tức đây là trang quản lý 
+            ==> chỉ tìm kiếm các học phần được phụ trách ==> cần trả lại mã giảng viên và role
+        - Nếu name = search thì trả hết bình thường thôi
+        * Phải tìm ở component này vì cần biết name (tức là quản lý hay tìm kiếm) để có thể điều hướng dữ liệu
+    */
     useEffect(() => {
         async function fetchData() {
             const payload = { ...request, pageOrder: currentPage };
@@ -58,9 +66,9 @@ export default function ListProgramBlock({ name, data, request, setProgram }) {
                     <thead>
                         <tr>
                             <th className="center" style={{ width: "3%" }}>STT</th>
-                            <th style={{ width: "7%" }}>Mã CTĐT</th>  
-                            <th style={{ width: "14%" }}>Tên chương trình</th>  
-                            <th style={{ width: "14%" }}>Tên ngành</th>  
+                            <th style={{ width: "6%" }}>Mã CTĐT</th>  
+                            <th style={{ width: "16%" }}>Tên chương trình</th>  
+                            <th style={{ width: "13%" }}>Tên ngành</th>  
                             <th className="center" style={{ width: "7%" }}>Phiên bản</th>
                             <th style={{ width: "11.5%" }}>Người biên soạn</th>  
                             <th style={{ width: "16.5%" }}>Khoa phụ trách</th>  
@@ -72,8 +80,6 @@ export default function ListProgramBlock({ name, data, request, setProgram }) {
                     <tbody>
                     {
                         data.data.map((element, index) => {
-                            console.log(element, user.lecturersCode)
-
                             return <tr key={index}>
                                 <td className="center">
                                     <Link to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>

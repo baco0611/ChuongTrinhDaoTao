@@ -1,6 +1,6 @@
 import { memo, useContext, useEffect, useState } from "react";
 import "./RequestBlock.scss"
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getData } from "../../../utils/function.js";
 import { useQuery } from "react-query";
 import { UserContext } from "../../../context/ContextProvider.jsx";
@@ -46,7 +46,7 @@ function RequestBlock({ name, setProgram, request, setRequest }) {
                     <p>Đơn vị</p>
                     <div className="dropdown">
                         <button className="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {request.department && request.departmentName || "-----"}
+                            {request.departmentName || "-----"}
                         </button>
                         <ul className="dropdown-menu">
                             <li 
@@ -119,7 +119,7 @@ function RequestBlock({ name, setProgram, request, setRequest }) {
             </div>
             <div className="submit">
                 <button
-                    onClick={async () => await searchProgram(serverAPI, "/search-program", token, request, setProgram)}
+                    onClick={async () => await searchProgram(serverAPI, `/${name}-program`, token, request, setProgram, true)}
                 >Tìm kiếm</button>
             </div>
         </div>

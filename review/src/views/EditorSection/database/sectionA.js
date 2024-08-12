@@ -1,5 +1,10 @@
 import { getData, postData } from "../../../utils/function";
 
+/* 
+    Xử lý hành đọng chỉnh sửa dữ liệu trong mỗi ô input trong đó:
+    - Xử lý ô textarea, input dạng text
+    - Xử lý nếu input yêu cầu dữ liệu là số
+*/
 const handleChangeValue = ({ e, name, max, setSectionAValue, setIsDataSaved}) => {
     function isInteger(str) {
         return Number.isInteger(+str);
@@ -43,6 +48,7 @@ const handleChangeValue = ({ e, name, max, setSectionAValue, setIsDataSaved}) =>
     }
 }
 
+// Xử lý việc thay đổi dữ liệu ô chuyên ngành đào tạo
 const handleChangeValueSpecial = (e, setSpecialization, currentIndex) => {
     setSpecialization(prev => {
         return prev.map((element, index) => {
@@ -57,6 +63,7 @@ const handleChangeValueSpecial = (e, setSpecialization, currentIndex) => {
     })
 }
 
+// Lấy dữ liệu từ db khi mount vào component
 const getDataSectionA = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, setSectionAValue, setSpecialization }) => {
     const sectionAValue = await getData(api, `/sectionA/${id}`, token, completeMessage, errorMessage)
     console.log(sectionAValue)
@@ -77,9 +84,10 @@ const getDataSectionA = async ({ id, api, token, completeMessage, errorMessage, 
     }
 }
 
+// Lưu giá trị sau mỗi thay đổi
 const saveChangeSectionAInfo = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, payload}) => {
     payload.id = id
-    const result = await postData(api, "/sectionA-info", token, payload)
+    const result = await postData(api, "/sectionA-info", token, payload, completeMessage, errorMessage)
 
     if(result.status == 200) {
         setIsDataSaved(true)

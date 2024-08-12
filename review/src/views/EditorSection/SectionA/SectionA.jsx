@@ -18,17 +18,19 @@ export default function SectionA() {
 
     const { user, token, fakeAPI, serverAPI, isDataSaved, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
 
+    // Scroll lên đầu trang mỗi khi mount
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
 
+    // Chặn hành động refresh hay tắt trang khi dữ liệu chưa được lưu
     useEffect(() => {
         // Thêm event listener khi component được mount
         window.addEventListener('beforeunload', handleBeforeUnload);
 
         // Dọn dẹp event listener khi component bị unmount
         return () => {
-        window.removeEventListener('beforeunload', handleBeforeUnload);
+            window.removeEventListener('beforeunload', handleBeforeUnload);
         };
     }, [isDataSaved])
 
@@ -54,7 +56,8 @@ export default function SectionA() {
 
     console.log(sectionAValue, specialization)
 
-    const fecthAPI = (id) => {
+    // Lấy dữ liệu từ db
+    const fetchAPI = (id) => {
         return async () => {
             return await getDataSectionA({
                 id,
@@ -67,7 +70,7 @@ export default function SectionA() {
         }
     }
 
-    const { data , isLoading, isError} = useQuery(`sectionA-${id}`, fecthAPI(id),{
+    const { data , isLoading, isError} = useQuery(`sectionA-${id}`, fetchAPI(id),{
         cacheTime: Infinity,
         // refetchOnWindowFocus: false,
     })

@@ -562,10 +562,10 @@
     {
       "id": "10005",
       "data": {
-        "admissionTarget": "",
+        "admissionTarget": "123456",
         "advancedSkillsDevelopment": "",
         "diploma": "",
-        "duration": "",
+        "duration": "1234",
         "educationLevel": "Đại học",
         "employmentPositionAfterGraduation": "",
         "englishName": "123456",
