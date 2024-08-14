@@ -20,7 +20,7 @@ import io.jsonwebtoken.SignatureException;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/department")
+@RequestMapping("/api/department")
 public class DepartmentController {
 
     @Autowired
@@ -32,8 +32,7 @@ public class DepartmentController {
             List<DepartmentDTO> lstDTO = departmentService.findAll();
 
             // Tạo đối tượng DepartmentResponse với dữ liệu và trạng thái thành công
-            DepartmentResponse.DepartmentWrapper wrapper = DepartmentResponse.DepartmentWrapper.builder()
-                    .data(lstDTO)
+            DepartmentResponse wrapper = DepartmentResponse.builder().data(lstDTO)
                     .status(HttpStatus.OK.value())
                     .build();
 
@@ -41,7 +40,7 @@ public class DepartmentController {
             if (lstDTO == null || lstDTO.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
             } else {
-                return ResponseEntity.ok(DepartmentResponse.builder().department(wrapper).build());
+                return ResponseEntity.ok(DepartmentResponse.builder().build());
             }
         } catch (SignatureException e) {
             // Xử lý lỗi khi chữ ký JWT không khớp

@@ -12,14 +12,7 @@ import lombok.Setter;
 @Setter
 @Builder
 public class SearchProgramResponse {
-    private SearchProgramWrapper searchProgram;
-
-    @Getter
-    @Setter
-    @Builder
-    public static class SearchProgramWrapper {
-        private List<EducationProgramResponse> data;
-        private PageInformation pageInformation;
-        private int status;
-    }
+	private List<EducationProgramResponse> data;
+	private PageInformation pageInformation;
+	private int status;
 }

@@ -154,16 +154,27 @@ public class EducationProgramController {
 	}
 
 	@PostMapping("/search")
-	public SearchProgramResponse searchPrograms(@RequestBody SearchProgramRequest searchRequest)  {
-		try {
-			SearchProgramResponse.SearchProgramWrapper wrapper = trainingProgramService.searchPrograms(
-					searchRequest.getKeyword(), searchRequest.getDepartment(), searchRequest.getPageSize(),
-					searchRequest.getPageOrder());
-			return SearchProgramResponse.builder().searchProgram(wrapper).build();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	public ResponseEntity<SearchProgramResponse> searchPrograms(@RequestBody SearchProgramRequest searchRequest) {
+	    try {
+	        // Thực hiện tìm kiếm và thu thập dữ liệu dựa trên searchRequest
+	        SearchProgramResponse response = trainingProgramService.searchPrograms(
+	                searchRequest.getKeyword(), searchRequest.getDepartment(), searchRequest.getPageSize(),
+	                searchRequest.getPageOrder());
+
+	        // Trả về phản hồi thành công với dữ liệu
+	        return ResponseEntity.ok(response);
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+
+	        // Xử lý lỗi và trả về phản hồi lỗi với mã trạng thái 500 (Internal Server Error)
+	        SearchProgramResponse errorResponse = SearchProgramResponse.builder()
+	                .status(HttpStatus.INTERNAL_SERVER_ERROR.value()) // Trạng thái HTTP 500
+	                .build();
+
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+	    }
 	}
+
 
 }
