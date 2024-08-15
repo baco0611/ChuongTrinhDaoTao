@@ -13,8 +13,6 @@ export default function Login() {
         password: ""
     })
 
-    console.log(userInformation)
-
     const [ showPassword, setShowPassword ] = useState(false)
 
     const { apiURL, serverAPI, setUser, setToken } = useContext(UserContext)
@@ -80,10 +78,10 @@ export default function Login() {
                             e => handleSubmit({ 
                                 e, 
                                 userInformation, 
-                                // api: apiURL, 
-                                api: serverAPI, 
-                                url: "/login",
-                                // url: "/auth/login",
+                                api: apiURL, 
+                                // api: serverAPI, 
+                                // url: "/login",
+                                url: "/auth/login",
                                 setUser, 
                                 setToken,
                                 setUserInformation

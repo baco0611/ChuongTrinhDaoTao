@@ -55,6 +55,7 @@ const handleSubmit = async ({ e, userInformation, api, url, setUser, setToken, s
         }
 
         const result = await postData(api, url, "", payload)
+        console.log(result)
 
         if(result.status == 200) {
             setUser(result.data.data)
@@ -64,14 +65,14 @@ const handleSubmit = async ({ e, userInformation, api, url, setUser, setToken, s
                 password: ""
             })
         } else {
-            if(result.data.lecturerCode) {
-                const element = $(`#login-userId`)
-                handleInvalid(element, result.data.lecturerCode)
+            if(result.data.lecturersCodeError) {
+                let element = $(`#login-userId`)
+                handleInvalid(element, result.data.lecturersCodeError)
             }
 
-            if(result.data.password) {
-                const element = $(`#login-userPassword`)
-                handleInvalid(element, result.data.password)
+            if(result.data.passwordError) {
+                let element = $(`#login-userPassword`)
+                handleInvalid(element, result.data.passwordError)
             }
         }
     }
