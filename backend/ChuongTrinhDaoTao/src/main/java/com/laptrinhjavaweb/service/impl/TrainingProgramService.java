@@ -54,11 +54,11 @@ public class TrainingProgramService implements IEducationProgramService {
 		return lstDTO;
 	}
 
-	public SearchProgramResponse.SearchProgramWrapper searchPrograms(String keyword, String department, int pageSize, int pageOrder) {
+	public SearchProgramResponse searchPrograms(String keyword, String department, int pageSize, int pageOrder) {
         PageRequest pageRequest = PageRequest.of(pageOrder - 1, pageSize);
         Page<EducationProgramEntity> programPage = trainingProgramRepository.searchPrograms(keyword, department, pageRequest);
 
-        SearchProgramResponse.SearchProgramWrapper responseWrapper = SearchProgramResponse.SearchProgramWrapper.builder()
+        SearchProgramResponse responseWrapper = SearchProgramResponse.builder()
                 .data(programPage.getContent().stream()
                         .map(trainingProgramConverter::convertToDTO)
                         .collect(Collectors.toList()))

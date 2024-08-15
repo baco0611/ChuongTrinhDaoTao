@@ -11,13 +11,6 @@ import lombok.Setter;
 @Setter
 @Builder
 public class DepartmentResponse {
-    private DepartmentWrapper department;
-
-    @Getter
-    @Setter
-    @Builder
-    public static class DepartmentWrapper {
-        private List<DepartmentDTO> data;
-        private int status;
-    }
+	private List<DepartmentDTO> data;
+	private int status;
 }
