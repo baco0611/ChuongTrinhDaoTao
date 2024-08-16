@@ -2,11 +2,15 @@ import { Link, useNavigate, useParams } from "react-router-dom"
 import "./EditorFooter.scss"
 import { useContext } from "react"
 import { UserContext } from "../../../context/ContextProvider"
+import { basic_decode, basic_encode } from "../../../utils/function"
 
 export default function EditorFooter({ currentSection }) {
     const { id } = useParams()
     const { sectionList, apiURL, fakeAPI, serverAPI, isDataSaved, token } = useContext(UserContext)
     const navigate = useNavigate()
+    const queryParams = new URLSearchParams(window.location.search)
+    const responsiveTeacher = basic_decode(queryParams.get("t"))
+    const programStatus = queryParams.get("s")
     
     return (
         <div id="editor-footer">
@@ -22,7 +26,7 @@ export default function EditorFooter({ currentSection }) {
                 <div>
                 {
                     currentSection != 0 &&
-                    <Link to={`/edit/program/section${sectionList[currentSection - 1]}/${id}`}>
+                    <Link to={`/edit/program/section${sectionList[currentSection - 1]}/${id}?t=${basic_encode(responsiveTeacher)}&s=${programStatus}`}>
                         <button>
                             <i className="ti-arrow-circle-left"></i>
                             Lùi lại
@@ -31,7 +35,7 @@ export default function EditorFooter({ currentSection }) {
                 }
                 {
                     currentSection != 6 &&
-                    <Link to={`/edit/program/section${sectionList[currentSection + 1]}/${id}`}>
+                    <Link to={`/edit/program/section${sectionList[currentSection + 1]}/${id}?t=${basic_encode(responsiveTeacher)}&s=${programStatus}`}>
                         <button>
                             Tiếp theo
                             <i className="ti-arrow-circle-right"></i>
