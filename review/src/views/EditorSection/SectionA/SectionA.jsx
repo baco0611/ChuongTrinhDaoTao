@@ -59,7 +59,6 @@ export default function SectionA() {
     // Lấy dữ liệu từ db
     const fetchAPI = (id) => {
         return async () => {
-            console.log(123)
             return await getDataSectionA({
                 id,
                 api: fakeAPI,

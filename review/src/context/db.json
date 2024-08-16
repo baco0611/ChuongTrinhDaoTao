@@ -572,7 +572,7 @@
         "fieldCode": "HUUUUNAB",
         "fieldName": "123",
         "graduationConditional": "",
-        "managingDepartment": "12345",
+        "managingDepartment": "1",
         "referenceProgram": "",
         "requiredCredits": "",
         "trainingMode": "",
@@ -599,6 +599,15 @@
           "specializationId": "123"
         }
       ],
+      "status": 200
+    }
+  ],
+  "sectionB": [
+    {
+      "id": "10005",
+      "data": {
+        "overallObjectives": "Tự nhiên thèm có bồ ngang"
+      },
       "status": 200
     }
   ]

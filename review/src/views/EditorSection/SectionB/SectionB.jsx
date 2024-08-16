@@ -4,6 +4,9 @@ import EditorFooter from '../EditorFooter/EditorFooter'
 import "./SectionB.scss"
 import { useNavigate, useParams } from 'react-router-dom'
 import { UserContext } from '../../../context/ContextProvider'
+import { useQuery } from 'react-query'
+import Loader from '../../../components/Loader/Loader'
+import { getDataSectionB, handleSaveChangeSectionB } from '../database/sectionB'
 
 export default function SectionB() {
 
@@ -11,10 +14,9 @@ export default function SectionB() {
     const currentId = id
     const navigate = useNavigate()
 
-    const { user, token, isDataSaved, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
+    const { user, token, isDataSaved, setIsDataSaved, handleBeforeUnload, fakeAPI, serverAPI } = useContext(UserContext)
     const [ sectionBValue, setSectionBValue ] = useState("")
 
-    console.log(sectionBValue)
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -29,6 +31,29 @@ export default function SectionB() {
         window.removeEventListener('beforeunload', handleBeforeUnload);
         };
     }, [isDataSaved])
+
+    const fetchAPI = (id) => {
+        return async () => {
+            return await getDataSectionB({
+                id,
+                api: fakeAPI,
+                token,
+                setIsDataSaved,
+                setSectionBValue
+            })
+        }
+    }
+
+    const { data , isLoading, isError} = useQuery(`sectionB-${id}`, fetchAPI(id),{
+        cacheTime: Infinity,
+        refetchOnWindowFocus: false,
+    })
+
+    if(isLoading)
+        return <Loader/>
+
+    if(isError)
+        navigate('/error')
 
     return (
         <>
@@ -46,6 +71,7 @@ export default function SectionB() {
                     <textarea
                         value={sectionBValue}
                         onChange={e => setSectionBValue(e.target.value)}
+                        onBlur={async () => await handleSaveChangeSectionB({ id, api: serverAPI, token, sectionBValue, setIsDataSaved})}
                     />
                 </div>
             </div>

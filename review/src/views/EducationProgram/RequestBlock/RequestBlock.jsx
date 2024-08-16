@@ -71,7 +71,7 @@ function RequestBlock({ name, setProgram, request, setRequest }) {
                     <input
                         type="text"
                         placeholder="Nhập từ khóa"
-                        onChange={(e) => handleChangeRequest("keyWord", setRequest, e.target.value)}
+                        onChange={(e) => handleChangeRequest("keyword", setRequest, e.target.value)}
                     />
                 </div>
                 <div className="block" style={{width: "20%"}}>

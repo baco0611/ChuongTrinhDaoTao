@@ -113,6 +113,33 @@ server.post('/sectionA-info', (req, res) => {
 
     res.status(200).json({ message: 'Data added/updated successfully', data: newData });
 });
+
+server.post('/sectionB-info', (req, res) => {
+    const newData = req.body;
+
+    if (!newData || !newData.id) {
+        return res.status(400).json({ error: 'Invalid data. The "id" field is required.' });
+    }
+
+    const dbFilePath = path.join(__dirname, '../db.json');
+    const dbContent = JSON.parse(fs.readFileSync(dbFilePath, 'utf-8'));
+
+    const sectionB = dbContent.sectionB || "";
+
+    // Tìm phần tử có cùng id trong sectionA
+    const existingIndex = sectionB.findIndex(item => item.id === newData.id);
+
+    if (existingIndex >= 0) {
+        // Nếu đã tồn tại, cập nhật dữ liệu
+        sectionB[existingIndex].data.overallObjectives = newData.overallObjectives;
+    }
+
+    // Ghi dữ liệu mới vào db.json
+    dbContent.sectionB = sectionB;
+    fs.writeFileSync(dbFilePath, JSON.stringify(dbContent, null, 2), 'utf-8');
+
+    res.status(200).json({ message: 'Data added/updated successfully', data: newData });
+});
     
 server.use(router);
 server.listen(3002, () => {

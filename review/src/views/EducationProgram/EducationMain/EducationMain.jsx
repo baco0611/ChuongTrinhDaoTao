@@ -25,7 +25,7 @@ export default function EducationMain() {
     const [ request, setRequest ] = useState({
         department: "",
         departmentName: "",
-        keyWord: "",
+        keyword: "",
         pageSize: 15,
         status: ""
     })
