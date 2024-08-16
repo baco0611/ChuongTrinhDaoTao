@@ -24,7 +24,13 @@ const handleSaveChangeSectionB = async ({ id, api, token, sectionBValue, complet
     }
 }
 
+const handleChangeValue = (e, setSectionBValue, setIsDataSaved) => {
+    setIsDataSaved(false)
+    setSectionBValue(e.target.value)
+}
+
 export {
     getDataSectionB,
-    handleSaveChangeSectionB
+    handleSaveChangeSectionB,
+    handleChangeValue
 }

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { UserContext } from '../../../context/ContextProvider'
 import { useQuery } from 'react-query'
 import Loader from '../../../components/Loader/Loader'
-import { getDataSectionB, handleSaveChangeSectionB } from '../database/sectionB'
+import { getDataSectionB, handleChangeValue, handleSaveChangeSectionB } from '../database/sectionB'
 
 export default function SectionB() {
 
@@ -70,7 +70,7 @@ export default function SectionB() {
                 <div className='content'>
                     <textarea
                         value={sectionBValue}
-                        onChange={e => setSectionBValue(e.target.value)}
+                        onChange={e => handleChangeValue(e, setSectionBValue, setIsDataSaved)}
                         onBlur={async () => await handleSaveChangeSectionB({ id, api: serverAPI, token, sectionBValue, setIsDataSaved})}
                     />
                 </div>
