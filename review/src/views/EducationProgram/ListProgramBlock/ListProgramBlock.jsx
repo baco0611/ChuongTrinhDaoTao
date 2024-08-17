@@ -42,11 +42,6 @@ export default function ListProgramBlock({ name, data, request, setProgram }) {
             const payload = { ...request, pageOrder: currentPage };
 
             if(name == "manage") {
-                const information = JSON.parse(sessionStorage.getItem("USER"))
-                payload.role = information.role
-                payload.lecturerCode = information.lecturerCode
-
-                console.log(payload)
                 await searchProgram(serverAPI, "/manage-program", token, payload, setProgram)
             } else {
                 await searchProgram(serverAPI, "/search-program", token, request, setProgram)

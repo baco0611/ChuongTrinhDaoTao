@@ -20,7 +20,6 @@ function EditorHeader({ currentSection }) {
     // Check user có quyền để truy cập chỉnh sửa không
     // Nhưng đang không ổn lắm do lỡ nhiều người ko biết query ==> check bằng api
     useEffect(() => {
-        const information = JSON.parse(sessionStorage.getItem("USER"))
         if(programStatus != "true") {
             alert("CHƯƠNG TRÌNH KHÔNG THỂ CHỈNH SỬA")
             navigate("/program/manage")
@@ -29,7 +28,7 @@ function EditorHeader({ currentSection }) {
             alert("KHÔNG THỂ XÁC MINH QUYỀN TRUY CẬP")
             navigate("/program/manage")
         }
-        if(information.lecturersCode != responsiveTeacher) {
+        if(user.lecturersCode != responsiveTeacher) {
             alert("NGƯỜI DÙNG KHÔNG ĐƯỢC CẤP QUYỀN TRUY CẬP")
             navigate("/program/manage")
         }

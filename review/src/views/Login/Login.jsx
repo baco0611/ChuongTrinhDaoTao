@@ -79,8 +79,6 @@ export default function Login() {
                                 e, 
                                 userInformation, 
                                 api: apiURL, 
-                                // api: serverAPI, 
-                                // url: "/login",
                                 url: "/auth/login",
                                 setUser, 
                                 setToken,

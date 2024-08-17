@@ -1,4 +1,5 @@
 import { getData, postData } from "../../../utils/function";
+import Swal from 'sweetalert2'
 
 /* 
     Xử lý hành đọng chỉnh sửa dữ liệu trong mỗi ô input trong đó:
@@ -100,12 +101,28 @@ const saveChangeSectionSpecialize = async ({ id, api, token, setIsDataSaved, pay
     setIsDataSaved(true)
 }
 
-const handleCreateSpecialize = async () => {
-
+const handleCreateSpecialize = async ({ id, api, token, completeMessage, errorMessage }) => {
+    const payload = {
+        id
+    }
+    console.log(payload)
 }
 
-const handleDeleteSpecialize = async () => {
-
+const handleDeleteSpecialize = async ({ id, api, token, payload, completeMessage, errorMessage }) => {
+    Swal.fire({
+        title: "XÓA CHUYÊN NGÀNH",
+        text: `Bạn có muốn xóa chuyên ngành ${payload.specializationName} không?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Có",
+        cancelButtonText: "Không",
+        confirmButtonColor: '#BE0000', // Màu đỏ cho nút "Có"
+        reverseButtons: true, // Đổi vị trí các nút
+    }).then((result) => {
+        if (result.isConfirmed) {
+            console.log(payload);
+        }
+    });
 }
 
 export {

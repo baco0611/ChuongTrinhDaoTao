@@ -5,7 +5,7 @@ import "./Header.scss"
 import { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../../context/ContextProvider"
 import { getParentElementByClass } from "../../../utils/function"
-import swal from 'sweetalert'
+import Swal from 'sweetalert2'
 
 export default function Header() {
     const { user, token, setToken, setUser } = useContext(UserContext)
@@ -35,14 +35,17 @@ export default function Header() {
     }
 
     const handleLogout = () => {
-        swal({
+        Swal.fire({
             title: "ĐĂNG XUẤT",
             text: "Bạn có muốn đăng xuất?",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        }).then((willLogout) => {
-            if (willLogout) {
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Có",
+            cancelButtonText: "Không",
+            confirmButtonColor: '#BE0000', // Màu đỏ cho nút "Có"
+            reverseButtons: true, // Đổi vị trí các nút
+        }).then((result) => {
+            if (result.isConfirmed) {
                 deleteUserInformation();
             }
         });

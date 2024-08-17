@@ -34,27 +34,32 @@ export default function SectionA() {
         };
     }, [isDataSaved])
 
-    const [ sectionAValue, setSectionAValue ] = useState({
-        vietnameseName: "",
-        englishName: "",
-        educationLevel: "",
-        fieldCode: "",
-        fieldName: "",
-        managingDepartment: "",
-        admissionTarget: "",
-        duration: "",
-        trainingMode: "",
-        requiredCredits: "",
-        graduationConditional: "",
-        diploma: "",
-        employmentPositionAfterGraduation: "",
-        advancedSkillsDevelopment: "",
-        referenceProgram: "",
-    })
+    const [ sectionAValue, setSectionAValue ] = useState(
+        JSON.parse(sessionStorage.getItem(`sectionA-${id}`)) ||
+        {
+            vietnameseName: "",
+            englishName: "",
+            educationLevel: "",
+            fieldCode: "",
+            fieldName: "",
+            managingDepartment: "",
+            admissionTarget: "",
+            duration: "",
+            trainingMode: "",
+            requiredCredits: "",
+            graduationConditional: "",
+            diploma: "",
+            employmentPositionAfterGraduation: "",
+            advancedSkillsDevelopment: "",
+            referenceProgram: "",
+        }
+    )
 
     const [ specialization, setSpecialization ] = useState([])
 
-    console.log(sectionAValue, specialization)
+    useEffect(() => {
+        sessionStorage.setItem(`sectionA-${id}`, JSON.stringify(sectionAValue))
+    }, [sectionAValue])
 
     // Lấy dữ liệu từ db
     const fetchAPI = (id) => {

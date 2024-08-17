@@ -17,7 +17,7 @@ public interface EducationProgramRepository extends JpaRepository<EducationProgr
 
 	@Query("SELECT ep FROM EducationProgramEntity ep " + "JOIN ep.department d " + "JOIN ep.lecturer l "
 			+ "WHERE (:keyword IS NULL OR " + "ep.vietnameseName LIKE %:keyword% OR "
-			+ "l.firstName LIKE %:keyword%) AND " + "(:department IS NULL OR d.departmentCode = :department)")
+			+ "l.firstName LIKE %:keyword%) OR " + "(:department IS NULL OR d.departmentCode = :department)")
 	Page<EducationProgramEntity> searchPrograms(@Param("keyword") String keyword,
 			@Param("department") String department, Pageable pageable);
 }

@@ -1,5 +1,5 @@
 import { memo } from 'react'
-import { handleChangeValueSpecial, saveChangeSectionSpecialize } from '../database/sectionA'
+import { handleChangeValueSpecial, handleCreateSpecialize, handleDeleteSpecialize, saveChangeSectionSpecialize } from '../database/sectionA'
 import { useContext } from 'react'
 import { UserContext } from '../../../context/ContextProvider'
 import { useParams } from 'react-router-dom'
@@ -22,6 +22,7 @@ function SpecializationBlock({ data, setSpecialization, isDataSaved }) {
                             onBlur={() => saveChangeSectionSpecialize({ id, api: apiURL, token, payload: element, setIsDataSaved })}
                         />
                         <button 
+                            onClick={async () => handleDeleteSpecialize({id, api: apiURL, token, payload: element})}
                         >
                             <i className="iconoir-minus-square"></i>
                         </button>
@@ -29,7 +30,10 @@ function SpecializationBlock({ data, setSpecialization, isDataSaved }) {
                 )
             })
         }
-            <button className='create-btn'>Thêm chuyên ngành</button>
+            <button 
+                className='create-btn'
+                onClick={async () => handleCreateSpecialize({id, api: apiURL, token})}
+            >Thêm chuyên ngành</button>
         </div>
     )
 }
