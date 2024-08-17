@@ -13,4 +13,6 @@ public interface IEducationProgramService {
 	List<EducationProgramDTO> findAll();
 	
 	SearchProgramResponse searchPrograms(String keyword, String department, int pageSize, int pageOrder) throws Exception;
+	
+	SearchProgramResponse managePrograms(String keyword, String department,String lectureCode, int pageSize, int pageOrder) throws Exception;
 }

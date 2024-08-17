@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.laptrinhjavaweb.converter.EducationProgramConverter;
 import com.laptrinhjavaweb.dto.EducationProgramDTO;
 import com.laptrinhjavaweb.request.CreditsUpdateRequest;
+import com.laptrinhjavaweb.request.ManageProgramRequest;
 import com.laptrinhjavaweb.request.SearchProgramRequest;
 import com.laptrinhjavaweb.response.CreditsResponse;
 import com.laptrinhjavaweb.response.ItemListResponse;
@@ -155,26 +158,52 @@ public class EducationProgramController {
 
 	@PostMapping("/search")
 	public ResponseEntity<SearchProgramResponse> searchPrograms(@RequestBody SearchProgramRequest searchRequest) {
-	    try {
-	        // Thực hiện tìm kiếm và thu thập dữ liệu dựa trên searchRequest
-	        SearchProgramResponse response = trainingProgramService.searchPrograms(
-	                searchRequest.getKeyword(), searchRequest.getDepartment(), searchRequest.getPageSize(),
-	                searchRequest.getPageOrder());
+		try {
+			// Thực hiện tìm kiếm và thu thập dữ liệu dựa trên searchRequest
+			SearchProgramResponse response = trainingProgramService.searchPrograms(searchRequest.getKeyword(),
+					searchRequest.getDepartment(), searchRequest.getPageSize(), searchRequest.getPageOrder());
 
-	        // Trả về phản hồi thành công với dữ liệu
-	        return ResponseEntity.ok(response);
+			// Trả về phản hồi thành công với dữ liệu
+			return ResponseEntity.ok(response);
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 
-	        // Xử lý lỗi và trả về phản hồi lỗi với mã trạng thái 500 (Internal Server Error)
-	        SearchProgramResponse errorResponse = SearchProgramResponse.builder()
-	                .status(HttpStatus.INTERNAL_SERVER_ERROR.value()) // Trạng thái HTTP 500
-	                .build();
+			// Xử lý lỗi và trả về phản hồi lỗi với mã trạng thái 500 (Internal Server
+			// Error)
+			SearchProgramResponse errorResponse = SearchProgramResponse.builder()
+					.status(HttpStatus.INTERNAL_SERVER_ERROR.value()) // Trạng thái HTTP 500
+					.build();
 
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
-	    }
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+		}
 	}
 
+	@PostMapping("/manage")
+	public ResponseEntity<SearchProgramResponse> managePrograms(@RequestBody ManageProgramRequest manageRequest) {
+		try {
+			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+			String currentLecturerCode = authentication.getName(); // Hoặc cách lấy mã giảng viên từ token
+			System.out.println(currentLecturerCode);
+			// Gọi phương thức service để thực hiện các chức năng tìm kiếm và phân trang
+			SearchProgramResponse response = trainingProgramService.managePrograms(manageRequest.getKeyword(),
+					manageRequest.getDepartment(), currentLecturerCode, manageRequest.getPageSize(),
+					manageRequest.getPageOrder());
+
+			// Trả về phản hồi thành công với dữ liệu
+			return ResponseEntity.ok(response);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+			// Xử lý lỗi và trả về phản hồi lỗi với mã trạng thái 500 (Internal Server
+			// Error)
+			SearchProgramResponse errorResponse = SearchProgramResponse.builder()
+					.status(HttpStatus.INTERNAL_SERVER_ERROR.value()) // Trạng thái HTTP 500
+					.build();
+
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+		}
+	}
 
 }

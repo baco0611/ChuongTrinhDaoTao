@@ -28,19 +28,17 @@ public class DepartmentController {
 
     @GetMapping(value = "/getAll")
     public ResponseEntity<?> getAllDepartments() {
-        try {
+        try {	
             List<DepartmentDTO> lstDTO = departmentService.findAll();
-
             // Tạo đối tượng DepartmentResponse với dữ liệu và trạng thái thành công
             DepartmentResponse wrapper = DepartmentResponse.builder().data(lstDTO)
                     .status(HttpStatus.OK.value())
                     .build();
-
             // Kiểm tra dữ liệu
             if (lstDTO == null || lstDTO.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
             } else {
-                return ResponseEntity.ok(DepartmentResponse.builder().build());
+            	return ResponseEntity.ok(wrapper);
             }
         } catch (SignatureException e) {
             // Xử lý lỗi khi chữ ký JWT không khớp

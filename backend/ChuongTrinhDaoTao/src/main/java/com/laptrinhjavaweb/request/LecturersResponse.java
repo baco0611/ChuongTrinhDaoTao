@@ -17,7 +17,7 @@ public class LecturersResponse {
 	
 	private String lastName;
 	
-	private String departmentName;
+	private List<String> departmentName;
 	
 	private String email;
 	
