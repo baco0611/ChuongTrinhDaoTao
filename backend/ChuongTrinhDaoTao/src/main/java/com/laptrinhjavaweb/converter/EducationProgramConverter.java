@@ -148,7 +148,7 @@ public class EducationProgramConverter {
         dto.setFieldName(entity.getFieldName());
         dto.setStatus(entity.getStatus().toString()); // Chuyển đổi sang chuỗi
         dto.setProgramId(entity.getProgramId().toString());
-        dto.setResponsiblePerson(entity.getLecturer().getLastName()+entity.getLecturer().getFirstName());
+        dto.setResponsiblePerson(entity.getLecturer().getLastName() +" "+ entity.getLecturer().getFirstName());
         dto.setResponsiblePersonCode(entity.getLecturer().getLecturersId().toString());
         dto.setDepartment(entity.getDepartment().getDepartmentName());
         

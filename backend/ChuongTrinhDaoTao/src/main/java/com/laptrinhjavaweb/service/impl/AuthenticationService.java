@@ -46,7 +46,7 @@ public class AuthenticationService {
 		var lecturers = LecturersEntity.builder().firstName(request.getFirstname()).lastName(request.getLastname())
 				.email(request.getEmail()).lecturersCode(request.getLecturersCode())
 				.password(passwordEncoder.encode(request.getPassword())).roles(roles) // Cập nhật roles từ request
-				.department(departmentRepository.findByDepartmentId(request.getDepartmentId())).build();
+				.build();
 
 		repository.save(lecturers);
 

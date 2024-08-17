@@ -14,10 +14,11 @@ public class DepartmentConverter {
                 .build();
     }
 
-    public DepartmentEntity toEntity(DepartmentDTO dto) {
-        DepartmentEntity entity = new DepartmentEntity();
-        entity.setDepartmentCode(dto.getDepartmentId());
-        entity.setDepartmentName(dto.getDepartmentName());
-        return entity;
-    }
+//    public DepartmentEntity toEntity(DepartmentDTO dto) {
+//        DepartmentEntity entity = new DepartmentEntity();
+//        entity.setDepartmentCode(dto.getDepartmentId());
+//        entity.setDepartmentName(dto.getDepartmentName());
+//        entity.setLecturer(dto.getLecturer());
+//        return entity;
+//    }
 }

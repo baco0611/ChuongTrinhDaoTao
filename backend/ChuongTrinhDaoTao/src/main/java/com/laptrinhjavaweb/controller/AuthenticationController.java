@@ -15,7 +15,7 @@ import com.laptrinhjavaweb.service.impl.AuthenticationService;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/auth/public")
 public class AuthenticationController {
 	@Autowired
 	private AuthenticationService service;
