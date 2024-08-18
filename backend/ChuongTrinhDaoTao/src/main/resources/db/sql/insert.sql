@@ -1,71 +1,78 @@
 --DEPARTMENT
 SET IDENTITY_INSERT [dbo].[department] ON;
 
-INSERT INTO [dbo].[department] ([department_id], [department_code], [department_name], [lecturers_id])
+INSERT INTO [dbo].[department] ([department_id], [department_code], [department_name])
 VALUES
-    (1, N'100000', N'PHÂN HIỆU ĐẠI HỌC HUẾ TẠI QUẢNG TRỊ', 1),
-    (2, N'110000', N'KHOA GIÁO DỤC THỂ CHẤT', 2),
-    (3, N'120000', N'KHOA DU LỊCH', 3),
-    (4, N'130000', N'TRƯỜNG ĐẠI HỌC LUẬT', 4),
-    (5, N'140000', N'VIỆN TÀI NGUYÊN MÔI TRƯỜNG VÀ CÔNG NGHỆ SINH HỌC', 5),
-    (6, N'150000', N'TRUNG TÂM ĐÀO TẠO TỪ XA', 1),
-    (7, N'160000', N'TRUNG TÂM HỌC LIỆU', 2),
-    (8, N'170000', N'TRUNG TÂM GIÁO DỤC QUỐC PHÒNG', 2),
-    (9, N'180000', N'TRUNG TÂM PHỤC VỤ SINH VIÊN', 2),
-    (10, N'190000', N'TRUNG TÂM ĐÀO TẠO QUỐC TẾ', 1),
-    (11, N'200000', N'CƠ QUAN ĐẠI HỌC HUẾ', 1),
-    (12, N'300000', N'TRƯỜNG ĐẠI HỌC KHOA HỌC', 1),
-    (13, N'300100', N'Ban Giám hiệu', 3),
-    (14, N'DHT26', N'Tổ Quảng bá tuyển sinh', 3),
-    (15, N'300200', N'Phòng Tổ chức - Hành chính', 3),
-    (16, N'300300', N'Phòng Đào tạo Đại học', 4),
-    (17, N'300301', N'Phòng Công tác học sinh - sinh viên', 4),
-    (18, N'300302', N'Phòng Đào tạo đại học và Công tác sinh viên', 5),
-    (19, N'300400', N'Phòng Đào tạo Sau đại học', 5),
-    (20, N'300500', N'Phòng Kế hoạch tài chính - Cơ sở vật chất', 5),
-    (21, N'300600', N'Phòng Khảo thí - Đảm bảo chất lượng Giáo dục',1),
-    (22, N'300700', N'Phòng Khoa học công nghệ - Hợp tác quốc tế', 3),
-    (23, N'300800', N'Khoa Báo chí - Truyền thông',2),
-    (24, N'300900', N'Khoa Địa lý - Địa chất',1),
-    (25, N'301000', N'Khoa Công nghệ thông tin',3),
-    (26, N'301100', N'Khoa Hóa học',4),
-    (27, N'301200', N'Khoa Kiến trúc',5),
-    (28, N'301300', N'Khoa Lịch sử',3),
-    (29, N'301400', N'Khoa Lý luận chính trị',4),
-    (30, N'301500', N'Khoa Môi trường',3),
-    (31, N'301600', N'Khoa Ngữ văn',3),
-    (32, N'301700', N'Khoa Sinh học',5),
-    (33, N'301800', N'Khoa Toán học',2),
-    (34, N'301900', N'Khoa Vật lý',2),
-    (35, N'301903', N'Khoa Điện tử - Viễn thông',2),
-    (36, N'301904', N'Khoa Công tác xã hội',1),
-    (37, N'301905', N'Khoa Điện, Điện tử và Công nghệ vật liệu',4),
-    (38, N'301906', N'Khoa Xã hội học và Công tác xã hội',4),
-    (39, N'301907', N'Trường THPT Chuyên Khoa học Huế',5),
-    (40, N'302000', N'Khoa Xã hội học',2),
-    (41, N'302100', N'Trung tâm Khoa học xã hội và Nhân văn',2),
-    (42, N'302200', N'Trung tâm Nghiên cứu quản lý & Phát triển vùng duyên hải',3),
-    (43, N'302300', N'Trung tâm Thông tin - Thư viện',4),
-    (44, N'302400', N'Trung tâm Phân tích',5),
-    (45, N'302500', N'Trung tâm Tin học',5),
-    (46, N'302600', N'Trung tâm tư vấn Kiến trúc và Ứng dụng địa chất',5),
-    (47, N'309900', N'Thỉnh giảng',5),
-    (48, N'309901', N'Thỉnh giảng (cơ sở liên kết)',4),
-    (49, N'400000', N'TRƯỜNG ĐẠI HỌC SƯ PHẠM',3),
-    (50, N'500000', N'TRƯỜNG ĐẠI HỌC Y DƯỢC',2),
-    (51, N'600000', N'TRƯỜNG ĐẠI HỌC NÔNG LÂM',5),
-    (52, N'700000', N'TRƯỜNG ĐẠI HỌC NGHỆ THUẬT',1),
-    (53, N'800000', N'TRƯỜNG ĐẠI HỌC KINH TẾ',1),
-    (54, N'900000', N'TRƯỜNG ĐẠI HỌC NGOẠI NGỮ',4);
+    (1, N'100000', N'PHÂN HIỆU ĐẠI HỌC HUẾ TẠI QUẢNG TRỊ'),
+    (2, N'110000', N'KHOA GIÁO DỤC THỂ CHẤT'),
+    (3, N'120000', N'KHOA DU LỊCH'),
+    (4, N'130000', N'TRƯỜNG ĐẠI HỌC LUẬT'),
+    (5, N'140000', N'VIỆN TÀI NGUYÊN MÔI TRƯỜNG VÀ CÔNG NGHỆ SINH HỌC'),
+    (6, N'150000', N'TRUNG TÂM ĐÀO TẠO TỪ XA'),
+    (7, N'160000', N'TRUNG TÂM HỌC LIỆU'),
+    (8, N'170000', N'TRUNG TÂM GIÁO DỤC QUỐC PHÒNG'),
+    (9, N'180000', N'TRUNG TÂM PHỤC VỤ SINH VIÊN'),
+    (10, N'190000', N'TRUNG TÂM ĐÀO TẠO QUỐC TẾ'),
+    (11, N'200000', N'CƠ QUAN ĐẠI HỌC HUẾ'),
+    (12, N'300000', N'TRƯỜNG ĐẠI HỌC KHOA HỌC'),
+    (13, N'300100', N'Ban Giám hiệu'),
+    (14, N'DHT26', N'Tổ Quảng bá tuyển sinh'),
+    (15, N'300200', N'Phòng Tổ chức - Hành chính'),
+    (16, N'300300', N'Phòng Đào tạo Đại học'),
+    (17, N'300301', N'Phòng Công tác học sinh - sinh viên'),
+    (18, N'300302', N'Phòng Đào tạo đại học và Công tác sinh viên'),
+    (19, N'300400', N'Phòng Đào tạo Sau đại học'),
+    (20, N'300500', N'Phòng Kế hoạch tài chính - Cơ sở vật chất'),
+    (21, N'300600', N'Phòng Khảo thí - Đảm bảo chất lượng Giáo dục'),
+    (22, N'300700', N'Phòng Khoa học công nghệ - Hợp tác quốc tế'),
+    (23, N'300800', N'Khoa Báo chí - Truyền thông'),
+    (24, N'300900', N'Khoa Địa lý - Địa chất'),
+    (25, N'301000', N'Khoa Công nghệ thông tin'),
+    (26, N'301100', N'Khoa Hóa học'),
+    (27, N'301200', N'Khoa Kiến trúc'),
+    (28, N'301300', N'Khoa Lịch sử'),
+    (29, N'301400', N'Khoa Lý luận chính trị'),
+    (30, N'301500', N'Khoa Môi trường'),
+    (31, N'301600', N'Khoa Ngữ văn'),
+    (32, N'301700', N'Khoa Sinh học'),
+    (33, N'301800', N'Khoa Toán học'),
+    (34, N'301900', N'Khoa Vật lý'),
+    (35, N'301903', N'Khoa Điện tử - Viễn thông'),
+    (36, N'301904', N'Khoa Công tác xã hội'),
+    (37, N'301905', N'Khoa Điện, Điện tử và Công nghệ vật liệu'),
+    (38, N'301906', N'Khoa Xã hội học và Công tác xã hội'),
+    (39, N'301907', N'Trường THPT Chuyên Khoa học Huế'),
+    (40, N'302000', N'Khoa Xã hội học'),
+    (41, N'302100', N'Trung tâm Khoa học xã hội và Nhân văn'),
+    (42, N'302200', N'Trung tâm Nghiên cứu quản lý & Phát triển vùng duyên hải'),
+    (43, N'302300', N'Trung tâm Thông tin - Thư viện'),
+    (44, N'302400', N'Trung tâm Phân tích'),
+    (45, N'302500', N'Trung tâm Tin học'),
+    (46, N'302600', N'Trung tâm tư vấn Kiến trúc và Ứng dụng địa chất'),
+    (47, N'309900', N'Thỉnh giảng'),
+    (48, N'309901', N'Thỉnh giảng (cơ sở liên kết)'),
+    (49, N'400000', N'TRƯỜNG ĐẠI HỌC SƯ PHẠM'),
+    (50, N'500000', N'TRƯỜNG ĐẠI HỌC Y DƯỢC'),
+    (51, N'600000', N'TRƯỜNG ĐẠI HỌC NÔNG LÂM'),
+    (52, N'700000', N'TRƯỜNG ĐẠI HỌC NGHỆ THUẬT'),
+    (53, N'800000', N'TRƯỜNG ĐẠI HỌC KINH TẾ'),
+    (54, N'900000', N'TRƯỜNG ĐẠI HỌC NGOẠI NGỮ');
+
 SET IDENTITY_INSERT [dbo].[department] OFF;
+
+SET IDENTITY_INSERT [dbo].[lecturers] ON;
+
 --Lecturers
-SET IDENTITY_INSERT [dbo].[lecturers] ON 
-INSERT [dbo].[lecturers] ( [lecturers_id], [email], [first_name], [last_name], [lecturers_code], [password], [roles]) VALUES ( 1, N'ttluong@edu.vn', N'Lương', N'Trần Thanh', N'GV001', N'$2a$10$MHG5tCOV1OtKm5ao0EpooOyExcfwlM3H/ksCbAvW7HjjPIVVllb2a', N'["USER","ADMIN"]')
-INSERT [dbo].[lecturers] ([lecturers_id], [email], [first_name], [last_name], [lecturers_code], [password], [roles]) VALUES ( 2, N'tntruong@edu.vn', N'Trường', N'Thái Nhật', N'GV002', N'$2a$10$AFz2sXaZmU5MhwgIOtIhLuup1GOy6AxBrCKD1jqAZwNhTiV4.E1V.', N'["USER","ADMIN"]')
-INSERT [dbo].[lecturers] ( [lecturers_id], [email], [first_name], [last_name], [lecturers_code], [password], [roles]) VALUES ( 3, N'hha@edu.vn', N'Hà', N'Hoàng', N'GV003', N'$2a$10$FU2yBivjMaFFQ8Yfl/wIyOEbPgFnsVho2OBX0KLTriqs90he.Jlgu', N'["USER","ADMIN"]')
-INSERT [dbo].[lecturers] ( [lecturers_id], [email], [first_name], [last_name], [lecturers_code], [password], [roles]) VALUES ( 4, N'ndung@edu.vn', N'Dũng', N'Nguyễn', N'GV004', N'$2a$10$U4BCvAMdpIZ8QN.bnRh0OOaSEiy9KELnvxSBM85d.4mLocVWFacO2', N'["USER","ADMIN"]')
-INSERT [dbo].[lecturers] ([lecturers_id], [email], [first_name], [last_name], [lecturers_code], [password], [roles]) VALUES ( 5, N'ttphong@edu.vn', N'Phong', N'Trần Nguyên', N'GV005', N'$2a$10$1G/JA6aem6DQGSCELTEps.zfwj.yVrVDgsD.EyrHaWiyT8Fh9WtRm', N'["USER","ADMIN"]')
-SET IDENTITY_INSERT [dbo].[lecturers] OFF
+INSERT INTO [dbo].[lecturers] ([lecturers_id], [email], [first_name], [last_name], [lecturers_code], [password], [roles], [department_id])
+VALUES
+    (1, N'ttluong@edu.vn', N'Lương', N'Trần Thanh', N'GV001', N'$2a$10$MHG5tCOV1OtKm5ao0EpooOyExcfwlM3H/ksCbAvW7HjjPIVVllb2a', N'["USER","ADMIN"]', 1),
+    (2, N'tntruong@edu.vn', N'Trường', N'Thái Nhật', N'GV002', N'$2a$10$AFz2sXaZmU5MhwgIOtIhLuup1GOy6AxBrCKD1jqAZwNhTiV4.E1V.', N'["USER","ADMIN"]', 2),
+    (3, N'hha@edu.vn', N'Hà', N'Hoàng', N'GV003', N'$2a$10$FU2yBivjMaFFQ8Yfl/wIyOEbPgFnsVho2OBX0KLTriqs90he.Jlgu', N'["USER","ADMIN"]', 3),
+    (4, N'ndung@edu.vn', N'Dũng', N'Nguyễn', N'GV004', N'$2a$10$U4BCvAMdpIZ8QN.bnRh0OOaSEiy9KELnvxSBM85d.4mLocVWFacO2', N'["USER","ADMIN"]', 4),
+    (5, N'ttphong@edu.vn', N'Phong', N'Trần Nguyên', N'GV005', N'$2a$10$1G/JA6aem6DQGSCELTEps.zfwj.yVrVDgsD.EyrHaWiyT8Fh9WtRm', N'["USER","ADMIN"]', 5);
+
+SET IDENTITY_INSERT [dbo].[lecturers] OFF;
+
 
 
 INSERT INTO education_program 
@@ -120,4 +127,5 @@ VALUES
     ('PRG047', N'Chương trình AU', 3, 'F047', 3, 36, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     ('PRG048', N'Chương trình AV', 4, 'F048', 4, 47, 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     ('PRG049', N'Chương trình AW', 1, 'F049', 1, 10, 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
-    ('PRG050', N'Chương trình AX', 2, 'F050', 2, 21, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+    ('PRG050', N'Chương trình AX', 2, 'F050', 2, 21, 5, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
+    ('PRG0051', N'Chương trình Kien Truc', 1, 'F0051', 1, 14, 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),

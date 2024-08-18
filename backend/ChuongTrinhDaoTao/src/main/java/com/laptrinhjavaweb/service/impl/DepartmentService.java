@@ -13,11 +13,11 @@ import com.laptrinhjavaweb.repository.DepartmentRepository;
 import com.laptrinhjavaweb.service.IDepartmentService;
 
 @Service
-public class DepartmentService implements IDepartmentService{
-	
+public class DepartmentService implements IDepartmentService {
+
 	@Autowired
 	private DepartmentRepository departmentRepository;
-	
+
 	@Autowired
 	private DepartmentConverter departmentConverter;
 
@@ -31,4 +31,8 @@ public class DepartmentService implements IDepartmentService{
 		return lstDTO;
 	}
 
+	public DepartmentEntity getDepartmentFromSomewhere(Long departmentId) {
+		return departmentRepository.findById(departmentId)
+				.orElseThrow(() -> new RuntimeException("Department not found"));
+	}
 }

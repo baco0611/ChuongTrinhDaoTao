@@ -108,7 +108,7 @@ public class TrainingProgramService implements IEducationProgramService {
 	        // DeleteProgram và AssignResponsibility có quyền xem tất cả nhưng có thể lọc theo lecturerCode
 	        programPage = trainingProgramRepository.managePrograms(keyword, department, lecturerCode, pageRequest);
 	    } else {
-	    	Page<EducationProgramEntity> programPage1 = trainingProgramRepository.findByDepartment(keyword, department, currentLecturerCode, pageRequest);
+	    	Page<EducationProgramEntity> programPage1 = trainingProgramRepository.findAllByLecturerIdAndFilter(keyword, department, currentLecturerCode, pageRequest);
 	    	Page<EducationProgramEntity> programPage2 = trainingProgramRepository.findByLecturersCode(keyword, department, currentLecturerCode, pageRequest);
 	    	// So sánh số lượng phần tử trong hai trang và chọn cái có nhiều phần tử hơn
 	        if (programPage1.getTotalElements() > programPage2.getTotalElements()) {
