@@ -23,7 +23,7 @@ const getData = async (api, url, token, payload, completeMessage, errorMessage) 
     }
 
     const result = 
-        await axios.get(apiURL, payload, config)
+        await axios.get(apiURL, config)
             .then(response => {
                 console.log(completeMessage ? completeMessage : '', response)
                 return response

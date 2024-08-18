@@ -22,13 +22,17 @@ function RequestBlock({ name, setProgram, request, setRequest }) {
     }
 
     const fetchDepartmentAPI = (api) => {
+        let token = document.cookie.split("; ")
+        token = token.filter(element => element.includes("ACCESS_TOKEN"))[0]
+        token = token.split("=")[1]
+
         return async () => {
             const departmentResult = await getData(api, "/api/department/getAll", token)
             setDepartment(departmentResult.data.data)   
         }
     }
 
-    const { data , isLoading, isError} = useQuery(`department-program`, fetchDepartmentAPI(apiURL),{
+    const { data , isLoading, isError} = useQuery(`department-program`, fetchDepartmentAPI(apiURL, token),{
         cacheTime: Infinity,
         refetchOnWindowFocus: false,
     })
