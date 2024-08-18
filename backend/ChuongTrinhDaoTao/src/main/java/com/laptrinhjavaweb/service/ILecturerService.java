@@ -1,7 +1,10 @@
 package com.laptrinhjavaweb.service;
 
-import com.laptrinhjavaweb.response.SearchLecturersResponse;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import com.laptrinhjavaweb.dto.LecturersDTO;
 
 public interface ILecturerService {
-	SearchLecturersResponse searchLecturers(String keyword, String department, int pageSize, int pageOrder);
+	Page<LecturersDTO> findLecturers(String department, String keyWord, Pageable pageable) ;
 }
