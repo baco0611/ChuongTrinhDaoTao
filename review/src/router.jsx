@@ -2,7 +2,6 @@ import { createBrowserRouter } from 'react-router-dom'
 import WebDefaultLayout from './components/WebDefaultLayout/WebDefaultLayout'
 import Error from './components/Error/Error'
 import Login from './views/Login/Login'
-import EditProgramLayout from './components/EditProgramLayout/EditProgramLayout'
 import ViewProgramLayout from './components/ViewProgramLayout/ViewProgramLayout'
 import SectionA from './views/EditorSection/SectionA/SectionA'
 import SectionB from './views/EditorSection/SectionB/SectionB'
@@ -14,6 +13,7 @@ import SectionH from './views/EditorSection/SectionH/SectionH'
 import Authorization from './views/LecturerManage/Authorization/Authorization'
 import Responsibility from './views/LecturerManage/Responsibility/Responsibility'
 import EducationMain from './views/EducationProgram/EducationMain/EducationMain'
+import EducationProgramLayout from './components/EducationProgramLayout/EducationProgramLayout'
 
 const router = createBrowserRouter([
     {
@@ -25,12 +25,18 @@ const router = createBrowserRouter([
                 element: <Login/>
             },
             {
-                path: '/program/search',
-                element: <EducationMain/>
-            },
-            {
-                path: '/program/manage',
-                element: <EducationMain/>
+                path: "/program",
+                element: <EducationProgramLayout/>,
+                children: [
+                    {
+                        path: '/program/search',
+                        element: <EducationMain/>
+                    },
+                    {
+                        path: '/program/manage',
+                        element: <EducationMain/>
+                    },
+                ]
             },
             {
                 path: "/view/program/:id",
@@ -38,7 +44,6 @@ const router = createBrowserRouter([
             },
             {
                 path: "/edit/program",
-                element: <EditProgramLayout/>,
                 children: [
                     {
                         path: "/edit/program/sectionA/:id",

@@ -26,7 +26,6 @@ public class DepartmentController {
     @Autowired
     private IDepartmentService departmentService;
 
-    @CrossOrigin(origins = "http://localhost:3030")
     @GetMapping(value = "/getAll")
     public ResponseEntity<?> getAllDepartments() {
         try {	

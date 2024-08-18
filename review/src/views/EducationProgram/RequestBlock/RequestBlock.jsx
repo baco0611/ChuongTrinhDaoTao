@@ -7,7 +7,7 @@ import { UserContext } from "../../../context/ContextProvider.jsx";
 import Loader from "../../../components/Loader/Loader.jsx";
 import { handleChangeRequest, searchProgram } from "../educationProgram_function.js";
 
-function RequestBlock({ name, setProgram, request, setRequest }) {
+function RequestBlock({ name, setProgram, request, setRequest, setCurrentPage }) {
     const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
     const navigate = useNavigate()
     const [ department, setDepartment ] = useState([])
@@ -123,7 +123,7 @@ function RequestBlock({ name, setProgram, request, setRequest }) {
             </div>
             <div className="submit">
                 <button
-                    onClick={async () => await searchProgram(serverAPI, `/${name}-program`, token, request, setProgram, true)}
+                    onClick={async () => await searchProgram(apiURL, `/api/education-programs/${name}`, token, request, setProgram, true, setCurrentPage)}
                 >Tìm kiếm</button>
             </div>
         </div>
