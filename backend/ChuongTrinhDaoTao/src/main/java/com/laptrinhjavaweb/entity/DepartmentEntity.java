@@ -9,8 +9,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -37,10 +35,8 @@ public class DepartmentEntity {
 	private String departmentName;
 
 	@OneToMany(mappedBy = "department")
-	private List<EducationProgramEntity> educationProgram = new ArrayList<>();
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "lecturersId")
-	private LecturersEntity lecturer;
-
+	private List<LecturersEntity> lecturers = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "department")
+	private List<EducationProgramEntity> educationPrograms = new ArrayList<>();
 }

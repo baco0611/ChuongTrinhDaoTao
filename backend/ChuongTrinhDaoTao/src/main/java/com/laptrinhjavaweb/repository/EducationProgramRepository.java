@@ -36,12 +36,11 @@ public interface EducationProgramRepository extends JpaRepository<EducationProgr
 	Page<EducationProgramEntity> findByLecturersCode(@Param("keyword") String keyword,
 			@Param("department") String department, @Param("lecturerCode") String lecturerCode, Pageable pageable);
 
-	@Query("SELECT ep FROM EducationProgramEntity ep " + "JOIN ep.department d " + "JOIN d.lecturer l "
+	@Query("SELECT ep FROM EducationProgramEntity ep " + "JOIN ep.department d " + "JOIN d.lecturers l "
 			+ "WHERE (:keyword IS NULL OR ep.vietnameseName LIKE %:keyword%) "
-			+ "AND (:keyword IS NULL OR l.firstName LIKE %:keyword%) "
 			+ "AND (:department IS NULL OR d.departmentCode LIKE %:department%) "
-			+ "AND (:lecturerCode IS NULL OR l.lecturersCode = :lecturerCode)")
-	Page<EducationProgramEntity> findByDepartment(@Param("keyword") String keyword,
+			+ "AND (:lecturerCode IS NULL OR l.lecturersCode = :lecturerCode) ")
+	Page<EducationProgramEntity> findAllByLecturerIdAndFilter(@Param("keyword") String keyword,
 			@Param("department") String department, @Param("lecturerCode") String lecturerCode, Pageable pageable);
 
 }

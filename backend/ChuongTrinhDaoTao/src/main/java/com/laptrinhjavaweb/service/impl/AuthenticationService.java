@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.laptrinhjavaweb.converter.LecturersConverter;
 import com.laptrinhjavaweb.dataEnum.Role;
+import com.laptrinhjavaweb.entity.DepartmentEntity;
 import com.laptrinhjavaweb.entity.LecturersEntity;
 import com.laptrinhjavaweb.repository.DepartmentRepository;
 import com.laptrinhjavaweb.repository.LecturersRepository;
@@ -38,13 +39,16 @@ public class AuthenticationService {
 	private JwtService jwtService;
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	@Autowired
+	private DepartmentService departmentService;
 
 	public AuthenticationResponse register(RegisterRequest request) {
 		// Tạo danh sách roles từ request
 		List<Role> roles = request.getRoles() != null ? request.getRoles() : Collections.singletonList(Role.USER);
-
+		DepartmentEntity department = departmentService.getDepartmentFromSomewhere(request.getDepartmentId());
 		var lecturers = LecturersEntity.builder().firstName(request.getFirstname()).lastName(request.getLastname())
 				.email(request.getEmail()).lecturersCode(request.getLecturersCode())
+				.department(department)
 				.password(passwordEncoder.encode(request.getPassword())).roles(roles) // Cập nhật roles từ request
 				.build();
 

@@ -3,9 +3,11 @@ package com.laptrinhjavaweb.converter;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.laptrinhjavaweb.entity.LecturersEntity;
-import com.laptrinhjavaweb.request.LecturersResponse;
+import org.springframework.stereotype.Component;
 
+import com.laptrinhjavaweb.entity.LecturersEntity;
+import com.laptrinhjavaweb.response.LecturersResponse;
+@Component
 public class LecturersConverter {
 
 	public static LecturersResponse convertToResponse(LecturersEntity entity) {
@@ -18,15 +20,9 @@ public class LecturersConverter {
 		response.setLastName(entity.getLastName());
 		response.setEmail(entity.getEmail());
 		response.setLecturersCode(entity.getLecturersCode());
-
-		// Convert List<Role> to List<String> for roles
 		List<String> roles = entity.getRoles().stream().map(role -> role.name()).collect(Collectors.toList());
 		response.setRole(roles);
-
-		// Convert List<Department> to List<String> for department names
-		List<String> departmentNames = entity.getDepartments().stream().map(department -> department.getDepartmentName())
-				.collect(Collectors.toList());
-		response.setDepartmentName(departmentNames);
+		response.setDepartmentName(entity.getDepartment().getDepartmentName());
 
 		return response;
 	}

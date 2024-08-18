@@ -50,11 +50,12 @@ public class LecturersEntity implements UserDetails {
     
     private String password;
     
-    @OneToMany(mappedBy = "lecturer")
-	private List<DepartmentEntity> departments = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "departmentId")
+	private DepartmentEntity department;
     
     @OneToMany(mappedBy = "lecturer")
-    private List<EducationProgramEntity> educationProgram = new ArrayList<>();
+	private List<EducationProgramEntity> educationPrograms = new ArrayList<>();
     
     @Lob
     @Convert(converter = RolesConverter.class)

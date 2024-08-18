@@ -23,7 +23,6 @@ public class AuthenticationController {
 	// Api để đưa dữ liệu gv vào db
 	@PostMapping("/register")
 	public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request) {
-		System.out.println(request.getDepartmentId());
 		return ResponseEntity.ok(service.register(request));
 	}
 
