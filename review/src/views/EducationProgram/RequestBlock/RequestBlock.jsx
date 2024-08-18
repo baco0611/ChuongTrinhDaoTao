@@ -23,12 +23,12 @@ function RequestBlock({ name, setProgram, request, setRequest }) {
 
     const fetchDepartmentAPI = (api) => {
         return async () => {
-            const departmentResult = await getData(api, "/department", token)
+            const departmentResult = await getData(api, "/api/department/getAll", token)
             setDepartment(departmentResult.data.data)   
         }
     }
 
-    const { data , isLoading, isError} = useQuery(`department-program`, fetchDepartmentAPI(fakeAPI),{
+    const { data , isLoading, isError} = useQuery(`department-program`, fetchDepartmentAPI(apiURL),{
         cacheTime: Infinity,
         refetchOnWindowFocus: false,
     })

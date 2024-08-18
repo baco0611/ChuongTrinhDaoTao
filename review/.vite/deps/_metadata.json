@@ -1,73 +1,73 @@
 {
-  "hash": "1981cc37",
+  "hash": "33098dcd",
   "configHash": "f73cab62",
-  "lockfileHash": "52aeba9a",
-  "browserHash": "3de944f0",
+  "lockfileHash": "9292f7a9",
+  "browserHash": "2bd47682",
   "optimized": {
     "react": {
       "src": "../../node_modules/react/index.js",
       "file": "react.js",
-      "fileHash": "0c211c8f",
+      "fileHash": "03fe5f52",
       "needsInterop": true
     },
     "react-dom/client": {
       "src": "../../node_modules/react-dom/client.js",
       "file": "react-dom_client.js",
-      "fileHash": "657c6759",
+      "fileHash": "1e7bfa0d",
       "needsInterop": true
     },
     "react-router-dom": {
       "src": "../../node_modules/react-router-dom/dist/index.js",
       "file": "react-router-dom.js",
-      "fileHash": "47cb60ab",
+      "fileHash": "95f573a3",
       "needsInterop": false
     },
     "react-query": {
       "src": "../../node_modules/react-query/es/index.js",
       "file": "react-query.js",
-      "fileHash": "2eda34dd",
+      "fileHash": "1cc49608",
       "needsInterop": false
     },
     "js-cookie": {
       "src": "../../node_modules/js-cookie/dist/js.cookie.mjs",
       "file": "js-cookie.js",
-      "fileHash": "0d113832",
+      "fileHash": "b3abdd1c",
       "needsInterop": false
     },
     "@fortawesome/react-fontawesome": {
       "src": "../../node_modules/@fortawesome/react-fontawesome/index.es.js",
       "file": "@fortawesome_react-fontawesome.js",
-      "fileHash": "b1c2a55e",
+      "fileHash": "4ff2d0f1",
       "needsInterop": false
     },
     "@fortawesome/free-solid-svg-icons": {
       "src": "../../node_modules/@fortawesome/free-solid-svg-icons/index.mjs",
       "file": "@fortawesome_free-solid-svg-icons.js",
-      "fileHash": "8cae645f",
+      "fileHash": "5728da37",
       "needsInterop": false
     },
     "clsx": {
       "src": "../../node_modules/clsx/dist/clsx.m.js",
       "file": "clsx.js",
-      "fileHash": "3e9f70b2",
+      "fileHash": "cbbdbbd7",
       "needsInterop": false
     },
-    "sweetalert": {
-      "src": "../../node_modules/sweetalert/dist/sweetalert.min.js",
-      "file": "sweetalert.js",
-      "fileHash": "df94409d",
+    "sweetalert2": {
+      "src": "../../node_modules/sweetalert2/dist/sweetalert2.all.js",
+      "file": "sweetalert2.js",
+      "fileHash": "7b6dd067",
       "needsInterop": true
     },
     "axios": {
       "src": "../../node_modules/axios/index.js",
       "file": "axios.js",
-      "fileHash": "151668e4",
+      "fileHash": "2c1ba161",
       "needsInterop": false
     },
     "@mui/material/Pagination": {
       "src": "../../node_modules/@mui/material/Pagination/index.js",
       "file": "@mui_material_Pagination.js",
-      "fileHash": "e7724070",
+      "fileHash": "8a1cce09",
       "needsInterop": false
     }
   },
