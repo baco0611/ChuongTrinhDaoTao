@@ -13,10 +13,10 @@ import com.laptrinhjavaweb.entity.LecturersEntity;
 public interface LecturersRepository extends JpaRepository<LecturersEntity, Long> {
 	Optional<LecturersEntity> findByLecturersCode(String lecturersCode);
 
-//	@Query("SELECT l FROM LecturersEntity l " + "JOIN l.departments d "
-//			+ "WHERE (:keyword IS NULL OR l.firstName LIKE %:keyword% OR l.lastName LIKE %:keyword%) "
-//			+ "AND (:department IS NULL OR d.departmentCode LIKE %:department%) ")
-//	Page<LecturersEntity> findLecturers(@Param("keyword") String keyword, @Param("department") String department,
-//			Pageable pageable);
+	@Query("SELECT l FROM LecturersEntity l " + "JOIN l.department d "
+			+ "WHERE (:department IS NULL OR d.departmentCode LIKE %:department%) "
+			+ "AND (:keyWord IS NULL OR (l.firstName LIKE %:keyWord% AND l.lastName LIKE %:keyWord%))")
+	Page<LecturersEntity> findByDepartmentAndKeyWord(@Param("department") String department,
+			@Param("keyWord") String keyWord, Pageable pageable);
 
 }
