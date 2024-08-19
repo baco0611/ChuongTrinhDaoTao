@@ -1,44 +1,50 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { handleSubmitRole, handleToggleAuthor } from './authorization-function'
+import { UserContext } from '../../../context/ContextProvider'
 
 export default function AuthorBlock({ data }) {
     const [ selectedUser, setSelectedUser ] = useState()
+    const { user, apiURL, token } = useContext(UserContext)
     const authorizationList = {
         "general": [
             {
-                code: "assign_responsibility",
+                code: "ASSIGN_RESPONSIBILITY",
                 name: "Phân công phụ trách"
             },
             {
-                code: "manage_dictionary",
+                code: "MANAGE_DICTIONARY",
                 name: "Quản lý từ điển"
+            },
+            {
+                code: "ADMIN",
+                name: "Admin"
             },
         ],
         "program": [
             {
-                code: "update_field",
+                code: "UPDATE_FIELD",
                 name: "Cập nhật dữ liệu ngành (thêm, sửa)"
             },
             {
-                code: "approve_program",
+                code: "APPROVE_PROGRAM",
                 name: "Duyệt chương trình đào tạo"
             },
             {
-                code: "delete_program",
+                code: "DELETE_PROGRAM",
                 name: "Xóa chương trình đào tạo"
             },
         ],
         "course": [
             {
-                code: "update_course",
+                code: "UPDATE_COURSE",
                 name: "Cập nhật dữ liệu học phần (thêm, sửa)"
             },
             {
-                code: "approve_course_plan",
+                code: "APPROVE_COURSE_PLAN",
                 name: "Duyệt đề cương"
             },
             {
-                code: "delete_course_plan",
+                code: "DELETE_COURSE_PLAN",
                 name: "Xóa đề cương"
             },
         ],
@@ -108,6 +114,7 @@ export default function AuthorBlock({ data }) {
                                                     name={element.code}
                                                     checked={selectedUser.role.includes(element.code)}
                                                     onChange={(e) => {handleToggleAuthor(e, setSelectedUser)}}
+                                                    disabled={!user.role.includes("ADMIN")}
                                                 />
                                             </td>
                                         </tr>
@@ -157,7 +164,7 @@ export default function AuthorBlock({ data }) {
                             <tr>
                                 <th colSpan={2}>
                                     <div className='btn'>
-                                        <button onClick={() => handleSubmitRole(selectedUser)}>Xác nhận</button>
+                                        <button onClick={() => handleSubmitRole(selectedUser, apiURL, token)}>Xác nhận</button>
                                     </div>
                                 </th>
                             </tr>
