@@ -12,8 +12,8 @@ import SectionG from './views/EditorSection/SectionG/SectionG'
 import SectionH from './views/EditorSection/SectionH/SectionH'
 import Authorization from './views/LecturerManage/Authorization/Authorization'
 import Responsibility from './views/LecturerManage/Responsibility/Responsibility'
-import EducationMain from './views/EducationProgram/EducationMain/EducationMain'
-import EducationProgramLayout from './components/EducationProgramLayout/EducationProgramLayout'
+import EducationManage from './views/EducationProgram/EducationMain/EducationManage'
+import EducationSearch from './views/EducationProgram/EducationMain/EducationSearch'
 
 const router = createBrowserRouter([
     {
@@ -25,18 +25,12 @@ const router = createBrowserRouter([
                 element: <Login/>
             },
             {
-                path: "/program",
-                element: <EducationProgramLayout/>,
-                children: [
-                    {
-                        path: '/program/search',
-                        element: <EducationMain/>
-                    },
-                    {
-                        path: '/program/manage',
-                        element: <EducationMain/>
-                    },
-                ]
+                path: '/program/search',
+                element: <EducationSearch/>
+            },
+            {
+                path: '/program/manage',
+                element: <EducationManage/>
             },
             {
                 path: "/view/program/:id",
