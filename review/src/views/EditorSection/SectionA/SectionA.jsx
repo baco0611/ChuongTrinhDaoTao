@@ -16,7 +16,7 @@ export default function SectionA() {
     const currentId = id
     const navigate = useNavigate()
 
-    const { user, token, fakeAPI, serverAPI, isDataSaved, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
+    const { user, token, serverAPI, isDataSaved, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
 
     // Scroll lên đầu trang mỗi khi mount
     useEffect(() => {
@@ -66,7 +66,7 @@ export default function SectionA() {
         return async () => {
             return await getDataSectionA({
                 id,
-                api: fakeAPI,
+                api: serverAPI,
                 token,
                 setIsDataSaved,
                 setSpecialization,

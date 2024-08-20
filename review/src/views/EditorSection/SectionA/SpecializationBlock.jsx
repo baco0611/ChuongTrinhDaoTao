@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom'
 function SpecializationBlock({ data, setSpecialization, isDataSaved }) {
     const { fakeAPI, serverAPI, apiURL, token, setIsDataSaved } = useContext(UserContext)
     const { id } = useParams()
+    console.log(data)
 
     return (
         <div className='sectionA-special'>
@@ -32,7 +33,7 @@ function SpecializationBlock({ data, setSpecialization, isDataSaved }) {
         }
             <button 
                 className='create-btn'
-                onClick={async () => handleCreateSpecialize({id, api: apiURL, token})}
+                onClick={async () => handleCreateSpecialize({ id, api: serverAPI, token, setSpecialization })}
             >Thêm chuyên ngành</button>
         </div>
     )

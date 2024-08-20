@@ -93,7 +93,7 @@ export default function Header() {
                     <div className="header-menu wrapper">
                         <ul className="header-component">
                             <li className="primary">Từ điển dữ liệu</li>
-                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Điều kiện tốt nghiêp</Link></li>
+                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Điều kiện tốt nghiệp</Link></li>
                             <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Chứng chỉ điều kiện</Link></li>
                         </ul>
                         <ul className="header-component">

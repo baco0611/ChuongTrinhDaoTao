@@ -101,11 +101,15 @@ const saveChangeSectionSpecialize = async ({ id, api, token, setIsDataSaved, pay
     setIsDataSaved(true)
 }
 
-const handleCreateSpecialize = async ({ id, api, token, completeMessage, errorMessage }) => {
+const handleCreateSpecialize = async ({ id, api, token, setSpecialization, completeMessage, errorMessage }) => {
     const payload = {
-        id
+        id,
     }
-    console.log(payload)
+    
+    const result = await postData(api, "/specialization/create", token, payload, completeMessage, errorMessage)
+    console.log(result)
+    if(result.status == 200)
+        setSpecialization(result.data.data)
 }
 
 const handleDeleteSpecialize = async ({ id, api, token, payload, completeMessage, errorMessage }) => {

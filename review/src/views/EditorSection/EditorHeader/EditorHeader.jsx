@@ -20,6 +20,7 @@ function EditorHeader({ currentSection }) {
     // Check user có quyền để truy cập chỉnh sửa không
     // Nhưng đang không ổn lắm do lỡ nhiều người ko biết query ==> check bằng api
     useEffect(() => {
+        console.log(user.lecturersCode, responsiveTeacher)
         if(programStatus != "true") {
             alert("CHƯƠNG TRÌNH KHÔNG THỂ CHỈNH SỬA")
             navigate("/program/manage")

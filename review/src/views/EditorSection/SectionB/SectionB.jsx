@@ -36,7 +36,7 @@ export default function SectionB() {
         return async () => {
             return await getDataSectionB({
                 id,
-                api: fakeAPI,
+                api: serverAPI,
                 token,
                 setIsDataSaved,
                 setSectionBValue

@@ -59,9 +59,9 @@ export default function AuthorBlock({ data }) {
                     <thead>
                         <tr>
                             <th className='center' style={{ width: "10%" }}>STT</th>
-                            <th style={{ width: "25%" }}>Họ</th>
-                            <th style={{ width: "20%" }}>Tên</th>
-                            <th style={{ width: "45%" }}>Đơn vị</th>
+                            <th style={{ width: "23%" }}>Họ</th>
+                            <th style={{ width: "17%" }}>Tên</th>
+                            <th style={{ width: "60%" }}>Đơn vị</th>
                         </tr>
                     </thead>
                     <tbody>

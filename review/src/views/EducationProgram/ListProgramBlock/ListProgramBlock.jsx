@@ -136,10 +136,13 @@ export default function ListProgramBlock({ name, data, request, setProgram, setR
                                         && 
                                         <>
                                             {
-                                                user.lecturersCode == element.responsiblePersonCode 
-                                                && element.status == "DANG_THUC_HIEN"
+                                                //user.lecturersCode == element.responsiblePersonCode
+                                                //&& element.status == "DANG_THUC_HIEN"
+                                                (user.lecturersCode == element.responsiblePersonCode || element.responsiblePersonCode == "1")
+                                                && (element.status == "DANG_THUC_HIEN" || element.status == "1")
                                                 &&
-                                                <Link target="_blank" to={`/edit/program/sectionA/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`} className="green">
+                                                //<Link target="_blank" to={`/edit/program/sectionA/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`} className="green">
+                                                <Link target="_blank" to={`/edit/program/sectionA/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "1"}`} className="green">
                                                     <FontAwesomeIcon icon={faPenClip} />
                                                 </Link>
                                             }
