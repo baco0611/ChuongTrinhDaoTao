@@ -106,7 +106,7 @@ const saveChangeSectionSpecialize = async ({ id, api, token, setIsDataSaved, pay
 
 const handleCreateSpecialize = async ({ id, api, token, setSpecialization, setIsDisableButton, completeMessage, errorMessage }) => {
     const payload = {
-        id,
+        programId: id,
     }
     setIsDisableButton(true)
     const result = await postData(api, "/specialization/create", token, payload, completeMessage, errorMessage)

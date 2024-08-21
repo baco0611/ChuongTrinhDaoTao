@@ -1,12 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareMinus, faSquarePlus } from '@fortawesome/free-solid-svg-icons'
-import { changeDataSectionC } from '../database/sectionC'
+import { changeDataSectionC, handleCreatePO, handleDeletePO, handleSaveChangeElement, handleSaveChangeSectionC } from '../database/sectionC'
 import { UserContext } from '../../../context/ContextProvider'
+import { useParams } from 'react-router-dom'
 
 export default function POBlock({ title, data, setState }) {
 
-    const { setIsDataSaved } = useContext(UserContext)
+    const { setIsDataSaved, serverAPI, apiURL, token } = useContext(UserContext)
+    const { id } = useParams()
+    const [ isDisable, setIsDisable ] = useState(false)
 
     useEffect(() => {
         const elements = document.querySelectorAll('textarea')
@@ -16,6 +19,8 @@ export default function POBlock({ title, data, setState }) {
             item.style.height = `${item.scrollHeight}px`
         })
     })
+
+    console.log(isDisable)
 
     return (
         <div className='PO-block'>
@@ -27,7 +32,17 @@ export default function POBlock({ title, data, setState }) {
                         <th style={{ width: "75%" }}>Mục tiêu cụ thể</th>
                         <th style={{ width: "10%" }}>
                             <button
-                                // onClick={() => handleClickAddC({ idCTDT, type: data.type, typeIndex: data.typeIndex, setState })}
+                                disabled={isDisable}
+                                onClick={() => handleCreatePO({
+                                    api: serverAPI,
+                                    token,
+                                    numOfElement: data.data.length,
+                                    type: data.type,
+                                    typeIndex: data.typeIndex,
+                                    programId: id,
+                                    setState,
+                                    setIsDisable
+                                })}
                             >
                                 <FontAwesomeIcon icon={faSquarePlus} />
                             </button>
@@ -51,10 +66,25 @@ export default function POBlock({ title, data, setState }) {
                                             setState, 
                                             setIsDataSaved,
                                         })}
+                                        onBlur={() => handleSaveChangeElement({
+                                            api: serverAPI,
+                                            id: element.id,
+                                            token,
+                                            content: element.content,
+                                            setIsDataSaved
+                                        })}
                                     />
                                 </td>
                                 <td> 
-                                    <button>
+                                    <button
+                                        onClick={() => handleDeletePO({
+                                            api: serverAPI,
+                                            token,
+                                            id: element.id,
+                                            setState, 
+                                            symbol: element.symbol
+                                        })}
+                                    >
                                         <FontAwesomeIcon icon={faSquareMinus} />
                                     </button>
                                 </td>

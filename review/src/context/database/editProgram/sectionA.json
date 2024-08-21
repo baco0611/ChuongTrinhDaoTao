@@ -1,52 +1,53 @@
 {
-    "sectionA": [
-        {
-            "id": "1",
-            "data": {
-                "admissionTarget": "123456",
-                "advancedSkillsDevelopment": "",
-                "diploma": "",
-                "duration": "1234",
-                "educationLevel": "Đại học bình thường",
-                "employmentPositionAfterGraduation": "",
-                "englishName": "123456",
-                "fieldCode": "HUUUUNAB",
-                "fieldName": "123",
-                "graduationConditional": "",
-                "managingDepartment": "1",
-                "referenceProgram": "",
-                "requiredCredits": "",
-                "trainingMode": "",
-                "vietnameseName": "Công nghệ thông tin chất lượng cao",
-                "id": "1"
-            },
-            "status": 200
-        }
-    ],
-    "specialization": [
-        {
-            "id": "1",
-            "specializationName": "Khoa học máy tính aaaaa",
-            "specializationId": "1",
-            "programId": "1"
-        },
-        {
-            "id": "2",
-            "specializationName": "Công nghệ phần mềm",
-            "specializationId": "2",
-            "programId": "1"
-        },
-        {
-            "id": "3",
-            "specializationName": "Mạng máy tính",
-            "specializationId": "3",
-            "programId": "1"
-        },
-        {
-            "id": "4",
-            "specializationName": "Kỹ nghệ xây dựng",
-            "specializationId": "4",
-            "programId": "2"
-        }
-    ]
+  "sectionA": [
+    {
+      "id": "1",
+      "data": {
+        "admissionTarget": "",
+        "advancedSkillsDevelopment": "",
+        "diploma": "",
+        "duration": "1234",
+        "educationLevel": "Đại học bình thường",
+        "employmentPositionAfterGraduation": "",
+        "englishName": "123456",
+        "fieldCode": "HUUUUNAB",
+        "fieldName": "123",
+        "graduationConditional": "",
+        "managingDepartment": "1",
+        "referenceProgram": "",
+        "requiredCredits": "",
+        "trainingMode": "",
+        "vietnameseName": "Công nghệ thông tin chất lượng cao",
+        "programId": "1",
+        "id": "1"
+      },
+      "status": 200
+    }
+  ],
+  "specialization": [
+    {
+      "id": "1",
+      "specializationName": "Khoa học máy tính aaaaa",
+      "specializationId": "1",
+      "programId": "1"
+    },
+    {
+      "id": "2",
+      "specializationName": "Công nghệ phần mềm",
+      "specializationId": "2",
+      "programId": "1"
+    },
+    {
+      "id": "3",
+      "specializationName": "Mạng máy tính",
+      "specializationId": "3",
+      "programId": "1"
+    },
+    {
+      "id": "4",
+      "specializationName": "Kỹ nghệ xây dựng",
+      "specializationId": "4",
+      "programId": "2"
+    }
+  ]
 }

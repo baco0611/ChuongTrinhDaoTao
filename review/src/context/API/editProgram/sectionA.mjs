@@ -59,7 +59,7 @@ export const getSectionA = (req, res) => {
                 requiredCredits: sectionA.data.requiredCredits || "",
                 trainingMode: sectionA.data.trainingMode || "",
                 vietnameseName: sectionA.data.vietnameseName || "",
-                id: sectionA.data.id || sectionAId
+                programId: sectionA.data.programId || sectionAId
             },
             status: 200
         };
@@ -99,10 +99,10 @@ export const postSectionA = (req, res) => {
 };
 
 export const postCreateSpecialize = (req, res) => {
-    const { id } = req.body;
+    const { programId } = req.body;
 
     // Kiểm tra xem id (programId) đã được cung cấp chưa
-    if (!id) {
+    if (!programId) {
         return res.status(400).json({ error: 'Invalid data. Field "id" (programId) is required.' });
     }
 
@@ -120,7 +120,7 @@ export const postCreateSpecialize = (req, res) => {
         id: newId,  // ID mới
         specializationName: "",  // Các trường trống
         specializationId: newId,  // Sử dụng ID mới cho specializationId
-        programId: id
+        programId: programId
     };
 
     // Thêm specialization mới vào danh sách
@@ -135,7 +135,7 @@ export const postCreateSpecialize = (req, res) => {
 
     // Tạo response với danh sách các chuyên ngành
     const data = {
-        id: id,
+        id: programId,
         data: filteredSpecializations.map(s => ({
             specializationName: s.specializationName,
             specializationId: s.specializationId

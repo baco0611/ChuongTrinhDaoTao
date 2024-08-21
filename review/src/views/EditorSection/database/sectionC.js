@@ -1,4 +1,5 @@
-import { getData } from "../../../utils/function"
+import { deleteData, getData, postData } from "../../../utils/function"
+import Swal from 'sweetalert2'
 
 const sortCondition = (a, b) => {
     const aSymbol = a.symbol.split('.')
@@ -80,4 +81,64 @@ export const changeDataSectionC = ({ e, setState, id, type, setIsDataSaved }) =>
             }
         }
     })
+}
+
+export const handleSaveChangeSectionC = async () => {
+    
+}
+
+export const handleSaveChangeElement = async ({ api, id, token, content, setIsDataSaved, errorMessage, completeMessage }) => {
+    const payload = {
+        id,
+        content
+    }
+    
+    const result = await postData(api, "/program-objective/update", token, payload, completeMessage, errorMessage)
+
+    console.log(result)
+    setIsDataSaved(true)
+}
+
+export const handleCreatePO = async ({ api, token, type, typeIndex, numOfElement, programId, setState, completeMessage, errorMessage, setIsDisable }) => {
+    setIsDisable(true)
+    const payload = {
+        programId,
+        symbol: `PO - ${typeIndex}.${numOfElement + 1}`,
+        type: type,
+    }
+
+    const result = await postData(api, "/program-objective/create", token, payload, completeMessage, errorMessage)
+
+    if(result.status == 200) {
+        setState(splitProgramObjective(result.data.data))
+    }
+
+    setIsDisable(false)
+}
+
+export const handleDeletePO = async ({ api, token, id, setState, symbol }) => {
+    const payload = {
+        id
+    }
+
+    await Swal.fire({
+        title: "XÓA CHUYÊN NGÀNH",
+        text: `Bạn có muốn xóa mục tiêu ${symbol} không?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Có",
+        cancelButtonText: "Không",
+        confirmButtonColor: '#BE0000', // Màu đỏ cho nút "Có"
+        reverseButtons: true, // Đổi vị trí các nút
+    }).then(async (result) => {
+        if(result.isConfirmed) {
+            const deleteResult = await deleteData(api, "/program-objective/delete", token, payload)
+        
+            console.log(deleteResult)
+
+            if(deleteResult.status == 200) {
+                setState(splitProgramObjective(deleteResult.data.data))
+            }
+        }
+    });
 }
