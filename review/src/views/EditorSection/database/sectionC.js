@@ -14,7 +14,7 @@ const typeList = ["KIEN_THUC", "KY_NANG", "THAI_DO"]
  *                 ==> Lúc này trong DB thứ tự vẫn sai (nếu xóa 1 cái ở giữa thì bị hổng) ==> refresh lại để cập nhật trong db 
  */
 
-const sortCondition = (a, b) => {
+export const sortCondition = (a, b) => {
     const aSymbol = a.symbol.split('.')
     const bSymbol = b.symbol.split('.')
 

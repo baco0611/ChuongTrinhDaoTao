@@ -5,9 +5,11 @@ import "./SectionC.scss"
 import { useNavigate, useParams } from 'react-router-dom'
 import { UserContext } from '../../../context/ContextProvider'
 import { useQuery } from 'react-query'
+import { DragDropContext } from "react-beautiful-dnd"
 import Loader from '../../../components/Loader/Loader'
 import { getDataSectionC } from '../database/sectionC'
 import POBlock from './POBlock'
+import { handleDragEnd } from './handleDragDrop'
 
 export default function SectionC() {
 
@@ -94,21 +96,25 @@ export default function SectionC() {
                 </div>
 
                 <div className='content'>
-                    <POBlock
-                        title={"1. KIẾN THỨC"}
-                        data={sectionCValue.KIEN_THUC}
-                        setState={setSectionCValue}
-                    />
-                    <POBlock
-                        title={"2. KỸ NĂNG"}
-                        data={sectionCValue.KY_NANG}
-                        setState={setSectionCValue}
-                    />
-                    <POBlock
-                        title={"3. THÁI ĐỘ"}
-                        data={sectionCValue.THAI_DO}
-                        setState={setSectionCValue}
-                    />
+                    <DragDropContext
+                        onDragEnd={(e) => handleDragEnd({ e, setState: setSectionCValue, setIsDataSaved })}
+                    >
+                        <POBlock
+                            title={"1. KIẾN THỨC"}
+                            data={sectionCValue.KIEN_THUC}
+                            setState={setSectionCValue}
+                        />
+                        <POBlock
+                            title={"2. KỸ NĂNG"}
+                            data={sectionCValue.KY_NANG}
+                            setState={setSectionCValue}
+                        />
+                        <POBlock
+                            title={"3. THÁI ĐỘ"}
+                            data={sectionCValue.THAI_DO}
+                            setState={setSectionCValue}
+                        />
+                    </DragDropContext>
                 </div>
             </div>
             <EditorFooter
