@@ -2,7 +2,7 @@ import jsonServer from 'json-server';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { getSectionA, getSpecialize, postCreateSpecialize, postSectionA } from './editProgram/sectionA.mjs';
+import { deleteSpecialize, getSectionA, getSpecialize, postCreateSpecialize, postSectionA, updateSpecialize } from './editProgram/sectionA.mjs';
 import { getSectionB, postSectionB } from './editProgram/sectionB.mjs';
 
 // Để xử lý __dirname trong ES module
@@ -31,8 +31,12 @@ server.get('/specialization/:id', getSpecialize);
 server.get('/sectionA/:id', getSectionA);
 // Route POST cập nhật thông tin sectionA
 server.post('/sectionA-info', postSectionA);
-// Route POST cập nhật thông tin sectionA
+// Route POST tạo chuyên ngành
 server.post('/specialization/create', postCreateSpecialize);
+// Route DELETE xóa chuyên ngành
+server.delete('/specialization/delete', deleteSpecialize);
+// Route POST cập nhật thông tin chuyên ngành
+server.post('/specialization/update', updateSpecialize);
 
 
 

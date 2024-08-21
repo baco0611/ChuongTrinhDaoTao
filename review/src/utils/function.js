@@ -65,26 +65,28 @@ const postData = async (api, url, token, payload, completeMessage, errorMessage)
 }
 
 const deleteData = async (api, url, token, payload, completeMessage, errorMessage) => {
-    const apiURL = api + url
+    const apiURL = api + url;
+    
     const config = {
-        headers: { Authorization: `Bearer ${token}` }
-    }
+        headers: { Authorization: `Bearer ${token}` },
+        data: payload  // Chuyển payload vào config
+    };
 
     const result = 
-        await axios.delete(apiURL, payload, config)
+        await axios.delete(apiURL, config)
             .then(response => {
-                console.log(completeMessage ? completeMessage : '', response)
-                return response
+                console.log(completeMessage ? completeMessage : '', response);
+                return response;
             })
             .catch(err => {
-                console.log(errorMessage ? errorMessage : '', err)
-                return err
-            })
+                console.log(errorMessage ? errorMessage : '', err);
+                return err;
+            });
 
     return {
         data: result.data,
         status: result.status
-    }
+    };
 }
 
 function transformChar(charMap, str) {

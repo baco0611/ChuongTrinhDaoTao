@@ -38,7 +38,7 @@
   "specialization": [
     {
       "id": "1",
-      "specializationName": "Khoa học máy tính",
+      "specializationName": "Khoa học máy tính aaaaa",
       "specializationId": "1",
       "programId": "1"
     },
@@ -59,19 +59,13 @@
       "specializationName": "Kỹ nghệ xây dựng",
       "specializationId": "4",
       "programId": "2"
-    },
-    {
-      "id": "5",
-      "specializationName": "",
-      "specializationId": "5",
-      "programId": "1"
     }
   ],
   "sectionB": [
     {
       "id": "1",
       "data": {
-        "overallObjectives": "Tự nhiên thèm có bồ ngang huhuhuhu\nhic hic"
+        "overallObjectives": ""
       },
       "status": 200
     }

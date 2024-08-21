@@ -1,4 +1,4 @@
-import { getData, postData } from "../../../utils/function";
+import { deleteData, getData, postData } from "../../../utils/function";
 import Swal from 'sweetalert2'
 
 /* 
@@ -97,23 +97,35 @@ const saveChangeSectionAInfo = async ({ id, api, token, completeMessage, errorMe
 }
 
 const saveChangeSectionSpecialize = async ({ id, api, token, setIsDataSaved, payload, completeMessage, errorMessage }) => {
-    console.log(payload, api)
-    setIsDataSaved(true)
+    const result = await postData(api, "/specialization/update", token, payload, completeMessage, errorMessage)
+    
+    if(result.status == 200) {
+        setIsDataSaved(true)
+    }
 }
 
-const handleCreateSpecialize = async ({ id, api, token, setSpecialization, completeMessage, errorMessage }) => {
+const handleCreateSpecialize = async ({ id, api, token, setSpecialization, setIsDisableButton, completeMessage, errorMessage }) => {
     const payload = {
         id,
     }
-    
+    setIsDisableButton(true)
     const result = await postData(api, "/specialization/create", token, payload, completeMessage, errorMessage)
     console.log(result)
-    if(result.status == 200)
+    if(result.status == 200) {
         setSpecialization(result.data.data)
+        setIsDisableButton(false)
+    }
 }
 
-const handleDeleteSpecialize = async ({ id, api, token, payload, completeMessage, errorMessage }) => {
-    Swal.fire({
+const deleteSpecialize = async ({ id, api, token, payload, completeMessage, errorMessage, setSpecialization }) => {
+    const result = await deleteData(api, "/specialization/delete", token, payload, completeMessage, errorMessage)
+
+    if(result.status == 200)
+        setSpecialization(result.data.data)
+}       
+
+const handleDeleteSpecialize = async ({ id, api, token, payload, completeMessage, errorMessage, setSpecialization }) => {
+    await Swal.fire({
         title: "XÓA CHUYÊN NGÀNH",
         text: `Bạn có muốn xóa chuyên ngành ${payload.specializationName} không?`,
         icon: "warning",
@@ -124,7 +136,7 @@ const handleDeleteSpecialize = async ({ id, api, token, payload, completeMessage
         reverseButtons: true, // Đổi vị trí các nút
     }).then((result) => {
         if (result.isConfirmed) {
-            console.log(payload);
+            deleteSpecialize({ id, api, token, payload, completeMessage, errorMessage, setSpecialization })
         }
     });
 }

@@ -146,3 +146,78 @@ export const postCreateSpecialize = (req, res) => {
     // Trả về danh sách các chuyên ngành
     res.status(200).json(data);
 };
+
+export const deleteSpecialize = (req, res) => {
+    const { specializationId } = req.body;
+
+    // Kiểm tra xem specializationId đã được cung cấp chưa
+    if (!specializationId) {
+        return res.status(400).json({ error: 'Invalid data. Field "specializationId" is required.' });
+    }
+
+    // Đảm bảo rằng danh sách specialization tồn tại
+    const specializations = dbContent.specialization || [];
+
+    // Tìm specialization cần xóa và lấy programId của nó
+    const specialization = specializations.find(specialization => specialization.specializationId === specializationId);
+
+    if (!specialization) {
+        return res.status(404).json({ error: `Specialization with id ${specializationId} not found.` });
+    }
+
+    // Lấy programId từ specialization
+    const programId = specialization.programId;
+
+    // Xóa specialization khỏi danh sách
+    const specializationIndex = specializations.indexOf(specialization);
+    specializations.splice(specializationIndex, 1);
+
+    // Ghi dữ liệu mới vào db.json
+    dbContent.specialization = specializations;
+    fs.writeFileSync(dbFilePath, JSON.stringify(dbContent, null, 2), 'utf-8');
+
+    // Lọc danh sách chuyên ngành theo programId
+    const filteredSpecializations = specializations.filter(s => s.programId === programId);
+
+    // Tạo response với danh sách các chuyên ngành
+    const data = {
+        id: programId,
+        data: filteredSpecializations.map(s => ({
+            specializationName: s.specializationName,
+            specializationId: s.specializationId
+        })),
+        status: 200
+    };
+
+    // Trả về danh sách các chuyên ngành
+    res.status(200).json(data);
+};
+
+export const updateSpecialize = (req, res) => {
+    const { specializationId, specializationName } = req.body;
+
+    // Kiểm tra xem cả specializationId và specializationName đã được cung cấp chưa
+    if (!specializationId || !specializationName) {
+        return res.status(400).json({ error: 'Invalid data. Fields "specializationId" and "specializationName" are required.' });
+    }
+
+    // Đảm bảo rằng danh sách specialization tồn tại
+    const specializations = dbContent.specialization || [];
+
+    // Tìm specialization cần cập nhật
+    const specialization = specializations.find(specialization => specialization.specializationId === specializationId);
+
+    if (!specialization) {
+        return res.status(404).json({ error: `Specialization with id ${specializationId} not found.` });
+    }
+
+    // Cập nhật tên của specialization
+    specialization.specializationName = specializationName;
+
+    // Ghi dữ liệu mới vào db.json
+    fs.writeFileSync(dbFilePath, JSON.stringify(dbContent, null, 2), 'utf-8');
+
+    // Trả về phản hồi thành công
+    res.status(200).json({ message: `Specialization with id ${specializationId} updated successfully.` });
+};
+
