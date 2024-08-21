@@ -4,6 +4,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { deleteSpecialize, getSectionA, getSpecialize, postCreateSpecialize, postSectionA, updateSpecialize } from './editProgram/sectionA.mjs';
 import { getSectionB, postSectionB } from './editProgram/sectionB.mjs';
+import { getEditorHeader } from './editProgram/edit.mjs';
+import { getProgramObjectives } from './editProgram/sectionC.mjs';
 
 // Để xử lý __dirname trong ES module
 const __filename = fileURLToPath(import.meta.url);
@@ -21,6 +23,10 @@ server.use((req, res, next) => {
     setTimeout(next, 1000); // 1000 ms = 1 second
     next();
 });
+
+// EDITOR HEADER
+// Route GET để lấy thông tin editor header theo id
+server.get('/editor-header/:id', getEditorHeader);
 
 
 // SECTION A
@@ -41,13 +47,20 @@ server.post('/specialization/update', updateSpecialize);
 
 
 // SECTION B
-
 // Routes for Section B
 // Route GET để lấy thông tin sectionB theo id
 server.get('/sectionB/:id', getSectionB);
 // Route POST để cập nhật thông tin sectionB
 server.post('/sectionB-info', postSectionB);
     
+
+
+// SECTION C
+server.get('/sectionC/:id', getProgramObjectives);
+
+
+
+
 server.use(router);
 server.listen(3002, () => {
     console.log('JSON Server is running on port 3002');

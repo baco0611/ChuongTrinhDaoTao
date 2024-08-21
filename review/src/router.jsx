@@ -14,6 +14,7 @@ import Authorization from './views/LecturerManage/Authorization/Authorization'
 import Responsibility from './views/LecturerManage/Responsibility/Responsibility'
 import EducationManage from './views/EducationProgram/EducationMain/EducationManage'
 import EducationSearch from './views/EducationProgram/EducationMain/EducationSearch'
+import EditProgramLayout from './components/EditProgramLayout/EditProgramLayout'
 
 const router = createBrowserRouter([
     {
@@ -38,6 +39,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/edit/program",
+                element: <EditProgramLayout/>,
                 children: [
                     {
                         path: "/edit/program/sectionA/:id",

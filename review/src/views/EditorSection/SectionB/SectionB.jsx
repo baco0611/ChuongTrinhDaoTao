@@ -23,6 +23,10 @@ export default function SectionB() {
     }, [])
 
     useEffect(() => {
+        sessionStorage.setItem(`sectionB-${id}`, JSON.stringify(sectionBValue))
+    }, [sectionBValue])
+
+    useEffect(() => {
         // Thêm event listener khi component được mount
         window.addEventListener('beforeunload', handleBeforeUnload);
 

@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const dbFilePath = path.join(__dirname, '../../db.json');
+const dbFilePath = path.join(__dirname, '../../database/editProgram/sectionB.json');
 const dbContent = JSON.parse(fs.readFileSync(dbFilePath, 'utf-8'));
 
 export const getSectionB = (req, res) => {

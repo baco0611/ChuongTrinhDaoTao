@@ -37,7 +37,7 @@ function EditorHeader({ currentSection }) {
 
     const fetchAPI = (id) => {
         return async () => {
-            return (await getData(fakeAPI, `/editorHeader/${id}`, token)).data.data
+            return (await getData(serverAPI, `/editor-header/${id}`, token)).data.data
         }
     }
 

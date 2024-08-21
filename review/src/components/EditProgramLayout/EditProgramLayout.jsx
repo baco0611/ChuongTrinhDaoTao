@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import EditorHeader from '../../views/EditorSection/EditorHeader/EditorHeader'
 
 export default function EditProgramLayout() {
     const id = useLocation().pathname.split("/").pop()
