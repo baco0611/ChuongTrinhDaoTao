@@ -1,11 +1,11 @@
 {
-    "sectionB": [
-        {
-          "id": "1",
-          "data": {
-            "overallObjectives": "12345"
-          },
-          "status": 200
-        }
-    ]
+  "sectionB": [
+    {
+      "programId": "1",
+      "data": {
+        "overallObjectives": "aaaaaaa"
+      },
+      "status": 200
+    }
+  ]
 }

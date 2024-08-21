@@ -15,7 +15,7 @@ export default function SectionB() {
     const navigate = useNavigate()
 
     const { user, token, isDataSaved, setIsDataSaved, handleBeforeUnload, fakeAPI, serverAPI } = useContext(UserContext)
-    const [ sectionBValue, setSectionBValue ] = useState("")
+    const [ sectionBValue, setSectionBValue ] = useState(JSON.parse(sessionStorage.getItem(`sectionB-${id}`)) ||"")
 
 
     useEffect(() => {

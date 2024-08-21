@@ -30,15 +30,8 @@
     },
     {
       "id": 5,
-      "symbol": "PO - 3.2",
-      "content": "- Có khả năng tự định hướng, thích nghi với môi trường làm việc khác nhau; tự học tập, tích lũy kiến thức, kinh nghiệm để nâng cao trình độ chuyên môn nghiệp vụ.",
-      "type": "THAI_DO",
-      "programId": 1
-    },
-    {
-      "id": 6,
       "symbol": "PO - 3.1",
-      "content": "- Có phẩm chất đạo đức tốt, có ý thức tổ chức kỷ luật, có thái độ hợp tác với đồng nghiệp, tôn trọng pháp luật và qui định nơi làm việc, trung thực và có tính kỷ luật cao, sẵn sàng đảm nhiệm các công việc được giao nơi làm việc.",
+      "content": "- Có khả năng tự định hướng, thích nghi với môi trường làm việc khác nhau; tự học tập, tích lũy kiến thức, kinh nghiệm để nâng cao trình độ chuyên môn nghiệp vụ.",
       "type": "THAI_DO",
       "programId": 1
     },

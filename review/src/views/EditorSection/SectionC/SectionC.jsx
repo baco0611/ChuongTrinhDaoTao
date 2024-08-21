@@ -16,22 +16,24 @@ export default function SectionC() {
     const navigate = useNavigate()
 
     const { user, token, serverAPI, apiURL, isDataSaved, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
-    const [ sectionCValue, setSectionCValue ] = useState({
-        KIEN_THUC: {
-            type: 'KIEN_THUC',
-            typeIndex: 1,
-            data: []
-        },
-        KY_NANG: {
-            type: 'KY_NANG',
-            typeIndex: 2,
-            data: []
-        },
-        THAI_DO: {
-            type: 'THAI_DO',
-            typeIndex: 3,
-            data: []
-        }
+    const [ sectionCValue, setSectionCValue ] = useState(
+        JSON.parse(sessionStorage.getItem(`sectionC-${id}`)) ||    
+        {
+            KIEN_THUC: {
+                type: 'KIEN_THUC',
+                typeIndex: 1,
+                data: []
+            },
+            KY_NANG: {
+                type: 'KY_NANG',
+                typeIndex: 2,
+                data: []
+            },
+            THAI_DO: {
+                type: 'THAI_DO',
+                typeIndex: 3,
+                data: []
+            }
     })
 
     console.log(sectionCValue)
@@ -39,6 +41,10 @@ export default function SectionC() {
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
+
+    useEffect(() => {
+        sessionStorage.setItem(`sectionC-${id}`, JSON.stringify(sectionCValue))
+    }, [sectionCValue])
 
     useEffect(() => {
         // Thêm event listener khi component được mount

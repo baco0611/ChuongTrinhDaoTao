@@ -13,12 +13,12 @@ export const getSectionB = (req, res) => {
     const sectionBId = req.params.id;
 
     // Tìm sectionB theo id
-    const sectionB = dbContent['sectionB'].find(section => section.id === sectionBId);
+    const sectionB = dbContent['sectionB'].find(section => section.programId === sectionBId);
 
     if (sectionB) {
         // Tạo response theo format yêu cầu
         const response = {
-            id: sectionB.id,
+            programId: sectionB.programId,
             data: {
                 overallObjectives: sectionB.data.overallObjectives || ""
             },
@@ -35,14 +35,14 @@ export const getSectionB = (req, res) => {
 export const postSectionB = (req, res) => {
     const newData = req.body;
 
-    if (!newData || !newData.id) {
+    if (!newData || !newData.programId) {
         return res.status(400).json({ error: 'Invalid data. The "id" field is required.' });
     }
 
     const sectionB = dbContent.sectionB || [];
 
     // Tìm phần tử có cùng id trong sectionB
-    const existingIndex = sectionB.findIndex(item => item.id === newData.id);
+    const existingIndex = sectionB.findIndex(item => item.programId == newData.programId);
 
     if (existingIndex >= 0) {
         // Nếu đã tồn tại, cập nhật dữ liệu

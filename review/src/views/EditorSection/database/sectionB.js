@@ -14,7 +14,7 @@ const getDataSectionB = async ({ id, api, token, completeMessage, errorMessage, 
 
 const handleSaveChangeSectionB = async ({ id, api, token, sectionBValue, completeMessage, errorMessage, setIsDataSaved }) => {
     const payload = {
-        id,
+        programId: id,
         overallObjectives: sectionBValue
     }
     const result = await postData(api, "/sectionB-info", token, payload)
