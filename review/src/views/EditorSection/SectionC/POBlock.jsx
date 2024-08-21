@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareMinus, faSquarePlus } from '@fortawesome/free-solid-svg-icons'
-import { changeDataSectionC, handleCreatePO, handleDeletePO, handleSaveChangeElement, handleSaveChangeSectionC } from '../database/sectionC'
+import { changeDataSectionC, handleCreatePO, handleDeletePO, handleSaveChangeElement } from '../database/sectionC'
 import { UserContext } from '../../../context/ContextProvider'
 import { useParams } from 'react-router-dom'
 
@@ -19,8 +19,6 @@ export default function POBlock({ title, data, setState }) {
             item.style.height = `${item.scrollHeight}px`
         })
     })
-
-    console.log(isDisable)
 
     return (
         <div className='PO-block'>
@@ -82,7 +80,8 @@ export default function POBlock({ title, data, setState }) {
                                             token,
                                             id: element.id,
                                             setState, 
-                                            symbol: element.symbol
+                                            symbol: element.symbol,
+                                            typeIndex: data.typeIndex
                                         })}
                                     >
                                         <FontAwesomeIcon icon={faSquareMinus} />

@@ -29,7 +29,7 @@ export const updateProgramObjective = (req, res) => {
     const { id, content } = req.body;
 
     // Kiểm tra xem cả id và content đã được cung cấp chưa
-    if (!id || !content) {
+    if (!id || content == undefined) {
         return res.status(400).json({ error: 'Invalid data. Fields "id" and "content" are required.' });
     }
 
@@ -127,4 +127,29 @@ export const deleteProgramObjective = (req, res) => {
         data: filteredObjectives,
         status: 200
     });
+};
+
+export const updateProgramObjectives = (req, res) => {
+    const updatedPOs = req.body; // Mảng chứa các PO cần cập nhật
+
+    if (!Array.isArray(updatedPOs) || updatedPOs.length === 0) {
+        return res.status(400).json({ error: 'Invalid data. The payload should be a non-empty array.' });
+    }
+
+    const programObjectives = dbContent.programObjective || [];
+
+    updatedPOs.forEach(updatedPO => {
+        const index = programObjectives.findIndex(po => po.id === updatedPO.id);
+        if (index !== -1) {
+            // Cập nhật các trường 'symbol' và 'type' của PO
+            programObjectives[index].symbol = updatedPO.symbol;
+            programObjectives[index].type = updatedPO.type;
+        }
+    });
+
+    // Ghi dữ liệu mới vào db.json
+    dbContent.programObjective = programObjectives;
+    fs.writeFileSync(dbFilePath, JSON.stringify(dbContent, null, 2), 'utf-8');
+
+    res.status(200).json({ message: 'Program Objectives updated successfully' });
 };
