@@ -39,7 +39,8 @@ export default function POBlock({ title, data, setState }) {
                                     typeIndex: data.typeIndex,
                                     programId: id,
                                     setState,
-                                    setIsDisable
+                                    setIsDisable,
+                                    setIsDataSaved,
                                 })}
                             >
                                 <FontAwesomeIcon icon={faSquarePlus} />
@@ -81,7 +82,8 @@ export default function POBlock({ title, data, setState }) {
                                             id: element.id,
                                             setState, 
                                             symbol: element.symbol,
-                                            typeIndex: data.typeIndex
+                                            typeIndex: data.typeIndex,
+                                            setIsDataSaved,
                                         })}
                                     >
                                         <FontAwesomeIcon icon={faSquareMinus} />

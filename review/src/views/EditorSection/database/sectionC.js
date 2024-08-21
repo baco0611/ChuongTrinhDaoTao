@@ -3,6 +3,17 @@ import Swal from 'sweetalert2'
 
 const typeList = ["KIEN_THUC", "KY_NANG", "THAI_DO"]
 
+/**
+ * Luồng hoạt động của PO
+ * 
+ * Khi thay đổi dữ liệu (changeDataSectionC)
+ * Khi blur khỏi element ==> tự động lưu dữ liệu (saveChangeElement)
+ * Khi nhấn create ==> Tạo element mới, Symbol tự động tăng lên (handelCreatePO) 
+ *                 ==> lấy dữ liệu thì cần split để tách dữ liệu đúng thứ tự
+ * Khi nhấn delete ==> Xóa phần tử đó ==> lấy dữ liệu thì cần split dữ liệu lại cho đúng thứ tự
+ *                 ==> Lúc này trong DB thứ tự vẫn sai (nếu xóa 1 cái ở giữa thì bị hổng) ==> refresh lại để cập nhật trong db 
+ */
+
 const sortCondition = (a, b) => {
     const aSymbol = a.symbol.split('.')
     const bSymbol = b.symbol.split('.')
@@ -102,8 +113,9 @@ export const handleSaveChangeElement = async ({ api, id, token, content, setIsDa
     setIsDataSaved(true)
 }
 
-export const handleCreatePO = async ({ api, token, type, typeIndex, numOfElement, programId, setState, completeMessage, errorMessage, setIsDisable }) => {
+export const handleCreatePO = async ({ api, token, type, typeIndex, numOfElement, programId, setState, setIsDataSaved, completeMessage, errorMessage, setIsDisable }) => {
     setIsDisable(true)
+    setIsDataSaved(false)
     const payload = {
         programId,
         symbol: `PO - ${typeIndex}.${numOfElement + 1}`,
@@ -117,9 +129,10 @@ export const handleCreatePO = async ({ api, token, type, typeIndex, numOfElement
     }
 
     setIsDisable(false)
+    setIsDataSaved(true)
 }
 
-export const handleDeletePO = async ({ api, token, id, setState, symbol, typeIndex }) => {
+export const handleDeletePO = async ({ api, token, id, setState, symbol, typeIndex, setIsDataSaved }) => {
     const payload = {
         id
     }
@@ -135,6 +148,7 @@ export const handleDeletePO = async ({ api, token, id, setState, symbol, typeInd
         reverseButtons: true, // Đổi vị trí các nút
     }).then(async (result) => {
         if(result.isConfirmed) {
+            setIsDataSaved(false)
             const deleteResult = await deleteData(api, "/program-objective/delete", token, payload)
 
             if(deleteResult.status == 200) {
@@ -143,8 +157,10 @@ export const handleDeletePO = async ({ api, token, id, setState, symbol, typeInd
 
                 const value = typeIndex == 1 ? data["KIEN_THUC"] : typeIndex == 2 ? data["KY_NANG"] : data["THAI_DO"]
 
-                handleSaveChangeTypeElement({ api, token, payload: value })
+                await handleSaveChangeTypeElement({ api, token, payload: value })
             }
+
+            setIsDataSaved(true)
         }
     });
 }
