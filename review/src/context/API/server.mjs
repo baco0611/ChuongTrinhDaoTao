@@ -6,6 +6,7 @@ import { deleteSpecialize, getSectionA, getSpecialize, postCreateSpecialize, pos
 import { getSectionB, postSectionB } from './editProgram/sectionB.mjs';
 import { getEditorHeader } from './editProgram/edit.mjs';
 import { createProgramObjective, deleteProgramObjective, getProgramObjectives, updateProgramObjective, updateProgramObjectives } from './editProgram/sectionC.mjs';
+import { getProgramLearningOutcomes } from './editProgram/sectionD.mjs';
 
 // Để xử lý __dirname trong ES module
 const __filename = fileURLToPath(import.meta.url);
@@ -62,6 +63,10 @@ server.post('/program-objective/create', createProgramObjective);
 server.delete('/program-objective/delete', deleteProgramObjective);
 server.post('/update-program-objectives', updateProgramObjectives);
 
+
+
+// SECTION D
+server.get('/sectionD/:programId', getProgramLearningOutcomes);
 
 
 server.use(router);

@@ -1,4 +1,4 @@
-import { postData } from "../../../utils/function"
+import { alertErrorDataSave, postData } from "../../../utils/function"
 import { sortCondition } from "../database/sectionC"
 
 const sortData = (element, type, typeIndex) => {
@@ -23,6 +23,8 @@ const autoSavePO = async ({ api, token, payload, setIsDataSaved }) => {
     console.log(result)
     if(result.status == 200)
         setIsDataSaved(true)
+    else
+        alertErrorDataSave()
 }
 
 const handleChangeIndexComponent = async ({ data, api, token, source, destination, setState, setIsDataSaved }) => {

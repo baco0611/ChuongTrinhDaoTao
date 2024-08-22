@@ -384,7 +384,7 @@ export default function SectionA() {
                                 name="referenceProgram"
                                 value={sectionAValue.referenceProgram}
                                 autoComplete="off"
-                                onChange={(e) => handleChangeValue({ e, name: "textarea", max: 200, setSectionAValue, setIsDataSaved })}
+                                onChange={(e) => handleChangeValue({ e, name: "textarea", max: 1500, setSectionAValue, setIsDataSaved })}
                                 onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
                             />
                         </div>

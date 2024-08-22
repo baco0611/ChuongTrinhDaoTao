@@ -15,22 +15,18 @@ export const getSpecialize = (req, res) => {
     // Lọc dữ liệu từ specialization-b trong db.json
     const specializations = dbContent['specialization'].filter(specialization => specialization.programId === specializationId);
 
-    if (specializations.length > 0) {
-        // Tạo response theo format yêu cầu
-        const response = {
-            id: specializationId,
-            data: specializations.map(s => ({
-                specializationName: s.specializationName,
-                specializationId: s.specializationId
-            })),
-            status: 200
-        };
 
-        res.json(response);
-    } else {
-        // Trả về lỗi nếu không tìm thấy specialization
-        res.status(404).json({ message: "Specialization not found", status: 404 });
-    }
+    // Tạo response theo format yêu cầu
+    const response = {
+        id: specializationId,
+        data: specializations.map(s => ({
+            specializationName: s.specializationName,
+            specializationId: s.specializationId
+        })),
+        status: 200
+    };
+
+    res.json(response);
 };
 
 export const getSectionA = (req, res) => {
@@ -131,11 +127,11 @@ export const postCreateSpecialize = (req, res) => {
     fs.writeFileSync(dbFilePath, JSON.stringify(dbContent, null, 2), 'utf-8');
 
     // Lọc danh sách chuyên ngành theo programId (id)
-    const filteredSpecializations = specializations.filter(specialization => specialization.programId == id);
+    const filteredSpecializations = specializations.filter(specialization => specialization.programId == programId);
 
     // Tạo response với danh sách các chuyên ngành
     const data = {
-        id: programId,
+        programId: programId,
         data: filteredSpecializations.map(s => ({
             specializationName: s.specializationName,
             specializationId: s.specializationId

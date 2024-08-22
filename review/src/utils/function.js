@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 const getParentElementByClass = (element, className) => {
     while (element && !element.classList.contains(className)) {
@@ -123,6 +124,14 @@ function basic_decode(encodedCode) {
     return transformChar(reverseCharMap, reversed);
 }
 
+function alertErrorDataSave(message) {
+    Swal.fire({
+        icon: "error",
+        title: "Something went wrong ...",
+        text: message || "Đã xảy ra lỗi, dữ liệu chưa được lưu hoặc tạo mới. Vui lòng thử lại sau.",
+    });
+}
+
 
 export {
     getParentElementByClass,
@@ -131,5 +140,6 @@ export {
     postData,
     deleteData,
     basic_decode,
-    basic_encode
+    basic_encode,
+    alertErrorDataSave,
 }
