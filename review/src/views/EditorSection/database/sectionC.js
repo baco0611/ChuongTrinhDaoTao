@@ -96,6 +96,7 @@ export const changeDataSectionC = ({ e, setState, id, type, setIsDataSaved }) =>
 }
 
 export const handleSaveChangeTypeElement = async ({ api, token, payload, completeMessage, errorMessage}) => {
+    console.log(payload)
     const result = await postData(api, "/update-program-objectives", token, payload.data, completeMessage, errorMessage)
 
     console.log(result)

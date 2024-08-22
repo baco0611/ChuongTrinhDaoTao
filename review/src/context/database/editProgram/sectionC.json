@@ -2,7 +2,7 @@
   "programObjective": [
     {
       "id": 1,
-      "symbol": "PO - 1.2",
+      "symbol": "PO - 1.1",
       "content": "- Vận dụng được các kiến thức thuyết trình, giao tiếp, làm việc nhóm trong công tác chuyên môn.\n- Hiểu biết cơ bản về pháp luật Việt Nam, sự phân chia các ngành luật và tổ chức của Nhà nước Việt Nam hiện nay\n- Hiểu biết và vận dụng được các kiến thức cơ bản về môi trường vào việc giữ gìn và bảo vệ môi trường",
       "type": "KIEN_THUC",
       "programId": 1
@@ -16,9 +16,9 @@
     },
     {
       "id": 3,
-      "symbol": "PO - 1.1",
+      "symbol": "PO - 2.3",
       "content": "- Có kiến thức về giáo dục thể chất, An ninh quốc phòng và vận dụng được kiến thức về thế giới quan, nhân sinh quan và phương pháp luận của Chủ nghĩa Mác-Lênin, tư tưởng Hồ Chí Minh, các quan điểm, đường lối của Đảng Cộng sản Việt Nam vào cuộc sống.\n- Giao tiếp tốt bằng ngoại ngữ trong các tình huống thông thường; viết, trình bày báo cáo chuyên môn trong công việc bằng ngoại ngữ",
-      "type": "KIEN_THUC",
+      "type": "KY_NANG",
       "programId": 1
     },
     {
@@ -37,10 +37,24 @@
     },
     {
       "id": 7,
-      "symbol": "PO - 2.3",
+      "symbol": "PO - 2.4",
       "content": "- Có kỹ năng lập luận tư duy và giải quyết vấn đề: Có kỹ năng phát hiện vấn đề; Có kỹ năng đánh giá và phân tích vấn đề; Có kỹ năng giải quyết vấn đề chuyên môn; Có kỹ năng mô hình hóa; …",
       "type": "KY_NANG",
       "programId": 1
+    },
+    {
+      "id": 9,
+      "programId": 1,
+      "symbol": "PO - 3.2",
+      "content": "",
+      "type": "THAI_DO"
+    },
+    {
+      "id": 10,
+      "programId": 1,
+      "symbol": "PO - 1.2",
+      "content": "",
+      "type": "KIEN_THUC"
     }
   ]
 }

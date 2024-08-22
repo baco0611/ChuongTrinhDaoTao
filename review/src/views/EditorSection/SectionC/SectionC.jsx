@@ -97,7 +97,14 @@ export default function SectionC() {
 
                 <div className='content'>
                     <DragDropContext
-                        onDragEnd={(e) => handleDragEnd({ e, setState: setSectionCValue, setIsDataSaved })}
+                        onDragEnd={(e) => handleDragEnd({ 
+                            e, 
+                            data: sectionCValue,
+                            api: serverAPI,
+                            token,
+                            setState: setSectionCValue, 
+                            setIsDataSaved,
+                        })}
                     >
                         <POBlock
                             title={"1. KIẾN THỨC"}

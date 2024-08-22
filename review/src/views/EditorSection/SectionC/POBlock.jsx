@@ -30,15 +30,16 @@ export default function POBlock({ title, data, setState }) {
             >
             {
                 (provided) => (
-                    <table
+                    <div
                         ref={provided.innerRef} 
                         {...provided.droppableProps}
+                        className='table'
                     >
-                        <thead>
-                            <tr>
-                                <th style={{ width: "15%" }}>Ký hiệu</th>
-                                <th style={{ width: "75%" }}>Mục tiêu cụ thể</th>
-                                <th style={{ width: "10%" }}>
+                        <div className='head'>
+                            <div className='row'>
+                                <div className='block'><p>Ký hiệu</p></div>
+                                <div className='block'><p>Mục tiêu cụ thể</p></div>
+                                <div className="block">
                                     <button
                                         disabled={isDisable}
                                         onClick={() => handleCreatePO({
@@ -55,10 +56,10 @@ export default function POBlock({ title, data, setState }) {
                                     >
                                         <FontAwesomeIcon icon={faSquarePlus} />
                                     </button>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='body'>
                         {
                             data.data.map((element, index) => {
                                 return (
@@ -69,14 +70,15 @@ export default function POBlock({ title, data, setState }) {
                                     >
                                     {
                                         provided => (
-                                            <tr 
+                                            <div 
+                                                className='row'
                                                 key={index}
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
                                                 ref={provided.innerRef}
                                             >
-                                                <td><label htmlFor={`${data.type}-${index}`}>{element.symbol}</label></td>
-                                                <td>
+                                                <div className='block'><label htmlFor={`${data.type}-${index}`}>{element.symbol}</label></div>
+                                                <div className='block'>
                                                     <textarea
                                                         id={`${data.type}-${index}`}
                                                         value={element.content}
@@ -95,8 +97,8 @@ export default function POBlock({ title, data, setState }) {
                                                             setIsDataSaved
                                                         })}
                                                     />
-                                                </td>
-                                                <td> 
+                                                </div>
+                                                <div className='block'> 
                                                     <button
                                                         onClick={() => handleDeletePO({
                                                             api: serverAPI,
@@ -110,16 +112,16 @@ export default function POBlock({ title, data, setState }) {
                                                     >
                                                         <FontAwesomeIcon icon={faSquareMinus} />
                                                     </button>
-                                                </td>
-                                            </tr>
+                                                </div>
+                                            </div>
                                         )
                                     }
                                     </Draggable>
                                 )
                             })
                         } {provided.placeholder}
-                        </tbody>
-                    </table>
+                        </div>
+                    </div>
                 )
             }
             </Droppable>
