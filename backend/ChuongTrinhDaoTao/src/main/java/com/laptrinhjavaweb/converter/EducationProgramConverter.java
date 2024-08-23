@@ -149,7 +149,7 @@ public class EducationProgramConverter {
         dto.setStatus(entity.getStatus().toString()); // Chuyển đổi sang chuỗi
         dto.setProgramId(entity.getProgramId().toString());
         dto.setResponsiblePerson(entity.getLecturer().getLastName() +" "+ entity.getLecturer().getFirstName());
-        dto.setResponsiblePersonCode(entity.getLecturer().getLecturersId().toString());
+        dto.setResponsiblePersonCode(entity.getLecturer().getLecturersCode().toString());
         dto.setDepartment(entity.getDepartment().getDepartmentName());
         
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
