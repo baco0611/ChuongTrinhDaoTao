@@ -7,6 +7,7 @@ import { UserContext } from '../../../context/ContextProvider'
 import { useQuery } from 'react-query'
 import Loader from '../../../components/Loader/Loader'
 import { getDataSectionD } from '../database/sectionD'
+import SectionDModule from './SectionDModule'
 
 export default function SectionD() {
 
@@ -22,30 +23,35 @@ export default function SectionD() {
                 KIEN_THUC_DAI_HOC_HUE: {
                     type: 'KIEN_THUC',
                     typeDetail: 'KIEN_THUC_DAI_HOC_HUE',
+                    title: "Kiến thức chung trong toàn Đại học Huế",
                     data: [],
                     typeIndex: '1.1'
                 },
                 KIEN_THUC_DAI_HOC_KHOA_HOC: {
                     type: 'KIEN_THUC',
                     typeDetail: 'KIEN_THUC_DAI_HOC_KHOA_HOC',
+                    title: "Kiến thức chung trong Trường Đại học Khoa học",
                     data: [],
                     typeIndex: '1.2'
                 },
                 KIEN_THUC_LINH_VUC: {
                     type: 'KIEN_THUC',
                     typeDetail: 'KIEN_THUC_LINH_VUC',
+                    title: "Kiến thức chung theo lĩnh vực",
                     data: [],
                     typeIndex: '1.3'
                 },
                 KIEN_THUC_NHOM_NGANH: {
                     type: 'KIEN_THUC',
                     typeDetail: 'KIEN_THUC_NHOM_NGANH',
+                    title: "Kiến thức chung của nhóm ngành",
                     data: [],
                     typeIndex: '1.4'
                 },
                 KIEN_THUC_NGANH: {
                     type: 'KIEN_THUC',
                     typeDetail: 'KIEN_THUC_NGANH',
+                    title: "Kiến thức của ngành",
                     data: [],
                     typeIndex: '1.5'
                 }
@@ -54,12 +60,14 @@ export default function SectionD() {
                 KY_NANG_CHUYEN_MON: {
                     type: 'KY_NANG',
                     typeDetail: 'KY_NANG_CHUYEN_MON',
+                    title: "Kỹ năng chuyên môn",
                     data: [],
                     typeIndex: '2.1'
                 },
                 KY_NANG_MEM: {
                     type: 'KY_NANG',
                     typeDetail: 'KY_NANG_CHUYEN_MEM',
+                    title: "Kỹ năng mềm",
                     data: [],
                     typeIndex: '2.2'
                 }
@@ -68,18 +76,21 @@ export default function SectionD() {
                 THAI_DO_CA_NHAN: {
                     type: 'THAI_DO',
                     typeDetail: 'THAI_DO_CA_NHAN',
+                    title: "Phẩm chất, đạo đức và thái độ của cá nhân",
                     data: [],
                     typeIndex: '3.1'
                 },
                 THAI_DO_NGHE_NGHIEP: {
                     type: 'THAI_DO',
                     typeDetail: 'THAI_DO_NGHE_NGHIEP',
+                    title: "Phẩm chất, đạo đức và thái độ đối với nghề nghiệp",
                     data: [],
                     typeIndex: '3.2'
                 },
                 THAI_DO_XA_HOI: {
                     type: 'THAI_DO',
                     typeDetail: 'THAI_DO_XA_HOI',
+                    title: "Phẩm chất, đạo đức và thái độ đối với xã hội",
                     data: [],
                     typeIndex: '3.3'
                 }
@@ -112,7 +123,7 @@ export default function SectionD() {
                 id,
                 api: serverAPI,
                 token,
-                sectionDValue,
+                setSectionDValue,
                 setIsDataSaved
             })
         }
@@ -142,7 +153,21 @@ export default function SectionD() {
                 </div>
 
                 <div className='content'>
-
+                    <SectionDModule
+                        title={"1. KIẾN THỨC"}
+                        data={sectionDValue.KIEN_THUC}
+                        setState={setSectionDValue}
+                    />
+                    <SectionDModule
+                        title={"2. KỸ NĂNG"}
+                        data={sectionDValue.KY_NANG}
+                        setState={setSectionDValue}
+                    />
+                    <SectionDModule
+                        title={"3. THÁI ĐỘ"}
+                        data={sectionDValue.THAI_DO}
+                        setState={setSectionDValue}
+                    />
                 </div>
             </div>
             <EditorFooter

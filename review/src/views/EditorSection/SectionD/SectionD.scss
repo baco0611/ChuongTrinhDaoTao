@@ -1,0 +1,31 @@
+@import "../../../variable.scss";
+
+.sectionD-module {
+    padding-bottom: 25px;
+    h1, h2, p {
+        margin-bottom: 0;
+    }
+
+    h1.title {
+        color: $primary-color;
+        background-color: white;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 24px;
+
+        position: sticky;
+        top: 65px;
+        z-index: 19;
+    }
+
+    .PLO-block {
+        h2 {
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 18px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            background-color: white;
+        }
+    }
+}

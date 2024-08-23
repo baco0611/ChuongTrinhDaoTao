@@ -29,8 +29,8 @@
         },
         {
             "id": 5,
-            "symbol": "PLO - 1.2.1",
-            "content": "Vận dụng được các kiến thức thuyết trình, giao tiếp, làm việc nhóm trong công tác chuyên môn.",
+            "symbol": "PLO - 1.2.2",
+            "content": "Hiểu biết cơ bản về pháp luật Việt Nam, sự phân chia các ngành luật và tổ chức của Nhà nước Việt Nam hiện nay",
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_DAI_HOC_KHOA_HOC",
             "competency": 3,
@@ -38,8 +38,8 @@
         },
         {
             "id": 6,
-            "symbol": "PLO - 1.2.2",
-            "content": "Hiểu biết cơ bản về pháp luật Việt Nam, sự phân chia các ngành luật và tổ chức của Nhà nước Việt Nam hiện nay",
+            "symbol": "PLO - 1.2.1",
+            "content": "Vận dụng được các kiến thức thuyết trình, giao tiếp, làm việc nhóm trong công tác chuyên môn.",
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_DAI_HOC_KHOA_HOC",
             "competency": 3,
@@ -74,8 +74,8 @@
         },
         {
             "id": 10,
-            "symbol": "PLO - 1.5.3",
-            "content": "Hiểu và vận dụng được các kiến thức về ngành Mạng và truyền thông",
+            "symbol": "PLO - 1.5.4",
+            "content": "Hiểu và vận dụng được các kiến thức về ngành Khoa học máy tính",
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_NGANH",
             "competency": 4,
@@ -83,8 +83,8 @@
         },
         {
             "id": 11,
-            "symbol": "PLO - 1.5.4",
-            "content": "Hiểu và vận dụng được các kiến thức về ngành Khoa học máy tính",
+            "symbol": "PLO - 1.5.3",
+            "content": "Hiểu và vận dụng được các kiến thức về ngành Mạng và truyền thông",
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_NGANH",
             "competency": 4,
