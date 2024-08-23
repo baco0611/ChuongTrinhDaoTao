@@ -14,13 +14,13 @@ export default function RequestBlock({ request, setRequest, setLecturerList}) {
 
     const fetchDepartmentAPI = (api) => {
         return async () => {
-            const departmentResult = await getData(api, "/department", token)
+            const departmentResult = await getData(api, "/api/department/getAll", token)
             console.log(departmentResult)
             setDepartment(departmentResult.data.data)   
         }
     }
 
-    const { data , isLoading, isError} = useQuery(`department-lecturer`, fetchDepartmentAPI(fakeAPI),{
+    const { data , isLoading, isError} = useQuery(`department-lecturer-teacher`, fetchDepartmentAPI(apiURL),{
         cacheTime: Infinity,
         refetchOnWindowFocus: false,
     })
