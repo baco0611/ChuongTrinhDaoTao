@@ -161,7 +161,7 @@ public class EducationProgramController {
 		try {
 			// Thực hiện tìm kiếm và thu thập dữ liệu dựa trên searchRequest
 			SearchProgramResponse response = trainingProgramService.searchPrograms(searchRequest.getKeyword(),
-					searchRequest.getDepartment(), searchRequest.getPageSize(), searchRequest.getPageOrder());
+					searchRequest.getDepartment(), searchRequest.getStatus(),searchRequest.getPageSize(), searchRequest.getPageOrder());
 
 			// Trả về phản hồi thành công với dữ liệu
 			return ResponseEntity.ok(response);

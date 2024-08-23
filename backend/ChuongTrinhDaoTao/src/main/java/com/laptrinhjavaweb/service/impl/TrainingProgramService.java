@@ -56,87 +56,87 @@ public class TrainingProgramService implements IEducationProgramService {
 		return lstDTO;
 	}
 
-	public SearchProgramResponse searchPrograms(String keyword, String department, int pageSize, int pageOrder) {
-        PageRequest pageRequest = PageRequest.of(pageOrder - 1, pageSize);
-        Page<EducationProgramEntity> programPage = trainingProgramRepository.searchPrograms(keyword, department, pageRequest);
+	public SearchProgramResponse searchPrograms(String keyword, String department, int status, int pageSize,
+			int pageOrder) {
+		PageRequest pageRequest = PageRequest.of(pageOrder - 1, pageSize);
+		SearchProgramResponse responseWrapper=null;
+		if (status == 0) {
+			Page<EducationProgramEntity> programPage = trainingProgramRepository.searchPrograms(keyword, department,
+					pageRequest);
+			responseWrapper = SearchProgramResponse.builder()
+					.data(programPage.getContent().stream().map(trainingProgramConverter::convertToDTO)
+							.collect(Collectors.toList()))
+					.pageInformation(new PageInformation(programPage.getNumberOfElements(), pageSize,
+							programPage.getPageable().getOffset(), programPage.isFirst(), programPage.isLast(),
+							pageOrder, programPage.getTotalPages(), (int) programPage.getTotalElements()))
+					.status(200).build();
+		}
+		else {
+			Page<EducationProgramEntity> programPage = trainingProgramRepository.searchProgramsWithStatus(keyword, department,status,
+					pageRequest);
+			responseWrapper = SearchProgramResponse.builder()
+					.data(programPage.getContent().stream().map(trainingProgramConverter::convertToDTO)
+							.collect(Collectors.toList()))
+					.pageInformation(new PageInformation(programPage.getNumberOfElements(), pageSize,
+							programPage.getPageable().getOffset(), programPage.isFirst(), programPage.isLast(),
+							pageOrder, programPage.getTotalPages(), (int) programPage.getTotalElements()))
+					.status(200).build();
+		}
+		return responseWrapper;
 
-        SearchProgramResponse responseWrapper = SearchProgramResponse.builder()
-                .data(programPage.getContent().stream()
-                        .map(trainingProgramConverter::convertToDTO)
-                        .collect(Collectors.toList()))
-                		.pageInformation(new PageInformation(
-                        programPage.getNumberOfElements(),
-                        pageSize,
-                        programPage.getPageable().getOffset(),
-                        programPage.isFirst(),
-                        programPage.isLast(),
-                        pageOrder,
-                        programPage.getTotalPages(),
-                        (int) programPage.getTotalElements()
-                ))
-                .status(200)
-                .build();
+	}
 
-        return responseWrapper;
-    }
-	
-	public SearchProgramResponse managePrograms(String keyword, String department, String lecturerCode, int pageSize, int pageOrder) {
-	    // Tạo PageRequest với số trang và kích thước trang
-	    PageRequest pageRequest = PageRequest.of(pageOrder - 1, pageSize);
-	    
-	    // Lấy thông tin về người dùng hiện tại từ SecurityContext
-	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    String currentLecturerCode = authentication.getName(); // Mã giảng viên hiện tại
+	public SearchProgramResponse managePrograms(String keyword, String department, String lecturerCode, int pageSize,
+			int pageOrder) {
+		// Tạo PageRequest với số trang và kích thước trang
+		PageRequest pageRequest = PageRequest.of(pageOrder - 1, pageSize);
 
-	    // Xác định vai trò của người dùng
-	    boolean isDeleteProgram = authentication.getAuthorities().stream()
-	            .anyMatch(auth -> auth.getAuthority().equals("DELETE_PROGRAM"));
-	    boolean isAssignResponsibility = authentication.getAuthorities().stream()
-	            .anyMatch(auth -> auth.getAuthority().equals("ASSIGN_RESPONSIBILITY"));
-	    boolean isAdmin = authentication.getAuthorities().stream()
-	            .anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
-	    boolean isUser = authentication.getAuthorities().stream()
-	            .anyMatch(auth -> auth.getAuthority().equals("USER"));
+		// Lấy thông tin về người dùng hiện tại từ SecurityContext
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String currentLecturerCode = authentication.getName(); // Mã giảng viên hiện tại
 
-	    // Xây dựng điều kiện tìm kiếm dựa trên quyền của người dùng
-	    Page<EducationProgramEntity> programPage;
+		// Xác định vai trò của người dùng
+		boolean isDeleteProgram = authentication.getAuthorities().stream()
+				.anyMatch(auth -> auth.getAuthority().equals("DELETE_PROGRAM"));
+		boolean isAssignResponsibility = authentication.getAuthorities().stream()
+				.anyMatch(auth -> auth.getAuthority().equals("ASSIGN_RESPONSIBILITY"));
+		boolean isAdmin = authentication.getAuthorities().stream()
+				.anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
+		boolean isUser = authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("USER"));
 
-	    if (isAdmin) {
-	        // Admin có quyền xem tất cả các chương trình đào tạo
-	        programPage = trainingProgramRepository.managePrograms(keyword, department, lecturerCode, pageRequest);
-	    } else if (isDeleteProgram || isAssignResponsibility) {
-	        // DeleteProgram và AssignResponsibility có quyền xem tất cả nhưng có thể lọc theo lecturerCode
-	        programPage = trainingProgramRepository.managePrograms(keyword, department, lecturerCode, pageRequest);
-	    } else {
-	    	Page<EducationProgramEntity> programPage1 = trainingProgramRepository.findAllByLecturerIdAndFilter(keyword, department, currentLecturerCode, pageRequest);
-	    	Page<EducationProgramEntity> programPage2 = trainingProgramRepository.findByLecturersCode(keyword, department, currentLecturerCode, pageRequest);
-	    	// So sánh số lượng phần tử trong hai trang và chọn cái có nhiều phần tử hơn
-	        if (programPage1.getTotalElements() > programPage2.getTotalElements()) {
-	            programPage = programPage1;
-	        } else {
-	            programPage = programPage2;
-	        }
-	    }
+		// Xây dựng điều kiện tìm kiếm dựa trên quyền của người dùng
+		Page<EducationProgramEntity> programPage;
 
-	    // Tạo đối tượng Response với dữ liệu và thông tin phân trang
-	    SearchProgramResponse responseWrapper = SearchProgramResponse.builder()
-	            .data(programPage.getContent().stream()
-	                    .map(trainingProgramConverter::convertToDTO)
-	                    .collect(Collectors.toList()))
-	            .pageInformation(new PageInformation(
-	                programPage.getNumberOfElements(),
-	                pageSize,
-	                programPage.getPageable().getOffset(),
-	                programPage.isFirst(),
-	                programPage.isLast(),
-	                pageOrder,
-	                programPage.getTotalPages(),
-	                (int) programPage.getTotalElements()
-	            ))
-	            .status(200)
-	            .build();
+		if (isAdmin) {
+			// Admin có quyền xem tất cả các chương trình đào tạo
+			programPage = trainingProgramRepository.managePrograms(keyword, department, lecturerCode, pageRequest);
+		} else if (isDeleteProgram || isAssignResponsibility) {
+			// DeleteProgram và AssignResponsibility có quyền xem tất cả nhưng có thể lọc
+			// theo lecturerCode
+			programPage = trainingProgramRepository.managePrograms(keyword, department, lecturerCode, pageRequest);
+		} else {
+			Page<EducationProgramEntity> programPage1 = trainingProgramRepository.findAllByLecturerIdAndFilter(keyword,
+					department, currentLecturerCode, pageRequest);
+			Page<EducationProgramEntity> programPage2 = trainingProgramRepository.findByLecturersCode(keyword,
+					department, currentLecturerCode, pageRequest);
+			// So sánh số lượng phần tử trong hai trang và chọn cái có nhiều phần tử hơn
+			if (programPage1.getTotalElements() > programPage2.getTotalElements()) {
+				programPage = programPage1;
+			} else {
+				programPage = programPage2;
+			}
+		}
 
-	    return responseWrapper;
+		// Tạo đối tượng Response với dữ liệu và thông tin phân trang
+		SearchProgramResponse responseWrapper = SearchProgramResponse.builder()
+				.data(programPage.getContent().stream().map(trainingProgramConverter::convertToDTO)
+						.collect(Collectors.toList()))
+				.pageInformation(new PageInformation(programPage.getNumberOfElements(), pageSize,
+						programPage.getPageable().getOffset(), programPage.isFirst(), programPage.isLast(), pageOrder,
+						programPage.getTotalPages(), (int) programPage.getTotalElements()))
+				.status(200).build();
+
+		return responseWrapper;
 	}
 
 }
