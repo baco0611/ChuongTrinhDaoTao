@@ -8,4 +8,5 @@ public class SearchProgramRequest {
     private String department;
     private int pageSize;
     private int pageOrder;
+    private int status;
 }

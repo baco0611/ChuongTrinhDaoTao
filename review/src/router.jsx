@@ -2,9 +2,6 @@ import { createBrowserRouter } from 'react-router-dom'
 import WebDefaultLayout from './components/WebDefaultLayout/WebDefaultLayout'
 import Error from './components/Error/Error'
 import Login from './views/Login/Login'
-import SearchProgram from './views/EducationProgram/SearchProgram/SearchProgram'
-import ManageProgram from './views/EducationProgram/ManageProgram/ManageProgram'
-import EditProgramLayout from './components/EditProgramLayout/EditProgramLayout'
 import ViewProgramLayout from './components/ViewProgramLayout/ViewProgramLayout'
 import SectionA from './views/EditorSection/SectionA/SectionA'
 import SectionB from './views/EditorSection/SectionB/SectionB'
@@ -15,6 +12,9 @@ import SectionG from './views/EditorSection/SectionG/SectionG'
 import SectionH from './views/EditorSection/SectionH/SectionH'
 import Authorization from './views/LecturerManage/Authorization/Authorization'
 import Responsibility from './views/LecturerManage/Responsibility/Responsibility'
+import EducationManage from './views/EducationProgram/EducationMain/EducationManage'
+import EducationSearch from './views/EducationProgram/EducationMain/EducationSearch'
+import EditProgramLayout from './components/EditProgramLayout/EditProgramLayout'
 
 const router = createBrowserRouter([
     {
@@ -27,11 +27,11 @@ const router = createBrowserRouter([
             },
             {
                 path: '/program/search',
-                element: <SearchProgram/>
+                element: <EducationSearch/>
             },
             {
                 path: '/program/manage',
-                element: <ManageProgram/>
+                element: <EducationManage/>
             },
             {
                 path: "/view/program/:id",

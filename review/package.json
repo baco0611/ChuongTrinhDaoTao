@@ -9,8 +9,9 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "json": "json-server -w ./src/context/db.json --port 3001 -d 1000",
-    "server": "nodemon ./src/context/API/server.js"
+    "server": "nodemon ./src/context/API/server.mjs"
   },
+  "types": "module",
   "dependencies": {
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
@@ -38,7 +39,8 @@
     "react-query": "^3.39.3",
     "react-router-dom": "^6.13.0",
     "sass": "^1.63.4",
-    "sweetalert": "^2.1.2"
+    "sweetalert": "^2.1.2",
+    "sweetalert2": "^11.12.4"
   },
   "devDependencies": {
     "@types/react": "^18.2.66",

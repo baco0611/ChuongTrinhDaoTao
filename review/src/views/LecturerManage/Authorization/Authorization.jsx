@@ -17,7 +17,7 @@ export default function Authorization() {
         department: "",
         departmentName: "",
         keyWord: "",
-        // pageOrder: 1
+        pageOrder: 1
     })
 
     useEffect(() => {
@@ -26,13 +26,17 @@ export default function Authorization() {
 
     const fetchLecturerAPI = (api) => {
         return async () => {
-            const departmentResult = await postData(api, "/lecturer-search", token, request)
+            let token = document.cookie.split("; ")
+            token = token.filter(element => element.includes("ACCESS_TOKEN"))[0]?.split("=")[1]
+
+            console.log(9)
+            const departmentResult = await postData(api, "/api/lecturer/getAll", token, request)
             setLecturerList(departmentResult.data)   
         }
     }
 
-    const { data , isLoading, isError} = useQuery(`lecturer-search`, fetchLecturerAPI(serverAPI),{
-        cacheTime: Infinity,
+    const { data , isLoading, isError, refetch } = useQuery(`lecturer-search`, fetchLecturerAPI(apiURL),{
+        cacheTime: 0,
         refetchOnWindowFocus: false,
     })
 

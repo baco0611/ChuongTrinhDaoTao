@@ -1,32 +1,49 @@
 package com.laptrinhjavaweb.converter;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.laptrinhjavaweb.entity.LecturersEntity;
-import com.laptrinhjavaweb.request.LecturersResponse;
+import org.springframework.stereotype.Component;
 
+import com.laptrinhjavaweb.dto.LecturersDTO;
+import com.laptrinhjavaweb.entity.LecturersEntity;
+import com.laptrinhjavaweb.response.LecturersResponse;
+
+@Component
 public class LecturersConverter {
 
-    public static LecturersResponse convertToResponse(LecturersEntity entity) {
-        if (entity == null) {
-            return null;
-        }
+	public static LecturersResponse convertToResponse(LecturersEntity entity) {
+		if (entity == null) {
+			return null;
+		}
 
-        LecturersResponse response = new LecturersResponse();
-        response.setFirstName(entity.getFirstName());
-        response.setLastName(entity.getLastName());
-        response.setDepartmentName(entity.getDepartment() != null ? entity.getDepartment().getDepartmentName() : null);
-        response.setEmail(entity.getEmail());
-        response.setLecturersCode(entity.getLecturersCode());
-        
-        // Convert List<Role> to List<String> for roles
-        List<String> roles = entity.getRoles().stream()
-                                    .map(role -> role.name())
-                                    .collect(Collectors.toList());
-        response.setRole(roles);
+		LecturersResponse response = new LecturersResponse();
+		response.setFirstName(entity.getFirstName());
+		response.setLastName(entity.getLastName());
+		response.setEmail(entity.getEmail());
+		response.setLecturersCode(entity.getLecturersCode());
+		List<String> roles = entity.getRoles().stream().map(role -> role.name()).collect(Collectors.toList());
+		response.setRole(roles);
+		response.setDepartmentName(entity.getDepartment().getDepartmentName());
 
-        return response;
-    }
+		return response;
+	}
+
+	public static LecturersDTO convertToDTO(LecturersEntity entity) {
+		if (entity == null) {
+			return null;
+		}
+
+		LecturersDTO dto = new LecturersDTO();
+		dto.setFirstName(entity.getFirstName());
+		dto.setLastName(entity.getLastName());
+		dto.setLecturerCode(entity.getLecturersCode());
+		dto.setLecturerId(entity.getLecturersId().toString()); // Assuming LecturersId is of type Long
+		List<String> roles = entity.getRoles().stream().map(role -> role.name()).collect(Collectors.toList());
+		dto.setRole(roles);
+		dto.setDepartmentName(entity.getDepartment() != null ? entity.getDepartment().getDepartmentName() : null);
+
+		return dto;
+	}
+
 }

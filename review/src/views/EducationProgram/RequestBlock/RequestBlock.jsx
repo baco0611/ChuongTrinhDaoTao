@@ -1,13 +1,13 @@
 import { memo, useContext, useEffect, useState } from "react";
 import "./RequestBlock.scss"
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { getData } from "../../../utils/function.js";
 import { useQuery } from "react-query";
 import { UserContext } from "../../../context/ContextProvider.jsx";
 import Loader from "../../../components/Loader/Loader.jsx";
 import { handleChangeRequest, searchProgram } from "../educationProgram_function.js";
 
-function RequestBlock({ name, setProgram, request, setRequest }) {
+function RequestBlock({ name, setProgram, request, setRequest, setCurrentPage }) {
     const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
     const navigate = useNavigate()
     const [ department, setDepartment ] = useState([])
@@ -22,13 +22,17 @@ function RequestBlock({ name, setProgram, request, setRequest }) {
     }
 
     const fetchDepartmentAPI = (api) => {
+        let token = document.cookie.split("; ")
+        token = token.filter(element => element.includes("ACCESS_TOKEN"))[0]
+        token = token.split("=")[1]
+
         return async () => {
-            const departmentResult = await getData(api, "/department", token)
+            const departmentResult = await getData(api, "/api/department/getAll", token)
             setDepartment(departmentResult.data.data)   
         }
     }
 
-    const { data , isLoading, isError} = useQuery(`department-program`, fetchDepartmentAPI(fakeAPI),{
+    const { data , isLoading, isError} = useQuery(`department-program`, fetchDepartmentAPI(apiURL, token),{
         cacheTime: Infinity,
         refetchOnWindowFocus: false,
     })
@@ -46,7 +50,7 @@ function RequestBlock({ name, setProgram, request, setRequest }) {
                     <p>Đơn vị</p>
                     <div className="dropdown">
                         <button className="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {request.department && request.departmentName || "-----"}
+                            {request.departmentName || "-----"}
                         </button>
                         <ul className="dropdown-menu">
                             <li 
@@ -71,7 +75,7 @@ function RequestBlock({ name, setProgram, request, setRequest }) {
                     <input
                         type="text"
                         placeholder="Nhập từ khóa"
-                        onChange={(e) => handleChangeRequest("keyWord", setRequest, e.target.value)}
+                        onChange={(e) => handleChangeRequest("keyword", setRequest, e.target.value)}
                     />
                 </div>
                 <div className="block" style={{width: "20%"}}>
@@ -119,7 +123,7 @@ function RequestBlock({ name, setProgram, request, setRequest }) {
             </div>
             <div className="submit">
                 <button
-                    onClick={async () => await searchProgram(serverAPI, "/search-program", token, request, setProgram)}
+                    onClick={async () => await searchProgram(apiURL, `/api/education-programs/${name}`, token, request, setProgram, true, setCurrentPage)}
                 >Tìm kiếm</button>
             </div>
         </div>

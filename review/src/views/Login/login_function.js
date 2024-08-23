@@ -42,7 +42,7 @@ const checkValid = (name) => {
     return true
 }
 
-const handleSubmit = async ({ e, userInformation, serverAPI, setUser, setToken }) => {
+const handleSubmit = async ({ e, userInformation, api, url, setUser, setToken, setUserInformation }) => {
     e.preventDefault()
 
     const userId = checkValid("userId")
@@ -50,24 +50,29 @@ const handleSubmit = async ({ e, userInformation, serverAPI, setUser, setToken }
     
     if(userId && userPassword) {
         const payload = {
-            lecturerCode: userInformation.userId.toUpperCase(),
+            lecturersCode: userInformation.userId.toUpperCase(),
             password: userInformation.password
         }
 
-        const result = await postData(serverAPI, "/login", "", payload)
+        const result = await postData(api, url, "", payload)
+        console.log(result)
 
         if(result.status == 200) {
             setUser(result.data.data)
             setToken(result.data.token)
+            setUserInformation({
+                userId: "",
+                password: ""
+            })
         } else {
-            if(result.data.lecturerCode) {
-                const element = $(`#login-userId`)
-                handleInvalid(element, result.data.lecturerCode)
+            if(result.data.lecturersCodeError) {
+                let element = $(`#login-userId`)
+                handleInvalid(element, result.data.lecturersCodeError)
             }
 
-            if(result.data.password) {
-                const element = $(`#login-userPassword`)
-                handleInvalid(element, result.data.password)
+            if(result.data.passwordError) {
+                let element = $(`#login-userPassword`)
+                handleInvalid(element, result.data.passwordError)
             }
         }
     }

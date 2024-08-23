@@ -9,7 +9,7 @@ const UserContext = createContext({
     apiURL: null,
     jsonAPI: null,
     serverAPI: null,
-    convertAPI: null,
+    phpAPI: null,
     fakeAPI: null,
     sectionList: null,
     isDataSaved: null,
@@ -22,8 +22,8 @@ function StateContext({ children }) {
     const [token, _setToken] = useState("")
 
     useEffect(() => {
-        const storedUser = Cookies.get("USER") || sessionStorage.getItem("USER");
-        const storedToken = Cookies.get("ACCESS_TOKEN") || sessionStorage.getItem("ACCESS_TOKEN");
+        const storedUser = Cookies.get("USER")
+        const storedToken = Cookies.get("ACCESS_TOKEN")
         
         if (storedUser) {
             _setUser(JSON.parse(storedUser));
@@ -37,10 +37,8 @@ function StateContext({ children }) {
         _setUser(user);
         if(user) {
             Cookies.set("USER", JSON.stringify(user));
-            sessionStorage.setItem("USER", JSON.stringify(user));
         } else {
             Cookies.remove("USER");
-            sessionStorage.removeItem("USER");
         }
     }
     
@@ -48,17 +46,15 @@ function StateContext({ children }) {
         _setToken(token);
         if (token) {
             Cookies.set("ACCESS_TOKEN", token);
-            sessionStorage.setItem("ACCESS_TOKEN", token);
         } else {
             Cookies.remove("ACCESS_TOKEN");
-            sessionStorage.removeItem("ACCESS_TOKEN");
         }
     }
 
     const [isDataSaved, setIsDataSaved] = useState(true); // Giả sử ban đầu dữ liệu đã được lưu
 
-    const apiURL = "http://localhost:8000/api"
-    const convertAPI = "http://localhost:8081"
+    const apiURL = "http://localhost:8081"
+    const phpAPI = "http://localhost:8000/api"
     const fakeAPI = "http://localhost:3001"
     const serverAPI = "http://localhost:3002"
     const sectionList = ['A', 'B', 'C', 'D', 'E', 'G', 'H']
@@ -79,7 +75,7 @@ function StateContext({ children }) {
                 setUser,
                 setToken,
                 apiURL,
-                convertAPI,
+                phpAPI,
                 fakeAPI,
                 serverAPI,
                 sectionList,

@@ -16,49 +16,33 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
-    private final JwtAuthenticationFilter jwtAuthFilter;
-    private final AuthenticationProvider authenticationProvider;
+        private final JwtAuthenticationFilter jwtAuthFilter;
+        private final AuthenticationProvider authenticationProvider;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()// Tất cả các url có đường dẫn như vậy thì không cần xác
-                                                                // thực
-                        .anyRequest().authenticated())
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                http.csrf(csrf -> csrf.disable())
+                                .authorizeHttpRequests(auth -> auth.requestMatchers("/auth/public/**").permitAll()// url
+                                                                                                                  // dành
+                                                                                                                  // cho
+                                                                                                                  // login,
+                                                                                                                  // register
+                                                // .requestMatchers("/auth/user/**").hasAuthority("USER")
+                                                // .requestMatchers("/auth/assign-responsibility/**").hasAuthority("ASSIGN_RESPONSIBILITY")
+                                                // .requestMatchers("/auth/manage-dictionary/**").hasAuthority("MANAGE_DICTIONARY")
+                                                // .requestMatchers("/auth/field/**").hasAuthority("UPDATE_FIELD")
+                                                // .requestMatchers("/auth/program/approve/**").hasAuthority("APPROVE_PROGRAM")
+                                                // .requestMatchers("/auth/program/delete/**").hasAuthority("DELETE_PROGRAM")
+                                                // .requestMatchers("/auth/course/**").hasAuthority("UPDATE_COURSE")
+                                                // .requestMatchers("/auth/course-plan/approve/**").hasAuthority("APPROVE_COURSE_PLAN")
+                                                // .requestMatchers("/auth/course-plan/delete/**").hasAuthority("DELETE_COURSE_PLAN")
+                                                .anyRequest().authenticated())
+                                .sessionManagement(session -> session
+                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                .authenticationProvider(authenticationProvider)
+                                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
-        return http.build();
-    }
-
-    // @Bean
-    // public SecurityFilterChain securityFilterChain(HttpSecurity http) throws
-    // Exception {
-    // http
-    // .csrf(csrf -> csrf.disable())
-    // .authorizeHttpRequests(auth -> auth
-    // .requestMatchers("/auth/public/**").permitAll()
-    // .requestMatchers("/auth/assign-responsibility/**").hasAuthority("assign_responsibility")
-    // .requestMatchers("/auth/manage-dictionary/**").hasAuthority("manage_dictionary")
-    // .requestMatchers("/auth/field/**").hasAuthority("update_field")
-    // .requestMatchers("/auth/program/approve/**").hasAuthority("approve_program")
-    // .requestMatchers("/auth/program/delete/**").hasAuthority("delete_program")
-    // .requestMatchers("/auth/course/**").hasAuthority("update_course")
-    // .requestMatchers("/auth/course-plan/approve/**").hasAuthority("approve_course_plan")
-    // .requestMatchers("/auth/course-plan/delete/**").hasAuthority("delete_course_plan")
-    // .anyRequest().authenticated()
-    // )
-    // .sessionManagement(session -> session
-    // .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-    // )
-    // .authenticationProvider(authenticationProvider)
-    // .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-    //
-    // return http.build();
-    // }
+                return http.build();
+        }
 
 }

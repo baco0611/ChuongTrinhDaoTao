@@ -1,30 +1,50 @@
 import { Link, useNavigate, useParams } from "react-router-dom"
 import "./EditorHeader.scss"
-import { memo, useContext } from "react"
+import { memo, useContext, useEffect } from "react"
 import { UserContext } from "../../../context/ContextProvider"
 import clsx from "clsx"
 import { useQuery } from "react-query"
 import axios from "axios"
 import Loader from "../../../components/Loader/Loader"
 import { getData } from "../../../utils/function"
+import { basic_decode, basic_encode } from "../../../utils/function"
 
 function EditorHeader({ currentSection }) {
     const { id } = useParams()
-    const { sectionList, apiURL, fakeAPI, serverAPI, isDataSaved, token } = useContext(UserContext)
+    const { sectionList, apiURL, fakeAPI, serverAPI, isDataSaved, token, user } = useContext(UserContext)
     const navigate = useNavigate()
+    const queryParams = new URLSearchParams(window.location.search)
+    const responsiveTeacher = basic_decode(queryParams.get("t"))
+    const programStatus = queryParams.get("s")
 
-    const fecthAPI = (id) => {
+    // Check user có quyền để truy cập chỉnh sửa không
+    // Nhưng đang không ổn lắm do lỡ nhiều người ko biết query ==> check bằng api
+    useEffect(() => {
+        console.log(user.lecturersCode, responsiveTeacher)
+        if(programStatus != "true") {
+            alert("CHƯƠNG TRÌNH KHÔNG THỂ CHỈNH SỬA")
+            navigate("/program/manage")
+        }
+        if(!responsiveTeacher) {
+            alert("KHÔNG THỂ XÁC MINH QUYỀN TRUY CẬP")
+            navigate("/program/manage")
+        }
+        if(user.lecturersCode != responsiveTeacher) {
+            alert("NGƯỜI DÙNG KHÔNG ĐƯỢC CẤP QUYỀN TRUY CẬP")
+            navigate("/program/manage")
+        }
+    }, [])
+
+    const fetchAPI = (id) => {
         return async () => {
-            return (await getData(fakeAPI, `/editorHeader/${id}`, token)).data.data
+            return (await getData(serverAPI, `/editor-header/${id}`, token)).data.data
         }
     }
 
-    const { data , isLoading, isError} = useQuery(`editorHeader-${id}`, fecthAPI(id),{
+    const { data , isLoading, isError} = useQuery(`editorHeader-${id}`, fetchAPI(id),{
         cacheTime: Infinity,
         refetchOnWindowFocus: false,
     })
-
-    console.log(data)
 
     if(isLoading)
         return <Loader/>
@@ -42,7 +62,7 @@ function EditorHeader({ currentSection }) {
                             key={index} 
                             className={clsx("element", {active: index == currentSection})}
                         >
-                            <Link to={`/edit/program/section${element}/${id}`}>{element}</Link>
+                            <Link to={`/edit/program/section${element}/${id}?t=${basic_encode(responsiveTeacher)}&s=${programStatus}`}>{element}</Link>
                         </div>
                     })
                 }

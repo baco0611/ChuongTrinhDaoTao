@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,9 +17,8 @@ import com.laptrinhjavaweb.service.IDepartmentService;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.SignatureException;
 
-@CrossOrigin
 @RestController
-@RequestMapping("/department")
+@RequestMapping("/api/department")
 public class DepartmentController {
 
     @Autowired
@@ -28,20 +26,17 @@ public class DepartmentController {
 
     @GetMapping(value = "/getAll")
     public ResponseEntity<?> getAllDepartments() {
-        try {
+        try {	
             List<DepartmentDTO> lstDTO = departmentService.findAll();
-
             // Tạo đối tượng DepartmentResponse với dữ liệu và trạng thái thành công
-            DepartmentResponse.DepartmentWrapper wrapper = DepartmentResponse.DepartmentWrapper.builder()
-                    .data(lstDTO)
+            DepartmentResponse wrapper = DepartmentResponse.builder().data(lstDTO)
                     .status(HttpStatus.OK.value())
                     .build();
-
             // Kiểm tra dữ liệu
             if (lstDTO == null || lstDTO.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
             } else {
-                return ResponseEntity.ok(DepartmentResponse.builder().department(wrapper).build());
+            	return ResponseEntity.ok(wrapper);
             }
         } catch (SignatureException e) {
             // Xử lý lỗi khi chữ ký JWT không khớp
