@@ -1,13 +1,14 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSquareMinus, faSquarePlus } from '@fortawesome/free-solid-svg-icons'
-import { changeDataSectionD, handleSaveChangeElement } from '../database/sectionD'
+import { changeDataSectionD, handleCreatePLO, handleDeletePLO, handleSaveChangeElement } from '../database/sectionD'
 import { UserContext } from '../../../context/ContextProvider'
 
 export default function PLOBlock({ data, setState }) {
-    // console.log(data)
     const { setIsDataSaved, serverAPI, apiURL, token } = useContext(UserContext)
-
+    const [ isDisable, setIsDisable ] = useState(false)
+    const { id } = useParams()
 
     useEffect(() => {
         const elements = document.querySelectorAll('textarea[name="content"]')
@@ -31,18 +32,19 @@ export default function PLOBlock({ data, setState }) {
                         <div className='block'><p>Thang đánh giá năng lực</p></div>
                         <div className='block'>
                         <button
-                                // disabled={isDisable}
-                                // onClick={() => handleCreatePO({
-                                //     api: serverAPI,
-                                //     token,
-                                //     numOfElement: data.data.length,
-                                //     type: data.type,
-                                //     typeIndex: data.typeIndex,
-                                //     programId: id,
-                                //     setState,
-                                //     setIsDisable,
-                                //     setIsDataSaved,
-                                // })}
+                                disabled={isDisable}
+                                onClick={() => handleCreatePLO({
+                                    api: serverAPI,
+                                    token,
+                                    numOfElement: data.data.length,
+                                    type: data.type,
+                                    typeDetail: data.typeDetail,
+                                    typeIndex: data.typeIndex,
+                                    programId: id,
+                                    setState,
+                                    setIsDisable,
+                                    setIsDataSaved,
+                                })}
                             >
                                 <FontAwesomeIcon icon={faSquarePlus} />
                             </button>
@@ -63,7 +65,7 @@ export default function PLOBlock({ data, setState }) {
                                     <textarea
                                         id={`${data.type}-${index}`}
                                         name='content'
-                                        value={element.content}
+                                        value={element.content || ""}
                                         onChange={(e) => changeDataSectionD({ 
                                             e, 
                                             id: element.id,
@@ -84,7 +86,7 @@ export default function PLOBlock({ data, setState }) {
                                 </div>
                                 <div className='block'>
                                     <textarea
-                                        value={element.competency}
+                                        value={element.competency || ""}
                                         name='competency'
                                         style={{height: "100%"}}
                                         onChange={(e) => changeDataSectionD({ 
@@ -107,15 +109,15 @@ export default function PLOBlock({ data, setState }) {
                                 </div>
                                 <div className='block'> 
                                     <button
-                                        // onClick={() => handleDeletePO({
-                                        //     api: serverAPI,
-                                        //     token,
-                                        //     id: element.id,
-                                        //     setState, 
-                                        //     symbol: element.symbol,
-                                        //     typeIndex: data.typeIndex,
-                                        //     setIsDataSaved,
-                                        // })}
+                                        onClick={() => handleDeletePLO({
+                                            api: serverAPI,
+                                            token,
+                                            id: element.id,
+                                            setState, 
+                                            symbol: element.symbol,
+                                            type: element.type,
+                                            setIsDataSaved,
+                                        })}
                                     >
                                         <FontAwesomeIcon icon={faSquareMinus} />
                                     </button>

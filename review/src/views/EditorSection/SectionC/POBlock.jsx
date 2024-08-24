@@ -81,7 +81,7 @@ export default function POBlock({ title, data, setState }) {
                                                 <div className='block'>
                                                     <textarea
                                                         id={`${data.type}-${index}`}
-                                                        value={element.content}
+                                                        value={element.content || ""}
                                                         onChange={(e) => changeDataSectionC({ 
                                                             e, 
                                                             id: element.id,

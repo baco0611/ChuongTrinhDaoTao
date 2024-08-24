@@ -19,24 +19,6 @@
       "programId": 6
     },
     {
-      "id": 4,
-      "symbol": "PLO - 1.1.2",
-      "content": "Vận dụng được các phương pháp rèn luyện để duy trì và nâng cao sức khỏe (chứng nhận hoàn thành giáo dục thể chất).",
-      "type": "KIEN_THUC",
-      "typeDetail": "KIEN_THUC_DAI_HOC_HUE",
-      "competency": 3,
-      "programId": 6
-    },
-    {
-      "id": 5,
-      "symbol": "PLO - 1.2.2",
-      "content": "Hiểu biết cơ bản về pháp luật Việt Nam, sự phân chia các ngành luật và tổ chức của Nhà nước Việt Nam hiện nay",
-      "type": "KIEN_THUC",
-      "typeDetail": "KIEN_THUC_DAI_HOC_KHOA_HOC",
-      "competency": 3,
-      "programId": 6
-    },
-    {
       "id": 6,
       "symbol": "PLO - 1.2.1",
       "content": "Vận dụng được các kiến thức thuyết trình, giao tiếp, làm việc nhóm trong công tác chuyên môn.",
@@ -64,63 +46,9 @@
       "programId": 6
     },
     {
-      "id": 9,
-      "symbol": "PLO - 1.5.2",
-      "content": "Hiểu và vận dụng được các kiến thức về ngành Công nghệ phần mềm",
-      "type": "KIEN_THUC",
-      "typeDetail": "KIEN_THUC_NGANH",
-      "competency": 4,
-      "programId": 6
-    },
-    {
-      "id": 10,
-      "symbol": "PLO - 1.5.4",
-      "content": "Hiểu và vận dụng được các kiến thức về ngành Khoa học máy tính",
-      "type": "KIEN_THUC",
-      "typeDetail": "KIEN_THUC_NGANH",
-      "competency": 4,
-      "programId": 6
-    },
-    {
-      "id": 11,
-      "symbol": "PLO - 1.5.3",
-      "content": "Hiểu và vận dụng được các kiến thức về ngành Mạng và truyền thông",
-      "type": "KIEN_THUC",
-      "typeDetail": "KIEN_THUC_NGANH",
-      "competency": 4,
-      "programId": 6
-    },
-    {
       "id": 12,
       "symbol": "PLO - 2.1.1",
       "content": "Nắm vững phương pháp lập trình và các công nghệ lập trình tiên tiến, có khả năng nắm bắt và làm chủ công nghệ mới;",
-      "type": "KY_NANG",
-      "typeDetail": "KY_NANG_CHUYEN_MON",
-      "competency": 4,
-      "programId": 6
-    },
-    {
-      "id": 13,
-      "symbol": "PLO - 2.1.2",
-      "content": "Rèn luyện cho sinh viên kỹ năng phân tích thực tiễn, kỹ năng thực hành nghề nghiệp",
-      "type": "KY_NANG",
-      "typeDetail": "KY_NANG_CHUYEN_MON",
-      "competency": 4,
-      "programId": 6
-    },
-    {
-      "id": 14,
-      "symbol": "PLO - 2.1.3",
-      "content": "Có kỹ năng lập luận tư duy và giải quyết vấn đề.",
-      "type": "KY_NANG",
-      "typeDetail": "KY_NANG_CHUYEN_MON",
-      "competency": 4,
-      "programId": 6
-    },
-    {
-      "id": 15,
-      "symbol": "PLO - 2.1.4",
-      "content": "Có khả năng sử dụng tiếng Anh trong giao tiếp và hoạt động chuyên môn",
       "type": "KY_NANG",
       "typeDetail": "KY_NANG_CHUYEN_MON",
       "competency": 4,
@@ -136,24 +64,6 @@
       "programId": 6
     },
     {
-      "id": 17,
-      "symbol": "PLO - 2.2.2",
-      "content": "Có kỹ năng tìm kiếm, thu thập và xử lý thông tin, viết báo cáo và trình bày, thuyết trình các chủ đề liên quan đến lĩnh vực công nghệ thông tin;",
-      "type": "KY_NANG",
-      "typeDetail": "KY_NANG_MEM",
-      "competency": 4,
-      "programId": 6
-    },
-    {
-      "id": 18,
-      "symbol": "PLO - 2.2.3",
-      "content": "Có kỹ năng làm việc theo nhóm, lập kế hoạch, tổ chức, điều hành, phối hợp và duy trì hoạt động cho các nhóm có cùng mục tiêu.",
-      "type": "KY_NANG",
-      "typeDetail": "KY_NANG_MEM",
-      "competency": 4,
-      "programId": 6
-    },
-    {
       "id": 19,
       "symbol": "PLO - 3.1.1",
       "content": "Có ý thức làm việc chuyên nghiệp, ý thức chấp hành kỹ luật, tuân thủ các nguyên tắc bảo mật thông tin",
@@ -163,27 +73,9 @@
       "programId": 6
     },
     {
-      "id": 20,
-      "symbol": "PLO - 3.1.2",
-      "content": "Chăm chỉ, nhiệt tình với công việc, có thái độ cầu thị, học hỏi không ngừng để nâng cao trình độ, ý thức học tập suốt đời",
-      "type": "THAI_DO",
-      "typeDetail": "THAI_DO_CA_NHAN",
-      "competency": 3,
-      "programId": 6
-    },
-    {
       "id": 21,
       "symbol": "PLO - 3.2.1",
       "content": "Có khả năng tự chủ, biết tự điều chỉnh, thích nghi với hoàn cảnh và môi trường làm việc",
-      "type": "THAI_DO",
-      "typeDetail": "THAI_DO_NGHE_NGHIEP",
-      "competency": 3,
-      "programId": 6
-    },
-    {
-      "id": 22,
-      "symbol": "PLO - 3.2.2",
-      "content": "Có tinh thần trách nhiệm trong công việc, đạo đức nghề nghiệp, có thái độ chuyên nghiệp và kỷ luật trong công việc",
       "type": "THAI_DO",
       "typeDetail": "THAI_DO_NGHE_NGHIEP",
       "competency": 3,
@@ -200,48 +92,21 @@
     },
     {
       "id": 24,
-      "symbol": "PLO - 3.3.2",
-      "content": "Có tinh thần tập thể, sẵn sàng tham gia các công việc để phục vụ Nhà trường, cộng đồng xã hội, …",
-      "type": "THAI_DO",
-      "typeDetail": "THAI_DO_XA_HOI",
-      "competency": 3,
-      "programId": 6
-    },
-    {
-      "id": 25,
-      "symbol": "PLO - 1.1.3",
-      "content": "Có kiến thức về giáo dục quốc phòng và an ninh (chứng chỉ giáo dục quốc phòng và an ninh).",
+      "programId": "6",
       "type": "KIEN_THUC",
       "typeDetail": "KIEN_THUC_DAI_HOC_HUE",
-      "competency": 3,
-      "programId": 6
-    },
-    {
-      "id": 26,
-      "symbol": "PLO - 1.1.4",
-      "content": "Giao tiếp tốt bằng ngoại ngữ trong các tình huống thông thường; viết, trình bày báo cáo chuyên môn trong công việc bằng ngoại ngữ (đạt trình độ ngoại ngữ tối thiểu bậc 3/6 theo Khung năng lực ngoại ngữ Việt Nam hoặc trình độ tương đương theo quy định của Đại học Huế).",
-      "type": "KIEN_THUC",
-      "typeDetail": "KIEN_THUC_DAI_HOC_HUE",
-      "competency": 3,
-      "programId": 6
+      "symbol": "PLO - 1.1.2",
+      "content": "a",
+      "competency": 3
     },
     {
       "id": 27,
-      "symbol": "PLO - 1.1.5",
-      "content": "Vận dụng được các kiến thức về công nghệ thông tin cơ bản trong công việc chuyên môn (đạt chứng chỉ chuẩn kỹ năng sử dụng công nghệ thông tin cơ bản theo ban hành theo Thông tư 03/2014/TTBTTTT ngày 13/04/2014 của Bộ trưởng Bộ Thông tin và Truyền thông về việc quy định Chuẩn kỹ năng sử dụng công nghệ thông tin).",
+      "programId": "6",
       "type": "KIEN_THUC",
       "typeDetail": "KIEN_THUC_DAI_HOC_HUE",
-      "competency": 4,
-      "programId": 6
-    },
-    {
-      "id": 28,
-      "symbol": "PLO - 1.2.3",
-      "content": "Hiểu biết và vận dụng được các kiến thức cơ bản về môi trường vào việc giữ gìn và bảo vệ môi trường",
-      "type": "KIEN_THUC",
-      "typeDetail": "KIEN_THUC_DAI_HOC_KHOA_HOC",
-      "competency": 3,
-      "programId": 6
+      "symbol": "PLO - 1.1.3",
+      "content": "d",
+      "competency": 2
     }
   ]
 }

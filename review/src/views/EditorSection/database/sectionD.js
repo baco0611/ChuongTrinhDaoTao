@@ -1,4 +1,5 @@
-import { getData, postData } from "../../../utils/function"
+import { deleteData, getData, postData } from "../../../utils/function"
+import Swal from 'sweetalert2'
 
 export const sortCondition = (a, b) => {
     const aSymbol = a.symbol.split('.')
@@ -8,6 +9,27 @@ export const sortCondition = (a, b) => {
     const bK = Number.parseInt(bSymbol.pop())
 
     return aK < bK ? -1 : 1
+}
+
+const refreshProgramLearningOutComes = data => {
+    // typeList.forEach((type, index) => {
+    //     const typeIndex = index + 1
+    //     data[type].data.forEach((element, index)  => {
+    //         element.symbol = `PO - ${typeIndex}.${index + 1}`
+    //     })       
+    // })
+
+    Object.keys(data).forEach((type, index) => {
+        const typeIndex = index + 1
+        Object.keys(data[type]).forEach((typeDetail, index) => {
+            const typeDetailIndex = index + 1
+            data[type][typeDetail].data.forEach((element, index) => {
+                element.symbol =`PLO - ${typeIndex}.${typeDetailIndex}.${index + 1}` 
+            })
+        })
+    })
+
+    return data
 }
 
 const splitProgramLearningOutcomes = (data) => {
@@ -115,4 +137,72 @@ export const handleSaveChangeElement = async ({ api, id, token, content, compete
 
     if(result.status == 200)
         setIsDataSaved(true)
+}
+
+export const handleCreatePLO = async ({ api, token, numOfElement, type, typeDetail, typeIndex, programId, setState, setIsDisable, setIsDataSaved }) => {
+    setIsDisable(true)
+    setIsDataSaved(false)
+    
+    const payload = {
+        programId,
+        type,
+        typeDetail,
+        symbol: `PLO - ${typeIndex}.${numOfElement + 1}`
+    }
+
+    const result = await postData(api, "/program-outcome/create", token, payload)
+
+    if(result.status == 200) 
+        setState(splitProgramLearningOutcomes(result.data.data))
+
+    setIsDisable(false)
+    setIsDataSaved(true)
+} 
+
+const handleSaveChangeTypeElement = async ({ api, token, value, completeMessage, errorMessage }) => {
+    
+    const payload = Object.keys(value).reduce((acc, element) => {
+        return [ ...acc, ...value[element].data]
+    }, [])
+
+    console.log(payload)
+    
+    const result = await postData(api, "/update-program-outcome", token, payload)
+}
+
+export const handleDeletePLO = async({ api, token, id, setState, symbol, type, setIsDataSaved }) => {
+    const payload = {
+        id
+    }
+    
+    await Swal.fire({
+        title: "XÓA CHUYÊN NGÀNH",
+        text: `Bạn có muốn xóa chuẩn đầu ra ${symbol} không?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Có",
+        cancelButtonText: "Không",
+        confirmButtonColor: '#BE0000', // Màu đỏ cho nút "Có"
+        reverseButtons: true, // Đổi vị trí các nút
+    }).then(async (result) => {
+        if(result.isConfirmed) {
+            setIsDataSaved(false)
+            const deleteResult = await deleteData(api, "/program-outcome/delete", token, payload)
+
+            if(deleteResult.status == 200) {
+                // const data = refreshProgramObjective(splitProgramObjective(deleteResult.data.data))
+                const data = refreshProgramLearningOutComes(splitProgramLearningOutcomes(deleteResult.data.data))
+                setState(data)
+
+                const value = data[type]
+
+                console.log(value)
+                await handleSaveChangeTypeElement({ api, token, value })
+            }
+
+            console.log(payload)
+
+            setIsDataSaved(true)
+        }
+    });
 }
