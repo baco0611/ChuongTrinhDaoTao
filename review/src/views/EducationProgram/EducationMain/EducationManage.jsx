@@ -27,9 +27,19 @@ export default function EducationManage() {
         departmentName: "",
         keyword: "",
         pageSize: 15,
-        status: "",
+        status: 0,
         pageOrder: 1
     })
+
+    const statusList = {
+        0: "-----",
+        1: "Chưa phân công",
+        2: "Đang thực hiện",
+        3: "Đã nộp",
+        4: "Đã duyệt cấp khoa",
+        5: "Đã duyệt",
+        6: "Đã hủy"
+    }
 
     console.log(programListInformation)
 
@@ -53,6 +63,7 @@ export default function EducationManage() {
                 request={request}
                 setRequest={setRequest}
                 setCurrentPage={setCurrentPage}
+                statusList={statusList}
             />
             <ListProgramBlock
                 name={location}
@@ -62,6 +73,7 @@ export default function EducationManage() {
                 setRequest={setRequest}
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}
+                statusList={statusList}
             />
         </div>
     )

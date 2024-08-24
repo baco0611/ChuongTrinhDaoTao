@@ -7,7 +7,7 @@
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_DAI_HOC_HUE",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 3,
@@ -16,7 +16,7 @@
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_LINH_VUC",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 4,
@@ -25,7 +25,7 @@
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_DAI_HOC_HUE",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 5,
@@ -34,7 +34,7 @@
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_DAI_HOC_KHOA_HOC",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 6,
@@ -43,7 +43,7 @@
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_DAI_HOC_KHOA_HOC",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 7,
@@ -52,7 +52,7 @@
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_NHOM_NGANH",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 8,
@@ -61,7 +61,7 @@
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_NGANH",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 9,
@@ -70,7 +70,7 @@
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_NGANH",
             "competency": 4,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 10,
@@ -79,7 +79,7 @@
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_NGANH",
             "competency": 4,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 11,
@@ -88,7 +88,7 @@
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_NGANH",
             "competency": 4,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 12,
@@ -97,7 +97,7 @@
             "type": "KY_NANG",
             "typeDetail": "KY_NANG_CHUYEN_MON",
             "competency": 4,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 13,
@@ -106,7 +106,7 @@
             "type": "KY_NANG",
             "typeDetail": "KY_NANG_CHUYEN_MON",
             "competency": 4,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 14,
@@ -115,7 +115,7 @@
             "type": "KY_NANG",
             "typeDetail": "KY_NANG_CHUYEN_MON",
             "competency": 4,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 15,
@@ -124,7 +124,7 @@
             "type": "KY_NANG",
             "typeDetail": "KY_NANG_CHUYEN_MON",
             "competency": 4,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 16,
@@ -133,7 +133,7 @@
             "type": "KY_NANG",
             "typeDetail": "KY_NANG_MEM",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 17,
@@ -142,7 +142,7 @@
             "type": "KY_NANG",
             "typeDetail": "KY_NANG_MEM",
             "competency": 4,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 18,
@@ -151,7 +151,7 @@
             "type": "KY_NANG",
             "typeDetail": "KY_NANG_MEM",
             "competency": 4,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 19,
@@ -160,7 +160,7 @@
             "type": "THAI_DO",
             "typeDetail": "THAI_DO_CA_NHAN",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 20,
@@ -169,7 +169,7 @@
             "type": "THAI_DO",
             "typeDetail": "THAI_DO_CA_NHAN",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 21,
@@ -178,7 +178,7 @@
             "type": "THAI_DO",
             "typeDetail": "THAI_DO_NGHE_NGHIEP",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 22,
@@ -187,7 +187,7 @@
             "type": "THAI_DO",
             "typeDetail": "THAI_DO_NGHE_NGHIEP",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 23,
@@ -196,7 +196,7 @@
             "type": "THAI_DO",
             "typeDetail": "THAI_DO_XA_HOI",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 24,
@@ -205,7 +205,7 @@
             "type": "THAI_DO",
             "typeDetail": "THAI_DO_XA_HOI",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 25,
@@ -214,7 +214,7 @@
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_DAI_HOC_HUE",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 26,
@@ -223,7 +223,7 @@
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_DAI_HOC_HUE",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 27,
@@ -232,7 +232,7 @@
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_DAI_HOC_HUE",
             "competency": 4,
-            "programId": 1
+            "programId": 6
         },
         {
             "id": 28,
@@ -241,7 +241,7 @@
             "type": "KIEN_THUC",
             "typeDetail": "KIEN_THUC_DAI_HOC_KHOA_HOC",
             "competency": 3,
-            "programId": 1
+            "programId": 6
         }
     ]   
 }

@@ -1,7 +1,7 @@
 {
   "sectionA": [
     {
-      "id": "1",
+      "id": "6",
       "data": {
         "admissionTarget": "Học sinh",
         "advancedSkillsDevelopment": "Sau khi tốt nghiệp sinh viên có thể học thạc sỹ và tiến sĩ ngành Khoa học máy tính, Hệ thống thông tin",
@@ -18,7 +18,7 @@
         "requiredCredits": "122",
         "trainingMode": "chinh_quy",
         "vietnameseName": "Công nghệ thông tin",
-        "programId": "1",
+        "programId": "6",
         "id": "1"
       },
       "status": 200
@@ -29,19 +29,19 @@
       "id": "1",
       "specializationName": "Khoa học máy tính",
       "specializationId": "1",
-      "programId": "1"
+      "programId": "6"
     },
     {
       "id": "2",
       "specializationName": "Công nghệ phần mềm",
       "specializationId": "2",
-      "programId": "1"
+      "programId": "6"
     },
     {
       "id": "3",
       "specializationName": "Mạng máy tính",
       "specializationId": "3",
-      "programId": "1"
+      "programId": "6"
     }
   ]
 }

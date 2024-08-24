@@ -9,19 +9,10 @@ import { searchProgram } from "../educationProgram_function"
 import { UserContext } from "../../../context/ContextProvider"
 import { basic_encode } from "../../../utils/function"
 
-export default function ListProgramBlock({ name, data, request, setProgram, setRequest, currentPage, setCurrentPage }) {
+export default function ListProgramBlock({ name, data, request, setProgram, setRequest, currentPage, setCurrentPage, statusList }) {
 
     const { apiURL, fakeAPI, token, serverAPI, user } = useContext(UserContext); 
     console.log(data)
-
-    const statusList = {
-        DA_PHAN_CONG: "Đã phân công",
-        DANG_THUC_HIEN: "Đang thực hiện",
-        DA_NOP: "Đã nộp",
-        DA_DUYET_CAP_KHOA: "Đã duyệt cấp khoa",
-        DA_DUYET: "Đã duyệt",
-        DA_HUY: "Đã hủy"
-    }
     
     const handlePageChange = (e, value) => {
         setCurrentPage(value);
@@ -74,7 +65,7 @@ export default function ListProgramBlock({ name, data, request, setProgram, setR
                             <th style={{ width: "11.5%" }}>Người biên soạn</th>  
                             <th style={{ width: "16.5%" }}>Khoa phụ trách</th>  
                             <th style={{ width: "9%" }}>Trạng thái</th>
-                            <th className="center" style={{ width: "9%" }}>Thời gian xử lý</th>  
+                            <th className="center" style={{ width: "9%" }}>Thời gian cập nhật</th>  
                             <th style={{ width: "7%" }}></th>  
                         </tr>
                     </thead>
@@ -83,48 +74,48 @@ export default function ListProgramBlock({ name, data, request, setProgram, setR
                         data.data.map((element, index) => {
                             return <tr key={index}>
                                 <td className="center">
-                                    <Link target="_blank" to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
+                                    <Link target="_blank" to={`/view/program/${element.programId}}`}>
                                         {data.pageInformation.offset + index + 1}    
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link target="_blank" to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
+                                    <Link target="_blank" to={`/view/program/${element.programId}`}>
                                         {element.programCode}
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link target="_blank" to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
+                                    <Link target="_blank" to={`/view/program/${element.programId}`}>
                                         {element.programName}
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link target="_blank" to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
+                                    <Link target="_blank" to={`/view/program/${element.programId}`}>
                                         {element.fieldName}
                                     </Link>
                                 </td>
                                 <td className="center">
-                                    <Link target="_blank" to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
+                                    <Link target="_blank" to={`/view/program/${element.programId}`}>
                                         {element.version}
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link target="_blank" to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
+                                    <Link target="_blank" to={`/view/program/${element.programId}`}>
                                         {element.responsiblePerson}
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link target="_blank" to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
+                                    <Link target="_blank" to={`/view/program/${element.programId}`}>
                                         {element.department}
                                     </Link>
                                 </td>
                                 <td>
-                                    <Link target="_blank" to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
+                                    <Link target="_blank" to={`/view/program/${element.programId}`}>
                                         {statusList[element.status]}
                                     </Link> 
                                 </td>
                                 <td className="center">
-                                    <Link target="_blank" to={`/view/program/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`}>
-                                        {element.processAt}
+                                    <Link target="_blank" to={`/view/program/${element.programId}`}>
+                                        {element.updatedAt}
                                     </Link>
                                 </td>
                                 <td className="action">
@@ -136,13 +127,10 @@ export default function ListProgramBlock({ name, data, request, setProgram, setR
                                         && 
                                         <>
                                             {
-                                                //user.lecturersCode == element.responsiblePersonCode
-                                                //&& element.status == "DANG_THUC_HIEN"
-                                                (user.lecturersCode == element.responsiblePersonCode || element.responsiblePersonCode == "1")
-                                                && (element.status == "DANG_THUC_HIEN" || element.status == "1")
+                                                user.lecturersCode == element.responsiblePersonCode
+                                                && element.status == 2
                                                 &&
-                                                //<Link target="_blank" to={`/edit/program/sectionA/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "DANG_THUC_HIEN"}`} className="green">
-                                                <Link target="_blank" to={`/edit/program/sectionA/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "1"}`} className="green">
+                                                <Link target="_blank" to={`/edit/program/sectionA/${element.programId}?t=${basic_encode(element.responsiblePersonCode)}&s=${element.status == "2"}`} className="green">
                                                     <FontAwesomeIcon icon={faPenClip} />
                                                 </Link>
                                             }
