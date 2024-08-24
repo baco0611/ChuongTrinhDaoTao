@@ -1,4 +1,4 @@
-import { getData } from "../../../utils/function"
+import { getData, postData } from "../../../utils/function"
 
 export const sortCondition = (a, b) => {
     const aSymbol = a.symbol.split('.')
@@ -11,99 +11,108 @@ export const sortCondition = (a, b) => {
 }
 
 const splitProgramLearningOutcomes = (data) => {
-    let KIEN_THUC = data.filter(element => element.type == "KIEN_THUC")
-    let KY_NANG = data.filter(element => element.type == "KY_NANG")
-    let THAI_DO = data.filter(element => element.type == "THAI_DO")
-
-    KIEN_THUC = {
-        KIEN_THUC_DAI_HOC_HUE: {
-            type: 'KIEN_THUC',
-            typeDetail: 'KIEN_THUC_DAI_HOC_HUE',
-            data: KIEN_THUC.filter(element => element.typeDetail == "KIEN_THUC_DAI_HOC_HUE").sort(sortCondition),
-            typeIndex: '1.1',
-            title: "Kiến thức chung trong toàn Đại học Huế",
+    const categories = {
+        KIEN_THUC: {
+            KIEN_THUC_DAI_HOC_HUE: { typeIndex: '1.1', title: "Kiến thức chung trong toàn Đại học Huế" },
+            KIEN_THUC_DAI_HOC_KHOA_HOC: { typeIndex: '1.2', title: "Kiến thức chung trong Trường Đại học Khoa học" },
+            KIEN_THUC_LINH_VUC: { typeIndex: '1.3', title: "Kiến thức chung theo lĩnh vực" },
+            KIEN_THUC_NHOM_NGANH: { typeIndex: '1.4', title: "Kiến thức chung của nhóm ngành" },
+            KIEN_THUC_NGANH: { typeIndex: '1.5', title: "Kiến thức của ngành" }
         },
-        KIEN_THUC_DAI_HOC_KHOA_HOC: {
-            type: 'KIEN_THUC',
-            typeDetail: 'KIEN_THUC_DAI_HOC_KHOA_HOC',
-            data: KIEN_THUC.filter(element => element.typeDetail == "KIEN_THUC_DAI_HOC_KHOA_HOC").sort(sortCondition),
-            typeIndex: '1.2',
-            title: "Kiến thức chung trong Trường Đại học Khoa học",
+        KY_NANG: {
+            KY_NANG_CHUYEN_MON: { typeIndex: '2.1', title: "Kỹ năng chuyên môn" },
+            KY_NANG_MEM: { typeIndex: '2.2', title: "Kỹ năng mềm" }
         },
-        KIEN_THUC_LINH_VUC: {
-            type: 'KIEN_THUC',
-            typeDetail: 'KIEN_THUC_LINH_VUC',
-            data: KIEN_THUC.filter(element => element.typeDetail == "KIEN_THUC_LINH_VUC").sort(sortCondition),
-            typeIndex: '1.3',
-            title: "Kiến thức chung theo lĩnh vực",
-        },
-        KIEN_THUC_NHOM_NGANH: {
-            type: 'KIEN_THUC',
-            typeDetail: 'KIEN_THUC_NHOM_NGANH',
-            data: KIEN_THUC.filter(element => element.typeDetail == "KIEN_THUC_NHOM_NGANH").sort(sortCondition),
-            typeIndex: '1.4',
-            title: "Kiến thức chung của nhóm ngành",
-        },
-        KIEN_THUC_NGANH: {
-            type: 'KIEN_THUC',
-            typeDetail: 'KIEN_THUC_NGANH',
-            data: KIEN_THUC.filter(element => element.typeDetail == "KIEN_THUC_NGANH").sort(sortCondition),
-            typeIndex: '1.5',
-            title: "Kiến thức của ngành",
+        THAI_DO: {
+            THAI_DO_CA_NHAN: { typeIndex: '3.1', title: "Phẩm chất, đạo đức và thái độ của cá nhân" },
+            THAI_DO_NGHE_NGHIEP: { typeIndex: '3.2', title: "Phẩm chất, đạo đức và thái độ đối với nghề nghiệp" },
+            THAI_DO_XA_HOI: { typeIndex: '3.3', title: "Phẩm chất, đạo đức và thái độ đối với xã hội" }
         }
-    }
+    };
 
-    KY_NANG = {
-        KY_NANG_CHUYEN_MON: {
-            type: 'KY_NANG',
-            typeDetail: 'KY_NANG_CHUYEN_MON',
-            data: KY_NANG.filter(element => element.typeDetail == "KY_NANG_CHUYEN_MON").sort(sortCondition),
-            typeIndex: '2.1',
-            title: "Kỹ năng chuyên môn",
-        },
-        KY_NANG_MEM: {
-            type: 'KY_NANG',
-            typeDetail: 'KY_NANG_CHUYEN_MEM',
-            data: KY_NANG.filter(element => element.typeDetail == "KY_NANG_CHUYEN_MEM").sort(sortCondition),
-            typeIndex: '2.2',
-            title: "Kỹ năng mềm",
-        }
-    }
+    const result = {};
 
-    THAI_DO = {
-        THAI_DO_CA_NHAN: {
-            type: 'THAI_DO',
-            typeDetail: 'THAI_DO_CA_NHAN',
-            data: THAI_DO.filter(element => element.typeDetail =="THAI_DO_CA_NHAN").sort(sortCondition),
-            typeIndex: '3.1',
-            title: "Phẩm chất, đạo đức và thái độ của cá nhân",
-        },
-        THAI_DO_NGHE_NGHIEP: {
-            type: 'THAI_DO',
-            typeDetail: 'THAI_DO_NGHE_NGHIEP',
-            data: THAI_DO.filter(element => element.typeDetail =="THAI_DO_NGHE_NGHIEP").sort(sortCondition),
-            typeIndex: '3.2',
-            title: "Phẩm chất, đạo đức và thái độ đối với nghề nghiệp",
-        },
-        THAI_DO_XA_HOI: {
-            type: 'THAI_DO',
-            typeDetail: 'THAI_DO_XA_HOI',
-            data: THAI_DO.filter(element => element.typeDetail =="THAI_DO_XA_HOI").sort(sortCondition),
-            typeIndex: '3.3',
-            title: "Phẩm chất, đạo đức và thái độ đối với xã hội",
-        }
-    }
+    Object.keys(categories).forEach(type => {
+        result[type] = {};
 
-    return {
-        KIEN_THUC,
-        KY_NANG,
-        THAI_DO
-    }
-}
+        Object.keys(categories[type]).forEach(typeDetail => {
+            result[type][typeDetail] = {
+                type: type,
+                typeDetail: typeDetail,
+                data: data.filter(element => element.type === type && element.typeDetail === typeDetail).sort(sortCondition),
+                ...categories[type][typeDetail]
+            };
+        });
+    });
+
+    return result;
+};
 
 export const getDataSectionD = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, setSectionDValue }) => {
     const result = await getData(api, `/sectionD/${id}`, token, completeMessage, errorMessage)
 
     setSectionDValue(splitProgramLearningOutcomes(result.data.data))
     setIsDataSaved(true)
+}
+
+export const changeDataSectionD = ({ e, setState, id, type, typeDetail, setIsDataSaved }) => {
+    function isValidCompetency(str) {
+        // Kiểm tra nếu giá trị trống thì hợp lệ
+        if (str.trim() === '') {
+            return true;
+        }
+
+        // Kiểm tra nếu giá trị là số nguyên và nhỏ hơn hoặc bằng 5
+        const num = +str;
+        return Number.isInteger(num) && num <= 5;
+    }
+
+    // console.log(e.target.value, e.target.name)
+    const elementValue = e.target.value
+    const elementName = e.target.name
+
+    setIsDataSaved(false)
+    setState(prev => {
+        let value = prev[type][typeDetail].data
+        if(elementName == "competency" && !isValidCompetency(elementValue))
+            return prev
+        
+        
+        value = value.map(element => {
+            if(element.id == id) {
+                return {
+                    ...element,
+                    [elementName]: elementValue
+                }
+            } else 
+            return element
+        })
+
+        return {
+            ...prev,
+            [type]: {
+                ...prev[type],
+                [typeDetail]: {
+                    ...prev[type][typeDetail],
+                    data: value
+                }
+            }
+        }
+    })
+}
+
+export const handleSaveChangeElement = async ({ api, id, token, content, competency, setIsDataSaved, completeMessage, errorMessage }) => {
+    const payload = {
+        id,
+        content,
+        competency: parseInt(competency)
+    }
+
+    console.log(payload)
+
+    const result = await postData(api, "/program-outcome/update", token, payload)
+    console.log(result)
+
+    if(result.status == 200)
+        setIsDataSaved(true)
 }

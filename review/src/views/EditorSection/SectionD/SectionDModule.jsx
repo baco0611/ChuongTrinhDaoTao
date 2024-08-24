@@ -3,8 +3,8 @@ import PLOBlock from './PLOBlock'
 
 export default function SectionDModule({ title, data, setState }) {
     const keys = Object.keys(data)
-    console.log(keys)
-    console.log(data)
+    // console.log(keys)
+    // console.log(data)
 
     return (
         <div className='sectionD-module'>
@@ -15,6 +15,7 @@ export default function SectionDModule({ title, data, setState }) {
                         <PLOBlock
                             key={index}
                             data={data[key]}
+                            setState={setState}
                         />
                     )
                 })
