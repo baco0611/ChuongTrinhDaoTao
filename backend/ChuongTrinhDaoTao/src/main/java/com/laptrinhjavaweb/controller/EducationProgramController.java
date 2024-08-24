@@ -161,7 +161,8 @@ public class EducationProgramController {
 		try {
 			// Thực hiện tìm kiếm và thu thập dữ liệu dựa trên searchRequest
 			SearchProgramResponse response = trainingProgramService.searchPrograms(searchRequest.getKeyword(),
-					searchRequest.getDepartment(), searchRequest.getStatus(),searchRequest.getPageSize(), searchRequest.getPageOrder());
+					searchRequest.getDepartment(), searchRequest.getStatus(), searchRequest.getPageSize(),
+					searchRequest.getPageOrder());
 
 			// Trả về phản hồi thành công với dữ liệu
 			return ResponseEntity.ok(response);
@@ -182,12 +183,9 @@ public class EducationProgramController {
 	@PostMapping("/manage")
 	public ResponseEntity<SearchProgramResponse> managePrograms(@RequestBody ManageProgramRequest manageRequest) {
 		try {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			String currentLecturerCode = authentication.getName(); // Hoặc cách lấy mã giảng viên từ token
-			System.out.println(currentLecturerCode);
 			// Gọi phương thức service để thực hiện các chức năng tìm kiếm và phân trang
 			SearchProgramResponse response = trainingProgramService.managePrograms(manageRequest.getKeyword(),
-					manageRequest.getDepartment(), currentLecturerCode, manageRequest.getPageSize(),
+					manageRequest.getDepartment(), manageRequest.getStatus(), manageRequest.getPageSize(),
 					manageRequest.getPageOrder());
 
 			// Trả về phản hồi thành công với dữ liệu
