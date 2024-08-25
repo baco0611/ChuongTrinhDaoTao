@@ -19,6 +19,8 @@ import com.laptrinhjavaweb.repository.EducationProgramRepository;
 import com.laptrinhjavaweb.response.SearchProgramResponse;
 import com.laptrinhjavaweb.service.IEducationProgramService;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class TrainingProgramService implements IEducationProgramService {
 
@@ -37,6 +39,12 @@ public class TrainingProgramService implements IEducationProgramService {
 		EducationProgramDTO chuongTrinhDaoTaoDTO = trainingProgramConverter.toDTO(trainingProgramEntity);
 		return chuongTrinhDaoTaoDTO;
 	}
+	
+	@Override
+	public EducationProgramEntity findById(Long programId) {
+        return trainingProgramRepository.findById(programId)
+                .orElseThrow(() -> new EntityNotFoundException("Chương trình đào tạo không tồn tại"));
+    }
 
 	@Override
 	public EducationProgramDTO save(EducationProgramDTO ctdtDTO) throws Exception {

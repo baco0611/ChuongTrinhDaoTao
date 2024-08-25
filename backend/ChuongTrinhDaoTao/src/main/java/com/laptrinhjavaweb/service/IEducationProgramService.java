@@ -3,10 +3,13 @@ package com.laptrinhjavaweb.service;
 import java.util.List;
 
 import com.laptrinhjavaweb.dto.EducationProgramDTO;
+import com.laptrinhjavaweb.entity.EducationProgramEntity;
 import com.laptrinhjavaweb.response.SearchProgramResponse;
 
 public interface IEducationProgramService {
 	EducationProgramDTO findbyIdProgram(Long programId) throws Exception;
+	
+	EducationProgramEntity findById(Long programId);
 
 	EducationProgramDTO save(EducationProgramDTO ctdtDTO) throws Exception;
 

@@ -64,4 +64,10 @@ public class LecturerService implements ILecturerService {
 				.orElseThrow(() -> new EntityNotFoundException("Giảng viên không tồn tại"));
 		return lecturersConverter.convertToDTO(lecturer);
 	}
+
+	@Override
+	public LecturersEntity findByLecturerCode(String lecturerCode) {
+		return lecturersRepository.findByLecturersCode(lecturerCode)
+				.orElseThrow(() -> new EntityNotFoundException("Giảng viên không tồn tại"));
+	}
 }
