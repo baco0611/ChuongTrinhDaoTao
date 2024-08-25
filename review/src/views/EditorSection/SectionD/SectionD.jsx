@@ -8,6 +8,8 @@ import { useQuery } from 'react-query'
 import Loader from '../../../components/Loader/Loader'
 import { getDataSectionD } from '../database/sectionD'
 import SectionDModule from './SectionDModule'
+import { DragDropContext } from "react-beautiful-dnd"
+import { handleDragEnd } from './handleDragDrop'
 
 export default function SectionD() {
 
@@ -153,21 +155,30 @@ export default function SectionD() {
                 </div>
 
                 <div className='content'>
-                    <SectionDModule
-                        title={"1. KIẾN THỨC"}
-                        data={sectionDValue.KIEN_THUC}
-                        setState={setSectionDValue}
-                    />
-                    <SectionDModule
-                        title={"2. KỸ NĂNG"}
-                        data={sectionDValue.KY_NANG}
-                        setState={setSectionDValue}
-                    />
-                    <SectionDModule
-                        title={"3. THÁI ĐỘ"}
-                        data={sectionDValue.THAI_DO}
-                        setState={setSectionDValue}
-                    />
+                    <DragDropContext onDragEnd={e => handleDragEnd({
+                        e,
+                        api: serverAPI,
+                        token,
+                        setState: setSectionDValue,
+                        setIsDataSaved,
+                        data: sectionDValue
+                    })}>
+                        <SectionDModule
+                            title={"1. KIẾN THỨC"}
+                            data={sectionDValue.KIEN_THUC}
+                            setState={setSectionDValue}
+                        />
+                        <SectionDModule
+                            title={"2. KỸ NĂNG"}
+                            data={sectionDValue.KY_NANG}
+                            setState={setSectionDValue}
+                        />
+                        <SectionDModule
+                            title={"3. THÁI ĐỘ"}
+                            data={sectionDValue.THAI_DO}
+                            setState={setSectionDValue}
+                        />
+                    </DragDropContext>
                 </div>
             </div>
             <EditorFooter

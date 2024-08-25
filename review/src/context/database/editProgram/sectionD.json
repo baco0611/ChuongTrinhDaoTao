@@ -2,7 +2,7 @@
   "programLearningOutcomes": [
     {
       "id": 1,
-      "symbol": "PLO - 1.1.1",
+      "symbol": "PLO - 1.1.2",
       "content": "Vận dụng được kiến thức về thế giới quan, nhân sinh quan và phương pháp luận của Chủ nghĩa Mác-Lênin, tư tưởng Hồ Chí Minh, các quan điểm, đường lối của Đảng Cộng sản Việt Nam vào cuộc sống.",
       "type": "KIEN_THUC",
       "typeDetail": "KIEN_THUC_DAI_HOC_HUE",
@@ -20,7 +20,7 @@
     },
     {
       "id": 6,
-      "symbol": "PLO - 1.2.1",
+      "symbol": "PLO - 1.2.2",
       "content": "Vận dụng được các kiến thức thuyết trình, giao tiếp, làm việc nhóm trong công tác chuyên môn.",
       "type": "KIEN_THUC",
       "typeDetail": "KIEN_THUC_DAI_HOC_KHOA_HOC",
@@ -95,7 +95,7 @@
       "programId": "6",
       "type": "KIEN_THUC",
       "typeDetail": "KIEN_THUC_DAI_HOC_HUE",
-      "symbol": "PLO - 1.1.2",
+      "symbol": "PLO - 1.1.1",
       "content": "a",
       "competency": 3
     },
@@ -103,8 +103,8 @@
       "id": 27,
       "programId": "6",
       "type": "KIEN_THUC",
-      "typeDetail": "KIEN_THUC_DAI_HOC_HUE",
-      "symbol": "PLO - 1.1.3",
+      "typeDetail": "KIEN_THUC_DAI_HOC_KHOA_HOC",
+      "symbol": "PLO - 1.2.1",
       "content": "d",
       "competency": 2
     }
