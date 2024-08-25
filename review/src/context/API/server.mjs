@@ -7,6 +7,7 @@ import { getSectionB, postSectionB } from './editProgram/sectionB.mjs';
 import { getEditorHeader } from './editProgram/edit.mjs';
 import { createProgramObjective, deleteProgramObjective, getProgramObjectives, updateProgramObjective, updateProgramObjectives } from './editProgram/sectionC.mjs';
 import { createProgramLearningOutcome, deleteProgramLearningOutcome, getProgramLearningOutcomes, updateMultipleProgramLearningOutcomes, updateProgramLearningOutcome } from './editProgram/sectionD.mjs';
+import { getResponsibility } from './LecturerManage/Responsibility.mjs';
 
 // Để xử lý __dirname trong ES module
 const __filename = fileURLToPath(import.meta.url);
@@ -24,6 +25,11 @@ server.use((req, res, next) => {
     setTimeout(next, 1000); // 1000 ms = 1 second
     next();
 });
+
+
+// RESPONSIBILITY
+server.get('/responsibility', getResponsibility);
+
 
 // EDITOR HEADER
 // Route GET để lấy thông tin editor header theo id

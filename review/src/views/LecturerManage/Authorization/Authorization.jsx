@@ -35,7 +35,7 @@ export default function Authorization() {
         }
     }
 
-    const { data , isLoading, isError, refetch } = useQuery(`lecturer-search`, fetchLecturerAPI(apiURL),{
+    const { data , isLoading, isError } = useQuery(`lecturer-search`, fetchLecturerAPI(apiURL),{
         cacheTime: 0,
         refetchOnWindowFocus: false,
     })
@@ -48,6 +48,7 @@ export default function Authorization() {
 
     return (
         <div className='wrapper body-container' id='authorization'>
+            <h1 className='title'>Phân quyền giảng viên</h1>
             <RequestBlock
                 request={request}
                 setRequest={setRequest}
