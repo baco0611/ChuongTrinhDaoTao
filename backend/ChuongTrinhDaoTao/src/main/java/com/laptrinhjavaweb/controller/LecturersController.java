@@ -22,6 +22,8 @@ import com.laptrinhjavaweb.response.ErrorResponse;
 import com.laptrinhjavaweb.response.ListLecturersResponse;
 import com.laptrinhjavaweb.service.ILecturerService;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @RestController
 @RequestMapping("/api/lecturer")
 public class LecturersController {
@@ -52,27 +54,37 @@ public class LecturersController {
 
 	@PostMapping("/updateRoles")
 	public ResponseEntity<?> updateRoles(@RequestBody UpdateRolesRequest request) {
-	    try {
-	        lecturersService.updateLecturerRoles(request.getLecturerId(), request.getRole());
+		try {
+			// Kiểm tra xem giảng viên có tồn tại không
+			LecturersDTO lecturer = lecturersService.getLecturerDetails(request.getLecturerId());
 
-	        // Sử dụng HashMap để cho phép giá trị null
-	        Map<String, Object> response = new HashMap<>();
-	        response.put("message", null);  // hoặc bạn có thể dùng "" nếu muốn tránh null
-	        response.put("status", HttpStatus.OK.value());
-
-	        return ResponseEntity.ok(response);
-	    } catch (SecurityException e) {
-	        Map<String, Object> response = new HashMap<>();
-	        response.put("message", "Bạn không có quyền cập nhật vai trò.");
-	        response.put("status", HttpStatus.FORBIDDEN.value());
-	        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        Map<String, Object> response = new HashMap<>();
-	        response.put("message", "Đã xảy ra lỗi khi cập nhật vai trò.");
-	        response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-	    }
+			// Nếu giảng viên tồn tại, tiến hành cập nhật vai trò
+			lecturersService.updateLecturerRoles(request.getLecturerId(), request.getRole());
+			Map<String, Object> response = new HashMap<>();
+			response.put("data", lecturer);
+			response.put("message", null);
+			response.put("status", HttpStatus.OK.value());
+			return ResponseEntity.ok(response);
+		} catch (EntityNotFoundException e) {
+			Map<String, Object> response = new HashMap<>();
+			response.put("data", null);
+			response.put("message", "Giảng viên không tồn tại.");
+			response.put("status", HttpStatus.NOT_FOUND.value());
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+		} catch (SecurityException e) {
+			Map<String, Object> response = new HashMap<>();
+			response.put("data", null);
+			response.put("message", "Bạn không có quyền cập nhật vai trò.");
+			response.put("status", HttpStatus.FORBIDDEN.value());
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Map<String, Object> response = new HashMap<>();
+			response.put("data", null);
+			response.put("message", "Đã xảy ra lỗi khi cập nhật vai trò.");
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+		}
 	}
 
 }

@@ -109,7 +109,6 @@ public class TrainingProgramService implements IEducationProgramService {
 				.anyMatch(auth -> auth.getAuthority().equals("ASSIGN_RESPONSIBILITY"));
 		boolean isAdmin = authentication.getAuthorities().stream()
 				.anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
-		boolean isUser = authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("USER"));
 
 		// Xây dựng điều kiện tìm kiếm dựa trên quyền của người dùng
 		Page<EducationProgramEntity> programPage;
