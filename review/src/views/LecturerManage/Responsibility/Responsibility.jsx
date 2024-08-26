@@ -9,13 +9,23 @@ import ResponseBlock from './ResponseBlock';
 
 export default function Responsibility() {
 
-    const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
+    const { apiURL, fakeAPI, token, serverAPI, isDataSaved, handleBeforeUnload } = useContext(UserContext); 
     const navigate = useNavigate()
     const [ responsibilityList, setResponsibilityList ] = useState([])
 
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
+
+    useEffect(() => {
+        // Thêm event listener khi component được mount
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Dọn dẹp event listener khi component bị unmount
+        return () => {
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [isDataSaved])
 
     const fetchLecturerAPI = (api) => {        
         return async () => {
@@ -46,9 +56,9 @@ export default function Responsibility() {
             <table>
                 <thead>
                     <tr>
-                        <th style={{ width: "10%" }}>STT</th>
-                        <th style={{ width: "45%" }}>Đơn vị</th>
-                        <th style={{ width: "45%" }}>Giảng viên phụ trách</th>
+                        <th className='center' style={{ width: "6%" }}>STT</th>
+                        <th className='center' style={{ width: "47%" }}>Tên đơn vị</th>
+                        <th className='center' style={{ width: "47%" }}>Giảng viên phụ trách</th>
                     </tr>
                 </thead>
                 <tbody>
