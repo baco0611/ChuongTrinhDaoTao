@@ -24,15 +24,6 @@ public class SecurityConfiguration {
 		http.csrf(csrf -> csrf.disable())
 				.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/public/**").permitAll()// url dành cho login,
 																									// register
-//              .requestMatchers("/auth/user/**").hasAuthority("USER")
-//              .requestMatchers("/auth/assign-responsibility/**").hasAuthority("ASSIGN_RESPONSIBILITY")
-//              .requestMatchers("/auth/manage-dictionary/**").hasAuthority("MANAGE_DICTIONARY")
-//              .requestMatchers("/auth/field/**").hasAuthority("UPDATE_FIELD")
-//              .requestMatchers("/auth/program/approve/**").hasAuthority("APPROVE_PROGRAM")
-//              .requestMatchers("/auth/program/delete/**").hasAuthority("DELETE_PROGRAM")
-//              .requestMatchers("/auth/course/**").hasAuthority("UPDATE_COURSE")
-//              .requestMatchers("/auth/course-plan/approve/**").hasAuthority("APPROVE_COURSE_PLAN")
-//              .requestMatchers("/auth/course-plan/delete/**").hasAuthority("DELETE_COURSE_PLAN")
 						.anyRequest().authenticated())
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authenticationProvider(authenticationProvider)
