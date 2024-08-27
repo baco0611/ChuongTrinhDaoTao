@@ -28,6 +28,7 @@ import com.laptrinhjavaweb.response.CreditsResponse;
 import com.laptrinhjavaweb.response.ItemListResponse;
 import com.laptrinhjavaweb.response.SearchProgramResponse;
 import com.laptrinhjavaweb.response.SectionAHeaderResponse;
+import com.laptrinhjavaweb.response.SectionHeaderResponse;
 import com.laptrinhjavaweb.response.TrainingProgramResponse;
 import com.laptrinhjavaweb.service.IEducationProgramService;
 import com.laptrinhjavaweb.service.ILecturerService;
@@ -77,24 +78,39 @@ public class EducationProgramController {
 	}
 
 	@GetMapping(value = "sectionHeader/{id}")
-	public ResponseEntity<Object> showHeader(@PathVariable("id") Long programId) {
+	public ResponseEntity<SectionHeaderResponse> showHeader(@PathVariable("id") Long programId) {
+	    try {
+	        EducationProgramDTO ctdtDTO = trainingProgramService.findbyIdProgram(programId);
 
-		try {
-			EducationProgramDTO ctdtDTO = trainingProgramService.findbyIdProgram(programId);
-			if (ctdtDTO == null) {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-						.body("{\"status\": " + HttpStatus.INTERNAL_SERVER_ERROR.value() + "}");
-			} else {
-				Object jsonData = new Object() {
-					public final Long id = ctdtDTO.getProgramId();
-					public final SectionAHeaderResponse data = trainingProgramConverter.toOutputSectionAHeader(ctdtDTO);
-				};
-				return ResponseEntity.ok(jsonData);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+	        if (ctdtDTO == null) {
+	            // Tạo response với lỗi
+	            SectionHeaderResponse errorResponse = new SectionHeaderResponse();
+	            errorResponse.setData(null);
+	            errorResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+	        } else {
+	            // Tạo đối tượng SectionHeaderResponse với dữ liệu từ DTO
+	            SectionAHeaderResponse headerResponse = new SectionAHeaderResponse();
+	            headerResponse.setId(ctdtDTO.getProgramId());
+	            headerResponse.setProgramCode(ctdtDTO.getProgramCode());
+	            headerResponse.setVersion(ctdtDTO.getVersion()); 
+	            headerResponse.setFieldName(ctdtDTO.getFieldName());
+
+	            // Tạo response thành công
+	            SectionHeaderResponse successResponse = new SectionHeaderResponse();
+	            successResponse.setData(headerResponse);
+	            successResponse.setStatus(HttpStatus.OK.value());
+
+	            return ResponseEntity.ok(successResponse);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        // Xử lý lỗi
+	        SectionHeaderResponse errorResponse = new SectionHeaderResponse();
+	        errorResponse.setData(null);
+	        errorResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+	    }
 	}
 
 	@GetMapping(value = "showCredits/{id}")
