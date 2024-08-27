@@ -6,6 +6,7 @@ import lombok.Data;
 public class ManageProgramRequest {
 	private String keyword;
 	private String department;
+	private int status;
 	private int pageSize;
 	private int pageOrder;
 }
