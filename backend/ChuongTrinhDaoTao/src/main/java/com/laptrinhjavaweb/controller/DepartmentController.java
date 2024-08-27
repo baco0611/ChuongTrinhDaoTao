@@ -8,10 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.laptrinhjavaweb.dto.DepartmentDTO;
+import com.laptrinhjavaweb.request.UpdateDepartmentManagerRequest;
 import com.laptrinhjavaweb.response.DepartmentResponse;
 import com.laptrinhjavaweb.response.ErrorResponse;
 import com.laptrinhjavaweb.response.ListLecturersOfDepartmentResponse;
@@ -83,5 +86,23 @@ public class DepartmentController {
 	    }
 	}
 
+	@PostMapping("/updateManager")
+    public ResponseEntity<ListLecturersOfDepartmentResponse> updateDepartmentManager(@RequestBody UpdateDepartmentManagerRequest request) {
+        try {
+            Long departmentId = request.getId();
+            Long lecturerId = request.getLecturerId() != null ? request.getLecturerId() : null;
+
+            // Cập nhật quyền quản lý
+            departmentService.updateDepartmentManager(departmentId, lecturerId);
+
+            // Lấy thông tin chi tiết của department sau khi cập nhật
+            ListLecturersOfDepartmentResponse response = departmentService.getDepartmentDetails();
+            
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
 
 }

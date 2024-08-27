@@ -9,4 +9,5 @@ import com.laptrinhjavaweb.response.ListLecturersOfDepartmentResponse;
 public interface IDepartmentService {
 	List<DepartmentDTO> findAll();
 	ListLecturersOfDepartmentResponse getDepartmentDetails();
+	void updateDepartmentManager(Long departmentId, Long lecturerId) ;
 }

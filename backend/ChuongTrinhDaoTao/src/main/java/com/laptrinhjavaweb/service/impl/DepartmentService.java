@@ -14,6 +14,7 @@ import com.laptrinhjavaweb.dto.LecturerOfDepartmentDTO;
 import com.laptrinhjavaweb.entity.DepartmentEntity;
 import com.laptrinhjavaweb.entity.LecturersEntity;
 import com.laptrinhjavaweb.repository.DepartmentRepository;
+import com.laptrinhjavaweb.repository.LecturersRepository;
 import com.laptrinhjavaweb.response.ListLecturersOfDepartmentResponse;
 import com.laptrinhjavaweb.service.IDepartmentService;
 
@@ -25,6 +26,9 @@ public class DepartmentService implements IDepartmentService {
 
 	@Autowired
 	private DepartmentConverter departmentConverter;
+	
+	@Autowired
+	private LecturersRepository lecturersRepository;
 
 	@Override
 	public List<DepartmentDTO> findAll() {
@@ -93,5 +97,27 @@ public class DepartmentService implements IDepartmentService {
 
 	    return response;
 	}
+	
+	@Override
+    public void updateDepartmentManager(Long departmentId, Long lecturerId) {
+        // Lấy department từ database
+        DepartmentEntity department = departmentRepository.findById(departmentId)
+            .orElseThrow(() -> new RuntimeException("Department not found"));
+
+        // Xóa quyền quản lý hiện tại
+        for (LecturersEntity lecturer : department.getLecturers()) {
+            lecturer.setDepartmentManager(false);
+            lecturersRepository.save(lecturer);
+        }
+
+        if (lecturerId != null) {
+            // Cập nhật quyền quản lý cho lecturer
+            LecturersEntity lecturer = lecturersRepository.findById(lecturerId)
+                .orElseThrow(() -> new RuntimeException("Lecturer not found"));
+
+            lecturer.setDepartmentManager(true);
+            lecturersRepository.save(lecturer);
+        }
+    }
 
 }
