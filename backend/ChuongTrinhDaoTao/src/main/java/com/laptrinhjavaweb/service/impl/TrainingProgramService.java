@@ -19,6 +19,8 @@ import com.laptrinhjavaweb.repository.EducationProgramRepository;
 import com.laptrinhjavaweb.response.SearchProgramResponse;
 import com.laptrinhjavaweb.service.IEducationProgramService;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class TrainingProgramService implements IEducationProgramService {
 
@@ -37,6 +39,12 @@ public class TrainingProgramService implements IEducationProgramService {
 		EducationProgramDTO chuongTrinhDaoTaoDTO = trainingProgramConverter.toDTO(trainingProgramEntity);
 		return chuongTrinhDaoTaoDTO;
 	}
+	
+	@Override
+	public EducationProgramEntity findById(Long programId) {
+        return trainingProgramRepository.findById(programId)
+                .orElseThrow(() -> new EntityNotFoundException("Chương trình đào tạo không tồn tại"));
+    }
 
 	@Override
 	public EducationProgramDTO save(EducationProgramDTO ctdtDTO) throws Exception {
@@ -59,10 +67,14 @@ public class TrainingProgramService implements IEducationProgramService {
 	public SearchProgramResponse searchPrograms(String keyword, String department, int status, int pageSize,
 			int pageOrder) {
 		PageRequest pageRequest = PageRequest.of(pageOrder - 1, pageSize);
-		SearchProgramResponse responseWrapper=null;
+		SearchProgramResponse responseWrapper = null;
+		System.out.println(department);
 		if (status == 0) {
 			Page<EducationProgramEntity> programPage = trainingProgramRepository.searchPrograms(keyword, department,
 					pageRequest);
+			for (EducationProgramEntity educationProgramEntity : programPage) {
+				System.out.println(educationProgramEntity);
+			}
 			responseWrapper = SearchProgramResponse.builder()
 					.data(programPage.getContent().stream().map(trainingProgramConverter::convertToDTO)
 							.collect(Collectors.toList()))
@@ -70,10 +82,9 @@ public class TrainingProgramService implements IEducationProgramService {
 							programPage.getPageable().getOffset(), programPage.isFirst(), programPage.isLast(),
 							pageOrder, programPage.getTotalPages(), (int) programPage.getTotalElements()))
 					.status(200).build();
-		}
-		else {
-			Page<EducationProgramEntity> programPage = trainingProgramRepository.searchProgramsWithStatus(keyword, department,status,
-					pageRequest);
+		} else {
+			Page<EducationProgramEntity> programPage = trainingProgramRepository.searchProgramsWithStatus(keyword,
+					department, status, pageRequest);
 			responseWrapper = SearchProgramResponse.builder()
 					.data(programPage.getContent().stream().map(trainingProgramConverter::convertToDTO)
 							.collect(Collectors.toList()))
@@ -86,7 +97,11 @@ public class TrainingProgramService implements IEducationProgramService {
 
 	}
 
-	public SearchProgramResponse managePrograms(String keyword, String department, String lecturerCode, int pageSize,
+	public String getDepartmentCodesByManagerLecturerCode(String lecturersCode) {
+		return trainingProgramRepository.findDepartmentCodesByManagerLecturerCode(lecturersCode);
+	}
+
+	public SearchProgramResponse managePrograms(String keyword, String department, int status, int pageSize,
 			int pageOrder) {
 		// Tạo PageRequest với số trang và kích thước trang
 		PageRequest pageRequest = PageRequest.of(pageOrder - 1, pageSize);
@@ -102,28 +117,57 @@ public class TrainingProgramService implements IEducationProgramService {
 				.anyMatch(auth -> auth.getAuthority().equals("ASSIGN_RESPONSIBILITY"));
 		boolean isAdmin = authentication.getAuthorities().stream()
 				.anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
-		boolean isUser = authentication.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("USER"));
 
 		// Xây dựng điều kiện tìm kiếm dựa trên quyền của người dùng
 		Page<EducationProgramEntity> programPage;
 
-		if (isAdmin) {
-			// Admin có quyền xem tất cả các chương trình đào tạo
-			programPage = trainingProgramRepository.managePrograms(keyword, department, lecturerCode, pageRequest);
-		} else if (isDeleteProgram || isAssignResponsibility) {
-			// DeleteProgram và AssignResponsibility có quyền xem tất cả nhưng có thể lọc
-			// theo lecturerCode
-			programPage = trainingProgramRepository.managePrograms(keyword, department, lecturerCode, pageRequest);
-		} else {
-			Page<EducationProgramEntity> programPage1 = trainingProgramRepository.findAllByLecturerIdAndFilter(keyword,
-					department, currentLecturerCode, pageRequest);
-			Page<EducationProgramEntity> programPage2 = trainingProgramRepository.findByLecturersCode(keyword,
-					department, currentLecturerCode, pageRequest);
-			// So sánh số lượng phần tử trong hai trang và chọn cái có nhiều phần tử hơn
-			if (programPage1.getTotalElements() > programPage2.getTotalElements()) {
-				programPage = programPage1;
+		if (status != 0) {
+			if (isAdmin || isDeleteProgram || isAssignResponsibility) {
+				// Admin có quyền xem tất cả các chương trình đào tạo
+				System.out.println("admin");
+				System.out.println(status);
+				programPage = trainingProgramRepository.manageProgramsAllWithStatus(keyword, department, status,
+						pageRequest);
 			} else {
-				programPage = programPage2;
+				String department_code = getDepartmentCodesByManagerLecturerCode(currentLecturerCode);
+				System.out.println(department_code);
+				// ctđt thuộc khoa mà gv quản lý
+				Page<EducationProgramEntity> programPage1 = trainingProgramRepository
+						.searchProgramsOfDepartmentCodesByManagerLecturerCodeWithStatus(keyword, department_code,
+								status, pageRequest);
+				// ctdt mà gv được phân công
+				System.out.println(currentLecturerCode);
+				Page<EducationProgramEntity> programPage2 = trainingProgramRepository
+						.manageProgramsIsUserWithStatus(keyword, department, currentLecturerCode, status, pageRequest);
+				// So sánh số lượng phần tử trong hai trang và chọn cái có nhiều phần tử hơn
+				if (programPage1.getTotalElements() > programPage2.getTotalElements()) {
+					programPage = programPage1;
+				} else {
+					programPage = programPage2;
+				}
+			}
+		} else {
+			if (isAdmin || isDeleteProgram || isAssignResponsibility) {
+				// Admin có quyền xem tất cả các chương trình đào tạo
+				System.out.println("admin");
+				System.out.println(status);
+				programPage = trainingProgramRepository.manageProgramsAll(keyword, department, pageRequest);
+			} else {
+				String department_code = getDepartmentCodesByManagerLecturerCode(currentLecturerCode);
+				System.out.println(department_code);
+				// ctđt thuộc khoa mà gv quản lý
+				Page<EducationProgramEntity> programPage1 = trainingProgramRepository
+						.searchProgramsOfDepartmentCodesByManagerLecturerCode(keyword, department_code, pageRequest);
+				// ctdt mà gv được phân công
+				System.out.println(currentLecturerCode);
+				Page<EducationProgramEntity> programPage2 = trainingProgramRepository.manageProgramsIsUser(keyword,
+						department, currentLecturerCode, pageRequest);
+				// So sánh số lượng phần tử trong hai trang và chọn cái có nhiều phần tử hơn
+				if (programPage1.getTotalElements() > programPage2.getTotalElements()) {
+					programPage = programPage1;
+				} else {
+					programPage = programPage2;
+				}
 			}
 		}
 
