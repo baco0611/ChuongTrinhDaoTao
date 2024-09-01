@@ -21,27 +21,27 @@ function EditorHeader({ currentSection }) {
     // Nhưng đang không ổn lắm do lỡ nhiều người ko biết query ==> check bằng api
     useEffect(() => {
         console.log(user.lecturersCode, responsiveTeacher)
-        if(!responsiveTeacher || !programStatus) {
-            alert("KHÔNG THỂ XÁC MINH QUYỀN TRUY CẬP")
-            navigate("/program/manage")
-        } else
-        if(programStatus != "true") {
-            alert("CHƯƠNG TRÌNH KHÔNG THỂ CHỈNH SỬA")
-            navigate("/program/manage")
-        } else
-        if(!responsiveTeacher) {
-            alert("KHÔNG THỂ XÁC MINH QUYỀN TRUY CẬP")
-            navigate("/program/manage")
-        } else
-        if(user.lecturersCode != responsiveTeacher) {
-            alert("NGƯỜI DÙNG KHÔNG ĐƯỢC CẤP QUYỀN TRUY CẬP")
-            navigate("/program/manage")
-        }
+        // if(!responsiveTeacher || !programStatus) {
+        //     alert("KHÔNG THỂ XÁC MINH QUYỀN TRUY CẬP")
+        //     navigate("/program/manage")
+        // } else
+        // if(programStatus != "true") {
+        //     alert("CHƯƠNG TRÌNH KHÔNG THỂ CHỈNH SỬA")
+        //     navigate("/program/manage")
+        // } else
+        // if(!responsiveTeacher) {
+        //     alert("KHÔNG THỂ XÁC MINH QUYỀN TRUY CẬP")
+        //     navigate("/program/manage")
+        // } else
+        // if(user.lecturersCode != responsiveTeacher) {
+        //     alert("NGƯỜI DÙNG KHÔNG ĐƯỢC CẤP QUYỀN TRUY CẬP")
+        //     navigate("/program/manage")
+        // }
     }, [])
 
     const fetchAPI = (id) => {
         return async () => {
-            return (await getData(serverAPI, `/editor-header/${id}`, token)).data.data
+            return (await getData(apiURL, `/api/education-programs/sectionHeader/${id}`, token)).data.data
         }
     }
 

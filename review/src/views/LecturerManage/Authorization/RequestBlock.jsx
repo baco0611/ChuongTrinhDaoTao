@@ -4,7 +4,7 @@ import { UserContext } from '../../../context/ContextProvider';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { getData } from '../../../utils/function';
-import { searchLecturer } from './authorization-function';
+import { searchLecturer, handleChangeRequest } from './authorization-function';
 
 export default function RequestBlock({ request, setRequest, setLecturerList}) {
 
@@ -69,7 +69,7 @@ export default function RequestBlock({ request, setRequest, setLecturerList}) {
             </div>
             <div className="submit">
                 <button
-                    onClick={async () => await searchLecturer(serverAPI, "/lecturer-search", token, request, setLecturerList)}
+                    onClick={async () => await searchLecturer(apiURL, "/api/lecturer/getAll", token, request, setLecturerList)}
                 >Tìm kiếm</button>
             </div>
         </div>

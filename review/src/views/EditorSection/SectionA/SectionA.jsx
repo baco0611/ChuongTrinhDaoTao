@@ -16,7 +16,7 @@ export default function SectionA() {
     const currentId = id
     const navigate = useNavigate()
 
-    const { user, token, serverAPI, isDataSaved, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
+    const { user, token, apiURL, serverAPI, isDataSaved, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
 
     // Scroll lên đầu trang mỗi khi mount
     useEffect(() => {
@@ -70,7 +70,7 @@ export default function SectionA() {
         return async () => {
             return await getDataSectionA({
                 id,
-                api: serverAPI,
+                api: apiURL,
                 token,
                 setIsDataSaved,
                 setSpecialization,
@@ -87,8 +87,8 @@ export default function SectionA() {
     if(isLoading)
         return <Loader/>
 
-    if(isError)
-        navigate('/error')
+    // if(isError)
+    //     navigate('/error')
 
     return (
         <>

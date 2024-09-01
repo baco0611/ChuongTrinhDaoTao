@@ -1,7 +1,7 @@
 import { getData, postData } from "../../../utils/function"
 
 const getDataSectionB = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, setSectionBValue }) => {
-    const result = await getData(api, `/sectionB/${id}`, token)
+    const result = await getData(api, `/api/education-programs/sectionB/${id}`, token)
     if(result.status == 200) {
         console.log(result)
         setSectionBValue(result.data.data.overallObjectives)
