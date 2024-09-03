@@ -60,6 +60,9 @@ public class LecturersController {
 
 			// Nếu giảng viên tồn tại, tiến hành cập nhật vai trò
 			lecturersService.updateLecturerRoles(request.getLecturerId(), request.getRole());
+			
+			// Get lại dữ liệu sau khi update
+			lecturer  = lecturersService.getLecturerDetails(request.getLecturerId());
 			Map<String, Object> response = new HashMap<>();
 			response.put("data", lecturer);
 			response.put("message", null);
