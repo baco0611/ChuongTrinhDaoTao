@@ -29,8 +29,12 @@ public class LecturerService implements ILecturerService {
 
 	@Override
 	public Page<LecturersDTO> findLecturers(String department, String keyWord, Pageable pageable) {
+		System.out.println(department);
 		Page<LecturersEntity> entitiesPage = lecturersRepository.findByDepartmentAndKeyWord(department, keyWord,
 				pageable);
+		for (LecturersEntity lecturersEntity : entitiesPage) {
+			System.out.println(lecturersEntity.getFirstName());
+		}
 		return entitiesPage.map(entity -> lecturersConverter.convertToDTO(entity));
 	}
 
