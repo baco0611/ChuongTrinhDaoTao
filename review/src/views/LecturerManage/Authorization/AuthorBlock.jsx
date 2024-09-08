@@ -51,6 +51,7 @@ export default function AuthorBlock({ data }) {
     }
 
     console.log(selectedUser)
+    console.log(data)
 
     return (
         <div className='content mt-4'>

@@ -41,7 +41,7 @@ function EditorHeader({ currentSection }) {
 
     const fetchAPI = (id) => {
         return async () => {
-            return (await getData(serverAPI, `/editor-header/${id}`, token)).data.data
+            return (await getData(apiURL, `/api/education-programs/sectionHeader/${id}`, token)).data.data
         }
     }
 
