@@ -77,17 +77,17 @@ public class SpecializationController {
     public ResponseEntity<?> deleteSpecialization(@RequestBody DeleteSpecializationRequest request) {
         try {
             List<SpecializationDTO> specializations = specializationService.deleteSpecialization(request.getSpecializationId());
-
             // Creating the response object
             SpecializationResponse response = new SpecializationResponse();
             response.setData(specializations);
             response.setStatus(200);
-
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error deleting specialization: " + e.getMessage());
         }
     }
+    
+    
     
     
 }
