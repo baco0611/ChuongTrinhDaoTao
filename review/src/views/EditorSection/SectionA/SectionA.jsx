@@ -16,7 +16,7 @@ export default function SectionA() {
     const currentId = id
     const navigate = useNavigate()
 
-    const { user, token, apiURL, serverAPI, isDataSaved, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
+    const { user, apiURL, token, serverAPI, isDataSaved, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
 
     // Scroll lên đầu trang mỗi khi mount
     useEffect(() => {
