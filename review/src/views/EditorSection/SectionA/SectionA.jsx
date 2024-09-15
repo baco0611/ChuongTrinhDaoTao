@@ -70,7 +70,7 @@ export default function SectionA() {
         return async () => {
             return await getDataSectionA({
                 id,
-                api: serverAPI,
+                api: apiURL,
                 token,
                 setIsDataSaved,
                 setSpecialization,
