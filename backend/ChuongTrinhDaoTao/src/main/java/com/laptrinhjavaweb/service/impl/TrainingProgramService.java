@@ -16,7 +16,11 @@ import com.laptrinhjavaweb.dto.EducationProgramDTO;
 import com.laptrinhjavaweb.dto.PageInformation;
 import com.laptrinhjavaweb.entity.EducationProgramEntity;
 import com.laptrinhjavaweb.repository.EducationProgramRepository;
+import com.laptrinhjavaweb.request.UpdateEducationRequest;
+import com.laptrinhjavaweb.response.EducationProgramResponse;
+import com.laptrinhjavaweb.response.EducationProgramUpdateResponse;
 import com.laptrinhjavaweb.response.SearchProgramResponse;
+import com.laptrinhjavaweb.response.UpdateEducationResponse;
 import com.laptrinhjavaweb.service.IEducationProgramService;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -39,12 +43,12 @@ public class TrainingProgramService implements IEducationProgramService {
 		EducationProgramDTO chuongTrinhDaoTaoDTO = trainingProgramConverter.toDTO(trainingProgramEntity);
 		return chuongTrinhDaoTaoDTO;
 	}
-	
+
 	@Override
 	public EducationProgramEntity findById(Long programId) {
-        return trainingProgramRepository.findById(programId)
-                .orElseThrow(() -> new EntityNotFoundException("Chương trình đào tạo không tồn tại"));
-    }
+		return trainingProgramRepository.findById(programId)
+				.orElseThrow(() -> new EntityNotFoundException("Chương trình đào tạo không tồn tại"));
+	}
 
 	@Override
 	public EducationProgramDTO save(EducationProgramDTO ctdtDTO) throws Exception {
@@ -181,6 +185,50 @@ public class TrainingProgramService implements IEducationProgramService {
 				.status(200).build();
 
 		return responseWrapper;
+	}
+
+	public EducationProgramUpdateResponse updateEducationProgram(UpdateEducationRequest request) {
+		EducationProgramEntity entity = trainingProgramRepository.findById(request.getProgramId())
+				.orElseThrow(() -> new RuntimeException("Program not found"));
+
+		// Convert request to entity and update fields
+		EducationProgramEntity updatedEntity = trainingProgramConverter.toEntity(request);
+		updatedEntity.setProgramId(entity.getProgramId()); // Ensure ID is preserved
+
+		// Save updated entity
+		trainingProgramRepository.save(updatedEntity);
+
+		// Convert updated entity to response
+		UpdateEducationResponse response = trainingProgramConverter.toResponse(updatedEntity);
+
+		// Create the response wrapper
+		EducationProgramUpdateResponse updateResponse = new EducationProgramUpdateResponse();
+		updateResponse.setData(response);
+		updateResponse.setStatus(200);
+
+		return updateResponse;
+	}
+
+	@Override
+	public String getOverallObjectives(Long programId) {
+		EducationProgramEntity program = trainingProgramRepository.findById(programId)
+				.orElseThrow(() -> new RuntimeException("Program not found"));
+		return program.getOverallObjectives();
+	}
+
+	@Override
+	public String updateOverallObjectives(Long programId, String overallObjectives) {
+		try {
+			EducationProgramEntity program = trainingProgramRepository.findById(programId)
+					.orElseThrow(() -> new RuntimeException("Program not found"));
+
+			program.setOverallObjectives(overallObjectives);
+			trainingProgramRepository.save(program);
+
+			return null;
+		} catch (Exception e) {
+			return e.getMessage();
+		}
 	}
 
 }

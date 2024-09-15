@@ -1,15 +1,16 @@
 package com.laptrinhjavaweb.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class DepartmentDTO {
-	private String departmentId;
-	private String departmentName;
+public class ProgramLearningOutcomeDTO {
+	private Long id;
+    private String symbol;
+    private String content;
+    private String type;
+    private Long programId;
 }

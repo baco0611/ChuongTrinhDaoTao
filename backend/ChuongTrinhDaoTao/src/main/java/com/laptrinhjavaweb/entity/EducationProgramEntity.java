@@ -144,7 +144,5 @@ public class EducationProgramEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="lecturersId")
     private LecturersEntity lecturer;
-    
-    
 
 }
