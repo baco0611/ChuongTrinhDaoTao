@@ -10,6 +10,8 @@ import { getDataSectionD } from '../database/sectionD'
 import SectionDModule from './SectionDModule'
 import { DragDropContext } from "react-beautiful-dnd"
 import { handleDragEnd } from './handleDragDrop'
+import Cookies from "js-cookie"
+
 
 export default function SectionD() {
 
@@ -120,10 +122,12 @@ export default function SectionD() {
 
 
     const fetchAPI = (id) => {
+        const token = Cookies.get("ACCESS_TOKEN")
+
         return async () => {
             getDataSectionD({
                 id,
-                api: serverAPI,
+                api: apiURL,
                 token,
                 setSectionDValue,
                 setIsDataSaved

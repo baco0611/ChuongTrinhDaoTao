@@ -103,7 +103,7 @@ export default function SectionC() {
                         onDragEnd={(e) => handleDragEnd({ 
                             e, 
                             data: sectionCValue,
-                            api: serverAPI,
+                            api: apiURL,
                             token,
                             setState: setSectionCValue, 
                             setIsDataSaved,
