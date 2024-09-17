@@ -6,7 +6,6 @@ import java.util.List;
 import jakarta.persistence.*;
 import lombok.Data;
 
-//Table: ChuanDauRa
 @Entity
 @Table(name= "ProgramLearningOutComes")
 @Data
@@ -18,7 +17,7 @@ public class ProgramLearningOutComesEntity {
     @Column
     private String symbol;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "nvarchar(500)")
     private String content;
 
     @Column

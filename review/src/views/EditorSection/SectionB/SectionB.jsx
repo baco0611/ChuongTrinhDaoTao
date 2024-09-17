@@ -7,6 +7,7 @@ import { UserContext } from '../../../context/ContextProvider'
 import { useQuery } from 'react-query'
 import Loader from '../../../components/Loader/Loader'
 import { getDataSectionB, handleChangeValue, handleSaveChangeSectionB } from '../database/sectionB'
+import Cookies from "js-cookie"
 
 export default function SectionB() {
 
@@ -37,6 +38,8 @@ export default function SectionB() {
     }, [isDataSaved])
 
     const fetchAPI = (id) => {
+        const token = Cookies.get("ACCESS_TOKEN")
+
         return async () => {
             return await getDataSectionB({
                 id,
@@ -75,7 +78,7 @@ export default function SectionB() {
                     <textarea
                         value={sectionBValue}
                         onChange={e => handleChangeValue(e, setSectionBValue, setIsDataSaved)}
-                        onBlur={async () => await handleSaveChangeSectionB({ id, api: serverAPI, token, sectionBValue, setIsDataSaved})}
+                        onBlur={async () => await handleSaveChangeSectionB({ id, api: apiURL, token, sectionBValue, setIsDataSaved})}
                     />
                 </div>
             </div>

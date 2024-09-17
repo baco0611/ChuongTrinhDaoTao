@@ -1,6 +1,5 @@
 package com.laptrinhjavaweb.response;
 
-import com.laptrinhjavaweb.dto.DepartmentDTO;
 import com.laptrinhjavaweb.entity.DepartmentEntity;
 
 import lombok.Data;

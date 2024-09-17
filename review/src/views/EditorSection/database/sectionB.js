@@ -4,7 +4,7 @@ const getDataSectionB = async ({ id, api, token, completeMessage, errorMessage, 
     const result = await getData(api, `/api/education-programs/sectionB/${id}`, token)
     if(result.status == 200) {
         console.log(result)
-        setSectionBValue(result.data.data.overallObjectives)
+        setSectionBValue(result.data.data)
         setIsDataSaved(true)
     } else {
         setIsDataSaved(true)
@@ -17,7 +17,7 @@ const handleSaveChangeSectionB = async ({ id, api, token, sectionBValue, complet
         programId: id,
         overallObjectives: sectionBValue
     }
-    const result = await postData(api, "/sectionB-info", token, payload)
+    const result = await postData(api, "/api/education-programs/sectionB/updateOverallObjectives", token, payload)
 
     if(result.status == 200) {
         setIsDataSaved(true)

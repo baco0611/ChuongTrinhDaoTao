@@ -46,7 +46,7 @@ export default function PLOBlock({ data, setState }) {
                                 <button
                                         disabled={isDisable}
                                         onClick={() => handleCreatePLO({
-                                            api: serverAPI,
+                                            api: apiURL,
                                             token,
                                             numOfElement: data.data.length,
                                             type: data.type,
