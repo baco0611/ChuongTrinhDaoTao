@@ -10,6 +10,7 @@ import Loader from '../../../components/Loader/Loader'
 import { getDataSectionC } from '../database/sectionC'
 import POBlock from './POBlock'
 import { handleDragEnd } from './handleDragDrop'
+import Cookies from "js-cookie"
 
 export default function SectionC() {
 
@@ -59,10 +60,12 @@ export default function SectionC() {
     }, [isDataSaved])
 
     const fetchAPI = (id) => {
+        const token = Cookies.get("ACCESS_TOKEN")
+
         return async () => {
             return await getDataSectionC({
                 id,
-                api: serverAPI,
+                api: apiURL,
                 token,
                 setIsDataSaved,
                 setSectionCValue
