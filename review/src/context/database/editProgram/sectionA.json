@@ -22,6 +22,28 @@
         "id": "6"
       },
       "status": 200
+    },
+    {
+      "id": "16",
+      "data": {
+        "programId": 16,
+        "vietnameseName": "Chương trình P 123",
+        "englishName": null,
+        "educationLevel": null,
+        "fieldCode": "F016",
+        "fieldName": null,
+        "admissionTarget": null,
+        "duration": "null",
+        "trainingMode": null,
+        "requiredCredits": "null",
+        "graduationConditional": null,
+        "diploma": null,
+        "employmentPositionAfterGraduation": null,
+        "advancedSkillsDevelopment": null,
+        "referenceProgram": null,
+        "managingDepartment": "TRUNG TÂM GIÁO DỤC QUỐC PHÒNG",
+        "id": "16"
+      }
     }
   ],
   "specialization": [
