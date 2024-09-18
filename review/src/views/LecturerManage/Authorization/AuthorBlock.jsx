@@ -67,7 +67,7 @@ export default function AuthorBlock({ data }) {
                     </thead>
                     <tbody>
                     {
-                        data.data.map((element, index) => {
+                        data.map((element, index) => {
                             return (
                                 <tr 
                                     key={index}

@@ -7,12 +7,13 @@ export const verifyAuthentication = async ({ api, id, lecturerCode, token, navig
         programId: id
     }
     const result = await postData(api, "/api/education-programs/validateProgramAccess", token, payload)
+    console.log(result)
     
     // console.log(result)
     if(result.status != 200) {
         await Swal.fire({
             title: "KHÔNG THỂ TRUY CẬP",
-            text: `Bạn không có quyền chỉnh sửa chương trình đào tạo này`,
+            text: result.data,
             icon: "warning",
             confirmButtonText: "OK",
             confirmButtonColor: '#BE0000', // Màu đỏ cho nút "Có"

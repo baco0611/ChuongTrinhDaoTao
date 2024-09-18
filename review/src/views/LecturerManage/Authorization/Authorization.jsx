@@ -31,7 +31,7 @@ export default function Authorization() {
 
             console.log(9)
             const departmentResult = await postData(api, "/api/lecturer/getAll", token, request)
-            setLecturerList(departmentResult.data)   
+            setLecturerList(departmentResult.data.data)   
         }
     }
 
