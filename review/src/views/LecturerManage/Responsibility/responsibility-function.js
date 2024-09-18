@@ -33,7 +33,7 @@ export const changeResponsibility = async ({ api, token, element, department, ty
 
     if (result.isConfirmed) {
         setIsDataSaved(false);
-        const apiResult = await postData(api, "/update-responsible-lecturer", token, payload);
+        const apiResult = await postData(api, "/api/department/updateManager", token, payload);
         if (apiResult.status === 200) {
             setState(apiResult.data.data);
             setIsDataSaved(true);

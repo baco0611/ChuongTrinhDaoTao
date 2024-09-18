@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../context/ContextProvider';
 import { getData } from "../../../utils/function"
 import ResponseBlock from './ResponseBlock';
+import Cookies from "js-cookie"
 
 export default function Responsibility() {
 
@@ -29,15 +30,14 @@ export default function Responsibility() {
 
     const fetchLecturerAPI = (api) => {        
         return async () => {
-            let token = document.cookie.split("; ")
-            token = token.filter(element => element.includes("ACCESS_TOKEN"))[0]?.split("=")[1]
+            const token = Cookies.get("ACCESS_TOKEN")
 
-            const result = await getData(api, "/responsibility", token)
+            const result = await getData(api, "/api/department/details", token)
             setResponsibilityList(result.data.data)
         }
     }
 
-    const { data , isLoading, isError } = useQuery(`lecturer-search`, fetchLecturerAPI(serverAPI),{
+    const { data , isLoading, isError } = useQuery(`lecturer-search`, fetchLecturerAPI(apiURL),{
         cacheTime: 0,
         refetchOnWindowFocus: false,
     })
