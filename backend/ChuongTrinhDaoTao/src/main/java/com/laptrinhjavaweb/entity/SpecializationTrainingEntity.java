@@ -16,7 +16,7 @@ public class SpecializationTrainingEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long specializationId;
 
-    @Column
+    @Column(columnDefinition = "nvarchar(255)")
     private String specializationName;
 
     @ManyToOne(fetch = FetchType.LAZY)

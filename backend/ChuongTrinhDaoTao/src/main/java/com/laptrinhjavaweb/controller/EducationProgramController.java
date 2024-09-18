@@ -1,13 +1,13 @@
 package com.laptrinhjavaweb.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,15 +18,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.laptrinhjavaweb.converter.EducationProgramConverter;
 import com.laptrinhjavaweb.dto.EducationProgramDTO;
+import com.laptrinhjavaweb.dto.SimplifiedTrainingProgramDTO;
+import com.laptrinhjavaweb.entity.EducationProgramEntity;
+import com.laptrinhjavaweb.entity.LecturersEntity;
 import com.laptrinhjavaweb.request.CreditsUpdateRequest;
 import com.laptrinhjavaweb.request.ManageProgramRequest;
 import com.laptrinhjavaweb.request.SearchProgramRequest;
+import com.laptrinhjavaweb.request.UpdateEducationRequest;
+import com.laptrinhjavaweb.request.UpdateOverallObjectivesRequest;
+import com.laptrinhjavaweb.request.ValidateInformationRequest;
 import com.laptrinhjavaweb.response.CreditsResponse;
+import com.laptrinhjavaweb.response.EducationProgramUpdateResponse;
 import com.laptrinhjavaweb.response.ItemListResponse;
+import com.laptrinhjavaweb.response.OverallObjectivesResponse;
 import com.laptrinhjavaweb.response.SearchProgramResponse;
 import com.laptrinhjavaweb.response.SectionAHeaderResponse;
-import com.laptrinhjavaweb.response.TrainingProgramResponse;
+import com.laptrinhjavaweb.response.SectionHeaderResponse;
+import com.laptrinhjavaweb.response.UpdateResponse;
 import com.laptrinhjavaweb.service.IEducationProgramService;
+import com.laptrinhjavaweb.service.ILecturerService;
+
+import jakarta.persistence.EntityNotFoundException;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -46,18 +58,21 @@ public class EducationProgramController {
 	@Autowired
 	private EducationProgramConverter trainingProgramConverter;
 
+	@Autowired
+	private ILecturerService lecturersService;
+
 	@GetMapping(value = "sectionA/{id}")
 	public ResponseEntity<Object> showCTDT(@PathVariable("id") Long programId) {
-
 		try {
-			EducationProgramDTO ctdtDTO = trainingProgramService.findbyIdProgram(programId);
-			if (ctdtDTO == null) {
+			EducationProgramEntity ctdtEntity = trainingProgramService.findById(programId);
+			if (ctdtEntity == null) {
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
 						.body("{\"status\": " + HttpStatus.INTERNAL_SERVER_ERROR.value() + "}");
 			} else {
+				SimplifiedTrainingProgramDTO dto = trainingProgramConverter.toSimplifiedOutput(ctdtEntity);
 				Object jsonData = new Object() {
-					public final Long id = ctdtDTO.getProgramId();
-					public final TrainingProgramResponse data = trainingProgramConverter.toOutput(ctdtDTO);
+					public final SimplifiedTrainingProgramDTO data = dto;
+					public final int status = HttpStatus.OK.value();
 				};
 				return ResponseEntity.ok(jsonData);
 			}
@@ -68,23 +83,38 @@ public class EducationProgramController {
 	}
 
 	@GetMapping(value = "sectionHeader/{id}")
-	public ResponseEntity<Object> showHeader(@PathVariable("id") Long programId) {
-
+	public ResponseEntity<SectionHeaderResponse> showHeader(@PathVariable("id") Long programId) {
 		try {
 			EducationProgramDTO ctdtDTO = trainingProgramService.findbyIdProgram(programId);
+
 			if (ctdtDTO == null) {
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-						.body("{\"status\": " + HttpStatus.INTERNAL_SERVER_ERROR.value() + "}");
+				// Tạo response với lỗi
+				SectionHeaderResponse errorResponse = new SectionHeaderResponse();
+				errorResponse.setData(null);
+				errorResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
 			} else {
-				Object jsonData = new Object() {
-					public final Long id = ctdtDTO.getProgramId();
-					public final SectionAHeaderResponse data = trainingProgramConverter.toOutputSectionAHeader(ctdtDTO);
-				};
-				return ResponseEntity.ok(jsonData);
+				// Tạo đối tượng SectionHeaderResponse với dữ liệu từ DTO
+				SectionAHeaderResponse headerResponse = new SectionAHeaderResponse();
+				headerResponse.setId(ctdtDTO.getProgramId());
+				headerResponse.setProgramCode(ctdtDTO.getProgramCode());
+				headerResponse.setVersion(ctdtDTO.getVersion());
+				headerResponse.setFieldName(ctdtDTO.getFieldName());
+
+				// Tạo response thành công
+				SectionHeaderResponse successResponse = new SectionHeaderResponse();
+				successResponse.setData(headerResponse);
+				successResponse.setStatus(HttpStatus.OK.value());
+
+				return ResponseEntity.ok(successResponse);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			// Xử lý lỗi
+			SectionHeaderResponse errorResponse = new SectionHeaderResponse();
+			errorResponse.setData(null);
+			errorResponse.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
 		}
 	}
 
@@ -161,7 +191,8 @@ public class EducationProgramController {
 		try {
 			// Thực hiện tìm kiếm và thu thập dữ liệu dựa trên searchRequest
 			SearchProgramResponse response = trainingProgramService.searchPrograms(searchRequest.getKeyword(),
-					searchRequest.getDepartment(), searchRequest.getStatus(),searchRequest.getPageSize(), searchRequest.getPageOrder());
+					searchRequest.getDepartment(), searchRequest.getStatus(), searchRequest.getPageSize(),
+					searchRequest.getPageOrder());
 
 			// Trả về phản hồi thành công với dữ liệu
 			return ResponseEntity.ok(response);
@@ -182,12 +213,9 @@ public class EducationProgramController {
 	@PostMapping("/manage")
 	public ResponseEntity<SearchProgramResponse> managePrograms(@RequestBody ManageProgramRequest manageRequest) {
 		try {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			String currentLecturerCode = authentication.getName(); // Hoặc cách lấy mã giảng viên từ token
-			System.out.println(currentLecturerCode);
 			// Gọi phương thức service để thực hiện các chức năng tìm kiếm và phân trang
 			SearchProgramResponse response = trainingProgramService.managePrograms(manageRequest.getKeyword(),
-					manageRequest.getDepartment(), currentLecturerCode, manageRequest.getPageSize(),
+					manageRequest.getDepartment(), manageRequest.getStatus(), manageRequest.getPageSize(),
 					manageRequest.getPageOrder());
 
 			// Trả về phản hồi thành công với dữ liệu
@@ -206,4 +234,100 @@ public class EducationProgramController {
 		}
 	}
 
+	// Authen update education program
+	@PostMapping("/validateProgramAccess")
+	public ResponseEntity<?> validateProgramAccess(@RequestBody ValidateInformationRequest request) {
+		try {
+			// Kiểm tra nếu các trường không phải là null
+			if (request.getLecturerCode() == null || request.getProgramId() == null) {
+				Map<String, Object> response = new HashMap<>();
+				response.put("status", HttpStatus.FORBIDDEN.value());
+				response.put("message", "KHÔNG THỂ XÁC MINH QUYỀN TRUY CẬP");
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+			}
+
+			// Lấy giảng viên và chương trình từ dịch vụ
+			LecturersEntity lecturer = lecturersService.findByLecturerCode(request.getLecturerCode());
+			EducationProgramEntity program = trainingProgramService.findById(request.getProgramId());
+
+			// Kiểm tra xem giảng viên và chương trình có tồn tại không
+			if (lecturer == null || program == null) {
+				Map<String, Object> response = new HashMap<>();
+				response.put("status", HttpStatus.FORBIDDEN.value());
+				response.put("message", "KHÔNG THỂ XÁC MINH QUYỀN TRUY CẬP");
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+			}
+
+			// Kiểm tra nếu giảng viên không phải là người được phân công
+			if (!program.getLecturer().getLecturersId().equals(lecturer.getLecturersId())) {
+				Map<String, Object> response = new HashMap<>();
+				response.put("status", HttpStatus.FORBIDDEN.value());
+				response.put("message", "NGƯỜI DÙNG KHÔNG ĐƯỢC CẤP QUYỀN TRUY CẬP");
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+			}
+
+			// Kiểm tra trạng thái của chương trình không phải ĐANG THỰC HIỆN (2)
+			if (!program.getStatus().equals(2)) {
+				Map<String, Object> response = new HashMap<>();
+				response.put("status", HttpStatus.FORBIDDEN.value());
+				response.put("message", "CHƯƠNG TRÌNH KHÔNG THỂ CHỈNH SỬA");
+				return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+			}
+
+			// Nếu tất cả đều đúng, trả về trạng thái 200 với message "OKE"
+			Map<String, Object> response = new HashMap<>();
+			response.put("status", HttpStatus.OK.value());
+			response.put("message", "OKE");
+			return ResponseEntity.ok(response);
+
+		} catch (EntityNotFoundException e) {
+			Map<String, Object> response = new HashMap<>();
+			response.put("status", HttpStatus.FORBIDDEN.value());
+			response.put("message", e.getMessage());
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			Map<String, Object> response = new HashMap<>();
+			response.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			response.put("message", "Đã xảy ra lỗi khi kiểm tra quyền truy cập.");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+		}
+	}
+
+	@PostMapping("/update")
+	public ResponseEntity<EducationProgramUpdateResponse> updateEducationProgram(
+			@RequestBody UpdateEducationRequest request) {
+		EducationProgramUpdateResponse response = trainingProgramService.updateEducationProgram(request);
+		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("sectionB/{programId}")
+    public ResponseEntity<?> getOverallObjectives(@PathVariable Long programId) {
+        try {
+            String overallObjectives = trainingProgramService.getOverallObjectives(programId);
+
+            // Create response object
+            OverallObjectivesResponse response = new OverallObjectivesResponse();
+            response.setData(overallObjectives);
+            response.setStatus(200);
+
+            return ResponseEntity.ok().body(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error retrieving overall objectives: " + e.getMessage());
+        }
+    }
+	
+	@PostMapping("sectionB/updateOverallObjectives")
+    public ResponseEntity<?> updateOverallObjectives(@RequestBody UpdateOverallObjectivesRequest request) {
+        try {
+            String message = trainingProgramService.updateOverallObjectives(request.getProgramId(), request.getOverallObjectives());
+            UpdateResponse response = new UpdateResponse();
+            response.setMessage(message);
+            response.setStatus(200);
+            
+            return ResponseEntity.ok().body(response);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error updating overall objectives: " + e.getMessage());
+        }
+    }
 }

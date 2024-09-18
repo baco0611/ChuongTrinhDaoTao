@@ -98,18 +98,21 @@ export default function Header() {
                         </ul>
                         <ul className="header-component">
                             <li className="primary">Học phần</li>
+                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý đề cương</Link></li>
+                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Tra cứu đề cương</Link></li>
                             <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý học phần</Link></li>
-                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Tra cứu học phần</Link></li>
                         </ul>
                         <ul className="header-component">
                             <li className="primary">Chương trình đào tạo</li>
                             <li><Link to={"/program/manage"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý chương trình đào tạo</Link></li>
                             <li><Link to={"/program/search"} onClick={() => setMenuOpen(!menuOpen)}>Tra cứu chương trình đào tạo</Link></li>
+                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý ngành đào tạo</Link></li>
                         </ul>
                         <ul className="header-component">
                             <li className="primary">Quản trị</li>
                             <li><Link to={"/responsibility"} onClick={() => setMenuOpen(!menuOpen)}>Phân công phụ trách</Link></li>
                             <li><Link to={"/authorization"} onClick={() => setMenuOpen(!menuOpen)}>Phân quyền</Link></li>
+                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý người dùng</Link></li>
                         </ul>
                     </div> 
                 </div>

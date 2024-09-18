@@ -1,7 +1,7 @@
 {
   "sectionA": [
     {
-      "id": "1",
+      "id": "6",
       "data": {
         "admissionTarget": "Học sinh",
         "advancedSkillsDevelopment": "Sau khi tốt nghiệp sinh viên có thể học thạc sỹ và tiến sĩ ngành Khoa học máy tính, Hệ thống thông tin",
@@ -17,11 +17,33 @@
         "referenceProgram": "ĐẠI HỌC HÀ NỘI (http://hanu.vn/index.php/vn/lkn-cac-chuong-trinh-dao-tao/204-tuyen-sinh/chuong-trinh-dao-tao/3390-chuong-trinh-dao-tao-nganh-cong-nghe-thong-tin-he-cu-nhan-chinh-quy.html);\nHỌC VIỆN CÔNG NGHỆ BƯU CHÍNH VIỄN THÔNG (https://portal.ptit.edu.vn/giao-duc-va-dao-tao/chuan-dau-ra/chuan-dau-ra-nganh-cong-nghe-thong-tin/);\nKENNESAW STATE UNIVERSITY (https://ccse.kennesaw.edu/it/accreditation/outcomes-objectives.php)",
         "requiredCredits": "122",
         "trainingMode": "chinh_quy",
-        "vietnameseName": "Công nghệ thông tin",
-        "programId": "1",
-        "id": "1"
+        "vietnameseName": "Công nghệ thông tin123",
+        "programId": "6",
+        "id": "6"
       },
       "status": 200
+    },
+    {
+      "id": "16",
+      "data": {
+        "programId": 16,
+        "vietnameseName": "Chương trình P 123",
+        "englishName": null,
+        "educationLevel": null,
+        "fieldCode": "F016",
+        "fieldName": null,
+        "admissionTarget": null,
+        "duration": "null",
+        "trainingMode": null,
+        "requiredCredits": "null",
+        "graduationConditional": null,
+        "diploma": null,
+        "employmentPositionAfterGraduation": null,
+        "advancedSkillsDevelopment": null,
+        "referenceProgram": null,
+        "managingDepartment": "TRUNG TÂM GIÁO DỤC QUỐC PHÒNG",
+        "id": "16"
+      }
     }
   ],
   "specialization": [
@@ -29,19 +51,19 @@
       "id": "1",
       "specializationName": "Khoa học máy tính",
       "specializationId": "1",
-      "programId": "1"
+      "programId": "6"
     },
     {
       "id": "2",
       "specializationName": "Công nghệ phần mềm",
       "specializationId": "2",
-      "programId": "1"
+      "programId": "6"
     },
     {
       "id": "3",
       "specializationName": "Mạng máy tính",
       "specializationId": "3",
-      "programId": "1"
+      "programId": "6"
     }
   ]
 }

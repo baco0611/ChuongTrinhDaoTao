@@ -5,12 +5,15 @@ import java.text.SimpleDateFormat;
 import org.springframework.stereotype.Component;
 
 import com.laptrinhjavaweb.dto.EducationProgramDTO;
+import com.laptrinhjavaweb.dto.SimplifiedTrainingProgramDTO;
 import com.laptrinhjavaweb.entity.EducationProgramEntity;
+import com.laptrinhjavaweb.request.UpdateEducationRequest;
 import com.laptrinhjavaweb.response.CreditsResponse;
 import com.laptrinhjavaweb.response.EducationProgramResponse;
 import com.laptrinhjavaweb.response.ItemListResponse;
 import com.laptrinhjavaweb.response.SectionAHeaderResponse;
 import com.laptrinhjavaweb.response.TrainingProgramResponse;
+import com.laptrinhjavaweb.response.UpdateEducationResponse;
 
 @Component
 public class EducationProgramConverter {
@@ -158,4 +161,82 @@ public class EducationProgramConverter {
 
         return dto;
     }
+	
+	 public SimplifiedTrainingProgramDTO toSimplifiedOutput(EducationProgramEntity entity) {
+	        if (entity == null) {
+	            return null;
+	        }
+
+	        SimplifiedTrainingProgramDTO dto = new SimplifiedTrainingProgramDTO();
+	        dto.setProgramId(entity.getProgramId());
+	        dto.setVietnameseName(entity.getVietnameseName());
+	        dto.setEnglishName(entity.getEnglishName());
+	        dto.setEducationLevel(entity.getEducationLevel());
+	        dto.setFieldCode(entity.getFieldCode());
+	        dto.setFieldName(entity.getFieldName());
+	        dto.setAdmissionTarget(entity.getAdmissionTarget());
+	        dto.setDuration(String.valueOf(entity.getDuration()));
+	        dto.setTrainingMode(entity.getTrainingMode());
+	        dto.setRequiredCredits(String.valueOf(entity.getRequiredCredits()));
+	        dto.setGraduationConditional(entity.getGraduationConditions()); 
+	        dto.setDiploma(entity.getDiploma());
+	        dto.setEmploymentPositionAfterGraduation(entity.getEmploymentPositionAfterGraduation());
+	        dto.setAdvancedSkillsDevelopment(entity.getAdvancedSkillsDevelopment());
+	        dto.setReferenceProgram(entity.getReferenceProgram());
+	        dto.setManagingDepartment(entity.getDepartment().getDepartmentName()); 
+
+	        return dto;
+	    }
+	 
+	 public EducationProgramEntity toEntity(UpdateEducationRequest request) {
+	        if (request == null) {
+	            return null;
+	        }
+
+	        EducationProgramEntity entity = new EducationProgramEntity();
+	        entity.setAdmissionTarget(request.getAdmissionTarget());
+	        entity.setAdvancedSkillsDevelopment(request.getAdvancedSkillsDevelopment());
+	        entity.setDiploma(request.getDiploma());
+	        entity.setDuration(request.getDuration());
+	        entity.setEducationLevel(request.getEducationLevel());
+	        entity.setEmploymentPositionAfterGraduation(request.getEmploymentPositionAfterGraduation());
+	        entity.setEnglishName(request.getEnglishName());
+	        entity.setFieldCode(request.getFieldCode());
+	        entity.setFieldName(request.getFieldName());
+	        entity.setGraduationConditions(request.getGraduationConditional());
+	        entity.setResponsiblePerson(request.getManagingDepartment());
+	        entity.setReferenceProgram(request.getReferenceProgram());
+	        entity.setRequiredCredits(request.getRequiredCredits());
+	        entity.setTrainingMode(request.getTrainingMode());
+	        entity.setVietnameseName(request.getVietnameseName());
+	        entity.setProgramId(request.getProgramId()); // ensure this field is handled correctly if it's a read-only or generated field
+
+	        return entity;
+	    }
+
+	    public UpdateEducationResponse toResponse(EducationProgramEntity entity) {
+	        if (entity == null) {
+	            return null;
+	        }
+
+	        UpdateEducationResponse response = new UpdateEducationResponse();
+	        response.setAdmissionTarget(entity.getAdmissionTarget());
+	        response.setAdvancedSkillsDevelopment(entity.getAdvancedSkillsDevelopment());
+	        response.setDiploma(entity.getDiploma());
+	        response.setDuration(entity.getDuration());
+	        response.setEducationLevel(entity.getEducationLevel());
+	        response.setEmploymentPositionAfterGraduation(entity.getEmploymentPositionAfterGraduation());
+	        response.setEnglishName(entity.getEnglishName());
+	        response.setFieldCode(entity.getFieldCode());
+	        response.setFieldName(entity.getFieldName());
+	        response.setGraduationConditional(entity.getGraduationConditions());
+	        response.setManagingDepartment(entity.getResponsiblePerson());
+	        response.setReferenceProgram(entity.getReferenceProgram());
+	        response.setRequiredCredits(entity.getRequiredCredits());
+	        response.setTrainingMode(entity.getTrainingMode());
+	        response.setVietnameseName(entity.getVietnameseName());
+	        response.setProgramId(entity.getProgramId());
+
+	        return response;
+	    }
 }

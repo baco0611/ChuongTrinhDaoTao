@@ -8,7 +8,15 @@
                 "fieldName": "Công nghệ thông tin"
             },
             "status": 200,
-            "id": 1
+            "id": 6
         }
-    ]
+    ],
+    "validateInfomation": {
+        "lectureCode":"GV001",
+        "programId": 6
+    },
+    "validateAuthentication": {
+        "status": 200,
+        "message": "OKE"
+    }
 }

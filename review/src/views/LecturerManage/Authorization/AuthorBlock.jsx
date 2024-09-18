@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { handleSubmitRole, handleToggleAuthor } from './authorization-function'
 import { UserContext } from '../../../context/ContextProvider'
 
-export default function AuthorBlock({ data }) {
+export default function AuthorBlock({ data, setState }) {
     const [ selectedUser, setSelectedUser ] = useState()
     const { user, apiURL, token } = useContext(UserContext)
     const authorizationList = {
@@ -51,6 +51,7 @@ export default function AuthorBlock({ data }) {
     }
 
     console.log(selectedUser)
+    console.log(data)
 
     return (
         <div className='content mt-4'>
@@ -66,7 +67,7 @@ export default function AuthorBlock({ data }) {
                     </thead>
                     <tbody>
                     {
-                        data.data.map((element, index) => {
+                        data.map((element, index) => {
                             return (
                                 <tr 
                                     key={index}
@@ -135,6 +136,7 @@ export default function AuthorBlock({ data }) {
                                                     name={element.code}
                                                     checked={selectedUser.role.includes(element.code)}
                                                     onChange={(e) => {handleToggleAuthor(e, setSelectedUser)}}
+                                                    disabled={!user.role.includes("ADMIN")}
                                                 />
                                             </td>
                                         </tr>
@@ -155,19 +157,24 @@ export default function AuthorBlock({ data }) {
                                                     name={element.code}
                                                     checked={selectedUser.role.includes(element.code)}
                                                     onChange={(e) => {handleToggleAuthor(e, setSelectedUser)}}
+                                                    disabled={!user.role.includes("ADMIN")}
                                                 />
                                             </td>
                                         </tr>
                                     )
                                 })
                             }
-                            <tr>
-                                <th colSpan={2}>
-                                    <div className='btn'>
-                                        <button onClick={() => handleSubmitRole(selectedUser, apiURL, token)}>Xác nhận</button>
-                                    </div>
-                                </th>
-                            </tr>
+                            {
+                                user.role.includes("ADMIN")
+                                &&
+                                <tr>
+                                    <th colSpan={2}>
+                                        <div className='btn'>
+                                            <button onClick={() => handleSubmitRole(selectedUser, apiURL, token, setState)}>Xác nhận</button>
+                                        </div>
+                                    </th>
+                                </tr>
+                            }
                         </>
                         ||
                         <tr>

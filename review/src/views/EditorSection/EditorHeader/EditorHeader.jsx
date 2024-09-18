@@ -17,27 +17,9 @@ function EditorHeader({ currentSection }) {
     const responsiveTeacher = basic_decode(queryParams.get("t"))
     const programStatus = queryParams.get("s")
 
-    // Check user có quyền để truy cập chỉnh sửa không
-    // Nhưng đang không ổn lắm do lỡ nhiều người ko biết query ==> check bằng api
-    useEffect(() => {
-        console.log(user.lecturersCode, responsiveTeacher)
-        if(programStatus != "true") {
-            alert("CHƯƠNG TRÌNH KHÔNG THỂ CHỈNH SỬA")
-            navigate("/program/manage")
-        }
-        if(!responsiveTeacher) {
-            alert("KHÔNG THỂ XÁC MINH QUYỀN TRUY CẬP")
-            navigate("/program/manage")
-        }
-        if(user.lecturersCode != responsiveTeacher) {
-            alert("NGƯỜI DÙNG KHÔNG ĐƯỢC CẤP QUYỀN TRUY CẬP")
-            navigate("/program/manage")
-        }
-    }, [])
-
     const fetchAPI = (id) => {
         return async () => {
-            return (await getData(serverAPI, `/editor-header/${id}`, token)).data.data
+            return (await getData(apiURL, `/api/education-programs/sectionHeader/${id}`, token)).data.data
         }
     }
 

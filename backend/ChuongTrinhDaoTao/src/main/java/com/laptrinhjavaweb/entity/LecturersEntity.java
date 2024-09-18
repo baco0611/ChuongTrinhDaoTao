@@ -1,4 +1,5 @@
 package com.laptrinhjavaweb.entity;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -23,78 +24,82 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 // Các import khác
 
 @Entity
 @Table(name = "Lecturers")
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class LecturersEntity implements UserDetails {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long lecturersId;
-    
-    private String lecturersCode;
-    
-    @Column(columnDefinition = "nvarchar(255)")
-    private String firstName;
-    
-    @Column(columnDefinition = "nvarchar(255)")
-    private String lastName;
-    
-    private String email;
-    
-    private String password;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long lecturersId;
+
+	private String lecturersCode;
+
+	@Column(columnDefinition = "nvarchar(255)")
+	private String firstName;
+
+	@Column(columnDefinition = "nvarchar(255)")
+	private String lastName;
+
+	private String email;
+
+	private String password;
+
+	@Column(name = "department_manager", nullable = false, columnDefinition = "TINYINT DEFAULT 0")
+	private Boolean departmentManager = false;
+
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "departmentId")
 	private DepartmentEntity department;
-    
-    @OneToMany(mappedBy = "lecturer")
+
+	@OneToMany(mappedBy = "lecturer")
 	private List<EducationProgramEntity> educationPrograms = new ArrayList<>();
-    
-    @Lob
-    @Convert(converter = RolesConverter.class)
-    private List<Role> roles = new ArrayList<>(); // Khởi tạo với danh sách rỗng
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.name()))
-                .collect(Collectors.toList());
-    }
+	@Lob
+	@Convert(converter = RolesConverter.class)
+	private List<Role> roles = new ArrayList<>(); // Khởi tạo với danh sách rỗng
 
-    @Override
-    public String getUsername() {
-        return lecturersCode;
-    }
-    
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-    
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-    
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-    
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-    
-    @Override
-    public String getPassword() {
-        return password;
-    }
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return roles.stream().map(role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList());
+	}
+
+	@Override
+	public String getUsername() {
+		return lecturersCode;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
+	}
+
+	@Override
+	public String getPassword() {
+		return password;
+	}
 }

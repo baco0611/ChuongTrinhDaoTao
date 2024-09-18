@@ -9,7 +9,7 @@ import RequestBlock from './RequestBlock';
 import AuthorBlock from './AuthorBlock';
 
 export default function Authorization() {
-    const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
+    const { apiURL } = useContext(UserContext); 
     const navigate = useNavigate()
     
     const [ lecturerList, setLecturerList ] = useState([])
@@ -31,11 +31,11 @@ export default function Authorization() {
 
             console.log(9)
             const departmentResult = await postData(api, "/api/lecturer/getAll", token, request)
-            setLecturerList(departmentResult.data)   
+            setLecturerList(departmentResult.data.data)   
         }
     }
 
-    const { data , isLoading, isError, refetch } = useQuery(`lecturer-search`, fetchLecturerAPI(apiURL),{
+    const { data , isLoading, isError } = useQuery(`lecturer-search`, fetchLecturerAPI(apiURL),{
         cacheTime: 0,
         refetchOnWindowFocus: false,
     })
@@ -48,6 +48,7 @@ export default function Authorization() {
 
     return (
         <div className='wrapper body-container' id='authorization'>
+            <h1 className='title'>Phân quyền giảng viên</h1>
             <RequestBlock
                 request={request}
                 setRequest={setRequest}
@@ -55,6 +56,7 @@ export default function Authorization() {
             />
             <AuthorBlock
                 data={lecturerList}
+                setState={setLecturerList}
             />
         </div>
     )

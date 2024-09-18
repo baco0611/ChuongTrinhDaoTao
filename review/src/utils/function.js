@@ -15,7 +15,7 @@ const getParentElementById = (element, id) => {
     return element;
 }
 
-const getData = async (api, url, token, payload, completeMessage, errorMessage) => {
+const getData = async (api, url, token, completeMessage, errorMessage) => {
     const apiURL = api + url
     console.log(apiURL)
 
@@ -59,8 +59,9 @@ const postData = async (api, url, token, payload, completeMessage, errorMessage)
                 return err.response.data
             })
 
+    console.log(result)
     return {
-        data: result.data,
+        data: result.data || result.message,
         status: result.status
     }
 }
@@ -102,11 +103,14 @@ function basic_encode(code) {
         '1': '9', '2': '8', '3': '7', '4': '6', '5': '5', '6': '4', '7': '3', '8': '2', '9': '1', '0': '0'
     };
 
-    // Thay thế các ký tự
-    let transformed = transformChar(charMap, code.toUpperCase());
+    if(code) {
+        // Thay thế các ký tự
+        let transformed = transformChar(charMap, code.toUpperCase());
+    
+        // Đảo ngược chuỗi
+        return transformed.split('').reverse().join('');
+    }
 
-    // Đảo ngược chuỗi
-    return transformed.split('').reverse().join('');
 }
 
 function basic_decode(encodedCode) {
@@ -117,11 +121,13 @@ function basic_decode(encodedCode) {
         '9': '1', '8': '2', '7': '3', '6': '4', '5': '5', '4': '6', '3': '7', '2': '8', '1': '9', '0': '0'
     };
 
-    // Đảo ngược chuỗi
-    let reversed = encodedCode.split('').reverse().join('');
-
-    // Thay thế các ký tự trở lại
-    return transformChar(reverseCharMap, reversed);
+    if(encodedCode) {
+        // Đảo ngược chuỗi
+        let reversed = encodedCode.split('').reverse().join('');
+    
+        // Thay thế các ký tự trở lại
+        return transformChar(reverseCharMap, reversed);
+    }
 }
 
 function alertErrorDataSave(message) {

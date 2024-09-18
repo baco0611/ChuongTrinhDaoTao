@@ -7,19 +7,12 @@ import { UserContext } from "../../../context/ContextProvider.jsx";
 import Loader from "../../../components/Loader/Loader.jsx";
 import { handleChangeRequest, searchProgram } from "../educationProgram_function.js";
 
-function RequestBlock({ name, setProgram, request, setRequest, setCurrentPage }) {
+function RequestBlock({ name, setProgram, request, setRequest, setCurrentPage, statusList }) {
     const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
     const navigate = useNavigate()
     const [ department, setDepartment ] = useState([])
     const pageSizeList = [ 15, 30, 50, 100 ]
-    const statusList = {
-        DA_PHAN_CONG: "Đã phân công",
-        DANG_THUC_HIEN: "Đang thực hiện",
-        DA_NOP: "Đã nộp",
-        DA_DUYET_CAP_KHOA: "Đã duyệt cấp khoa",
-        DA_DUYET: "Đã duyệt",
-        DA_HUY: "Đã hủy"
-    }
+    
 
     const fetchDepartmentAPI = (api) => {
         let token = document.cookie.split("; ")
@@ -82,13 +75,9 @@ function RequestBlock({ name, setProgram, request, setRequest, setCurrentPage })
                     <p>Trạng thái</p>
                     <div className="dropdown">
                         <button className="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {request.status && statusList[request.status] || "-----"}
+                            {statusList[request.status]}
                         </button>
                         <ul className="dropdown-menu">
-                            <li 
-                                className="dropdown-item cursorPointer"
-                                onClick={() => (handleChangeRequest("status", setRequest, ""))}    
-                            >-----</li>
                             {
                                 Object.keys(statusList).map((element, index) => {
                                     return <li 

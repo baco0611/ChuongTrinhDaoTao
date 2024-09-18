@@ -43,7 +43,7 @@ export default function POBlock({ title, data, setState }) {
                                     <button
                                         disabled={isDisable}
                                         onClick={() => handleCreatePO({
-                                            api: serverAPI,
+                                            api: apiURL,
                                             token,
                                             numOfElement: data.data.length,
                                             type: data.type,
@@ -81,7 +81,7 @@ export default function POBlock({ title, data, setState }) {
                                                 <div className='block'>
                                                     <textarea
                                                         id={`${data.type}-${index}`}
-                                                        value={element.content}
+                                                        value={element.content || ""}
                                                         onChange={(e) => changeDataSectionC({ 
                                                             e, 
                                                             id: element.id,
@@ -90,7 +90,7 @@ export default function POBlock({ title, data, setState }) {
                                                             setIsDataSaved,
                                                         })}
                                                         onBlur={() => handleSaveChangeElement({
-                                                            api: serverAPI,
+                                                            api: apiURL,
                                                             id: element.id,
                                                             token,
                                                             content: element.content,
@@ -101,7 +101,7 @@ export default function POBlock({ title, data, setState }) {
                                                 <div className='block'> 
                                                     <button
                                                         onClick={() => handleDeletePO({
-                                                            api: serverAPI,
+                                                            api: apiURL,
                                                             token,
                                                             id: element.id,
                                                             setState, 

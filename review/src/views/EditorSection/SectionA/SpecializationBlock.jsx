@@ -20,10 +20,10 @@ function SpecializationBlock({ data, setSpecialization, isDataSaved }) {
                             type='text'
                             autoComplete='off'
                             onChange={e => handleChangeValueSpecial(e, setSpecialization, index, setIsDataSaved)}
-                            onBlur={() => saveChangeSectionSpecialize({ id, api: serverAPI, token, payload: element, setIsDataSaved })}
+                            onBlur={() => saveChangeSectionSpecialize({ id, api: apiURL, token, payload: element, setIsDataSaved })}
                         />
                         <button 
-                            onClick={async () => handleDeleteSpecialize({id, api: serverAPI, token, payload: element, setSpecialization})}
+                            onClick={async () => handleDeleteSpecialize({id, api: apiURL, token, payload: element, setSpecialization})}
                         >
                             <i className="iconoir-minus-square"></i>
                         </button>
@@ -34,7 +34,7 @@ function SpecializationBlock({ data, setSpecialization, isDataSaved }) {
             <button 
                 className='create-btn'
                 disabled={isDisableButton}
-                onDoubleClick={async () => handleCreateSpecialize({ id, api: serverAPI, token, setSpecialization, setIsDisableButton })}
+                onDoubleClick={async () => handleCreateSpecialize({ id, api: apiURL, token, setSpecialization, setIsDisableButton })}
             >Thêm chuyên ngành (double click)</button>
         </div>
     )
