@@ -89,8 +89,8 @@ export default function SectionA() {
     if(isLoading)
         return <Loader/>
 
-    if(isError)
-        navigate('/error')
+    // if(isError)
+    //     navigate('/error')
 
     return (
         <>

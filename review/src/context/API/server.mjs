@@ -7,7 +7,7 @@ import { getSectionB, postSectionB } from './editProgram/sectionB.mjs';
 import { getEditorHeader } from './editProgram/edit.mjs';
 import { createProgramObjective, deleteProgramObjective, getProgramObjectives, updateProgramObjective, updateProgramObjectives } from './editProgram/sectionC.mjs';
 import { createProgramLearningOutcome, deleteProgramLearningOutcome, getProgramLearningOutcomes, updateMultipleProgramLearningOutcomes, updateProgramLearningOutcome } from './editProgram/sectionD.mjs';
-import { getResponsibility } from './LecturerManage/Responsibility.mjs';
+import { getResponsibility, updateResponsibleLecturer } from './LecturerManage/Responsibility.mjs';
 
 // Để xử lý __dirname trong ES module
 const __filename = fileURLToPath(import.meta.url);
@@ -29,6 +29,7 @@ server.use((req, res, next) => {
 
 // RESPONSIBILITY
 server.get('/responsibility', getResponsibility);
+server.post('/update-responsible-lecturer', updateResponsibleLecturer);
 
 
 // EDITOR HEADER
