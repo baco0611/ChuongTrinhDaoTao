@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateProgramLearningOutcomeRequest {
+public class UpdateProgramObjectiveRequest {
 	private Long id;
     private String content;
 }

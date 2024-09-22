@@ -72,13 +72,9 @@ public class TrainingProgramService implements IEducationProgramService {
 			int pageOrder) {
 		PageRequest pageRequest = PageRequest.of(pageOrder - 1, pageSize);
 		SearchProgramResponse responseWrapper = null;
-		System.out.println(department);
 		if (status == 0) {
 			Page<EducationProgramEntity> programPage = trainingProgramRepository.searchPrograms(keyword, department,
 					pageRequest);
-			for (EducationProgramEntity educationProgramEntity : programPage) {
-				System.out.println(educationProgramEntity);
-			}
 			responseWrapper = SearchProgramResponse.builder()
 					.data(programPage.getContent().stream().map(trainingProgramConverter::convertToDTO)
 							.collect(Collectors.toList()))
@@ -128,19 +124,15 @@ public class TrainingProgramService implements IEducationProgramService {
 		if (status != 0) {
 			if (isAdmin || isDeleteProgram || isAssignResponsibility) {
 				// Admin có quyền xem tất cả các chương trình đào tạo
-				System.out.println("admin");
-				System.out.println(status);
 				programPage = trainingProgramRepository.manageProgramsAllWithStatus(keyword, department, status,
 						pageRequest);
 			} else {
 				String department_code = getDepartmentCodesByManagerLecturerCode(currentLecturerCode);
-				System.out.println(department_code);
 				// ctđt thuộc khoa mà gv quản lý
 				Page<EducationProgramEntity> programPage1 = trainingProgramRepository
 						.searchProgramsOfDepartmentCodesByManagerLecturerCodeWithStatus(keyword, department_code,
 								status, pageRequest);
 				// ctdt mà gv được phân công
-				System.out.println(currentLecturerCode);
 				Page<EducationProgramEntity> programPage2 = trainingProgramRepository
 						.manageProgramsIsUserWithStatus(keyword, department, currentLecturerCode, status, pageRequest);
 				// So sánh số lượng phần tử trong hai trang và chọn cái có nhiều phần tử hơn
@@ -153,17 +145,13 @@ public class TrainingProgramService implements IEducationProgramService {
 		} else {
 			if (isAdmin || isDeleteProgram || isAssignResponsibility) {
 				// Admin có quyền xem tất cả các chương trình đào tạo
-				System.out.println("admin");
-				System.out.println(status);
 				programPage = trainingProgramRepository.manageProgramsAll(keyword, department, pageRequest);
 			} else {
 				String department_code = getDepartmentCodesByManagerLecturerCode(currentLecturerCode);
-				System.out.println(department_code);
 				// ctđt thuộc khoa mà gv quản lý
 				Page<EducationProgramEntity> programPage1 = trainingProgramRepository
 						.searchProgramsOfDepartmentCodesByManagerLecturerCode(keyword, department_code, pageRequest);
 				// ctdt mà gv được phân công
-				System.out.println(currentLecturerCode);
 				Page<EducationProgramEntity> programPage2 = trainingProgramRepository.manageProgramsIsUser(keyword,
 						department, currentLecturerCode, pageRequest);
 				// So sánh số lượng phần tử trong hai trang và chọn cái có nhiều phần tử hơn
@@ -192,9 +180,8 @@ public class TrainingProgramService implements IEducationProgramService {
 				.orElseThrow(() -> new RuntimeException("Program not found"));
 
 		// Convert request to entity and update fields
-		EducationProgramEntity updatedEntity = trainingProgramConverter.toEntity(request);
+		EducationProgramEntity updatedEntity = trainingProgramConverter.toEntity(request, entity);
 		updatedEntity.setProgramId(entity.getProgramId()); // Ensure ID is preserved
-
 		// Save updated entity
 		trainingProgramRepository.save(updatedEntity);
 
