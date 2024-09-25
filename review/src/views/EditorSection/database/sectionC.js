@@ -59,7 +59,7 @@ const splitProgramObjective = (data) => {
 };
 
 export const getDataSectionC = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, setSectionCValue }) => {
-    const result = await getData(api, `/api/programLearningOutcomes/${id}`, token, completeMessage, errorMessage)
+    const result = await getData(api, `/api/programObjective/${id}`, token, completeMessage, errorMessage)
     if(result.status == 200) {
         console.log(result)
         setSectionCValue(splitProgramObjective(result.data.data))
@@ -96,7 +96,7 @@ export const changeDataSectionC = ({ e, setState, id, type, setIsDataSaved }) =>
 }
 
 export const handleSaveChangeTypeElement = async ({ api, token, payload, completeMessage, errorMessage}) => {
-    const result = await postData(api, "/api/programLearningOutcomes/batch-update", token, payload.data, completeMessage, errorMessage)
+    const result = await postData(api, "/api/programObjective/update", token, payload.data, completeMessage, errorMessage)
 }
 
 export const handleSaveChangeElement = async ({ api, id, token, content, setIsDataSaved, errorMessage, completeMessage }) => {
@@ -105,7 +105,7 @@ export const handleSaveChangeElement = async ({ api, id, token, content, setIsDa
         content
     }
     
-    const result = await postData(api, "/api/programLearningOutcomes/update", token, payload, completeMessage, errorMessage)
+    const result = await postData(api, "/api/programObjective/update", token, payload, completeMessage, errorMessage)
 
     console.log(result)
     setIsDataSaved(true)
@@ -120,7 +120,7 @@ export const handleCreatePO = async ({ api, token, type, typeIndex, numOfElement
         type: type,
     }
 
-    const result = await postData(api, "/api/programLearningOutcomes/create", token, payload, completeMessage, errorMessage)
+    const result = await postData(api, "/api/programObjective/create", token, payload, completeMessage, errorMessage)
 
     if(result.status == 200) {
         setState(splitProgramObjective(result.data.data))
@@ -147,7 +147,7 @@ export const handleDeletePO = async ({ api, token, id, setState, symbol, typeInd
     }).then(async (result) => {
         if(result.isConfirmed) {
             setIsDataSaved(false)
-            const deleteResult = await deleteData(api, `/api/programLearningOutcomes/delete/${id}`, token, payload)
+            const deleteResult = await deleteData(api, `/api/programObjective/delete/${id}`, token, payload)
 
             if(deleteResult.status == 200) {
                 const data = refreshProgramObjective(splitProgramObjective(deleteResult.data.data))

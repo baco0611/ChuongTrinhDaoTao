@@ -74,9 +74,6 @@ VALUES
 SET IDENTITY_INSERT [dbo].[lecturers] OFF;
 
 --Dữ liệu educationProgram để test (update 20240922)
-
-USE [educationProgram]
-GO
 SET IDENTITY_INSERT [dbo].[education_program] ON 
 
 INSERT [dbo].[education_program] ([created_at], [current_step], [duration], [foundation_module], [general_module], [internship_module], [major_field_module], [required_credits], [specialization_module], [status], [support_module], [thesis_module], [updated_at], [department_id], [lecturers_id], [program_id], [admission_target], [diploma], [education_level], [field_code], [version], [field_name], [advanced_skills_development], [employment_position_after_graduation], [english_name], [graduation_conditions], [overall_objectives], [program_code], [reference_program], [responsible_person], [training_mode], [vietnamese_name]) VALUES (CAST(N'2024-08-18' AS Date), NULL, 4, NULL, NULL, NULL, NULL, 123, NULL, 1, NULL, NULL, CAST(N'2024-08-27' AS Date), 1, 1, 1, N'123456', N'', N'Ð?i h?c', N'HUUUUNAB', NULL, N'123', N'', N'', N'123456', N'', N'xyz', NULL, N'ân', N'12345', N'', N'Công nghệ thông tin chất lượng cao')

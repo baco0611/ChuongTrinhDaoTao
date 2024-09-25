@@ -71,7 +71,7 @@ const splitProgramLearningOutcomes = (data) => {
 };
 
 export const getDataSectionD = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, setSectionDValue }) => {
-    const result = await getData(api, `/api/programLearningOutcomes/program/${id}`, token, completeMessage, errorMessage)
+    const result = await getData(api, `/api/programLearningOutcomes/${id}`, token, completeMessage, errorMessage)
 
     setSectionDValue(splitProgramLearningOutcomes(result.data.data))
     setIsDataSaved(true)
