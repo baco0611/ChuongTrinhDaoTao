@@ -67,12 +67,12 @@ const handleChangeValueSpecial = (e, setSpecialization, currentIndex, setIsDataS
 
 // Lấy dữ liệu từ db khi mount vào component
 const getDataSectionA = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, setSectionAValue, setSpecialization }) => {
-    const sectionAValue = await getData(api, `/api/education-programs/sectionA/${id}`, token, completeMessage, errorMessage)
+    const sectionAValue = await getData("http://localhost:3002", `/sectionA/${id}`, token, completeMessage, errorMessage)
     console.log(sectionAValue)
     if(sectionAValue.status == 200) {
         setSectionAValue(sectionAValue.data.data)
 
-        const specialization = await getData(api, `/specialization/${id}`, token, completeMessage, errorMessage)
+        const specialization = await getData(api, `/api/specialization/${id}`, token, completeMessage, errorMessage)
         if(specialization.status == 200) {
             setSpecialization(specialization.data.data)
             setIsDataSaved(true)
