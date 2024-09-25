@@ -29,7 +29,7 @@ public class EducationProgramEntity {
     @Column
     private String englishName;
 
-    @Column(length = 50)
+    @Column(length = 50, columnDefinition = "nvarchar(255)")
     private String educationLevel;
 
     @Column(length = 50)
@@ -50,22 +50,22 @@ public class EducationProgramEntity {
     @Column
     private Integer requiredCredits;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "nvarchar(max)")
     private String graduationConditions;
 
     @Column(length = 50, columnDefinition = "nvarchar(255)")
     private String diploma;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "nvarchar(max)")
     private String employmentPositionAfterGraduation;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "nvarchar(max)")
     private String advancedSkillsDevelopment;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "nvarchar(max)")
     private String referenceProgram;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "nvarchar(max)")
     private String overallObjectives;
 
     @Column(columnDefinition = "nvarchar(255)")

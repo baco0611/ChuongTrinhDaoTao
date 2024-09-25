@@ -188,12 +188,11 @@ public class EducationProgramConverter {
 	        return dto;
 	    }
 	 
-	 public EducationProgramEntity toEntity(UpdateEducationRequest request) {
+	 public EducationProgramEntity toEntity(UpdateEducationRequest request, EducationProgramEntity entity) {
 	        if (request == null) {
 	            return null;
 	        }
 
-	        EducationProgramEntity entity = new EducationProgramEntity();
 	        entity.setAdmissionTarget(request.getAdmissionTarget());
 	        entity.setAdvancedSkillsDevelopment(request.getAdvancedSkillsDevelopment());
 	        entity.setDiploma(request.getDiploma());
