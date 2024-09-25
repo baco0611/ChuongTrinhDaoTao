@@ -18,7 +18,7 @@ const sortData = (element, type, typeIndex) => {
 }
 
 const autoSavePO = async ({ api, token, payload, setIsDataSaved }) => {
-    const result = await postData(api, "/update-program-objectives", token, payload)
+    const result = await postData(api, "/api/programLearningOutcomes/batch-update", token, payload)
 
     console.log(result)
     if(result.status == 200)

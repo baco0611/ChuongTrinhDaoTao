@@ -45,16 +45,16 @@
     {
       "id": 9,
       "programId": 6,
-      "symbol": "PO - 2.5",
+      "symbol": "PO - 2.3",
       "content": "Có phẩm chất đạo đức tốt, có ý thức tổ chức kỷ luật, có thái độ hợp tác với đồng nghiệp, tôn trọng pháp luật và qui định nơi làm việc, trung thực và có tính kỷ luật cao, sẵn sàng đảm nhiệm các công việc được giao nơi làm việc.",
       "type": "KY_NANG"
     },
     {
       "id": 10,
       "programId": 6,
-      "symbol": "PO - 2.3",
+      "symbol": "PO - 3.1",
       "content": "- Hiểu và vận dụng được các kiến thức liên quan đến các phương pháp tính toán; các kiến thức cơ sở trong giải quyết các bài toán, tối ưu các giải pháp tính toán; cơ chế hoạt động chung của hệ thống máy tính, cấu trúc của hệ thống máy tính; ngôn ngữ lập trình bậc cao; các nguyên lý của lập trình hướng đối tượng; các kiến thức liên quan đến cấu trúc dữ liệu, các thuật toán trên các cấu trúc dữ liệu;\n- Có được kiến thức cơ bản về cơ sở dữ liệu; Có khả năng phân tích thiết kế cơ sở dữ liệu; Khai thác và ứng được một số hệ quản trị cơ sở dữ liệu thông dụng;\n- Có khả năng phân tích và thiết kế các hệ thống thông tin; Sử dụng được các công cụ để mô hình hóa các hệ thống thông tin;\n- Có được hiểu biết cơ bản về nguyên lý hệ điều hành, mạng máy tính, trí tuệ nhân tạo, lý thuyết đồ họa;",
-      "type": "KY_NANG"
+      "type": "THAI_DO"
     },
     {
       "id": 11,
@@ -66,9 +66,9 @@
     {
       "id": 12,
       "programId": 6,
-      "symbol": "PO - 2.8",
+      "symbol": "PO - 3.2",
       "content": "Có kỹ năng đọc hiểu tài liệu tiếng Anh chuyên ngành, sử dụng tiếng Anh phục vụ cho các vấn đề liên quan đến công việc",
-      "type": "KY_NANG"
+      "type": "THAI_DO"
     },
     {
       "id": 13,

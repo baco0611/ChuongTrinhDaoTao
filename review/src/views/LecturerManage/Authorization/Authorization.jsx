@@ -9,7 +9,7 @@ import RequestBlock from './RequestBlock';
 import AuthorBlock from './AuthorBlock';
 
 export default function Authorization() {
-    const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
+    const { apiURL } = useContext(UserContext); 
     const navigate = useNavigate()
     
     const [ lecturerList, setLecturerList ] = useState([])
@@ -31,7 +31,7 @@ export default function Authorization() {
 
             console.log(9)
             const departmentResult = await postData(api, "/api/lecturer/getAll", token, request)
-            setLecturerList(departmentResult.data)   
+            setLecturerList(departmentResult.data.data)   
         }
     }
 
@@ -56,6 +56,7 @@ export default function Authorization() {
             />
             <AuthorBlock
                 data={lecturerList}
+                setState={setLecturerList}
             />
         </div>
     )

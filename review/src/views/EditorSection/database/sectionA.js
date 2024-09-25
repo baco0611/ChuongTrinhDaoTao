@@ -97,7 +97,7 @@ const saveChangeSectionAInfo = async ({ id, api, token, completeMessage, errorMe
 }
 
 const saveChangeSectionSpecialize = async ({ id, api, token, setIsDataSaved, payload, completeMessage, errorMessage }) => {
-    const result = await postData(api, "/specialization/update", token, payload, completeMessage, errorMessage)
+    const result = await postData(api, "/api/specialization/update", token, payload, completeMessage, errorMessage)
     
     if(result.status == 200) {
         setIsDataSaved(true)
@@ -109,7 +109,7 @@ const handleCreateSpecialize = async ({ id, api, token, setSpecialization, setIs
         programId: id,
     }
     setIsDisableButton(true)
-    const result = await postData(api, "/specialization/create", token, payload, completeMessage, errorMessage)
+    const result = await postData(api, "/api/specialization/create", token, payload, completeMessage, errorMessage)
     console.log(result)
     if(result.status == 200) {
         setSpecialization(result.data.data)
@@ -118,7 +118,7 @@ const handleCreateSpecialize = async ({ id, api, token, setSpecialization, setIs
 }
 
 const deleteSpecialize = async ({ id, api, token, payload, completeMessage, errorMessage, setSpecialization }) => {
-    const result = await deleteData(api, "/specialization/delete", token, payload, completeMessage, errorMessage)
+    const result = await deleteData(api, "/api/specialization/delete", token, payload, completeMessage, errorMessage)
 
     if(result.status == 200)
         setSpecialization(result.data.data)

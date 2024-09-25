@@ -9,11 +9,11 @@ import { useNavigate, useParams } from "react-router-dom"
 import { getDataSectionA, handleChangeValue, saveChangeSectionAInfo } from "../database/sectionA"
 import { useQuery } from "react-query"
 import Loader from "../../../components/Loader/Loader"
+import Cookies from "js-cookie"
 
 export default function SectionA() {
 
     const { id } = useParams()
-    const currentId = id
     const navigate = useNavigate()
 
     const { user, apiURL, token, serverAPI, isDataSaved, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
@@ -67,6 +67,8 @@ export default function SectionA() {
 
     // Lấy dữ liệu từ db
     const fetchAPI = (id) => {
+        const token = Cookies.get("ACCESS_TOKEN")
+
         return async () => {
             return await getDataSectionA({
                 id,
@@ -87,8 +89,8 @@ export default function SectionA() {
     if(isLoading)
         return <Loader/>
 
-    if(isError)
-        navigate('/error')
+    // if(isError)
+    //     navigate('/error')
 
     return (
         <>
@@ -111,7 +113,7 @@ export default function SectionA() {
                                 type="text"
                                 name="vietnameseName"
                                 autoComplete="off"
-                                value={sectionAValue.vietnameseName}
+                                value={sectionAValue.vietnameseName || ""}
                                 onChange={e => handleChangeValue({ e, setSectionAValue, setIsDataSaved })}
                                 onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
                             />
@@ -126,7 +128,7 @@ export default function SectionA() {
                                 type="text"
                                 name="englishName"
                                 autoComplete="off"
-                                value={sectionAValue.englishName}
+                                value={sectionAValue.englishName || ""}
                                 onChange={e => handleChangeValue({ e, setSectionAValue, setIsDataSaved })}
                                 onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
                             />
@@ -141,7 +143,7 @@ export default function SectionA() {
                                 type="text"
                                 name="educationLevel"
                                 autoComplete="off"
-                                value={sectionAValue.educationLevel}
+                                value={sectionAValue.educationLevel || ""}
                                 onChange={e => handleChangeValue({ e, setSectionAValue, setIsDataSaved })}
                                 onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
                             />
@@ -156,7 +158,7 @@ export default function SectionA() {
                                 type="text"
                                 name="fieldCode"
                                 autoComplete="off"
-                                value={sectionAValue.fieldCode}
+                                value={sectionAValue.fieldCode || ""}
                                 onChange={e => handleChangeValue({ e, setSectionAValue, setIsDataSaved })}
                                 onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
                             />
@@ -171,7 +173,7 @@ export default function SectionA() {
                                 type="text"
                                 name="fieldName"
                                 autoComplete="off"
-                                value={sectionAValue.fieldName}
+                                value={sectionAValue.fieldName || ""}
                                 onChange={e => handleChangeValue({ e, setSectionAValue, setIsDataSaved })}
                                 onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
                             />
@@ -186,7 +188,7 @@ export default function SectionA() {
                                 type="text"
                                 name="managingDepartment"
                                 autoComplete="off"
-                                value={sectionAValue.managingDepartment}
+                                value={sectionAValue.managingDepartment || ""}
                                 onChange={e => handleChangeValue({ e, setSectionAValue, setIsDataSaved })}
                                 onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
                             />
@@ -201,7 +203,7 @@ export default function SectionA() {
                                 type="text"
                                 name="admissionTarget"
                                 autoComplete="off"
-                                value={sectionAValue.admissionTarget}
+                                value={sectionAValue.admissionTarget || ""}
                                 onChange={e => handleChangeValue({ e, setSectionAValue, setIsDataSaved })}
                                 onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
                             />
@@ -216,7 +218,7 @@ export default function SectionA() {
                                 type="text"
                                 name="duration"
                                 autoComplete="off"
-                                value={sectionAValue.duration}
+                                value={sectionAValue.duration || ""}
                                 onChange={e => handleChangeValue({ e, name: "number", setSectionAValue, setIsDataSaved })}
                                 onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
                             />
@@ -230,7 +232,7 @@ export default function SectionA() {
                         <div>
                             <select 
                                 name="trainingMode"
-                                value={sectionAValue.trainingMode}
+                                value={sectionAValue.trainingMode || ""}
                                 onChange={e => handleChangeValue({ e, setSectionAValue, setIsDataSaved })} 
                                 onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
                             >
@@ -249,7 +251,7 @@ export default function SectionA() {
                                 type="text"
                                 name="requiredCredits"
                                 autoComplete="off"
-                                value={sectionAValue.requiredCredits}
+                                value={sectionAValue.requiredCredits || ""}
                                 onChange={e => handleChangeValue({ e, name: "number", setSectionAValue, setIsDataSaved })}
                                 onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
                             />
@@ -309,7 +311,7 @@ export default function SectionA() {
                         <div>
                             <textarea
                                 name="graduationConditional"
-                                value={sectionAValue.graduationConditional}
+                                value={sectionAValue.graduationConditional || ""}
                                 autoComplete="off"
                                 onChange={(e) => handleChangeValue({ e, setSectionAValue, setIsDataSaved })}
                                 onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
@@ -323,7 +325,7 @@ export default function SectionA() {
                         <div>
                             <select 
                                 name="diploma"
-                                value={sectionAValue.diploma}
+                                value={sectionAValue.diploma || ""}
                                 onChange={e => handleChangeValue({ e, setSectionAValue, setIsDataSaved })} 
                                 onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
                             >
@@ -345,7 +347,7 @@ export default function SectionA() {
                         <div>
                             <textarea
                                 name="employmentPositionAfterGraduation"
-                                value={sectionAValue.employmentPositionAfterGraduation}
+                                value={sectionAValue.employmentPositionAfterGraduation || ""}
                                 autoComplete="off"
                                 onChange={(e) => handleChangeValue({ e, name: "textarea", max: 4000, setSectionAValue, setIsDataSaved })}
                                 onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
@@ -363,7 +365,7 @@ export default function SectionA() {
                         <div>
                             <textarea
                                 name="advancedSkillsDevelopment"
-                                value={sectionAValue.advancedSkillsDevelopment}
+                                value={sectionAValue.advancedSkillsDevelopment || ""}
                                 autoComplete="off"
                                 onChange={(e) => handleChangeValue({ e, name: "textarea", max: 200, setSectionAValue, setIsDataSaved })}
                                 onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
@@ -382,7 +384,7 @@ export default function SectionA() {
                         <div>
                             <textarea
                                 name="referenceProgram"
-                                value={sectionAValue.referenceProgram}
+                                value={sectionAValue.referenceProgram || ""}
                                 autoComplete="off"
                                 onChange={(e) => handleChangeValue({ e, name: "textarea", max: 1500, setSectionAValue, setIsDataSaved })}
                                 onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}

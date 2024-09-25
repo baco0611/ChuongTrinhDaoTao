@@ -71,7 +71,7 @@ const splitProgramLearningOutcomes = (data) => {
 };
 
 export const getDataSectionD = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, setSectionDValue }) => {
-    const result = await getData(api, `/sectionD/${id}`, token, completeMessage, errorMessage)
+    const result = await getData(api, `/api/programLearningOutcomes/program/${id}`, token, completeMessage, errorMessage)
 
     setSectionDValue(splitProgramLearningOutcomes(result.data.data))
     setIsDataSaved(true)
@@ -150,7 +150,7 @@ export const handleCreatePLO = async ({ api, token, numOfElement, type, typeDeta
         symbol: `PLO - ${typeIndex}.${numOfElement + 1}`
     }
 
-    const result = await postData(api, "/program-outcome/create", token, payload)
+    const result = await postData(api, "/api/programLearningOutcomes/createPLO", token, payload)
 
     if(result.status == 200) 
         setState(splitProgramLearningOutcomes(result.data.data))

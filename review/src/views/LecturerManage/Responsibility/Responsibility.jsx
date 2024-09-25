@@ -6,10 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../../context/ContextProvider';
 import { getData } from "../../../utils/function"
 import ResponseBlock from './ResponseBlock';
+import Cookies from "js-cookie"
 
 export default function Responsibility() {
 
-    const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
+    const { apiURL, fakeAPI, token, serverAPI, isDataSaved, handleBeforeUnload } = useContext(UserContext); 
     const navigate = useNavigate()
     const [ responsibilityList, setResponsibilityList ] = useState([])
 
@@ -17,17 +18,26 @@ export default function Responsibility() {
         window.scrollTo(0, 0)
     }, [])
 
+    useEffect(() => {
+        // Thêm event listener khi component được mount
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Dọn dẹp event listener khi component bị unmount
+        return () => {
+        window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [isDataSaved])
+
     const fetchLecturerAPI = (api) => {        
         return async () => {
-            let token = document.cookie.split("; ")
-            token = token.filter(element => element.includes("ACCESS_TOKEN"))[0]?.split("=")[1]
+            const token = Cookies.get("ACCESS_TOKEN")
 
-            const result = await getData(api, "/responsibility", token)
+            const result = await getData(api, "/api/department/details", token)
             setResponsibilityList(result.data.data)
         }
     }
 
-    const { data , isLoading, isError } = useQuery(`lecturer-search`, fetchLecturerAPI(serverAPI),{
+    const { data , isLoading, isError } = useQuery(`lecturer-search`, fetchLecturerAPI(apiURL),{
         cacheTime: 0,
         refetchOnWindowFocus: false,
     })
@@ -46,9 +56,9 @@ export default function Responsibility() {
             <table>
                 <thead>
                     <tr>
-                        <th style={{ width: "10%" }}>STT</th>
-                        <th style={{ width: "45%" }}>Đơn vị</th>
-                        <th style={{ width: "45%" }}>Giảng viên phụ trách</th>
+                        <th className='center' style={{ width: "6%" }}>STT</th>
+                        <th className='center' style={{ width: "47%" }}>Tên đơn vị</th>
+                        <th className='center' style={{ width: "47%" }}>Giảng viên phụ trách</th>
                     </tr>
                 </thead>
                 <tbody>

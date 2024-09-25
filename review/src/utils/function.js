@@ -15,7 +15,7 @@ const getParentElementById = (element, id) => {
     return element;
 }
 
-const getData = async (api, url, token, payload, completeMessage, errorMessage) => {
+const getData = async (api, url, token, completeMessage, errorMessage) => {
     const apiURL = api + url
     console.log(apiURL)
 
@@ -59,8 +59,9 @@ const postData = async (api, url, token, payload, completeMessage, errorMessage)
                 return err.response.data
             })
 
+    console.log(result)
     return {
-        data: result.data,
+        data: result.data || result.message,
         status: result.status
     }
 }
