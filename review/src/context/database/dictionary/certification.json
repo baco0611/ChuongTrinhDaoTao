@@ -1,0 +1,16 @@
+{
+  "certification": [
+    {
+      "id": 1,
+      "content": "Chứng chỉ tin học"
+    },
+    {
+      "id": 2,
+      "content": "Chứng chỉ quốc phòng"
+    },
+    {
+      "id": 3,
+      "content": "Chứng chỉ thể chất"
+    }
+  ]
+}

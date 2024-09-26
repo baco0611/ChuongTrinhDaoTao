@@ -16,6 +16,8 @@ import EducationManage from './views/EducationProgram/EducationMain/EducationMan
 import EducationSearch from './views/EducationProgram/EducationMain/EducationSearch'
 import EditProgramLayout from './components/EditProgramLayout/EditProgramLayout'
 import UserManage from './views/LecturerManage/UserManage/UserManage'
+import GraduationRequirement from './views/Dictionary/GraduationRequirement/GraduationRequirement'
+import ConditionalCertification from './views/Dictionary/ConditionalCertification/ConditionalCertification'
 
 const router = createBrowserRouter([
     {
@@ -83,6 +85,14 @@ const router = createBrowserRouter([
             {
                 path: '/user/manage',
                 element: <UserManage/>
+            },
+            {
+                path: '/dictionary/graduation',
+                element: <GraduationRequirement/>
+            },
+            {
+                path: '/dictionary/certification',
+                element: <ConditionalCertification/>
             },
         ]
     },

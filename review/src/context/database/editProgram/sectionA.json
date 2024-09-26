@@ -44,6 +44,28 @@
         "managingDepartment": "TRUNG TÂM GIÁO DỤC QUỐC PHÒNG",
         "id": "16"
       }
+    },
+    {
+      "id": "26",
+      "data": {
+        "vietnameseName": "Chương trình Z",
+        "englishName": "",
+        "educationLevel": null,
+        "fieldCode": "F026",
+        "fieldName": null,
+        "managingDepartment": "TRUNG TÂM ĐÀO TẠO TỪ XA",
+        "admissionTarget": null,
+        "duration": "4",
+        "trainingMode": null,
+        "requiredCredits": "123",
+        "graduationConditional": null,
+        "diploma": null,
+        "employmentPositionAfterGraduation": null,
+        "advancedSkillsDevelopment": null,
+        "referenceProgram": null,
+        "id": "26",
+        "programId": 26
+      }
     }
   ],
   "specialization": [
