@@ -2,14 +2,14 @@ package com.laptrinhjavaweb.response;
 
 import java.util.List;
 
-import com.laptrinhjavaweb.dto.ProgramLearningOutComesDTO;
+import com.laptrinhjavaweb.dto.ProgramObjectiveDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class CreateProgramLearningOutComesReponse {
-	private List<ProgramLearningOutComesDTO> data;
+public class CreateProgramObjectiveReponse {
+	private List<ProgramObjectiveDTO> data;
     private int status;
 }

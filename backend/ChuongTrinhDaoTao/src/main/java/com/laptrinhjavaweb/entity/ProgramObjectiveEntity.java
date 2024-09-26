@@ -16,13 +16,13 @@ public class ProgramObjectiveEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long objectiveId;
 
-    @Column(length = 50)
+    @Column(length = 50,columnDefinition = "nvarchar(255)")
     private String symbol;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "nvarchar(max)")
     private String content;  
 
-    @Column
+    @Column(columnDefinition = "nvarchar(255)")
     private String objectiveType;
 
     @ManyToOne(fetch = FetchType.LAZY)

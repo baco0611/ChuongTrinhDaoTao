@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProgramLearningOutcomeDTO {
+public class ProgramObjectiveDTO {
 	private Long id;
     private String symbol;
     private String content;

@@ -1,21 +1,15 @@
 package com.laptrinhjavaweb.service.impl;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.laptrinhjavaweb.converter.ProgramLearningOutcomeConverter;
-import com.laptrinhjavaweb.dto.ProgramLearningOutComesDTO;
-import com.laptrinhjavaweb.dto.UpdateProgramLearningOutcomeDTO;
 import com.laptrinhjavaweb.entity.EducationProgramEntity;
 import com.laptrinhjavaweb.entity.ProgramLearningOutComesEntity;
-import com.laptrinhjavaweb.exception.ResourceNotFoundException;
 import com.laptrinhjavaweb.repository.EducationProgramRepository;
 import com.laptrinhjavaweb.repository.ProgramLearningOutComesRepository;
-import com.laptrinhjavaweb.request.CreateProgramLearningOutcomeRequest;
 import com.laptrinhjavaweb.request.ProgramLearningOutComesUpdateRequest;
 import com.laptrinhjavaweb.request.ProgramLearningOutcomeRequest;
 import com.laptrinhjavaweb.request.UpdateLearningOutcomeRequest;
@@ -39,56 +33,56 @@ public class ProgramLearningOutComesService {
         return repository.findByEducationProgramProgramId(programId);
     }
     
-    public ProgramLearningOutComesEntity updateLearningOutcome(Long id, String content) {
-        ProgramLearningOutComesEntity entity = repository.findById(id)
-            .orElseThrow(() -> new ResourceNotFoundException("ProgramLearningOutComes not found with id: " + id));
-
-        entity.setContent(content);
-        return repository.save(entity);
-    }
+//    public ProgramLearningOutComesEntity updateLearningOutcome(Long id, String content) {
+//        ProgramLearningOutComesEntity entity = repository.findById(id)
+//            .orElseThrow(() -> new ResourceNotFoundException("ProgramLearningOutComes not found with id: " + id));
+//
+//        entity.setContent(content);
+//        return repository.save(entity);
+//    }
     
-    public ProgramLearningOutComesEntity createLearningOutcome(CreateProgramLearningOutcomeRequest request) {
-        EducationProgramEntity programEntity = programRepository.findById(request.getProgramId())
-                .orElseThrow(() -> new ResourceNotFoundException("Program with ID " + request.getProgramId() + " not found"));
+//    public ProgramLearningOutComesEntity createLearningOutcome(CreateProgramObjectiveRequest request) {
+//        EducationProgramEntity programEntity = programRepository.findById(request.getProgramId())
+//                .orElseThrow(() -> new ResourceNotFoundException("Program with ID " + request.getProgramId() + " not found"));
+//
+//        ProgramLearningOutComesEntity newEntity = new ProgramLearningOutComesEntity();
+//        newEntity.setSymbol(request.getSymbol());
+//        newEntity.setContent(""); // Initialize content as empty
+//        newEntity.setLearningOutcomeType(request.getType());
+//        newEntity.setEducationProgram(programEntity);
+//
+//        return repository.save(newEntity);
+//    }
 
-        ProgramLearningOutComesEntity newEntity = new ProgramLearningOutComesEntity();
-        newEntity.setSymbol(request.getSymbol());
-        newEntity.setContent(""); // Initialize content as empty
-        newEntity.setLearningOutcomeType(request.getType());
-        newEntity.setEducationProgram(programEntity);
-
-        return repository.save(newEntity);
-    }
-
-    public void deleteLearningOutcome(Long id) {
-        if (repository.existsById(id)) {
-            repository.deleteById(id);
-        } else {
-            throw new ResourceNotFoundException("ProgramLearningOutComes not found with id: " + id);
-        }
-    }
+//    public void deleteLearningOutcome(Long id) {
+//        if (repository.existsById(id)) {
+//            repository.deleteById(id);
+//        } else {
+//            throw new ResourceNotFoundException("ProgramLearningOutComes not found with id: " + id);
+//        }
+//    }
     
-    public List<ProgramLearningOutComesDTO> getAllLearningOutcomes() {
-        List<ProgramLearningOutComesEntity> entities = repository.findAll();
-        return entities.stream()
-                .map(ProgramLearningOutcomeConverter::convertToDTO1)
-                .collect(Collectors.toList());
-    }
+//    public List<ProgramLearningOutComesDTO> getAllLearningOutcomes() {
+//        List<ProgramLearningOutComesEntity> entities = repository.findAll();
+//        return entities.stream()
+//                .map(ProgramLearningOutcomeConverter::convertToDTO1)
+//                .collect(Collectors.toList());
+//    }
     
-    public String updateProgramLearningOutcomes(List<UpdateProgramLearningOutcomeDTO> dtos) {
-        for (UpdateProgramLearningOutcomeDTO dto : dtos) {
-            Optional<ProgramLearningOutComesEntity> entityOptional = repository.findById(dto.getId());
-            if (entityOptional.isPresent()) {
-                ProgramLearningOutComesEntity entity = entityOptional.get();
-                programLearningOutcomeConverter.updateEntityFromDTO(entity, dto);
-                repository.save(entity);
-            } else {
-                return "Learning Outcome with ID " + dto.getId() + " not found";
-            }
-        }
-        return null;
-    }
-    
+//    public String updateProgramLearningOutcomes(List<UpdateProgramLearningOutcomeDTO> dtos) {
+//        for (UpdateProgramLearningOutcomeDTO dto : dtos) {
+//            Optional<ProgramLearningOutComesEntity> entityOptional = repository.findById(dto.getId());
+//            if (entityOptional.isPresent()) {
+//                ProgramLearningOutComesEntity entity = entityOptional.get();
+//                programLearningOutcomeConverter.updateEntityFromDTO(entity, dto);
+//                repository.save(entity);
+//            } else {
+//                return "Learning Outcome with ID " + dto.getId() + " not found";
+//            }
+//        }
+//        return null;
+//    }
+//    
     public List<ProgramLearningOutComesGetResponse> getAllLearningOutcomesByProgramId(Long programId) {
         List<ProgramLearningOutComesEntity> entities = repository.findByEducationProgramProgramId(programId);
         return ProgramLearningOutcomeConverter.toDTOList(entities);
