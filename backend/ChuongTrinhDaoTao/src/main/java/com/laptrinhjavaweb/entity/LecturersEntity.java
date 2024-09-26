@@ -54,7 +54,7 @@ public class LecturersEntity implements UserDetails {
 
 	private String password;
 
-	@Column(name = "department_manager", nullable = false, columnDefinition = "TINYINT DEFAULT 0")
+	@Column(name = "department_manager", nullable = true, columnDefinition = "TINYINT DEFAULT 0")
 	private Boolean departmentManager = false;
 
 	@ManyToOne(fetch = FetchType.LAZY)

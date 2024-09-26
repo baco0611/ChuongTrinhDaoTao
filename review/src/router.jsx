@@ -15,6 +15,7 @@ import Responsibility from './views/LecturerManage/Responsibility/Responsibility
 import EducationManage from './views/EducationProgram/EducationMain/EducationManage'
 import EducationSearch from './views/EducationProgram/EducationMain/EducationSearch'
 import EditProgramLayout from './components/EditProgramLayout/EditProgramLayout'
+import UserManage from './views/LecturerManage/UserManage/UserManage'
 
 const router = createBrowserRouter([
     {
@@ -72,12 +73,16 @@ const router = createBrowserRouter([
                 ]
             },
             {
-                path: "/authorization",
+                path: "/user/authorization",
                 element: <Authorization/>
             },
             {
-                path: "/responsibility",
+                path: "/user/responsibility",
                 element: <Responsibility/>
+            },
+            {
+                path: '/user/manage',
+                element: <UserManage/>
             },
         ]
     },
