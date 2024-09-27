@@ -5,7 +5,8 @@ import Loader from '../../components/Loader/Loader'
 import { UserContext } from '../../context/ContextProvider'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
-import { getUserInformation, handleChangeInformation } from './user-function'
+import { checkValidInformation, getUserInformation, handleChangeInformation, validElement } from './user-function'
+import PasswordBlock from './PasswordBlock'
 
 export default function User() {
 
@@ -71,6 +72,7 @@ export default function User() {
                             autoComplete='off'
                             readOnly
                         />
+                        <span></span>
                     </div>
                     <div className='input-block available'>
                         <p>Họ</p>
@@ -83,7 +85,10 @@ export default function User() {
                                 e,
                                 setState: setUserInformation,
                             })}
+                            onBlur={e => checkValidInformation({e})}
+                            onFocus={e => validElement(e.target)}
                         />
+                        <span></span>
                     </div>
                     <div className='input-block available'>
                         <p>Tên (1 chữ cuối)</p>
@@ -96,7 +101,10 @@ export default function User() {
                                 e,
                                 setState: setUserInformation,
                             })}
+                            onBlur={e => checkValidInformation({e})}
+                            onFocus={e => validElement(e.target)}
                         />
+                        <span></span>
                     </div>
                     <div className='input-block available'>
                         <p>Email</p>
@@ -109,7 +117,10 @@ export default function User() {
                                 e,
                                 setState: setUserInformation,
                             })}
+                            onBlur={e => checkValidInformation({e})}
+                            onFocus={e => validElement(e.target)}
                         />
+                        <span></span>
                     </div>
                     <div className='input-block'>
                         <p>Đơn vị</p>
@@ -120,6 +131,7 @@ export default function User() {
                             autoComplete='off'
                             readOnly
                         />
+                        <span></span>
                     </div>
                     <div className='input-block'>
                         <p>Quyền truy cập</p>
@@ -130,6 +142,7 @@ export default function User() {
                             autoComplete='off'
                             readOnly
                         />
+                        <span></span>
                     </div>
                     <button>Cập nhật dữ liệu người dùng</button>
                 </div>
@@ -137,6 +150,28 @@ export default function User() {
             <div className='user-block'>
                 <div className='title'>
                     <h1>Thay đổi mật khẩu</h1>
+                </div>
+                <div className='content'>
+                    <PasswordBlock
+                        data={password.oldPassword}
+                        name={"oldPassword"}
+                        title={"Mật khẩu cũ"}
+                        setState={setPassword}
+                    />
+                    <PasswordBlock
+                        data={password.newPassword}
+                        name={"newPassword"}
+                        title={"Mật khẩu mới"}
+                        setState={setPassword}
+                    />
+                    <PasswordBlock
+                        data={password.confirmPassword}
+                        name={"confirmPassword"}
+                        title={"Xác nhận mật khẩu"}
+                        setState={setPassword}
+                        newPassword={password.newPassword}
+                    />
+                    <button>Lưu mật khẩu</button>
                 </div>
             </div>
         </div>

@@ -30,6 +30,7 @@
 
         .input-block {
             width: 100%;
+            position: relative;
 
             p {
                 display: block;
@@ -50,8 +51,35 @@
                 padding: 0 25px;
             }
 
+            span {
+                display: block;
+                height: 18px;
+                font-size: 14px;
+                padding-top: 5px;
+            }
+
             &.available input {
                 border: dotted $base-color 2px;
+            }
+
+            &.invalid {
+                p, span, input {
+                    color: $highlight-color;
+                }
+
+                input {
+                    border: solid 2px $highlight-color;
+                }
+            }
+
+            svg {
+                color: $base-color;
+                font-size: 20px;
+
+                position: absolute;
+                right: 15px;
+                top: 36px;
+                cursor: pointer;
             }
         }
 
