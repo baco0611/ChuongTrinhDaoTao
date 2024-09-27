@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 import WebDefaultLayout from './components/WebDefaultLayout/WebDefaultLayout'
 import Error from './components/Error/Error'
 import Login from './views/Login/Login'
@@ -18,6 +18,7 @@ import EditProgramLayout from './components/EditProgramLayout/EditProgramLayout'
 import UserManage from './views/LecturerManage/UserManage/UserManage'
 import GraduationRequirement from './views/Dictionary/GraduationRequirement/GraduationRequirement'
 import ConditionalCertification from './views/Dictionary/ConditionalCertification/ConditionalCertification'
+import User from './views/User/User'
 
 const router = createBrowserRouter([
     {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login/>
+            },
+            {
+                path: '/program',
+                element: <Navigate to={"/program/search"}/>
             },
             {
                 path: '/program/search',
@@ -73,6 +78,10 @@ const router = createBrowserRouter([
                         element: <SectionH/>
                     },
                 ]
+            },
+            {
+                path: "/user",
+                element: <User/>
             },
             {
                 path: "/user/authorization",

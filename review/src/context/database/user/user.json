@@ -1,0 +1,10 @@
+{
+    "user": {
+        "firstName": "Lương",
+        "lastName": "Trần Thanh",
+        "email": "ttluong@edu.vn",
+        "lecturerCode": "GV001",
+        "roles": ["USER", "ADMIN"],
+        "departmentName": "Phân hiệu Đại học Huế tại Quảng Trị"
+    }
+}

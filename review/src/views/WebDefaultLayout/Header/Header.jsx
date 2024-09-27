@@ -75,7 +75,9 @@ export default function Header() {
                                     <h3>{user.lastName} {user.firstName}</h3>
                                     <h4>{user.departmentName}</h4>
                                 </div>
-                                <FontAwesomeIcon icon={faUser} />
+                                <Link to={"/user"}>
+                                    <FontAwesomeIcon icon={faUser} />
+                                </Link>
                             </div>
                             <FontAwesomeIcon 
                                 icon={faArrowRightFromBracket} 
