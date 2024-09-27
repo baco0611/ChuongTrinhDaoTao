@@ -80,7 +80,7 @@ public class DepartmentService implements IDepartmentService {
 	            LecturerOfDepartmentDTO responsibleLecturerDTO = new LecturerOfDepartmentDTO();
 	            responsibleLecturerDTO.setId(responsibleLecturer.getLecturersId());
 	            responsibleLecturerDTO.setLecturerCode(responsibleLecturer.getLecturersCode());
-	            responsibleLecturerDTO.setLecturerName(responsibleLecturer.getFirstName() + " " + responsibleLecturer.getLastName());
+	            responsibleLecturerDTO.setLecturerName(responsibleLecturer.getLastName() + " " + responsibleLecturer.getFirstName());
 	            departmentDTO.setResponsibleLecturer(responsibleLecturerDTO);
 	        } else {
 	            departmentDTO.setResponsibleLecturer(null);

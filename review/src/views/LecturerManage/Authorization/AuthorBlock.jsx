@@ -1,8 +1,10 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { handleSubmitRole, handleToggleAuthor } from './authorization-function'
 import { UserContext } from '../../../context/ContextProvider'
+import { Pagination } from '@mui/material'
+import { postData } from '../../../utils/function'
 
-export default function AuthorBlock({ data, setState }) {
+export default function AuthorBlock({ data, setState, currentPage, setCurrentPage, request, setRequest }) {
     const [ selectedUser, setSelectedUser ] = useState()
     const { user, apiURL, token } = useContext(UserContext)
     const authorizationList = {
@@ -50,8 +52,31 @@ export default function AuthorBlock({ data, setState }) {
         ],
     }
 
-    console.log(selectedUser)
-    console.log(data)
+    const handlePageChange = (e, value) => {
+        setCurrentPage(value);
+        setRequest(prev => {
+            return {
+                ...prev,
+                pageOrder: value
+            }
+        })
+    };
+
+    useEffect(() => {
+        console.log(currentPage)
+        async function fetchData() {
+            let token = document.cookie.split("; ")
+            token = token.filter(element => element.includes("ACCESS_TOKEN"))[0]
+            token = token.split("=")[1]
+
+            const departmentResult = await postData(apiURL, "/api/lecturer/getAll", token, request)
+            setState(departmentResult.data)   
+        }
+        fetchData();
+    }, [currentPage])
+
+    // console.log(selectedUser)
+    // console.log(data)
 
     return (
         <div className='content mt-4'>
@@ -74,7 +99,7 @@ export default function AuthorBlock({ data, setState }) {
                                     className='cursorPointer'    
                                     onClick={() => setSelectedUser(element)}
                                 >
-                                    <td className='center'>{data.pageInformation.pageOrder + index}</td>
+                                    <td className='center'>{(data.pageInformation.pageOrder-1) * data.pageInformation.numOfElement + index + 1}</td>
                                     <td>{element.lastName}</td>
                                     <td>{element.firstName}</td>
                                     <td>{element.departmentName}</td>
@@ -84,6 +109,14 @@ export default function AuthorBlock({ data, setState }) {
                     }
                     </tbody>
                 </table>
+                <div className="pagination mt-4">
+                    <Pagination
+                        count={data.pageInformation.totalPages}
+                        page={currentPage}
+                        onChange={handlePageChange}
+                        color="primary"
+                    />
+                </div>
             </div>
             <div className='authorization'>
                 <table>
