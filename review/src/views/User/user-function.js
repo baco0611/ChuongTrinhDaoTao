@@ -1,4 +1,6 @@
-import { getData, getParentElementByClass } from "../../utils/function"
+import { alertErrorDataSave, getData, getParentElementByClass, postData } from "../../utils/function"
+import Swal from 'sweetalert2'
+
 
 export const getUserInformation = async ({ api, token, setIsDataSaved, setUserInformation }) => {
     const result = await getData(api, "/user", token)
@@ -52,4 +54,70 @@ export const checkValidInformation = ({e, newPassword}) => {
     if(name == "confirmPassword" && value != newPassword) {
         invalidElement(fatherElement, "Mật khẩu không trùng khớp")
     }
+}
+
+export const handleSavingInformation = async ({ api, token, data }) => {
+    const payload = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        lecturerCode: data.lecturerCode,
+    }
+
+    await Swal.fire({
+        title: "CẬP NHÂT THÔNG TIN",
+        text: `Bạn có muốn thay đổi thông tin cá nhân không?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Có",
+        cancelButtonText: "Không",
+        confirmButtonColor: '#BE0000', // Màu đỏ cho nút "Có"
+        reverseButtons: true, // Đổi vị trí các nút
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            const result = await postData(api, "/user/update", token, payload)
+
+            if(result.status != 200) 
+                alertErrorDataSave()
+            else
+                Swal.fire({
+                    title: "ĐÃ CẬP NHẬT",
+                    text: `Đã cập nhật thông tin cá nhân thành công`,
+                    icon: "info",
+                })
+        }
+    });
+}
+
+export const handleSavingPassword = async ({ api, token, data, lecturerCode }) => {
+    const payload = {
+        ...data,
+        lecturerCode
+    }
+
+    await Swal.fire({
+        title: "THAY ĐỔI MẬT KHẨU",
+        text: `Bạn có muốn thay đổi mật khẩu không?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Có",
+        cancelButtonText: "Không",
+        confirmButtonColor: '#BE0000', // Màu đỏ cho nút "Có"
+        reverseButtons: true, // Đổi vị trí các nút
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            console.log(payload)
+
+            const result = await postData(api, "/user/update", token, payload)
+
+            if(result.status != 200) 
+                alertErrorDataSave()
+            else
+                Swal.fire({
+                    title: "ĐÃ THAY ĐỔI",
+                    text: `Đã thay đổi mật khẩu thành công`,
+                    icon: "info",
+                })
+        }
+    });
 }

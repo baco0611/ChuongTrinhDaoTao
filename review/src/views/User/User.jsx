@@ -5,7 +5,7 @@ import Loader from '../../components/Loader/Loader'
 import { UserContext } from '../../context/ContextProvider'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
-import { checkValidInformation, getUserInformation, handleChangeInformation, validElement } from './user-function'
+import { checkValidInformation, getUserInformation, handleChangeInformation, handleSavingInformation, handleSavingPassword, validElement } from './user-function'
 import PasswordBlock from './PasswordBlock'
 
 export default function User() {
@@ -144,7 +144,13 @@ export default function User() {
                         />
                         <span></span>
                     </div>
-                    <button>Cập nhật dữ liệu người dùng</button>
+                    <button
+                        onClick={() => handleSavingInformation({
+                            api: serverAPI,
+                            token,
+                            data: userInformation
+                        })}
+                    >Cập nhật dữ liệu người dùng</button>
                 </div>
             </div>
             <div className='user-block'>
@@ -171,7 +177,14 @@ export default function User() {
                         setState={setPassword}
                         newPassword={password.newPassword}
                     />
-                    <button>Lưu mật khẩu</button>
+                    <button
+                        onClick={() => handleSavingPassword({
+                            api: serverAPI,
+                            token,
+                            data: password,
+                            lecturerCode: userInformation.lecturerCode
+                        })}
+                    >Lưu mật khẩu</button>
                 </div>
             </div>
         </div>
