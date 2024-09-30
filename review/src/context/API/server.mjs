@@ -11,6 +11,7 @@ import { getResponsibility, updateResponsibleLecturer } from './LecturerManage/R
 import { createGraduationCondition, deleteGraduationCondition, getGraduation, updateGraduationCondition } from './dictionary/graduation.mjs';
 import { createCertificationCondition, deleteCertificationCondition, getCertification, updateCertificationCondition } from './dictionary/certifiction.mjs';
 import { getUser, updateUser } from './user/user.mjs';
+import { getUserManage } from './user/manage.mjs';
 
 // Để xử lý __dirname trong ES module
 const __filename = fileURLToPath(import.meta.url);
@@ -98,6 +99,9 @@ server.delete('/delete-certification', deleteCertificationCondition);
 // USER
 server.get('/user', getUser);
 server.post('/user/update', updateUser);
+// Route GET để lấy danh sách người dùng
+server.post('/user-manage', getUserManage);
+
 
 
 
