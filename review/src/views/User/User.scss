@@ -70,6 +70,10 @@
                 input {
                     border: solid 2px $highlight-color;
                 }
+
+                svg {
+                    color: $highlight-color;
+                }
             }
 
             svg {

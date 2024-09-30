@@ -40,20 +40,49 @@ export const validElement = (element) => {
 }
 
 export const checkValidInformation = ({e, newPassword}) => {
-    
-    const name = e.target.name
-    const value = e.target.value
-    const fatherElement = getParentElementByClass(e.target, "input-block")
+    const element = e.target || e
+
+    const name = element.name
+    const value = element.value
+    const fatherElement = getParentElementByClass(element, "input-block")
 
     if(value == "") {
         invalidElement(fatherElement, "Vui lòng nhập dữ liệu ô này")
+        return false
     } else
     if(name == "email" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) != 1) {
         invalidElement(fatherElement, "Vui lòng nhập email đúng định dạng")
+        return false
     } 
     if(name == "confirmPassword" && value != newPassword) {
         invalidElement(fatherElement, "Mật khẩu không trùng khớp")
+        return false
     }
+    if(name.includes("Password")) {
+        if(value.length < 8) {
+            invalidElement(fatherElement, "Mật khẩu có độ dài ít nhất là 8 ký tự")
+            return false
+        } else 
+        if(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/.test(value) != 1) {
+            invalidElement(fatherElement, "Mật khẩu phải chứa kí tự thường, kí tự hoa, chữ số và kí hiệu đặc biệt")
+            return false
+        }
+    }
+
+    return true
+}
+
+const checkUserData = (blockName, newPassword) => {
+    const element = document.querySelector(blockName)
+    const inputElement = element.querySelectorAll("input")
+    console.log(inputElement)
+
+    const result = Array.from(inputElement).reduce((result, element) => {
+        console.log(element)
+        return checkValidInformation({e: element, newPassword: newPassword}) && result
+    }, 1)
+
+    return result
 }
 
 export const handleSavingInformation = async ({ api, token, data }) => {
@@ -64,6 +93,7 @@ export const handleSavingInformation = async ({ api, token, data }) => {
         lecturerCode: data.lecturerCode,
     }
 
+    if(checkUserData("#user-info"))
     await Swal.fire({
         title: "CẬP NHÂT THÔNG TIN",
         text: `Bạn có muốn thay đổi thông tin cá nhân không?`,
@@ -95,6 +125,7 @@ export const handleSavingPassword = async ({ api, token, data, lecturerCode }) =
         lecturerCode
     }
 
+    if(checkUserData("#password-info", data.newPassword))
     await Swal.fire({
         title: "THAY ĐỔI MẬT KHẨU",
         text: `Bạn có muốn thay đổi mật khẩu không?`,

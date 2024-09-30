@@ -19,6 +19,7 @@ import UserManage from './views/LecturerManage/UserManage/UserManage'
 import GraduationRequirement from './views/Dictionary/GraduationRequirement/GraduationRequirement'
 import ConditionalCertification from './views/Dictionary/ConditionalCertification/ConditionalCertification'
 import User from './views/User/User'
+import InsertUser from './views/LecturerManage/UserManage/InsertUser'
 
 const router = createBrowserRouter([
     {
@@ -94,6 +95,10 @@ const router = createBrowserRouter([
             {
                 path: '/user/manage',
                 element: <UserManage/>
+            },
+            {
+                path: '/user/insert',
+                element: <InsertUser/>
             },
             {
                 path: '/dictionary/graduation',

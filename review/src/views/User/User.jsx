@@ -62,7 +62,7 @@ export default function User() {
                 <div className='title'>
                     <h1>Thông tin người dùng</h1>
                 </div>
-                <div className='content'>
+                <div className='content' id='user-info'>
                     <div className='input-block'>
                         <p>Mã giảng viên</p>
                         <input
@@ -148,7 +148,7 @@ export default function User() {
                         onClick={() => handleSavingInformation({
                             api: serverAPI,
                             token,
-                            data: userInformation
+                            data: userInformation,
                         })}
                     >Cập nhật dữ liệu người dùng</button>
                 </div>
@@ -157,7 +157,7 @@ export default function User() {
                 <div className='title'>
                     <h1>Thay đổi mật khẩu</h1>
                 </div>
-                <div className='content'>
+                <div className='content' id='password-info'>
                     <PasswordBlock
                         data={password.oldPassword}
                         name={"oldPassword"}

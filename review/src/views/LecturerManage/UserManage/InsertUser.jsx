@@ -3,7 +3,7 @@ import Papa from 'papaparse';
 import { UserContext } from '../../../context/ContextProvider';
 import { postData } from '../../../utils/function';
 
-export default function UserManage() {
+export default function InsertUser() {
     const departmentList = {
         "100000": 1,
         "110000": 2,
@@ -73,7 +73,7 @@ export default function UserManage() {
             firstname: row[2],   // Lấy cột 3
             email: row[10], // Lấy cột 11
             departmentId: departmentList[row[19]],  // Lấy cột 20
-            password: "12345678",
+            password: "@KhoaHoc123",
             roles: []
         };
     };
