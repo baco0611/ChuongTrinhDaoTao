@@ -5,35 +5,11 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
-import com.laptrinhjavaweb.dto.UpdateProgramObjectiveDTO;
 import com.laptrinhjavaweb.entity.ProgramLearningOutComesEntity;
 import com.laptrinhjavaweb.response.ProgramLearningOutComesGetResponse;
 
 @Component
 public class ProgramLearningOutcomeConverter {
-	
-
-//	public static ProgramLearningOutComesDTO convertToDTO1(ProgramLearningOutComesEntity entity) {
-//		if (entity == null) {
-//			return null;
-//		}
-//
-//		ProgramLearningOutComesDTO dto = new ProgramLearningOutComesDTO();
-//		dto.setId(entity.getLearningOutcomeId());
-//		dto.setSymbol(entity.getSymbol());
-//		dto.setContent(entity.getContent());
-//		dto.setType(entity.getLearningOutcomeType());
-//		dto.setProgramId(entity.getEducationProgram().getProgramId());
-//
-//		return dto;
-//	}
-
-//	public ProgramLearningOutComesEntity updateEntityFromDTO(ProgramLearningOutComesEntity entity,
-//			UpdateProgramObjectiveDTO dto) {
-//		entity.setSymbol(dto.getSymbol());
-//		entity.setLearningOutcomeType(dto.getType());
-//		return entity;
-//	}
 	
 	public static ProgramLearningOutComesGetResponse toResponse(ProgramLearningOutComesEntity entity) {
         if (entity == null) {

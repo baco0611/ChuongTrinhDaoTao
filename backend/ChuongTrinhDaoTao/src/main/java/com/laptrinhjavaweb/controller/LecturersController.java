@@ -1,6 +1,7 @@
 package com.laptrinhjavaweb.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,18 +10,26 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.laptrinhjavaweb.converter.LecturersConverter;
 import com.laptrinhjavaweb.dto.LecturersDTO;
 import com.laptrinhjavaweb.dto.PageInformation;
+import com.laptrinhjavaweb.entity.LecturersEntity;
+import com.laptrinhjavaweb.request.ChangePasswordRequest;
 import com.laptrinhjavaweb.request.LecturersInfoRequest;
+import com.laptrinhjavaweb.request.UpdateLecturerRequest;
 import com.laptrinhjavaweb.request.UpdateRolesRequest;
 import com.laptrinhjavaweb.response.ErrorResponse;
 import com.laptrinhjavaweb.response.ListLecturersResponse;
+import com.laptrinhjavaweb.response.RefreshTokenResponse;
 import com.laptrinhjavaweb.service.ILecturerService;
+import com.laptrinhjavaweb.service.impl.JwtService;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -29,6 +38,12 @@ import jakarta.persistence.EntityNotFoundException;
 public class LecturersController {
 	@Autowired
 	private ILecturerService lecturersService;
+
+	@Autowired
+	private JwtService jwtService;
+
+	@Autowired
+	private LecturersConverter lecturersConverter;
 
 	@PostMapping("/getAll")
 	public ResponseEntity<?> searchLecturers(@RequestBody LecturersInfoRequest request) {
@@ -60,9 +75,9 @@ public class LecturersController {
 
 			// Nếu giảng viên tồn tại, tiến hành cập nhật vai trò
 			lecturersService.updateLecturerRoles(request.getLecturerId(), request.getRole());
-			
+
 			// Get lại dữ liệu sau khi update
-			lecturer  = lecturersService.getLecturerDetails(request.getLecturerId());
+			lecturer = lecturersService.getLecturerDetails(request.getLecturerId());
 			Map<String, Object> response = new HashMap<>();
 			response.put("data", lecturer);
 			response.put("message", null);
@@ -89,5 +104,115 @@ public class LecturersController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 		}
 	}
+
+	@GetMapping("/refresh")
+	public ResponseEntity<?> refreshToken(@RequestHeader("Authorization") String token) {
+		try {
+			if (token.startsWith("Bearer ")) {
+				token = token.substring(7);
+			}
+			String lecturersCode = jwtService.extractLecturersCode(token);
+			LecturersEntity lecturersEntity = lecturersService.findByLecturerCode(lecturersCode);
+			if (lecturersEntity == null) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Lecturer not found");
+			}
+			if (!jwtService.isTokenValid(token, lecturersEntity)) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token");
+			}
+			String newToken = jwtService.generateToken(lecturersEntity);
+			LecturersDTO lecturersDTO = lecturersConverter.convertToDTO(lecturersEntity);
+			RefreshTokenResponse refreshTokenResponse = new RefreshTokenResponse(lecturersDTO, newToken, 200);
+			return ResponseEntity.ok(refreshTokenResponse);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("Error occurred while refreshing token");
+		}
+	}
+
+	@GetMapping("/roles")
+	public ResponseEntity<?> getLecturersRoles(@RequestHeader("Authorization") String token) {
+		try {
+			if (token.startsWith("Bearer ")) {
+				token = token.substring(7);
+			}
+			String lecturersCode = jwtService.extractLecturersCode(token);
+			LecturersEntity lecturersEntity = lecturersService.findByLecturerCode(lecturersCode);
+			if (lecturersEntity == null) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Lecturer not found");
+			}
+			if (!jwtService.isTokenValid(token, lecturersEntity)) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token");
+			}
+			List<String> roles = lecturersEntity.getRoles().stream().map(role -> role.name()).toList();
+			Map<String, Object> response = new HashMap<>();
+			response.put("data", roles);
+			response.put("status", 200);
+			return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while retrieving roles");
+		}
+	}
+
+	@GetMapping("/info")
+	public ResponseEntity<?> getLecturerInfo(@RequestHeader("Authorization") String token) {
+		try {
+			if (token.startsWith("Bearer ")) {
+				token = token.substring(7);
+			}
+			String lecturersCode = jwtService.extractLecturersCode(token);
+			LecturersEntity lecturersEntity = lecturersService.findByLecturerCode(lecturersCode);
+			if (lecturersEntity == null) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Lecturer not found");
+			}
+			if (!jwtService.isTokenValid(token, lecturersEntity)) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid or expired token");
+			}
+			LecturersDTO lecturersDTO = lecturersConverter.convertToDTO(lecturersEntity);
+			Map<String, Object> response = new HashMap<>();
+			response.put("data", lecturersDTO);
+			response.put("status", 200);
+			return ResponseEntity.ok(response);
+
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("An error occurred while retrieving lecturer info");
+		}
+	}
+
+	@PostMapping("/update")
+	public ResponseEntity<?> updateLecturerInfo(@RequestHeader("Authorization") String token,
+			@RequestBody UpdateLecturerRequest updateRequest) {
+		try {
+			if (token.startsWith("Bearer ")) {
+				token = token.substring(7);
+			}
+			Map<String, Object> response = lecturersService.updateLecturerInfo(token, updateRequest);
+			return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+					Map.of("message", "An error occurred while updating the lecturer's information", "status", 500));
+		}
+	}
+	
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(
+            @RequestHeader("Authorization") String token,
+            @RequestBody ChangePasswordRequest changePasswordRequest) {
+        try {
+            if (token.startsWith("Bearer ")) {
+                token = token.substring(7);
+            }
+            Map<String, Object> response = lecturersService.changePassword(token, changePasswordRequest);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
+                    "message", "An error occurred while changing the password",
+                    "status", 500
+            ));
+        }
+    }
 
 }
