@@ -12,13 +12,6 @@ export const sortCondition = (a, b) => {
 }
 
 const refreshProgramLearningOutComes = data => {
-    // typeList.forEach((type, index) => {
-    //     const typeIndex = index + 1
-    //     data[type].data.forEach((element, index)  => {
-    //         element.symbol = `PO - ${typeIndex}.${index + 1}`
-    //     })       
-    // })
-
     Object.keys(data).forEach((type, index) => {
         const typeIndex = index + 1
         Object.keys(data[type]).forEach((typeDetail, index) => {
@@ -73,8 +66,11 @@ const splitProgramLearningOutcomes = (data) => {
 export const getDataSectionD = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, setSectionDValue }) => {
     const result = await getData(api, `/api/programLearningOutcomes/${id}`, token, completeMessage, errorMessage)
 
-    setSectionDValue(splitProgramLearningOutcomes(result.data.data))
+    setSectionDValue(refreshProgramLearningOutComes(splitProgramLearningOutcomes(result.data.data)))
     setIsDataSaved(true)
+
+    // Lưu lại 1 lần để cập nhật symbol (nhiều lúc sai sót hay lỡ đụng vô db) ==> đảm bảo symbol luôn đúng
+    await postData
 }
 
 export const changeDataSectionD = ({ e, setState, id, type, typeDetail, setIsDataSaved }) => {
@@ -123,16 +119,15 @@ export const changeDataSectionD = ({ e, setState, id, type, typeDetail, setIsDat
     })
 }
 
-export const handleSaveChangeElement = async ({ api, id, token, content, competency, setIsDataSaved, completeMessage, errorMessage }) => {
+export const handleSaveChangeElement = async ({ api, token, data, setIsDataSaved, completeMessage, errorMessage }) => {
     const payload = {
-        id,
-        content,
-        competency: parseInt(competency)
+        ...data,
+        competency: parseInt(data.competency)
     }
 
     console.log(payload)
 
-    const result = await postData(api, "/program-outcome/update", token, payload)
+    const result = await postData(api, "/api/programLearningOutcomes/update", token, payload)
     console.log(result)
 
     if(result.status == 200)
@@ -167,7 +162,7 @@ const handleSaveChangeTypeElement = async ({ api, token, value, completeMessage,
 
     console.log(payload)
     
-    const result = await postData(api, "/update-program-outcome", token, payload)
+    const result = await postData(api, "/api/programLearningOutcomes/updatePLOs", token, payload)
 }
 
 export const handleDeletePLO = async({ api, token, id, setState, symbol, type, setIsDataSaved }) => {
@@ -187,7 +182,7 @@ export const handleDeletePLO = async({ api, token, id, setState, symbol, type, s
     }).then(async (result) => {
         if(result.isConfirmed) {
             setIsDataSaved(false)
-            const deleteResult = await deleteData(api, "/program-outcome/delete", token, payload)
+            const deleteResult = await deleteData(api, `/api/programLearningOutcomes/deletePLO/${id}`, token, payload)
 
             if(deleteResult.status == 200) {
                 // const data = refreshProgramObjective(splitProgramObjective(deleteResult.data.data))

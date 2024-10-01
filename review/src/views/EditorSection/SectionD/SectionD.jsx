@@ -161,7 +161,7 @@ export default function SectionD() {
                 <div className='content'>
                     <DragDropContext onDragEnd={e => handleDragEnd({
                         e,
-                        api: serverAPI,
+                        api: apiURL,
                         token,
                         setState: setSectionDValue,
                         setIsDataSaved,

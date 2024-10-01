@@ -19,7 +19,7 @@ const sortData = (data, typeIndex) => {
 }
 
 const autoSavePLO = async ({ api, token, payload, setIsDataSaved }) => {
-    const result = await postData(api, "/update-program-outcome", token, payload)
+    const result = await postData(api, "/api/programLearningOutcomes/updatePLOs", token, payload)
 
     if(result.status == 200)
         setIsDataSaved(true)

@@ -30,7 +30,8 @@
       "content": "Vận dụng được các kiến thức thuyết trình, giao tiếp, làm việc nhóm trong công tác chuyên môn.",
       "typeDetail": "KIEN_THUC_DAI_HOC_KHOA_HOC",
       "competency": 3,
-      "programId": 57
+      "programId": 57,
+      "type": "KIEN_THUC"
     },
     {
       "id": 6,
