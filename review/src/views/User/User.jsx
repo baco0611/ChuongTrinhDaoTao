@@ -34,7 +34,7 @@ export default function User() {
 
         return async () => {
             return await getUserInformation({
-                api: serverAPI,
+                api: apiURL,
                 token,
                 setIsDataSaved,
                 setUserInformation
@@ -101,7 +101,7 @@ export default function User() {
                                 e,
                                 setState: setUserInformation,
                             })}
-                            onBlur={e => checkValidInformation({e})}
+                            onBlur={e => checkValidInformation({e, setState: setUserInformation})}
                             onFocus={e => validElement(e.target)}
                         />
                         <span></span>
@@ -146,7 +146,7 @@ export default function User() {
                     </div>
                     <button
                         onClick={() => handleSavingInformation({
-                            api: serverAPI,
+                            api: apiURL,
                             token,
                             data: userInformation,
                         })}
@@ -179,7 +179,7 @@ export default function User() {
                     />
                     <button
                         onClick={() => handleSavingPassword({
-                            api: serverAPI,
+                            api: apiURL,
                             token,
                             data: password,
                             lecturerCode: userInformation.lecturerCode

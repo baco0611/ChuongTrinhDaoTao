@@ -3,7 +3,7 @@ import Swal from 'sweetalert2'
 
 
 export const getUserInformation = async ({ api, token, setIsDataSaved, setUserInformation }) => {
-    const result = await getData(api, "/user", token)
+    const result = await getData(api, "/api/lecturer/info", token)
 
     if(result.status == 200) {
         setUserInformation(result.data.data)
@@ -39,13 +39,25 @@ export const validElement = (element) => {
     spanElement.innerHTML = ""
 }
 
-export const checkValidInformation = ({e, newPassword}) => {
+export const checkValidInformation = ({e, newPassword, setState}) => {
     const element = e.target || e
 
     const name = element.name
-    const value = element.value
+    const value = element.value.trim()
     const fatherElement = getParentElementByClass(element, "input-block")
 
+    if(name == "firstName") {
+        const splitLetter = value.split(" ")
+        if(splitLetter.length >= 2) {
+            setState(prev => {
+                return {
+                    ...prev,
+                    firstName: splitLetter.pop(),
+                    lastName: prev.lastName + " " + splitLetter.join(" "),
+                }
+            })
+        }
+    }
     if(value == "") {
         invalidElement(fatherElement, "Vui lòng nhập dữ liệu ô này")
         return false
@@ -105,7 +117,7 @@ export const handleSavingInformation = async ({ api, token, data }) => {
         reverseButtons: true, // Đổi vị trí các nút
     }).then(async (result) => {
         if (result.isConfirmed) {
-            const result = await postData(api, "/user/update", token, payload)
+            const result = await postData(api, "/api/lecturer/change-password", token, payload)
 
             if(result.status != 200) 
                 alertErrorDataSave()
@@ -125,7 +137,7 @@ export const handleSavingPassword = async ({ api, token, data, lecturerCode }) =
         lecturerCode
     }
 
-    if(checkUserData("#password-info", data.newPassword))
+    // if(checkUserData("#password-info", data.newPassword))
     await Swal.fire({
         title: "THAY ĐỔI MẬT KHẨU",
         text: `Bạn có muốn thay đổi mật khẩu không?`,
