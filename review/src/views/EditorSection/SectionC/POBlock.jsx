@@ -91,9 +91,8 @@ export default function POBlock({ title, data, setState }) {
                                                         })}
                                                         onBlur={() => handleSaveChangeElement({
                                                             api: apiURL,
-                                                            id: element.id,
+                                                            data: element,
                                                             token,
-                                                            content: element.content,
                                                             setIsDataSaved
                                                         })}
                                                     />

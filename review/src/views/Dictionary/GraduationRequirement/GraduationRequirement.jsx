@@ -35,8 +35,8 @@ export default function GraduationRequirement() {
 
         return async () => {
             return await getDataDictionary({
-                api: serverAPI,
-                url: "/graduation",
+                api: apiURL,
+                url: "/api/graduation-conditions/getAll",
                 token,
                 setState: setDataDictionary,
                 setIsDataSaved
@@ -82,7 +82,7 @@ export default function GraduationRequirement() {
                                 <td className='center'>{index + 1}</td>
                                 <td>
                                     <input
-                                        value={element.content}
+                                        value={element.condition}
                                         onChange={(e) => handleChangeValue({ 
                                             e, 
                                             id: element.id, 
@@ -91,8 +91,8 @@ export default function GraduationRequirement() {
                                         })}
                                         onBlur={() => updateDictionary({
                                             data: element,
-                                            api: serverAPI,
-                                            url: "/graduation/update",
+                                            api: apiURL,
+                                            url: "/api/graduation-conditions/update",
                                             token,
                                             setIsDataSaved,
                                         })}
@@ -102,12 +102,12 @@ export default function GraduationRequirement() {
                                     <button 
                                         className='delete-btn'
                                         onClick={() => deleteDictionary({
-                                            api: serverAPI,
-                                            url: "/delete-graduation",
+                                            api: apiURL,
+                                            url: `/api/graduation-conditions/delete/${element.id}`,
                                             token,
                                             setState: setDataDictionary,
                                             id: element.id,
-                                            index
+                                            index: index + 1
                                         })}
                                     >
                                         <i className="iconoir-minus-square"></i>
@@ -123,8 +123,8 @@ export default function GraduationRequirement() {
                                 className='add-btn'
                                 disabled={isDisable}
                                 onClick={() => createDictionary({
-                                    api: serverAPI,
-                                    url: "/create-graduation",
+                                    api: apiURL,
+                                    url: "/api/graduation-conditions/create",
                                     token,
                                     setState: setDataDictionary,
                                     setIsDisable

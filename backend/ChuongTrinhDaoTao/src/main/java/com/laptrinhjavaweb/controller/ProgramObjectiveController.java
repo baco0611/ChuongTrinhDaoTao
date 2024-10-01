@@ -51,7 +51,7 @@ public class ProgramObjectiveController {
 	@PostMapping("/update")
     public ResponseEntity<ApiResponse> updateLearningOutcome(@RequestBody UpdateProgramObjectiveRequest request) {
         try {
-            programObjectiveService.updateLearningOutcome(request.getId(), request.getContent());
+            programObjectiveService.updateLearningOutcome(request.getId(), request.getContent(), request.getSymbol());
             ApiResponse response = new ApiResponse(null, HttpStatus.OK.value());
             return ResponseEntity.ok(response);
         } catch (ResourceNotFoundException e) {

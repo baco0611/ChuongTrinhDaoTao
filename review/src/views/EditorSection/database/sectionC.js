@@ -62,7 +62,7 @@ export const getDataSectionC = async ({ id, api, token, completeMessage, errorMe
     const result = await getData(api, `/api/programObjective/${id}`, token, completeMessage, errorMessage)
     if(result.status == 200) {
         console.log(result)
-        setSectionCValue(splitProgramObjective(result.data.data))
+        setSectionCValue(refreshProgramObjective(splitProgramObjective(result.data.data)))
         setIsDataSaved(true)
     } else {
         setIsDataSaved(true)
@@ -99,13 +99,9 @@ export const handleSaveChangeTypeElement = async ({ api, token, payload, complet
     const result = await postData(api, "/api/programObjective/update", token, payload.data, completeMessage, errorMessage)
 }
 
-export const handleSaveChangeElement = async ({ api, id, token, content, setIsDataSaved, errorMessage, completeMessage }) => {
-    const payload = {
-        id,
-        content
-    }
+export const handleSaveChangeElement = async ({ api, token, data, setIsDataSaved, errorMessage, completeMessage }) => {
     
-    const result = await postData(api, "/api/programObjective/update", token, payload, completeMessage, errorMessage)
+    const result = await postData(api, "/api/programObjective/update", token, data, completeMessage, errorMessage)
 
     console.log(result)
     setIsDataSaved(true)

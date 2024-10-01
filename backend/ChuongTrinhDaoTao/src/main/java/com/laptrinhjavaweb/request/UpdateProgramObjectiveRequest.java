@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class UpdateProgramObjectiveRequest {
 	private Long id;
     private String content;
+    private String symbol;
 }

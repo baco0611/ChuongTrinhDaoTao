@@ -9,7 +9,7 @@ export const handleChangeValue = ({ e, id, setIsDataSaved, setState }) => {
             if(element.id == id)
                 return {
                     id: id,
-                    content: e.target.value
+                    condition: e.target.value
                 }
             else    
                 return element
@@ -33,7 +33,7 @@ export const getDataDictionary = async ({ api, url, token, setState, setIsDataSa
 
     if(result.status == 200) {
         setIsDataSaved(true)
-        setState(result.data)
+        setState(result.data.data)
     } else {
         throw("Wrong")
     }
@@ -45,7 +45,7 @@ export const createDictionary = async({ api, url, token, setState, setIsDisable 
     const result = await postData(api, url, token, payload)
 
     if(result.status == 200) 
-        setState(result.data)
+        setState(result.data.data)
     else
         alertErrorDataSave()
 
@@ -70,7 +70,7 @@ export const deleteDictionary = async({ api, url, token, setState, id, index }) 
             console.log(result)
 
             if(result.status == 200)
-                setState(result.data)
+                setState(result.data.data)
             else
                 alertErrorDataSave()
         }

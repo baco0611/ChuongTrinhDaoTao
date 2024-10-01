@@ -49,8 +49,9 @@ const splitProgramLearningOutcomes = (data) => {
 
     Object.keys(categories).forEach(type => {
         result[type] = {};
-
+        debugger
         Object.keys(categories[type]).forEach(typeDetail => {
+            debugger
             result[type][typeDetail] = {
                 type: type,
                 typeDetail: typeDetail,
@@ -60,17 +61,18 @@ const splitProgramLearningOutcomes = (data) => {
         });
     });
 
+    console.log(result)
     return result;
 };
 
 export const getDataSectionD = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, setSectionDValue }) => {
     const result = await getData(api, `/api/programLearningOutcomes/${id}`, token, completeMessage, errorMessage)
 
-    setSectionDValue(refreshProgramLearningOutComes(splitProgramLearningOutcomes(result.data.data)))
+    setSectionDValue(splitProgramLearningOutcomes(result.data.data))
     setIsDataSaved(true)
 
     // Lưu lại 1 lần để cập nhật symbol (nhiều lúc sai sót hay lỡ đụng vô db) ==> đảm bảo symbol luôn đúng
-    await postData
+    // await postData
 }
 
 export const changeDataSectionD = ({ e, setState, id, type, typeDetail, setIsDataSaved }) => {
