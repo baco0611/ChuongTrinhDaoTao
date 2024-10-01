@@ -92,7 +92,7 @@ export default function ConditionalCertification() {
                                             setState: setDataDictionary
                                         })}
                                         onBlur={() => updateDictionary({
-                                            data: element.condition,
+                                            data: element,
                                             api: apiURL,
                                             url: "/api/certification-requirements/update",
                                             token,

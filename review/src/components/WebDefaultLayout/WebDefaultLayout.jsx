@@ -7,9 +7,14 @@ import Cookies from "js-cookie"
 import { getData } from "../../utils/function"
 
 function WebDefaultLayout () {
-    const { token, apiURL, setToken, setUser, user } = useContext(UserContext)
+    const { token, apiURL, setToken, setUser } = useContext(UserContext)
     const navigate = useNavigate()
     const [isTokenChecked, setIsTokenChecked] = useState(false)
+
+    const user_cookie = Cookies.get("USER") || "{}"
+    const decodedString = decodeURIComponent(user_cookie);
+    const user = JSON.parse(decodedString);
+    console.log(user, typeof(user))
 
     useEffect(() => {
         // Check token only once during the initial render
