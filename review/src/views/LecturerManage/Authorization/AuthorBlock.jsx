@@ -6,7 +6,7 @@ import { postData } from '../../../utils/function'
 
 export default function AuthorBlock({ data, setState, currentPage, setCurrentPage, request, setRequest }) {
     const [ selectedUser, setSelectedUser ] = useState()
-    const { user, apiURL, token } = useContext(UserContext)
+    const { user, apiURL, token, setUser } = useContext(UserContext)
     const authorizationList = {
         "general": [
             {
@@ -75,7 +75,7 @@ export default function AuthorBlock({ data, setState, currentPage, setCurrentPag
         fetchData();
     }, [currentPage])
 
-    // console.log(selectedUser)
+    console.log(selectedUser)
     // console.log(data)
 
     return (
@@ -203,7 +203,14 @@ export default function AuthorBlock({ data, setState, currentPage, setCurrentPag
                                 <tr>
                                     <th colSpan={2}>
                                         <div className='btn'>
-                                            <button onClick={() => handleSubmitRole(selectedUser, apiURL, token, setState)}>Xác nhận</button>
+                                            <button onClick={() => handleSubmitRole({ 
+                                                user: selectedUser, 
+                                                api: apiURL, 
+                                                token, 
+                                                setState,
+                                                activeUser: user,
+                                                setUser 
+                                            })}>Xác nhận</button>
                                         </div>
                                     </th>
                                 </tr>

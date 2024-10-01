@@ -55,28 +55,39 @@ const handleToggleAuthor = (e, setState) => {
     })
 }
 
-const updateRole = async (user, api, token, setState) => {
+const updateRole = async (user, api, token, setState, activeUser, setUser) => {
     const result = await postData(api, "/api/lecturer/updateRoles", token, user)
 
-    const element = result.data.data
-    console.log(element)
+    if(result.status = 200) {
+        const element = result.data.data
+        console.log(element, activeUser)
+        
+        if(user.lecturerCode == activeUser.lecturersCode) {
+            const data = {
+                ...activeUser,
+                role: element.role
+            }
 
-    setState(prev => {
-        console.log(prev)
-
-        return {
-            ...prev,
-            data: prev.data.map(lecturer => {
-                if(lecturer.lecturerId == element.lecturerId)
-                    return element
-                else    
-                    return lecturer
-            })
+            setUser(data)
         }
-    })
+
+        setState(prev => {
+            console.log(prev)
+    
+            return {
+                ...prev,
+                data: prev.data.map(lecturer => {
+                    if(lecturer.lecturerId == element.lecturerId)
+                        return element
+                    else    
+                        return lecturer
+                })
+            }
+        })
+    }
 }
 
-const handleSubmitRole = async (user, api, token, setState) => {
+const handleSubmitRole = async ({ user, api, token, setState, activeUser, setUser }) => {
     await Swal.fire({
         title: "CẬP NHẬT QUYỀN",
         text: `Bạn có muốn cập nhật lại quyền cho giảng viên ${user.lastName} ${user.firstName} không?`,
@@ -88,7 +99,7 @@ const handleSubmitRole = async (user, api, token, setState) => {
         reverseButtons: true, // Đổi vị trí các nút
     }).then(async (result) => {
         if (result.isConfirmed) {
-            await updateRole(user, api, token, setState)
+            await updateRole(user, api, token, setState, activeUser, setUser)
         }
     });
 }
