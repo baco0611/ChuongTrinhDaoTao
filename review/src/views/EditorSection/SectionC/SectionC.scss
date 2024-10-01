@@ -1,7 +1,7 @@
 @import "../../../variable.scss";
 
 #sectionC .PO-block {
-    padding-bottom: 25px;
+    padding-bottom: 15px;
 
     h1.title {
         color: $primary-color;
@@ -9,19 +9,24 @@
         font-weight: 700;
         font-size: 20px;
         line-height: 24px;
-
+        width: 100%;
         position: sticky;
         top: 65px;
         z-index: 19;
     }
 
     .table {
+        width: 100%;
+
         .row {
             border-bottom: 1.5px $button-color solid;
             display: grid;
-            grid-template-columns: 15% 75% 10%;
+            grid-template-columns: 8% 87% 5%;
+            width: 100%;
+            --bs-gutter-x: 0;
 
             .block {
+                padding: 3px 2px;
                 display: flex;
                 align-items: center;
                 justify-content: center;

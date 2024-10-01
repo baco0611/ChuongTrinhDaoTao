@@ -8,6 +8,10 @@ import { getEditorHeader } from './editProgram/edit.mjs';
 import { createProgramObjective, deleteProgramObjective, getProgramObjectives, updateProgramObjective, updateProgramObjectives } from './editProgram/sectionC.mjs';
 import { createProgramLearningOutcome, deleteProgramLearningOutcome, getProgramLearningOutcomes, updateMultipleProgramLearningOutcomes, updateProgramLearningOutcome } from './editProgram/sectionD.mjs';
 import { getResponsibility, updateResponsibleLecturer } from './LecturerManage/Responsibility.mjs';
+import { createGraduationCondition, deleteGraduationCondition, getGraduation, updateGraduationCondition } from './dictionary/graduation.mjs';
+import { createCertificationCondition, deleteCertificationCondition, getCertification, updateCertificationCondition } from './dictionary/certifiction.mjs';
+import { getUser, updateUser } from './user/user.mjs';
+import { getUserManage } from './user/manage.mjs';
 
 // Để xử lý __dirname trong ES module
 const __filename = fileURLToPath(import.meta.url);
@@ -78,6 +82,27 @@ server.post('/program-outcome/update', updateProgramLearningOutcome);
 server.post('/program-outcome/create', createProgramLearningOutcome);
 server.delete('/program-outcome/delete', deleteProgramLearningOutcome);
 server.post('/update-program-outcome', updateMultipleProgramLearningOutcomes);
+
+
+// DICTIONARY
+server.post('/graduation/update', updateGraduationCondition);
+server.get('/graduation', getGraduation);
+server.post('/create-graduation', createGraduationCondition);
+server.delete('/delete-graduation', deleteGraduationCondition);
+
+server.post('/certification/update', updateCertificationCondition);
+server.get('/certification', getCertification);
+server.post('/create-certification', createCertificationCondition);
+server.delete('/delete-certification', deleteCertificationCondition);
+
+
+// USER
+server.get('/user', getUser);
+server.post('/user/update', updateUser);
+// Route GET để lấy danh sách người dùng
+server.post('/user-manage', getUserManage);
+
+
 
 
 server.use(router);

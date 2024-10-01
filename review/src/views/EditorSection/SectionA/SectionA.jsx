@@ -89,8 +89,8 @@ export default function SectionA() {
     if(isLoading)
         return <Loader/>
 
-    // if(isError)
-    //     navigate('/error')
+    if(isError)
+        navigate('/error')
 
     return (
         <>
@@ -115,7 +115,7 @@ export default function SectionA() {
                                 autoComplete="off"
                                 value={sectionAValue.vietnameseName || ""}
                                 onChange={e => handleChangeValue({ e, setSectionAValue, setIsDataSaved })}
-                                onBlur={async () => saveChangeSectionAInfo({ id, api: serverAPI, payload: sectionAValue, token, setIsDataSaved})}
+                                onBlur={async () => saveChangeSectionAInfo({ id, api: apiURL, payload: sectionAValue, token, setIsDataSaved})}
                             />
                         </div>
                     </div>

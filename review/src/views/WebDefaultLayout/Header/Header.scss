@@ -44,6 +44,10 @@
                 display: flex;
                 align-items: center;
                 gap: 12px;
+
+                a {
+                    color: white;
+                }
     
                 svg {
                     height: 22px;
@@ -76,7 +80,8 @@
 #header-menu .header {
     &-menu {
         width: 100%;
-        position: absolute;
+        // position: absolute;
+        position: fixed;
         padding: 25px 25px;
         background-color: white;
         top: 50px;

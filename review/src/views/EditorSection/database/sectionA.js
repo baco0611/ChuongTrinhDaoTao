@@ -89,7 +89,7 @@ const getDataSectionA = async ({ id, api, token, completeMessage, errorMessage, 
 // Lưu giá trị sau mỗi thay đổi
 const saveChangeSectionAInfo = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, payload}) => {
     payload.id = id
-    const result = await postData(api, "/sectionA-info", token, payload, completeMessage, errorMessage)
+    const result = await postData(api, "/api/education-programs/update", token, payload, completeMessage, errorMessage)
 
     if(result.status == 200) {
         setIsDataSaved(true)

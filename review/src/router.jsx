@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 import WebDefaultLayout from './components/WebDefaultLayout/WebDefaultLayout'
 import Error from './components/Error/Error'
 import Login from './views/Login/Login'
@@ -15,6 +15,11 @@ import Responsibility from './views/LecturerManage/Responsibility/Responsibility
 import EducationManage from './views/EducationProgram/EducationMain/EducationManage'
 import EducationSearch from './views/EducationProgram/EducationMain/EducationSearch'
 import EditProgramLayout from './components/EditProgramLayout/EditProgramLayout'
+import UserManage from './views/LecturerManage/UserManage/UserManage'
+import GraduationRequirement from './views/Dictionary/GraduationRequirement/GraduationRequirement'
+import ConditionalCertification from './views/Dictionary/ConditionalCertification/ConditionalCertification'
+import User from './views/User/User'
+import InsertUser from './views/LecturerManage/UserManage/InsertUser'
 
 const router = createBrowserRouter([
     {
@@ -24,6 +29,10 @@ const router = createBrowserRouter([
             {
                 path: '/login',
                 element: <Login/>
+            },
+            {
+                path: '/program',
+                element: <Navigate to={"/program/search"}/>
             },
             {
                 path: '/program/search',
@@ -72,12 +81,32 @@ const router = createBrowserRouter([
                 ]
             },
             {
-                path: "/authorization",
+                path: "/user",
+                element: <User/>
+            },
+            {
+                path: "/user/authorization",
                 element: <Authorization/>
             },
             {
-                path: "/responsibility",
+                path: "/user/responsibility",
                 element: <Responsibility/>
+            },
+            {
+                path: '/user/manage',
+                element: <UserManage/>
+            },
+            {
+                path: '/user/insert',
+                element: <InsertUser/>
+            },
+            {
+                path: '/dictionary/graduation',
+                element: <GraduationRequirement/>
+            },
+            {
+                path: '/dictionary/certification',
+                element: <ConditionalCertification/>
             },
         ]
     },

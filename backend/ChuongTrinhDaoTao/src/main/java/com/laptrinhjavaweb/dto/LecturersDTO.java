@@ -12,4 +12,5 @@ public class LecturersDTO {
 	private String lecturerId;
 	private List<String> role;
 	private String departmentName;
+	private String email;
 }

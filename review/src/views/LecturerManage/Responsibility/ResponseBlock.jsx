@@ -39,7 +39,7 @@ export default function ResponseBlock({ data, setState, index }) {
                         <li 
                             className="dropdown-item cursorPointer"
                             onClick={() => changeResponsibility({
-                                api: serverAPI,
+                                api: apiURL,
                                 token,
                                 setState,
                                 setIsDataSaved,
@@ -57,7 +57,7 @@ export default function ResponseBlock({ data, setState, index }) {
                                     })} 
                                     key={index}
                                     onClick={() => changeResponsibility({
-                                        api: serverAPI,
+                                        api: apiURL,
                                         token,
                                         element,
                                         setState,

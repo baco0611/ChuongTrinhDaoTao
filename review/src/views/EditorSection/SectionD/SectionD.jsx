@@ -135,7 +135,7 @@ export default function SectionD() {
         }
     }
 
-    const { data , isLoading, isError} = useQuery(`sectionC-${id}`, fetchAPI(id),{
+    const { data , isLoading, isError} = useQuery(`sectionD-${id}`, fetchAPI(id),{
         cacheTime: Infinity,
         refetchOnWindowFocus: false,
     })
@@ -161,7 +161,7 @@ export default function SectionD() {
                 <div className='content'>
                     <DragDropContext onDragEnd={e => handleDragEnd({
                         e,
-                        api: serverAPI,
+                        api: apiURL,
                         token,
                         setState: setSectionDValue,
                         setIsDataSaved,

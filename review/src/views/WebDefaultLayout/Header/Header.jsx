@@ -75,7 +75,9 @@ export default function Header() {
                                     <h3>{user.lastName} {user.firstName}</h3>
                                     <h4>{user.departmentName}</h4>
                                 </div>
-                                <FontAwesomeIcon icon={faUser} />
+                                <Link to={"/user"}>
+                                    <FontAwesomeIcon icon={faUser} />
+                                </Link>
                             </div>
                             <FontAwesomeIcon 
                                 icon={faArrowRightFromBracket} 
@@ -93,8 +95,8 @@ export default function Header() {
                     <div className="header-menu wrapper">
                         <ul className="header-component">
                             <li className="primary">Từ điển dữ liệu</li>
-                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Điều kiện tốt nghiệp</Link></li>
-                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Chứng chỉ điều kiện</Link></li>
+                            <li><Link to={"/dictionary/graduation"} onClick={() => setMenuOpen(!menuOpen)}>Điều kiện tốt nghiệp</Link></li>
+                            <li><Link to={"/dictionary/certification"} onClick={() => setMenuOpen(!menuOpen)}>Chứng chỉ điều kiện</Link></li>
                         </ul>
                         <ul className="header-component">
                             <li className="primary">Học phần</li>
@@ -110,9 +112,9 @@ export default function Header() {
                         </ul>
                         <ul className="header-component">
                             <li className="primary">Quản trị</li>
-                            <li><Link to={"/responsibility"} onClick={() => setMenuOpen(!menuOpen)}>Phân công phụ trách</Link></li>
-                            <li><Link to={"/authorization"} onClick={() => setMenuOpen(!menuOpen)}>Phân quyền</Link></li>
-                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý người dùng</Link></li>
+                            <li><Link to={"/user/responsibility"} onClick={() => setMenuOpen(!menuOpen)}>Phân công phụ trách</Link></li>
+                            <li><Link to={"/user/authorization"} onClick={() => setMenuOpen(!menuOpen)}>Phân quyền</Link></li>
+                            <li><Link to={"/user/manage"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý người dùng</Link></li>
                         </ul>
                     </div> 
                 </div>

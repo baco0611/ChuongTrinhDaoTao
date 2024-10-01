@@ -21,6 +21,7 @@ export default function PLOBlock({ data, setState }) {
         })
     })
 
+    // console.log(data)
     return (
         <Droppable
             droppableId={`${data.type}/${data.typeDetail}`}
@@ -96,11 +97,9 @@ export default function PLOBlock({ data, setState }) {
                                                             setIsDataSaved,
                                                         })}
                                                         onBlur={() => handleSaveChangeElement({
-                                                            api: serverAPI,
-                                                            id: element.id,
+                                                            api: apiURL,
                                                             token,
-                                                            content: element.content,
-                                                            competency: element.competency,
+                                                            data: element,
                                                             setIsDataSaved
                                                         })}
                                                     />
@@ -119,11 +118,9 @@ export default function PLOBlock({ data, setState }) {
                                                             setIsDataSaved,
                                                         })}
                                                         onBlur={() => handleSaveChangeElement({
-                                                            api: serverAPI,
-                                                            id: element.id,
+                                                            api: apiURL,
                                                             token,
-                                                            content: element.content,
-                                                            competency: element.competency,
+                                                            data: element,
                                                             setIsDataSaved
                                                         })}
                                                     />
@@ -131,7 +128,7 @@ export default function PLOBlock({ data, setState }) {
                                                 <div className='block'> 
                                                     <button
                                                         onClick={() => handleDeletePLO({
-                                                            api: serverAPI,
+                                                            api: apiURL,
                                                             token,
                                                             id: element.id,
                                                             setState, 

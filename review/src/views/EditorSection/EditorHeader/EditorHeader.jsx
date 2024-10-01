@@ -8,6 +8,8 @@ import axios from "axios"
 import Loader from "../../../components/Loader/Loader"
 import { getData } from "../../../utils/function"
 import { basic_decode, basic_encode } from "../../../utils/function"
+import Cookies from "js-cookie"
+
 
 function EditorHeader({ currentSection }) {
     const { id } = useParams()
@@ -18,6 +20,8 @@ function EditorHeader({ currentSection }) {
     const programStatus = queryParams.get("s")
 
     const fetchAPI = (id) => {
+        const token = Cookies.get("ACCESS_TOKEN")
+
         return async () => {
             return (await getData(apiURL, `/api/education-programs/sectionHeader/${id}`, token)).data.data
         }

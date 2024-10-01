@@ -1,95 +1,88 @@
 {
   "programObjective": [
     {
-      "id": 1,
-      "symbol": "PO - 1.1",
-      "content": "- Có kiến thức về giáo dục thể chất, An ninh quốc phòng và vận dụng được kiến thức về thế giới quan, nhân sinh quan và phương pháp luận của Chủ nghĩa Mác-Lênin, tư tưởng Hồ Chí Minh, các quan điểm, đường lối của Đảng Cộng sản Việt Nam vào cuộc sống.\n- Giao tiếp tốt bằng ngoại ngữ trong các tình huống thông thường; viết, trình bày báo cáo chuyên môn trong công việc bằng ngoại ngữ.",
-      "type": "KIEN_THUC",
-      "programId": 6
-    },
-    {
-      "id": 2,
-      "symbol": "PO - 2.2",
-      "content": "- Có kỹ năng sử dụng thành thạo các phần mềm, công cụ, ngôn ngữ lập trình và công nghệ để thực hiện các nghiệp vụ liên quan đến lĩnh vực Công nghệ thông tin\n- Có kỹ năng vận dụng được các qui trình phân tích, thiết kế, xây dựng, kiểm thử đối với các hệ thống phần mềm;\n- Có kỹ năng vận dụng các kiến thức cơ bản về Toán trong khoa học công nghệ;",
-      "type": "KY_NANG",
-      "programId": 6
-    },
-    {
-      "id": 3,
+      "id": 37,
       "symbol": "PO - 1.2",
       "content": "- Vận dụng được các kiến thức thuyết trình, giao tiếp, làm việc nhóm trong công tác chuyên môn.\n- Hiểu biết cơ bản về pháp luật Việt Nam, sự phân chia các ngành luật và tổ chức của Nhà nước Việt Nam hiện nay\n- Hiểu biết và vận dụng được các kiến thức cơ bản về môi trường vào việc giữ gìn và bảo vệ môi trường",
       "type": "KIEN_THUC",
-      "programId": 6
+      "programId": 57
     },
     {
-      "id": 4,
-      "symbol": "PO - 2.4",
+      "id": 39,
+      "symbol": "PO - 1.1",
+      "content": "- Có kiến thức về giáo dục thể chất, An ninh quốc phòng và vận dụng được kiến thức về thế giới quan, nhân sinh quan và phương pháp luận của Chủ nghĩa Mác-Lênin, tư tưởng Hồ Chí Minh, các quan điểm, đường lối của Đảng Cộng sản Việt Nam vào cuộc sống.\n- Giao tiếp tốt bằng ngoại ngữ trong các tình huống thông thường; viết, trình bày báo cáo chuyên môn trong công việc bằng ngoại ngữ",
+      "type": "KIEN_THUC",
+      "programId": 57
+    },
+    {
+      "id": 42,
+      "symbol": "PO - 2.1",
+      "content": "- Có kỹ năng sử dụng thành thạo các phần mềm, công cụ, ngôn ngữ lập trình và công nghệ để thực hiện các nghiệp vụ liên quan đến lĩnh vực Công nghệ thông tin\n- Có kỹ năng vận dụng được các qui trình phân tích, thiết kế, xây dựng, kiểm thử đối với các hệ thống phần mềm;\n- Có kỹ năng vận dụng các kiến thức cơ bản về Toán trong khoa học công nghệ;",
+      "type": "KY_NANG",
+      "programId": 57
+    },
+    {
+      "id": 56,
+      "symbol": "PO - 2.2",
       "content": "- Có kỹ năng tìm kiếm, cập nhật, tổng hợp, khai thác thông tin; Có kỹ năng giao tiếp và làm việc nhóm, thiết kế và phát triển phần mềm máy tính; thiết kế, lắp đặt và quản lý hệ thống thông tin",
       "type": "KY_NANG",
-      "programId": 6
+      "programId": 57
     },
     {
-      "id": 5,
-      "symbol": "PO - 2.7",
+      "id": 61,
+      "symbol": "PO - 3.1",
+      "content": "- Có phẩm chất đạo đức tốt, có ý thức tổ chức kỷ luật, có thái độ hợp tác với đồng nghiệp, tôn trọng pháp luật và qui định nơi làm việc, trung thực và có tính kỷ luật cao, sẵn sàng đảm nhiệm các công việc được giao nơi làm việc.",
+      "type": "THAI_DO",
+      "programId": 57
+    },
+    {
+      "id": 62,
+      "symbol": "PO - 3.2",
       "content": "- Có khả năng tự định hướng, thích nghi với môi trường làm việc khác nhau; tự học tập, tích lũy kiến thức, kinh nghiệm để nâng cao trình độ chuyên môn nghiệp vụ.",
-      "type": "KY_NANG",
-      "programId": 6
+      "type": "THAI_DO",
+      "programId": 57
     },
     {
-      "id": 7,
-      "symbol": "PO - 2.6",
+      "id": 68,
+      "symbol": "PO - 2.3",
       "content": "- Có kỹ năng lập luận tư duy và giải quyết vấn đề: Có kỹ năng phát hiện vấn đề; Có kỹ năng đánh giá và phân tích vấn đề; Có kỹ năng giải quyết vấn đề chuyên môn; Có kỹ năng mô hình hóa; …",
       "type": "KY_NANG",
-      "programId": 6
+      "programId": 57
     },
     {
-      "id": 9,
-      "programId": 6,
-      "symbol": "PO - 2.3",
-      "content": "Có phẩm chất đạo đức tốt, có ý thức tổ chức kỷ luật, có thái độ hợp tác với đồng nghiệp, tôn trọng pháp luật và qui định nơi làm việc, trung thực và có tính kỷ luật cao, sẵn sàng đảm nhiệm các công việc được giao nơi làm việc.",
-      "type": "KY_NANG"
+      "id": 70,
+      "symbol": "PO - 2.4",
+      "content": "- Có kỹ năng đọc hiểu tài liệu tiếng Anh chuyên ngành, sử dụng tiếng Anh phục vụ cho các vấn đề liên quan đến công việc",
+      "type": "KY_NANG",
+      "programId": 57
     },
     {
-      "id": 10,
-      "programId": 6,
-      "symbol": "PO - 3.1",
-      "content": "- Hiểu và vận dụng được các kiến thức liên quan đến các phương pháp tính toán; các kiến thức cơ sở trong giải quyết các bài toán, tối ưu các giải pháp tính toán; cơ chế hoạt động chung của hệ thống máy tính, cấu trúc của hệ thống máy tính; ngôn ngữ lập trình bậc cao; các nguyên lý của lập trình hướng đối tượng; các kiến thức liên quan đến cấu trúc dữ liệu, các thuật toán trên các cấu trúc dữ liệu;\n- Có được kiến thức cơ bản về cơ sở dữ liệu; Có khả năng phân tích thiết kế cơ sở dữ liệu; Khai thác và ứng được một số hệ quản trị cơ sở dữ liệu thông dụng;\n- Có khả năng phân tích và thiết kế các hệ thống thông tin; Sử dụng được các công cụ để mô hình hóa các hệ thống thông tin;\n- Có được hiểu biết cơ bản về nguyên lý hệ điều hành, mạng máy tính, trí tuệ nhân tạo, lý thuyết đồ họa;",
-      "type": "THAI_DO"
+      "id": 99,
+      "symbol": "PO - 1.3",
+      "content": "- Hiểu và vận dụng được các kiến thức liên quan đến các phương pháp tính toán; các kiến thức cơ sở trong giải quyết các bài toán, tối ưu các giải pháp tính toán; cơ chế hoạt động chung của hệ thống máy tính, cấu trúc của hệ thống máy tính; ngôn ngữ lập trình bậc cao; các nguyên lý của lập trình hướng đối tượng; các kiến thức liên quan đến cấu trúc dữ liệu, các thuật toán trên các cấu trúc dữ liệu;\n- Có được kiến thức cơ bản về cơ sở dữ liệu; Có khả năng phân tích thiết kế cơ sở dữ liệu; Khai thác và ứng được một số hệ quản trị cơ sở dữ liệu thông dụng;\n- Có khả năng phân tích và thiết kế các hệ thống thông tin; Sử dụng được các công cụ để mô hình hóa các hệ thống thông tin;\n- Có được hiểu biết cơ bản về nguyên lý hệ điều hành, mạng máy tính, trí tuệ nhân tạo, lý thuyết đồ họa;",
+      "type": "KIEN_THUC",
+      "programId": 57
     },
     {
-      "id": 11,
-      "programId": 6,
-      "symbol": "PO - 2.1",
-      "content": "- Hiểu và vận dụng được các kiến thức về ngành Công nghệ phần mềm, bao gồm: các kiến thức liên quan đến phân tích, thiết kế và xây dựng các hệ thống phần mềm; Có kiến thức nền tảng để có thể quản trị tốt các dự án công nghệ thông tin; Hiểu và vận dụng được các qui trình, các phương pháp triển khai các dự án phần mềm; Hiểu và vận dụng được các phương pháp kiểm thử phần mềm;\n- Hiểu và vận dụng được các kiến thức về ngành Khoa học máy tính, bao gồm: các kiến thức liên quan đến phân tích thiết kế thuật toán, học máy, nhận dạng và khai phá dữ liệu; kiến thức nền tảng để có thể xử lý ảnh số, nhận dạng, phân tích dữ liệu, bảo mật thông tin và tính độ phức tạp của thuật toán; các công nghệ để khai phá dữ liệu, xử lý dữ liệu lớn (BigData), thị giác máy tính và cơ sở dữ liệu suy diễn.\n- Hiểu và vận dụng được các kiến thức về ngành Mạng và truyền thông, bao gồm: các kiến thức liên quan đến mạng truyền dẫn quang, kỹ thuật truyền dữ liệu và An toàn mạng; cáckiến thức nền tảng để có thể quản trị mạng, đánh giá hiệu năng mạng, phân tích kiến trúc và thiết kế mạng, tấn công và phòng thủ không gian mạng; các vấn đề hiện đại của Truyền thông và Mạng máy tính\n- Sử dụng tốt các công cụ và ngôn ngữ lập trình tiên tiến để xây dựng các dự án trên lĩnh vực Công nghệ thông tin.",
-      "type": "KY_NANG"
+      "id": 140,
+      "symbol": "PO - 1.4",
+      "content": "- Hiểu và vận dụng được các kiến thức về ngành Công nghệ phần mềm, bao gồm: các kiến thức liên quan đến phân tích, thiết kế và xây dựng các hệ thống phần mềm; Có kiến thức nền tảng để có thể quản trị tốt các dự án công nghệ thông tin; Hiểu và vận dụng được các qui trình, các phương pháp triển khai các dự án phần mềm; Hiểu và vận dụng được các phương pháp kiểm thử phần mềm;\n- Hiểu và vận dụng được các kiến thức về ngành Khoa học máy tính, bao gồm:  các kiến thức liên quan đến phân tích thiết kế thuật toán, học máy, nhận dạng và khai phá dữ liệu; kiến thức nền tảng để có thể xử lý ảnh số, nhận dạng, phân tích dữ liệu, bảo mật thông tin và tính độ phức tạp của thuật toán; các công nghệ để khai phá dữ liệu, xử lý dữ liệu lớn (BigData), thị giác máy tính  và cơ sở dữ liệu suy diễn.\n- Hiểu và vận dụng được các kiến thức về ngành Mạng và truyền thông, bao gồm: các kiến thức liên quan đến mạng truyền dẫn quang, kỹ thuật truyền dữ liêu và An toàn mạng; cáckiến thức nền tảng để có thể quản trị mạng, đánh giá hiệu năng mạng, phân tích kiến trúc và thiết kế mạng, tấn công và phòng thủ không gian mạng; các vấn đề hiện đại của Truyền thông và Mạng máy tính\n- Sử dụng tốt các công cụ và ngôn ngữ lập trình tiên tiến để xây dựng các dự án trên lĩnh vực Công nghệ thông tin.",
+      "type": "KIEN_THUC",
+      "programId": 57
     },
     {
-      "id": 12,
-      "programId": 6,
-      "symbol": "PO - 3.2",
-      "content": "Có kỹ năng đọc hiểu tài liệu tiếng Anh chuyên ngành, sử dụng tiếng Anh phục vụ cho các vấn đề liên quan đến công việc",
-      "type": "THAI_DO"
-    },
-    {
-      "id": 13,
-      "programId": 6,
-      "symbol": "PO - 3.1",
-      "content": "Tham gia, đóng góp vào sự phát triển của các cộng đồng ở phạm vi trong nước và thế giới.",
-      "type": "THAI_DO"
-    },
-    {
-      "id": 14,
-      "programId": 6,
-      "symbol": "PO - 3.2",
-      "content": "Có khả năng lập kế hoạch, điều phối, phát huy trí tuệ tập thể",
-      "type": "THAI_DO"
-    },
-    {
-      "id": 16,
-      "programId": 6,
+      "id": 148,
       "symbol": "PO - 3.3",
-      "content": "",
-      "type": "THAI_DO"
+      "content": "- Tham gia, đóng góp vào sự phát triển của các cộng đồng ở phạm vi trong nước và thế giới.",
+      "type": "THAI_DO",
+      "programId": 57
+    },
+    {
+      "id": 149,
+      "symbol": "PO - 3.4",
+      "content": "- Có khả năng lập kế hoạch, điều phối, phát huy trí tuệ tập thể",
+      "type": "THAI_DO",
+      "programId": 57
     }
   ]
 }
