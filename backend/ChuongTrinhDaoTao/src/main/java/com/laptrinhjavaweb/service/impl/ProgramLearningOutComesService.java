@@ -48,6 +48,7 @@ public class ProgramLearningOutComesService {
 		// Cập nhật thông tin từ request
 		entity.setContent(request.getContent());
 		entity.setCompetencyLevel(request.getCompetency());
+		entity.setSymbol(request.getSymbol());
 
 		// Lưu lại thay đổi
 		repository.save(entity);

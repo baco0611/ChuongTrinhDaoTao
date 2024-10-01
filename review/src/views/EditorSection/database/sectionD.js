@@ -49,9 +49,7 @@ const splitProgramLearningOutcomes = (data) => {
 
     Object.keys(categories).forEach(type => {
         result[type] = {};
-        debugger
         Object.keys(categories[type]).forEach(typeDetail => {
-            debugger
             result[type][typeDetail] = {
                 type: type,
                 typeDetail: typeDetail,
@@ -67,12 +65,31 @@ const splitProgramLearningOutcomes = (data) => {
 
 export const getDataSectionD = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, setSectionDValue }) => {
     const result = await getData(api, `/api/programLearningOutcomes/${id}`, token, completeMessage, errorMessage)
+    
+    if(result.status == 200) {
+        const data = refreshProgramLearningOutComes(splitProgramLearningOutcomes(result.data.data))
+        console.log(data)
+        setSectionDValue(data)
+        setIsDataSaved(true)
+    
+        // Lưu lại 1 lần để cập nhật symbol (nhiều lúc sai sót hay lỡ đụng vô db) ==> đảm bảo symbol luôn đúng
+        const update = await postData(api, "/api/programLearningOutcomes/updatePLOs", token, [
+            ...data.KIEN_THUC.KIEN_THUC_DAI_HOC_HUE.data,
+            ...data.KIEN_THUC.KIEN_THUC_DAI_HOC_KHOA_HOC.data,
+            ...data.KIEN_THUC.KIEN_THUC_LINH_VUC.data,
+            ...data.KIEN_THUC.KIEN_THUC_NGANH.data,
+            ...data.KIEN_THUC.KIEN_THUC_NHOM_NGANH.data,
+            ...data.KY_NANG.KY_NANG_CHUYEN_MON.data,
+            ...data.KY_NANG.KY_NANG_MEM.data,
+            ...data.THAI_DO.THAI_DO_CA_NHAN.data,
+            ...data.THAI_DO.THAI_DO_NGHE_NGHIEP.data,
+            ...data.THAI_DO.THAI_DO_XA_HOI.data,
+        ])
+    } else {
+        setIsDataSaved(true)
+        throw "wrong"
+    }
 
-    setSectionDValue(splitProgramLearningOutcomes(result.data.data))
-    setIsDataSaved(true)
-
-    // Lưu lại 1 lần để cập nhật symbol (nhiều lúc sai sót hay lỡ đụng vô db) ==> đảm bảo symbol luôn đúng
-    // await postData
 }
 
 export const changeDataSectionD = ({ e, setState, id, type, typeDetail, setIsDataSaved }) => {

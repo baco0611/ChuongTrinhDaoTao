@@ -61,9 +61,16 @@ const splitProgramObjective = (data) => {
 export const getDataSectionC = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, setSectionCValue }) => {
     const result = await getData(api, `/api/programObjective/${id}`, token, completeMessage, errorMessage)
     if(result.status == 200) {
-        console.log(result)
-        setSectionCValue(refreshProgramObjective(splitProgramObjective(result.data.data)))
+        const data = refreshProgramObjective(splitProgramObjective(result.data.data))
+        setSectionCValue(data)
         setIsDataSaved(true)
+
+        // console.log(data)
+        await postData(api, "/api/programObjective/batch-update", token, [
+            ...data.KIEN_THUC.data,
+            ...data.KY_NANG.data,
+            ...data.THAI_DO.data,
+        ])
     } else {
         setIsDataSaved(true)
         throw "wrong"

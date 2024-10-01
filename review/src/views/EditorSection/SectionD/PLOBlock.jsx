@@ -21,7 +21,7 @@ export default function PLOBlock({ data, setState }) {
         })
     })
 
-    console.log(data)
+    // console.log(data)
     return (
         <Droppable
             droppableId={`${data.type}/${data.typeDetail}`}

@@ -7,4 +7,5 @@ public class ProgramLearningOutComesUpdateRequest {
 	private Long id;
     private String content;
     private int competency;
+    private String symbol;
 }
