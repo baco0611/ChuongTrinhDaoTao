@@ -24,7 +24,7 @@ public class CertificationRequirementService {
             .map(cert -> {
                 Map<String, Object> certMap = new HashMap<>();
                 certMap.put("id", cert.getCertificationId());
-                certMap.put("content", cert.getCertificationName());
+                certMap.put("condition", cert.getCertificationName());
                 return certMap;
             }).collect(Collectors.toList());
 

@@ -35,8 +35,8 @@ export default function ConditionalCertification() {
 
         return async () => {
             return await getDataDictionary({
-                api: serverAPI,
-                url: "/certification",
+                api: apiURL,
+                url: "/api/certification-requirements/getAll",
                 token,
                 setState: setDataDictionary,
                 setIsDataSaved
@@ -54,6 +54,8 @@ export default function ConditionalCertification() {
 
     if(isError)
         navigate('/error')
+
+    console.log(dataDictionary)
 
     return (
         <div id='dictionary-section' className='wrapper body-container dictionary-section'>
@@ -82,7 +84,7 @@ export default function ConditionalCertification() {
                                 <td className='center'>{index + 1}</td>
                                 <td>
                                     <input
-                                        value={element.content}
+                                        value={element.condition}
                                         onChange={(e) => handleChangeValue({ 
                                             e, 
                                             id: element.id, 
@@ -90,9 +92,9 @@ export default function ConditionalCertification() {
                                             setState: setDataDictionary
                                         })}
                                         onBlur={() => updateDictionary({
-                                            data: element,
-                                            api: serverAPI,
-                                            url: "/certification/update",
+                                            data: element.condition,
+                                            api: apiURL,
+                                            url: "/api/certification-requirements/update",
                                             token,
                                             setIsDataSaved,
                                         })}
@@ -102,12 +104,12 @@ export default function ConditionalCertification() {
                                     <button 
                                         className='delete-btn'
                                         onClick={() => deleteDictionary({
-                                            api: serverAPI,
-                                            url: "/delete-certification",
+                                            api: apiURL,
+                                            url: `/api/certification-requirements/delete/${element.id}`,
                                             token,
                                             setState: setDataDictionary,
                                             id: element.id,
-                                            index
+                                            index: index+1
                                         })}
                                     >
                                         <i className="iconoir-minus-square"></i>
@@ -123,8 +125,8 @@ export default function ConditionalCertification() {
                                 className='add-btn'
                                 disabled={isDisable}
                                 onClick={() => createDictionary({
-                                    api: serverAPI,
-                                    url: "/create-certification",
+                                    api: apiURL,
+                                    url: "/api/certification-requirements/create",
                                     token,
                                     setState: setDataDictionary,
                                     setIsDisable
