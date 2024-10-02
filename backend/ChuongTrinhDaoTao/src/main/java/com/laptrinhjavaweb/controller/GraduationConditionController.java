@@ -50,7 +50,7 @@ public class GraduationConditionController {
 
 	@PostMapping(value = "/create")
 	public ResponseEntity<Map<String, Object>> createGraduationConditions() {
-		List<GraduationConditionEntity> conditions = graduationConditionService.getAllGraduationConditions();
+		List<GraduationConditionEntity> conditions = graduationConditionService.createEmptyCondition();
 		Map<String, Object> response = new HashMap<>();
 		response.put("data", conditions);
 		response.put("status", 200);

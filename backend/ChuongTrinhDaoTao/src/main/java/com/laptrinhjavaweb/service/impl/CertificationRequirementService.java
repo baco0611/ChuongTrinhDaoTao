@@ -48,4 +48,11 @@ public class CertificationRequirementService {
     	repo.deleteById(id);
         return repo.findAll();
     }
+    
+    public Map<String, Object> createEmptyCondition() {
+        CertificationRequirementEntity emptyCondition = new CertificationRequirementEntity();
+        emptyCondition.setCertificationName(""); 
+        repo.save(emptyCondition);
+        return getAllCertificationRequirements();
+    }
 }
