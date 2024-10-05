@@ -151,7 +151,7 @@ export const handleSavingPassword = async ({ api, token, data, lecturerCode }) =
         if (result.isConfirmed) {
             console.log(payload)
 
-            const result = await postData(api, "/user/update", token, payload)
+            const result = await postData(api, "/api/lecturer/change-password", token, payload)
 
             if(result.status != 200) 
                 alertErrorDataSave()

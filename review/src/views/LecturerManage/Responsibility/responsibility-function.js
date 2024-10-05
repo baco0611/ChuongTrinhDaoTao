@@ -1,7 +1,9 @@
 import Swal from 'sweetalert2'
 import { postData } from '../../../utils/function';
 
-export const changeResponsibility = async ({ api, token, element, department, type, setState, setIsDataSaved }) => {
+export const changeResponsibility = async ({ api, token, element, department, type, setState, setIsDataSaved, user }) => {
+    if(!user || !user.role.includes("ASSIGN_RESPONSIBILITY")) return
+
     if (type == "1") return;
     let title, html, payload;
 
