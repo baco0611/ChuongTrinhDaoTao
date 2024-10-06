@@ -14,58 +14,68 @@ import com.laptrinhjavaweb.repository.CertificationRequirementRepository;
 @Service
 public class CertificationRequirementService {
 
-    @Autowired
-    private CertificationRequirementRepository repo;
+	@Autowired
+	private CertificationRequirementRepository repo;
 
-    public Map<String, Object> getAllCertificationRequirements() {
-        Map<String, Object> response = new HashMap<>();
-        List<CertificationRequirementEntity> certificationRequirements = repo.findAll();
-        List<Map<String, Object>> data = certificationRequirements.stream()
-            .map(cert -> {
-                Map<String, Object> certMap = new HashMap<>();
-                certMap.put("id", cert.getCertificationId());
-                certMap.put("condition", cert.getCertificationName());
-                return certMap;
-            }).collect(Collectors.toList());
+	public Map<String, Object> getAllCertificationRequirements() {
+		Map<String, Object> response = new HashMap<>();
+		List<CertificationRequirementEntity> certificationRequirements = repo.findAll();
+		List<Map<String, Object>> data = certificationRequirements.stream().map(cert -> {
+			Map<String, Object> certMap = new HashMap<>();
+			certMap.put("id", cert.getCertificationId());
+			certMap.put("condition", cert.getCertificationName());
+			return certMap;
+		}).collect(Collectors.toList());
 
-        response.put("data", data);
-        response.put("status", 200);
+		response.put("data", data);
+		response.put("status", 200);
 
-        return response;
-    }
-    
-    public String updateCertificationRequirement(Long id, String condition) {
-        CertificationRequirementEntity entity = repo.findById(id).orElse(null);
-        if (entity == null) {
-            return "Certification requirement not found.";
-        }
-        entity.setCertificationName(condition);
-        repo.save(entity);
-        return null;
-    }
+		return response;
+	}
 
-    public List<CertificationRequirementEntity> deleteCertificationRequirement(Long id) {
-    	repo.deleteById(id);
-        return repo.findAll();
-    }
-    
-    public Map<String, Object> createCertificationRequirements() {
-        Map<String, Object> response = new HashMap<>();
-        CertificationRequirementEntity certificationRequirementEntity = new CertificationRequirementEntity();
-        certificationRequirementEntity.setCertificationName("");
-        repo.save(certificationRequirementEntity);
-        List<CertificationRequirementEntity> certificationRequirements = repo.findAll();
-        List<Map<String, Object>> data = certificationRequirements.stream()
-            .map(cert -> {
-                Map<String, Object> certMap = new HashMap<>();
-                certMap.put("id", cert.getCertificationId());
-                certMap.put("condition", cert.getCertificationName());
-                return certMap;
-            }).collect(Collectors.toList());
+	public String updateCertificationRequirement(Long id, String condition) {
+		CertificationRequirementEntity entity = repo.findById(id).orElse(null);
+		if (entity == null) {
+			return "Certification requirement not found.";
+		}
+		entity.setCertificationName(condition);
+		repo.save(entity);
+		return null;
+	}
 
-        response.put("data", data);
-        response.put("status", 200);
+	public Map<String, Object> deleteCertificationRequirement(Long id) {
+		repo.deleteById(id);
+		Map<String, Object> response = new HashMap<>();
+		List<CertificationRequirementEntity> certificationRequirements = repo.findAll();
+		List<Map<String, Object>> data = certificationRequirements.stream().map(cert -> {
+			Map<String, Object> certMap = new HashMap<>();
+			certMap.put("id", cert.getCertificationId());
+			certMap.put("condition", cert.getCertificationName());
+			return certMap;
+		}).collect(Collectors.toList());
 
-        return response;
-    }
+		response.put("data", data);
+		response.put("status", 200);
+
+		return response;
+	}
+
+	public Map<String, Object> createCertificationRequirements() {
+		Map<String, Object> response = new HashMap<>();
+		CertificationRequirementEntity certificationRequirementEntity = new CertificationRequirementEntity();
+		certificationRequirementEntity.setCertificationName("");
+		repo.save(certificationRequirementEntity);
+		List<CertificationRequirementEntity> certificationRequirements = repo.findAll();
+		List<Map<String, Object>> data = certificationRequirements.stream().map(cert -> {
+			Map<String, Object> certMap = new HashMap<>();
+			certMap.put("id", cert.getCertificationId());
+			certMap.put("condition", cert.getCertificationName());
+			return certMap;
+		}).collect(Collectors.toList());
+
+		response.put("data", data);
+		response.put("status", 200);
+
+		return response;
+	}
 }
