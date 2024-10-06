@@ -50,11 +50,4 @@ public class GraduationConditionService {
 
 		return response;
 	}
-	
-	public List<GraduationConditionEntity> createEmptyCondition() {
-        GraduationConditionEntity emptyCondition = new GraduationConditionEntity();
-        emptyCondition.setCondition("");
-        graduationConditionRepository.save(emptyCondition);
-        return graduationConditionRepository.findAll();
-    }
 }

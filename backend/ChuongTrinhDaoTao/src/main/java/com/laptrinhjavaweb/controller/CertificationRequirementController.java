@@ -32,7 +32,7 @@ public class CertificationRequirementController {
     
     @PostMapping("/create")
     public ResponseEntity<Map<String, Object>> createCertificationRequirements() {
-        Map<String, Object> response = certReqService.createEmptyCondition();
+        Map<String, Object> response = certReqService.getAllCertificationRequirements();
         return ResponseEntity.ok(response);
     }
     

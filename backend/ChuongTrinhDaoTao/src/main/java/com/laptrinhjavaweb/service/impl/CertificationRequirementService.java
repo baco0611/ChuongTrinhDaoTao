@@ -24,7 +24,7 @@ public class CertificationRequirementService {
             .map(cert -> {
                 Map<String, Object> certMap = new HashMap<>();
                 certMap.put("id", cert.getCertificationId());
-                certMap.put("content", cert.getCertificationName());
+                certMap.put("condition", cert.getCertificationName());
                 return certMap;
             }).collect(Collectors.toList());
 
@@ -47,12 +47,5 @@ public class CertificationRequirementService {
     public List<CertificationRequirementEntity> deleteCertificationRequirement(Long id) {
     	repo.deleteById(id);
         return repo.findAll();
-    }
-    
-    public Map<String, Object> createEmptyCondition() {
-        CertificationRequirementEntity emptyCondition = new CertificationRequirementEntity();
-        emptyCondition.setCertificationName(""); 
-        repo.save(emptyCondition);
-        return getAllCertificationRequirements();
     }
 }
