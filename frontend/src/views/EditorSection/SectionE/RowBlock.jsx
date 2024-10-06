@@ -12,7 +12,9 @@ function RowBlock({ index, title, POList, POSize, PLOList, value, setState }) {
                 onClick={() => setIsHidden(!isHidden)}
             >
                 <td>{index}</td>
-                <td colSpan={POSize && POSize + 1 || 4}>{title}</td>
+                <td 
+                    colSpan={POSize && POSize + 1 || 4}
+                >{title}</td>
             </tr>
             {
                 !isHidden &&

@@ -3,6 +3,7 @@ import { handleClickAddD } from "../Database/HandleActionSectionD"
 import PLOElement from "./PLOElement"
 import { useContext } from "react"
 import { UserContext } from "../../../context/ContextProvider"
+import { debounce } from 'lodash';
 
 function PLOSection({ title, type, typeDetail, idCTDT, data, setState, setDelete, setData }) {
 
@@ -33,7 +34,8 @@ function PLOSection({ title, type, typeDetail, idCTDT, data, setState, setDelete
                                 <i className="iconoir-help-circle cursorPointer"/>
                             </h4>
                             <button
-                                onClick={() => handleClickAddD({ 
+                                onClick={(e) => handleClickAddD({ 
+                                    e: e.target,
                                     data, 
                                     setState, 
                                     idCTDT, 

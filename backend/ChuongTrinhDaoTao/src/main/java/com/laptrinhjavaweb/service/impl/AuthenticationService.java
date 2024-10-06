@@ -50,6 +50,7 @@ public class AuthenticationService {
 				.email(request.getEmail()).lecturersCode(request.getLecturersCode())
 				.department(department)
 				.password(passwordEncoder.encode(request.getPassword())).roles(roles) // Cập nhật roles từ request
+				.departmentManager(false)
 				.build();
 
 		repository.save(lecturers);

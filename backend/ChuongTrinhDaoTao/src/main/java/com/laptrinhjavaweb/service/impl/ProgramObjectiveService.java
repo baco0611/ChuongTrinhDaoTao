@@ -32,11 +32,12 @@ public class ProgramObjectiveService {
         return programObjectiveRepository.findByEducationProgramProgramId(programId);
     }
     
-    public ProgramObjectiveEntity updateLearningOutcome(Long id, String content) {
+    public ProgramObjectiveEntity updateLearningOutcome(Long id, String content, String symbol) {
         ProgramObjectiveEntity entity = programObjectiveRepository.findById(id)
             .orElseThrow(() -> new ResourceNotFoundException("ProgramObjective not found with id: " + id));
 
         entity.setContent(content);
+        entity.setSymbol(symbol);
         return programObjectiveRepository.save(entity);
     }
     

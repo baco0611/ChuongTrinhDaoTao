@@ -1,0 +1,49 @@
+{
+    "userList": [
+        {
+            "firstName": "Lương",
+            "lastName": "Trần Thanh",
+            "departmentName": "Phân hiệu Đại học Huế tại Quảng Trị",
+            "email": "ttluong@edu.vn",
+            "lecturerId": "1",
+            "lecturerCode": "GV001",
+            "role": ["USER", "ADMIN"]
+        },
+        {
+            "firstName": "Trường",
+            "lastName": "Thái Nhật",
+            "departmentName": "Khoa Giáo dục Thể chất",
+            "email": "tntruong@edu.vn",
+            "lecturerId": "2",
+            "lecturerCode": "GV002",
+            "role": ["USER"]
+        },
+        {
+            "firstName": "Hà",
+            "lastName": "Hoàng",
+            "departmentName": "Khoa Du lịch",
+            "email": "hha@edu.vn",
+            "lecturerId": "3",
+            "lecturerCode": "GV003",
+            "role": ["USER", "ADMIN"]
+        },
+        {
+            "firstName": "Dũng",
+            "lastName": "Nguyễn",
+            "departmentName": "Trường Đại học Luật",
+            "email": "ndung@edu.vn",
+            "lecturerId": "4",
+            "lecturerCode": "GV004",
+            "role": ["USER", "ADMIN"]
+        },
+        {
+            "firstName": "Phong",
+            "lastName": "Trần Nguyên",
+            "departmentName": "Viện Tài nguyên Môi trường",
+            "email": "ttphong@edu.vn",
+            "lecturerId": "5",
+            "lecturerCode": "GV005",
+            "role": ["USER", "ADMIN"]
+        }
+    ]
+}

@@ -12,6 +12,7 @@ import { handleSplitSectionC } from "../Database/HandleActionSectionC"
 import RowBlock from "./RowBlock"
 import { convertValueE } from "../Database/HandleActionSectionE"
 import { resetPage } from "../Database/HandleUpdateDatabase"
+import clsx from "clsx"
 
 function SectionE() {
 
@@ -19,6 +20,7 @@ function SectionE() {
     const { apiURL, fakeApi } = useContext(UserContext)
     const navigate = useNavigate()
     const [ sectionEValue, setSectionEValue ] = useState()
+    const [ valueY, setValueY ] = useState(0)
 
     const [ POValue, setPOValue ] = useState({
         KIEN_THUC: {
@@ -119,6 +121,35 @@ function SectionE() {
 
     const [ POSize, setPOSize ] = useState(0)
 
+    // Function to handle scroll event
+    const handleScroll = () => {
+        const newPositionY = window.scrollY;
+    
+        // Check if the new position Y is greater than 290
+        if (newPositionY > 320) {
+            // If it is, set valueY to 290 and scroll to that position
+            setValueY(320);
+            window.scrollTo({
+                top: 320,
+                behavior: 'instant' // Use 'smooth' for smooth scrolling, 'instant' for immediate jump
+            });
+        } else {
+            // If it is not, update valueY normally
+            setValueY(newPositionY);
+        }
+    };
+
+    // Setup event listener for scrolling
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        // Cleanup function to remove the event listener
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+
     useEffect(() => {
         const POList = [
             ...POValue.KIEN_THUC.data,
@@ -209,98 +240,125 @@ function SectionE() {
             <div id="section-E" className="section">
                 <div className="section-header wrapper">
                     <h1>E. MA TRẬN ĐẦU RA ĐỐI VỚI MỤC TIÊU</h1>
-                </div>
-                <div className="section-E wrapper">
-                    <p className="section-E-details">
+                    <p className="section-E-details" style={{paddingTop: "10px"}}>
                         Hãy bấm vào ô tương ứng với Mục tiêu (PO) theo cột và Chuẩn đầu ra (PLO) theo dòng.<br/>
                         Chỉ tick <span style={{color: '#BE0000'}}><b>X</b></span> vào những ô được chọn.<br/>
                         <span style={{color: '#BE0000'}}>Lưu ý: Dữ liệu chỉ được lưu khi bấm lưu hoặc hoàn tất.</span>
                     </p>
-                    <div className="section-E-main">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th style={{minWidth: '100px'}} rowSpan={3}>Ký kiệu</th>
-                                    <th style={{minWidth: '550px'}} className="title" rowSpan={3}>Chuẩn đầu ra</th>
-                                    <th colSpan={POSize || 3}>Mục tiêu</th>
-                                </tr>
-                                <tr>
-                                    <th colSpan={POValue.KIEN_THUC.data.length}>Kiến thức</th>
-                                    <th colSpan={POValue.KY_NANG.data.length}>Kỹ năng</th>
-                                    <th colSpan={POValue.THAI_DO.data.length}>Thái độ</th>
-                                </tr>
-                                <tr>
-                                    {
-                                        POValue.KIEN_THUC.data.map((item, index) => {
-                                            return (
-                                                <th style={{minWidth: '50px'}} key={index}>{
-                                                    <>
-                                                        {splitItem(item.kiHieu)[0]} 
-                                                        <br/>
-                                                        {splitItem(item.kiHieu)[1]} 
-                                                    </>
-                                                }</th>
-                                            )
-                                        })
-                                    }
-                                    {
-                                        POValue.KY_NANG.data.map((item, index) => {
-                                            return (
-                                                <th style={{minWidth: '50px'}} key={index}>{
-                                                    <>
-                                                        {splitItem(item.kiHieu)[0]} 
-                                                        <br/>
-                                                        {splitItem(item.kiHieu)[1]} 
-                                                    </>
-                                                }</th>
-                                            )
-                                        })
-                                    }
-                                    {
-                                        POValue.THAI_DO.data.map((item, index) => {
-                                            return (
-                                                <th style={{minWidth: '50px'}} key={index}>{
-                                                    <>
-                                                        {splitItem(item.kiHieu)[0]} 
-                                                        <br/>
-                                                        {splitItem(item.kiHieu)[1]} 
-                                                    </>
-                                                }</th>
-                                            )
-                                        })
-                                    }
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <RowBlock
-                                    POList={POValue}
-                                    POSize={POSize}
-                                    PLOList={PLOValue.KIEN_THUC}
-                                    title={'Kiến thức'}
-                                    index={'1.'}
-                                    value={sectionEValue}
-                                    setState={setSectionEValue}
-                                />
-                                <RowBlock
-                                    POList={POValue}
-                                    POSize={POSize}
-                                    PLOList={PLOValue.KY_NANG}
-                                    title={'Kỹ năng'}
-                                    index={'2.'}
-                                    value={sectionEValue}
-                                    setState={setSectionEValue}
-                                />
-                                <RowBlock
-                                    POList={POValue}
-                                    POSize={POSize}
-                                    PLOList={PLOValue.THAI_DO}
-                                    title={'Thái độ'}
-                                    index={'3.'}
-                                    value={sectionEValue}
-                                    setState={setSectionEValue}
-                                />
-                            </tbody>
-                        </table>
+                </div>
+                <div className="section-E content">
+                    <div className="container">
+                        <div className="table-wrapper">
+                            <table>
+                                <thead>
+                                    <tr className="row1">
+                                        <th style={{minWidth: '100px', left: 0, zIndex: 15}} rowSpan={3}>Ký kiệu</th>
+                                        <th style={{minWidth: '450px', maxWidth: '500px', left: "100px", zIndex: 15}} className="title" rowSpan={3}>Chuẩn đầu ra</th>
+                                        <th colSpan={POSize || 3}>Mục tiêu</th>
+                                    </tr>
+                                    <tr className="row2">
+                                        <th colSpan={POValue.KIEN_THUC.data.length}>Kiến thức</th>
+                                        <th colSpan={POValue.KY_NANG.data.length}>Kỹ năng</th>
+                                        <th colSpan={POValue.THAI_DO.data.length}>Thái độ</th>
+                                    </tr>
+                                    <tr className="row3">
+                                        {   
+                                            POValue.KIEN_THUC.data.length 
+                                            ?
+                                            POValue.KIEN_THUC.data.map((item, index) => {
+                                                {/* console.log(item) */}
+                                                return (
+                                                    <th style={{minWidth: '40px'}} 
+                                                        key={index}
+                                                        title={item.noiDung || "null"}
+                                                    >{
+                                                        <>
+                                                            {splitItem(item.kiHieu)[0]} 
+                                                            <br/>
+                                                            {splitItem(item.kiHieu)[1]} 
+                                                        </>
+                                                    }</th>
+                                                )
+                                            })
+                                            :
+                                            <th style={{ minWidth: '40px' }}>N/A<br/>Loading</th>
+                                        }
+                                        {   
+                                            POValue.KY_NANG.data.length 
+                                            ?
+                                            POValue.KY_NANG.data.map((item, index) => {
+                                                {/* console.log(item) */}
+                                                return (
+                                                    <th style={{minWidth: '40px'}} 
+                                                        key={index}
+                                                        title={item.noiDung || "null"}
+                                                    >{
+                                                        <>
+                                                            {splitItem(item.kiHieu)[0]} 
+                                                            <br/>
+                                                            {splitItem(item.kiHieu)[1]} 
+                                                        </>
+                                                    }</th>
+                                                )
+                                            })
+                                            :
+                                            <th style={{ minWidth: '40px' }}>N/A<br/>Loading</th>
+                                        }
+                                        {   
+                                            POValue.THAI_DO.data.length 
+                                            ?
+                                            POValue.THAI_DO.data.map((item, index) => {
+                                                {/* console.log(item) */}
+                                                return (
+                                                    <th style={{minWidth: '40px'}} 
+                                                        key={index}
+                                                        title={item.noiDung || "null"}
+                                                    >{
+                                                        <>
+                                                            {splitItem(item.kiHieu)[0]} 
+                                                            <br/>
+                                                            {splitItem(item.kiHieu)[1]} 
+                                                        </>
+                                                    }</th>
+                                                )
+                                            })
+                                            :
+                                            <th style={{ minWidth: '40px' }}>N/A<br/>Loading</th>
+                                        }
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <RowBlock
+                                        POList={POValue}
+                                        POSize={POSize}
+                                        PLOList={PLOValue.KIEN_THUC}
+                                        title={'Kiến thức'}
+                                        index={'1.'}
+                                        value={sectionEValue}
+                                        setState={setSectionEValue}
+                                    />
+                                    <RowBlock
+                                        POList={POValue}
+                                        POSize={POSize}
+                                        PLOList={PLOValue.KY_NANG}
+                                        title={'Kỹ năng'}
+                                        index={'2.'}
+                                        value={sectionEValue}
+                                        setState={setSectionEValue}
+                                    />
+                                    <RowBlock
+                                        POList={POValue}
+                                        POSize={POSize}
+                                        PLOList={PLOValue.THAI_DO}
+                                        title={'Thái độ'}
+                                        index={'3.'}
+                                        value={sectionEValue}
+                                        setState={setSectionEValue}
+                                    />
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,42 @@
+@import "../../variable.scss";
+
+.program-section {
+    .title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 40px;
+        border-bottom: 1.5px solid $primary-color;
+
+        h1 {
+            color: $primary-color;
+            font-size: 25px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        button {
+            padding: 8px;
+            background-color: $primary-color;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 18;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px; 
+
+            &:hover {
+                background-color: $base-color;
+                color: $primary-color;
+            }
+        }
+    }
+
+    // .main {
+    //     table {
+            
+    //     }
+    // }
+}

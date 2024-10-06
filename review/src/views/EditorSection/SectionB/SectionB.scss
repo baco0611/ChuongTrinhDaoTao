@@ -1,0 +1,18 @@
+#sectionB {
+    .content {
+        width: 100%;
+    }
+
+    textarea {
+        width: 100%;
+        min-height: 30vh;
+        border: none;
+        resize: vertical;
+        padding: 12px 25px !important;
+        overflow: auto !important;
+        line-height: 22px;
+        background-color: #F4F4F4;
+        font-size: 13px;
+        font-weight: 400;
+    }
+}

@@ -1,0 +1,50 @@
+{
+  "responsibility": {
+    "data": [
+      {
+        "departmentId": "100000",
+        "departmentName": "PHÂN HIỆU ĐẠI HỌC HUẾ TẠI QUẢNG TRỊ",
+        "responsibleLecturer": null,
+        "lecturerList": [
+          {
+            "id": 1,
+            "lecturerCode": "GV001",
+            "lecturerName": "Trần Thanh Lương"
+          },
+          {
+            "id": 2,
+            "lecturerCode": "GV002",
+            "lecturerName": "Nguyễn Văn A"
+          },
+          {
+            "id": 3,
+            "lecturerCode": "GV003",
+            "lecturerName": "Nguyễn Văn B"
+          }
+        ]
+      },
+      {
+        "departmentId": "110000",
+        "departmentName": "KHOA GIÁO DỤC THỂ CHẤT",
+        "responsibleLecturer": {
+          "id": 5,
+          "lecturerCode": "GV005",
+          "lecturerName": "Trần Thế X"
+        },
+        "lecturerList": [
+          {
+            "id": 4,
+            "lecturerCode": "GV004",
+            "lecturerName": "Lê Thị B"
+          },
+          {
+            "id": 5,
+            "lecturerCode": "GV005",
+            "lecturerName": "Trần Thế X"
+          }
+        ]
+      }
+    ],
+    "status": 200
+  }
+}

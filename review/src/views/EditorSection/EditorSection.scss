@@ -1,0 +1,32 @@
+@import "../../variable.scss";
+
+.editor-section {
+    min-height: 60vh;
+    padding-bottom: 75px;
+
+    .title {
+        padding-bottom: 5px;
+        h1 {
+            font-size: 18px;
+            font-weight: 700;
+            color: $primary-color;
+            text-transform: uppercase;
+            line-height: 30px;
+            border-bottom: 1px $button-color solid;
+        }
+
+        p {
+            font-size: 13px;
+            line-height: 16px;
+            padding-top: 5px;
+            color: $highlight-color;
+            font-weight: 600;
+            
+            &.content {
+                color: $primary-color;
+                font-weight: 500;
+                margin-bottom: 0;
+            }
+        }
+    }
+}

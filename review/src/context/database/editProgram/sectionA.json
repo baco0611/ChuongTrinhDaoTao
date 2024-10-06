@@ -1,0 +1,91 @@
+{
+  "sectionA": [
+    {
+      "id": "6",
+      "data": {
+        "admissionTarget": "Học sinh",
+        "advancedSkillsDevelopment": "Sau khi tốt nghiệp sinh viên có thể học thạc sỹ và tiến sĩ ngành Khoa học máy tính, Hệ thống thông tin",
+        "diploma": "cu_nhan",
+        "duration": "8",
+        "educationLevel": "Đại học",
+        "employmentPositionAfterGraduation": "- Chuyên viên gia công, phát triển và kiểm thử phần mềm, thiết kế Website tại các công ty phần mềm trong và ngoài nước;\n- Chuyên viên tư vấn và thiết kế giải pháp mạng, giải pháp công nghệ thông tin, vận hành và phát triển các hệ thống thông tin cho các cơ quan và doanh nghiệp;\n- Chuyên viên phân tích, thiết kế, cài đặt, quản trị, bảo trì các phần mềm máy tính trong các tổ chức, doanh nghiệp;\n- Giảng dạy về ngành Công nghệ thông tin tại các trường đại học, cao đẳng, trung cấp chuyên nghiệp, dạy nghề và các trường phổ thông.",
+        "englishName": "Information Technology",
+        "fieldCode": "7480201",
+        "fieldName": "Công nghệ thông tin",
+        "graduationConditional": "- Tích lũy đủ: 122 tín chỉ;\n- Điểm TBCTL toàn khóa: từ 2,00 trở lên;\n- Thỏa mãn một số yêu cầu về kết quả học tập đối với nhóm học phần thuộc ngành đào tạo chính;\n- Tích lũy đủ số tín chỉ cần thiết cho mỗi khối kiến thức;\n- Có chứng chỉ GDQPAN;\n- Hoàn thành các học phần GDTC;\n- Có chứng chỉ ứng dụng CNTT cơ bản;\n- Đạt trình độ ngoại ngữ không chuyên bậc 3/6 (B1) hoặc 2/6 (A2) nếu sinh viên là người dân tộc ít người.",
+        "managingDepartment": "Công nghệ thông tin",
+        "referenceProgram": "ĐẠI HỌC HÀ NỘI (http://hanu.vn/index.php/vn/lkn-cac-chuong-trinh-dao-tao/204-tuyen-sinh/chuong-trinh-dao-tao/3390-chuong-trinh-dao-tao-nganh-cong-nghe-thong-tin-he-cu-nhan-chinh-quy.html);\nHỌC VIỆN CÔNG NGHỆ BƯU CHÍNH VIỄN THÔNG (https://portal.ptit.edu.vn/giao-duc-va-dao-tao/chuan-dau-ra/chuan-dau-ra-nganh-cong-nghe-thong-tin/);\nKENNESAW STATE UNIVERSITY (https://ccse.kennesaw.edu/it/accreditation/outcomes-objectives.php)",
+        "requiredCredits": "122",
+        "trainingMode": "chinh_quy",
+        "vietnameseName": "Công nghệ thông tin123",
+        "programId": "6",
+        "id": "6"
+      },
+      "status": 200
+    },
+    {
+      "id": "16",
+      "data": {
+        "programId": 16,
+        "vietnameseName": "Chương trình P 123",
+        "englishName": null,
+        "educationLevel": null,
+        "fieldCode": "F016",
+        "fieldName": null,
+        "admissionTarget": null,
+        "duration": "null",
+        "trainingMode": null,
+        "requiredCredits": "null",
+        "graduationConditional": null,
+        "diploma": null,
+        "employmentPositionAfterGraduation": null,
+        "advancedSkillsDevelopment": null,
+        "referenceProgram": null,
+        "managingDepartment": "TRUNG TÂM GIÁO DỤC QUỐC PHÒNG",
+        "id": "16"
+      }
+    },
+    {
+      "id": "26",
+      "data": {
+        "vietnameseName": "Chương trình Z",
+        "englishName": "",
+        "educationLevel": null,
+        "fieldCode": "F026",
+        "fieldName": null,
+        "managingDepartment": "TRUNG TÂM ĐÀO TẠO TỪ XA",
+        "admissionTarget": null,
+        "duration": "4",
+        "trainingMode": null,
+        "requiredCredits": "123",
+        "graduationConditional": null,
+        "diploma": null,
+        "employmentPositionAfterGraduation": null,
+        "advancedSkillsDevelopment": null,
+        "referenceProgram": null,
+        "id": "26",
+        "programId": 26
+      }
+    }
+  ],
+  "specialization": [
+    {
+      "id": "1",
+      "specializationName": "Khoa học máy tính",
+      "specializationId": "1",
+      "programId": "6"
+    },
+    {
+      "id": "2",
+      "specializationName": "Công nghệ phần mềm",
+      "specializationId": "2",
+      "programId": "6"
+    },
+    {
+      "id": "3",
+      "specializationName": "Mạng máy tính",
+      "specializationId": "3",
+      "programId": "6"
+    }
+  ]
+}

@@ -20,7 +20,7 @@ public class ProgramLearningOutcomeConverter {
         dto.setSymbol(entity.getSymbol());
         dto.setContent(entity.getContent());
         dto.setType(entity.getLearningOutcomeType());
-        dto.setType(entity.getDetailedlearningOutcomeType());
+        dto.setTypeDetail(entity.getDetailedlearningOutcomeType());
         dto.setCompetency(entity.getCompetencyLevel());
         dto.setProgramId(entity.getEducationProgram() != null ? entity.getEducationProgram().getProgramId() : null);
         return dto;

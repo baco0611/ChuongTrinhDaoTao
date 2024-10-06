@@ -25,6 +25,7 @@ const handleSplitSectionC = ({ data, setSectionCValue, idctdt }) => {
                 ...prev,
                 [type]: {
                     ...dataType,
+                    // data: handleChangeDataC(dataList, type, dataType.typeIndex, idctdt)
                     data: handleChangeDataC(dataList, type, dataType.typeIndex, idctdt)
                 }
             }
@@ -145,7 +146,26 @@ const handleClickDeleteC = async ({ e, data, idctdt, apiURL, setData, type }) =>
     })
 }
 
-const handleClickAddC = async({ idCTDT, type, setData, dataSectionC, apiURL }) => {
+const handleClickAddC = async({ e, idCTDT, type, setData, dataSectionC, apiURL }) => {
+
+    const getButton = (element) => {
+        if(element.tagName.toLowerCase() === 'button')
+            return element
+
+        while(element.parentElement) {
+            if(element.parentElement.tagName.toLowerCase() === 'button')
+                return element.parentElement
+            
+            element = element.parentElement
+        }
+    }
+
+    console.log(e)
+    // Set button into non-active to ignore many request
+    const button = getButton(e)
+    console.log(e)
+    button.classList.add('nonactive');
+
     const dataType = dataSectionC[type]
     const data = dataType.data
     let list = [
@@ -192,6 +212,8 @@ const handleClickAddC = async({ idCTDT, type, setData, dataSectionC, apiURL }) =
         setSectionCValue: setData.setSectionCValue,
         idctdt: idCTDT
     })
+
+    button.classList.remove('nonactive');
 }
 
 const handleUpdateSectionC = async (id, api, setData) => {

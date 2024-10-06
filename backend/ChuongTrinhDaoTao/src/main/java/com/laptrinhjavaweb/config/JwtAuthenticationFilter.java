@@ -37,7 +37,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String lecturersCode;
-
         try {
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
                 filterChain.doFilter(request, response);
@@ -54,11 +53,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails,
                             null,
-                            userDetails.getAuthorities()
-                    );
+                            userDetails.getAuthorities());
                     authToken.setDetails(
-                            new WebAuthenticationDetailsSource().buildDetails(request)
-                    );
+                            new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
             }
@@ -74,10 +71,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // Xử lý các ngoại lệ liên quan đến JWT khác
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json; charset=UTF-8");
-            response.getWriter().write("{\"status\": 401, \"message\": \"Token không hợp lệ, vui lòng đăng nhập lại.\"}");
+            response.getWriter()
+                    .write("{\"status\": 401, \"message\": \"Token không hợp lệ, vui lòng đăng nhập lại.\"}");
         } catch (Exception e) {
             // Xử lý các ngoại lệ khác
-        	e.printStackTrace();
+            e.printStackTrace();
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.setContentType("application/json; charset=UTF-8");
             response.getWriter().write("{\"status\": 500, \"message\": \"Có lỗi xảy ra, vui lòng thử lại sau.\"}");

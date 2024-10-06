@@ -42,6 +42,7 @@ public class LecturersConverter {
 		List<String> roles = entity.getRoles().stream().map(role -> role.name()).collect(Collectors.toList());
 		dto.setRole(roles);
 		dto.setDepartmentName(entity.getDepartment() != null ? entity.getDepartment().getDepartmentName() : null);
+		dto.setEmail(entity.getEmail() != null ? entity.getEmail() : null);
 
 		return dto;
 	}
