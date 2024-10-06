@@ -48,4 +48,24 @@ public class CertificationRequirementService {
     	repo.deleteById(id);
         return repo.findAll();
     }
+    
+    public Map<String, Object> createCertificationRequirements() {
+        Map<String, Object> response = new HashMap<>();
+        CertificationRequirementEntity certificationRequirementEntity = new CertificationRequirementEntity();
+        certificationRequirementEntity.setCertificationName("");
+        repo.save(certificationRequirementEntity);
+        List<CertificationRequirementEntity> certificationRequirements = repo.findAll();
+        List<Map<String, Object>> data = certificationRequirements.stream()
+            .map(cert -> {
+                Map<String, Object> certMap = new HashMap<>();
+                certMap.put("id", cert.getCertificationId());
+                certMap.put("condition", cert.getCertificationName());
+                return certMap;
+            }).collect(Collectors.toList());
+
+        response.put("data", data);
+        response.put("status", 200);
+
+        return response;
+    }
 }
