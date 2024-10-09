@@ -221,11 +221,6 @@ public class LecturerService implements ILecturerService {
 			data.put("department", null);
 		}
 
-		if (request.getPassword() == null || request.getPassword().isEmpty()) {
-			data.put("password", Map.of("message", "Mật khẩu không được trống"));
-		} else {
-			data.put("password", null);
-		}
 		if (request.getFirstName() == null || request.getFirstName().isEmpty()) {
 			data.put("firstName", Map.of("message", "Vui lòng điền tên"));
 		} else {
@@ -242,7 +237,7 @@ public class LecturerService implements ILecturerService {
 			LecturersEntity lecturer = LecturersEntity.builder().lecturersCode(request.getLecturerCode())
 					.firstName(request.getFirstName()).lastName(request.getLastName()).email(request.getEmail())
 					.department(department).deleted(false).departmentManager(false)
-					.password(passwordEncoder.encode(request.getPassword()))
+					.password(passwordEncoder.encode("@KhoaHoc123"))
 					.roles(request.getRoles().stream().map(role -> Role.valueOf(role)).collect(Collectors.toList()))
 					.build();
 			lecturersRepository.save(lecturer);

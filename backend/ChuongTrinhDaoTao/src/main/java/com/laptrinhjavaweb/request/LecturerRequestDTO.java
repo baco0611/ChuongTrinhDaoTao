@@ -31,9 +31,6 @@ public class LecturerRequestDTO {
 
     @NotBlank(message = "Mã phòng ban không được để trống")
     private String departmentCode;
-    
-    @NotBlank(message = "Mật khẩu không được để trống")
-    private String password;
 
     private List<String> roles;
 }

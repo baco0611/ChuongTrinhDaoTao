@@ -97,10 +97,6 @@ const router = createBrowserRouter([
                 element: <UserManage/>
             },
             {
-                path: '/user/insert',
-                element: <InsertUser/>
-            },
-            {
                 path: '/dictionary/graduation',
                 element: <GraduationRequirement/>
             },
@@ -109,6 +105,10 @@ const router = createBrowserRouter([
                 element: <ConditionalCertification/>
             },
         ]
+    },
+    {
+        path: '/user/insert',
+        element: <InsertUser/>
     },
     {
         path: '/error',

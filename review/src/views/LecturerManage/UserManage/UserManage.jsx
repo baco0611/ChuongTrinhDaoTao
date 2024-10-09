@@ -44,13 +44,13 @@ export default function UserManage() {
             let token = document.cookie.split("; ")
             token = token.filter(element => element.includes("ACCESS_TOKEN"))[0]?.split("=")[1]
 
-            const departmentResult = await postData(api, "/user-manage", token, request)
+            const departmentResult = await postData(api, "/api/lecturer/getAll", token, request)
             console.log(departmentResult)
             setLecturerList(departmentResult.data)   
         }
     }
 
-    const { data , isLoading, isError } = useQuery(`user-manage-search`, fetchLecturerAPI(serverAPI),{
+    const { data , isLoading, isError } = useQuery(`user-manage-search`, fetchLecturerAPI(apiURL),{
         cacheTime: 0,
         refetchOnWindowFocus: false,
     })

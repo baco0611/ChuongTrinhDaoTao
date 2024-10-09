@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../../context/ContextProvider'
 import { Pagination } from '@mui/material'
 import { postData } from '../../../utils/function'
+import { handleChangeInformation } from './user-manage'
 
 export default function UserBlock({ data, setState, currentPage, setCurrentPage, request, setRequest }) {
     const [ selectedUser, setSelectedUser ] = useState()
@@ -25,14 +26,13 @@ export default function UserBlock({ data, setState, currentPage, setCurrentPage,
             token = token.filter(element => element.includes("ACCESS_TOKEN"))[0]
             token = token.split("=")[1]
 
-            const departmentResult = await postData(serverAPI, "/user-manage", token, request)
+            const departmentResult = await postData(apiURL, "/api/lecturer/getAll", token, request)
             setState(departmentResult.data)   
         }
         fetchData();
     }, [currentPage])
 
     console.log(selectedUser)
-    // console.log(data)
 
     return (
         <div className='content mt-4'>
@@ -95,10 +95,10 @@ export default function UserBlock({ data, setState, currentPage, setCurrentPage,
                                 name='lastName'
                                 value={selectedUser.lastName || ""}
                                 autoComplete='off'
-                                // onChange={(e) => handleChangeInformation({
-                                //     e,
-                                //     setState: setUserInformation,
-                                // })}
+                                onChange={(e) => handleChangeInformation({
+                                    e,
+                                    setState: setSelectedUser,
+                                })}
                                 // onBlur={e => checkValidInformation({e})}
                                 // onFocus={e => validElement(e.target)}
                             />
@@ -111,10 +111,10 @@ export default function UserBlock({ data, setState, currentPage, setCurrentPage,
                                 name='firstName'
                                 value={selectedUser.firstName || ""}
                                 autoComplete='off'
-                                // onChange={(e) => handleChangeInformation({
-                                //     e,
-                                //     setState: setUserInformation,
-                                // })}
+                                onChange={(e) => handleChangeInformation({
+                                    e,
+                                    setState: setSelectedUser,
+                                })}
                                 // onBlur={e => checkValidInformation({e})}
                                 // onFocus={e => validElement(e.target)}
                             />
@@ -127,10 +127,10 @@ export default function UserBlock({ data, setState, currentPage, setCurrentPage,
                                 name='email'
                                 value={selectedUser.email || ""}
                                 autoComplete='off'
-                                // onChange={(e) => handleChangeInformation({
-                                //     e,
-                                //     setState: setUserInformation,
-                                // })}
+                                onChange={(e) => handleChangeInformation({
+                                    e,
+                                    setState: setSelectedUser,
+                                })}
                                 // onBlur={e => checkValidInformation({e})}
                                 // onFocus={e => validElement(e.target)}
                             />

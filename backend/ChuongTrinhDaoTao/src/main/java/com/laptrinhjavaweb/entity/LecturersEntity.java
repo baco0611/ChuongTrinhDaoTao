@@ -45,6 +45,7 @@ public class LecturersEntity implements UserDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long lecturersId;
 
+	@Column(columnDefinition = "nvarchar(255)")
 	private String lecturersCode;
 
 	@Column(columnDefinition = "nvarchar(255)")
@@ -57,10 +58,10 @@ public class LecturersEntity implements UserDetails {
 
 	private String password;
 
-	@Column(name = "deleted", nullable = true, columnDefinition = "TINYINT(1) DEFAULT 0")
+	@Column(name = "deleted", nullable = true, columnDefinition = "TINYINT DEFAULT 0")
 	private Boolean deleted = false;
 	
-	@Column(name = "department_manager", nullable = true, columnDefinition = "TINYINT(1) DEFAULT 0")
+	@Column(name = "department_manager", nullable = true, columnDefinition = "TINYINT DEFAULT 0")
 	private Boolean departmentManager = false;
 
 	@ManyToOne(fetch = FetchType.LAZY)

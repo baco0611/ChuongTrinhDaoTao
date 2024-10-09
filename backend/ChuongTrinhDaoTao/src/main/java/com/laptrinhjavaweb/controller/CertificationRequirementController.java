@@ -47,6 +47,6 @@ public class CertificationRequirementController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteCertificationRequirement(@PathVariable Long id) {
     	Map<String, Object> updatedList = certReqService.deleteCertificationRequirement(id);
-        return ResponseEntity.ok().body(new Response(updatedList, 200));
+        return ResponseEntity.ok().body(updatedList);
     }
 }
