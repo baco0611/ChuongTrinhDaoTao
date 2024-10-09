@@ -50,4 +50,12 @@ public class GraduationConditionService {
 
 		return response;
 	}
+	
+	public List<GraduationConditionEntity> createGraduationConditions() {
+		GraduationConditionEntity graduationConditionEntity = new GraduationConditionEntity();
+		graduationConditionEntity.setCondition("");
+		graduationConditionRepository.save(graduationConditionEntity);
+		return graduationConditionRepository.findAll();
+	}
+	
 }

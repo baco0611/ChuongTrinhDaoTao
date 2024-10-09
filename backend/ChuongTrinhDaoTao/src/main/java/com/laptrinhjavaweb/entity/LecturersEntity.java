@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import com.laptrinhjavaweb.converter.RolesConverter;
 import com.laptrinhjavaweb.dataEnum.Role;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -20,10 +23,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PreRemove;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -54,7 +57,10 @@ public class LecturersEntity implements UserDetails {
 
 	private String password;
 
-	@Column(name = "department_manager", nullable = true, columnDefinition = "TINYINT DEFAULT 0")
+	@Column(name = "deleted", nullable = true, columnDefinition = "TINYINT(1) DEFAULT 0")
+	private Boolean deleted = false;
+	
+	@Column(name = "department_manager", nullable = true, columnDefinition = "TINYINT(1) DEFAULT 0")
 	private Boolean departmentManager = false;
 
 	@ManyToOne(fetch = FetchType.LAZY)
