@@ -4,7 +4,11 @@
       {
         "departmentId": "100000",
         "departmentName": "PHÂN HIỆU ĐẠI HỌC HUẾ TẠI QUẢNG TRỊ",
-        "responsibleLecturer": null,
+        "responsibleLecturer": {
+          "id": 1,
+          "lecturerCode": "GV001",
+          "lecturerName": "Trần Thanh Lương"
+        },
         "lecturerList": [
           {
             "id": 1,

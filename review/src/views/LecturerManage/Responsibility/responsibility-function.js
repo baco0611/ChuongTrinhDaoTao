@@ -5,11 +5,11 @@ export const changeResponsibility = async ({ api, token, element, department, ty
     if(!user || !user.role.includes("ASSIGN_RESPONSIBILITY")) return
     
     if (type == "1") return;
-    let title, text, payload;
+    let title, html, payload;
 
     if (type == "0") {
         title = "PHÂN CÔNG PHỤ TRÁCH";
-        text = `Bạn có muốn phân công giảng viên ${element.lecturerName} phụ trách đơn vị ${department.name} không?`;
+        html = `Bạn có muốn phân công giảng viên <strong>${element.lecturerName}</strong> phụ trách đơn vị <strong>${department.name}</strong> không?`;
         payload = {
             ...element,
             ...department,
@@ -17,13 +17,13 @@ export const changeResponsibility = async ({ api, token, element, department, ty
         };
     } else if (type == "2") {
         title = "HỦY PHÂN CÔNG PHỤ TRÁCH";
-        text = `Bạn có muốn hủy phân công phụ trách đơn vị ${department.name} không?`;
+        html = `Bạn có muốn hủy phân công phụ trách đơn vị <strong>${department.name}</strong> không?`;
         payload = { ...department };
     }
 
     const result = await Swal.fire({
         title,
-        text,
+        html,  // Sử dụng html thay cho text để dùng thẻ HTML
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Có",
