@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateLecturerRequest {
+	private Long lecturersId;
 	private String firstName;
 	private String lastName;
 	private String email;

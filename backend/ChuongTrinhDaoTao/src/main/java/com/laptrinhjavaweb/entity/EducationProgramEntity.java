@@ -4,15 +4,27 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Data;
 
-//Table: ChuongTrinhDaoTao
 @Entity
 @Table(name = "EducationProgram")
 @Data
 public class EducationProgramEntity {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long programId;
@@ -31,12 +43,6 @@ public class EducationProgramEntity {
 
     @Column(length = 50, columnDefinition = "nvarchar(255)")
     private String educationLevel;
-
-    @Column(length = 50)
-    private String fieldCode;
-
-    @Column(length = 500, columnDefinition = "nvarchar(255)")
-    private String fieldName;
 
     @Column(length = 50, columnDefinition = "nvarchar(255)")
     private String admissionTarget;
@@ -116,6 +122,20 @@ public class EducationProgramEntity {
         this.updatedAt = new Date();
     }
 
+    // Relationship with FieldOfStudyEntity
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "field_of_study_id")
+    private FieldOfStudyEntity fieldOfStudy;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="department_id")
+    private DepartmentEntity department;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="lecturers_id")
+    private LecturersEntity lecturer;
+    
+    // Other relationships remain unchanged
     @OneToMany(mappedBy = "educationProgram")
     private List<SpecializationTrainingEntity> specializations = new ArrayList<>();
 
@@ -136,13 +156,4 @@ public class EducationProgramEntity {
 
     @OneToMany(mappedBy = "educationProgram")
     private List<CertificationLearningOutcomeMatrixEntity> certificationOutcomeMatrixs = new ArrayList<>();
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="departmentId")
-    private DepartmentEntity department;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="lecturersId")
-    private LecturersEntity lecturer;
-
 }

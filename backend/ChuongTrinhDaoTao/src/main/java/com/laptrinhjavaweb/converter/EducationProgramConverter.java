@@ -2,11 +2,14 @@ package com.laptrinhjavaweb.converter;
 
 import java.text.SimpleDateFormat;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.laptrinhjavaweb.dto.EducationProgramDTO;
 import com.laptrinhjavaweb.dto.SimplifiedTrainingProgramDTO;
 import com.laptrinhjavaweb.entity.EducationProgramEntity;
+import com.laptrinhjavaweb.entity.FieldOfStudyEntity;
+import com.laptrinhjavaweb.repository.FieldOfStudyRepository;
 import com.laptrinhjavaweb.request.UpdateEducationRequest;
 import com.laptrinhjavaweb.response.CreditsResponse;
 import com.laptrinhjavaweb.response.EducationProgramResponse;
@@ -17,6 +20,8 @@ import com.laptrinhjavaweb.response.UpdateEducationResponse;
 
 @Component
 public class EducationProgramConverter {
+	@Autowired
+	private FieldOfStudyRepository fieldOfStudyRepository ;
 	public EducationProgramDTO toDTO(EducationProgramEntity trainingProgramEntity) {
         EducationProgramDTO dto = new EducationProgramDTO();
         dto.setProgramId(trainingProgramEntity.getProgramId());
@@ -25,8 +30,8 @@ public class EducationProgramConverter {
         dto.setVietnameseName(trainingProgramEntity.getVietnameseName());
         dto.setEnglishName(trainingProgramEntity.getEnglishName());
         dto.setEducationLevel(trainingProgramEntity.getEducationLevel());
-        dto.setFieldCode(trainingProgramEntity.getFieldCode());
-        dto.setFieldName(trainingProgramEntity.getFieldName());
+        dto.setFieldCode(trainingProgramEntity.getFieldOfStudy().getFieldCode());
+        dto.setFieldName(trainingProgramEntity.getFieldOfStudy().getFieldName());
         dto.setAdmissionTarget(trainingProgramEntity.getAdmissionTarget());
         dto.setDuration(trainingProgramEntity.getDuration());
         dto.setTrainingMode(trainingProgramEntity.getTrainingMode());
@@ -54,14 +59,16 @@ public class EducationProgramConverter {
     }
 	public EducationProgramEntity toEntity(EducationProgramDTO dto) {
         EducationProgramEntity entity = new EducationProgramEntity();
+        FieldOfStudyEntity fieldOfStudyEntity= fieldOfStudyRepository.findByFieldCode(dto.getFieldCode()).orElse(null);
         entity.setProgramId(dto.getProgramId());
         entity.setProgramCode(dto.getProgramCode());
         entity.setVersion(dto.getVersion());
         entity.setVietnameseName(dto.getVietnameseName());
         entity.setEnglishName(dto.getEnglishName());
         entity.setEducationLevel(dto.getEducationLevel());
-        entity.setFieldCode(dto.getFieldCode());
-        entity.setFieldName(dto.getFieldName());
+        if (fieldOfStudyEntity!=null) {
+        	entity.setFieldOfStudy(fieldOfStudyEntity);
+        }
         entity.setAdmissionTarget(dto.getAdmissionTarget());
         entity.setDuration(dto.getDuration());
         entity.setTrainingMode(dto.getTrainingMode());
@@ -148,7 +155,7 @@ public class EducationProgramConverter {
         EducationProgramResponse dto = new EducationProgramResponse();
         dto.setProgramCode(entity.getProgramCode());
         dto.setProgramName(entity.getVietnameseName());
-        dto.setFieldName(entity.getFieldName());
+        dto.setFieldName(entity.getFieldOfStudy().getFieldName());
         dto.setStatus(entity.getStatus().toString()); // Chuyển đổi sang chuỗi
         dto.setProgramId(entity.getProgramId().toString());
         dto.setResponsiblePerson(entity.getLecturer().getLastName() +" "+ entity.getLecturer().getFirstName());
@@ -172,8 +179,8 @@ public class EducationProgramConverter {
 	        dto.setVietnameseName(entity.getVietnameseName());
 	        dto.setEnglishName(entity.getEnglishName());
 	        dto.setEducationLevel(entity.getEducationLevel());
-	        dto.setFieldCode(entity.getFieldCode());
-	        dto.setFieldName(entity.getFieldName());
+	        dto.setFieldCode(entity.getFieldOfStudy().getFieldName());
+	        dto.setFieldName(entity.getFieldOfStudy().getFieldCode());
 	        dto.setAdmissionTarget(entity.getAdmissionTarget());
 	        dto.setDuration(String.valueOf(entity.getDuration()));
 	        dto.setTrainingMode(entity.getTrainingMode());
@@ -192,7 +199,7 @@ public class EducationProgramConverter {
 	        if (request == null) {
 	            return null;
 	        }
-
+	        FieldOfStudyEntity fieldOfStudyEntity= fieldOfStudyRepository.findByFieldCode(request.getFieldCode()).orElse(null);
 	        entity.setAdmissionTarget(request.getAdmissionTarget());
 	        entity.setAdvancedSkillsDevelopment(request.getAdvancedSkillsDevelopment());
 	        entity.setDiploma(request.getDiploma());
@@ -200,8 +207,9 @@ public class EducationProgramConverter {
 	        entity.setEducationLevel(request.getEducationLevel());
 	        entity.setEmploymentPositionAfterGraduation(request.getEmploymentPositionAfterGraduation());
 	        entity.setEnglishName(request.getEnglishName());
-	        entity.setFieldCode(request.getFieldCode());
-	        entity.setFieldName(request.getFieldName());
+	        if (fieldOfStudyEntity!=null) {
+	        	entity.setFieldOfStudy(fieldOfStudyEntity);
+	        }
 	        entity.setGraduationConditions(request.getGraduationConditional());
 	        entity.setResponsiblePerson(request.getManagingDepartment());
 	        entity.setReferenceProgram(request.getReferenceProgram());
@@ -217,7 +225,6 @@ public class EducationProgramConverter {
 	        if (entity == null) {
 	            return null;
 	        }
-
 	        UpdateEducationResponse response = new UpdateEducationResponse();
 	        response.setAdmissionTarget(entity.getAdmissionTarget());
 	        response.setAdvancedSkillsDevelopment(entity.getAdvancedSkillsDevelopment());
@@ -226,8 +233,8 @@ public class EducationProgramConverter {
 	        response.setEducationLevel(entity.getEducationLevel());
 	        response.setEmploymentPositionAfterGraduation(entity.getEmploymentPositionAfterGraduation());
 	        response.setEnglishName(entity.getEnglishName());
-	        response.setFieldCode(entity.getFieldCode());
-	        response.setFieldName(entity.getFieldName());
+	        response.setFieldCode(entity.getFieldOfStudy().getFieldCode());
+	        response.setFieldName(entity.getFieldOfStudy().getFieldName());
 	        response.setGraduationConditional(entity.getGraduationConditions());
 	        response.setManagingDepartment(entity.getResponsiblePerson());
 	        response.setReferenceProgram(entity.getReferenceProgram());
