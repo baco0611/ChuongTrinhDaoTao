@@ -19,7 +19,7 @@ import UserManage from './views/LecturerManage/UserManage/UserManage'
 import GraduationRequirement from './views/Dictionary/GraduationRequirement/GraduationRequirement'
 import ConditionalCertification from './views/Dictionary/ConditionalCertification/ConditionalCertification'
 import User from './views/User/User'
-import InsertUser from './views/LecturerManage/UserManage/InsertUser'
+import InsertUser from './views/InsertUser/InsertUser'
 
 const router = createBrowserRouter([
     {

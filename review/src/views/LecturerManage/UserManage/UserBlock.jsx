@@ -4,6 +4,7 @@ import { UserContext } from '../../../context/ContextProvider'
 import { Pagination } from '@mui/material'
 import { postData } from '../../../utils/function'
 import { handleChangeInformation } from './user-manage'
+import UserInfo from './UserInfo'
 
 export default function UserBlock({ data, setState, currentPage, setCurrentPage, request, setRequest }) {
     const [ selectedUser, setSelectedUser ] = useState()
@@ -40,10 +41,11 @@ export default function UserBlock({ data, setState, currentPage, setCurrentPage,
                 <table>
                     <thead>
                         <tr>
-                            <th className='center' style={{ width: "10%" }}>STT</th>
-                            <th style={{ width: "23%" }}>Họ</th>
-                            <th style={{ width: "17%" }}>Tên</th>
-                            <th style={{ width: "60%" }}>Đơn vị</th>
+                            <th className='center' style={{ width: "7%" }}>STT</th>
+                            <th style={{ width: "10%" }}>Mã GV</th>
+                            <th style={{ width: "20%" }}>Họ</th>
+                            <th style={{ width: "13%" }}>Tên</th>
+                            <th style={{ width: "50%" }}>Đơn vị</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,6 +58,7 @@ export default function UserBlock({ data, setState, currentPage, setCurrentPage,
                                     onClick={() => setSelectedUser(element)}
                                 >
                                     <td className='center'>{(data.pageInformation.pageOrder-1) * data.pageInformation.numOfElement + index + 1}</td>
+                                    <td>{element.lecturerCode}</td>
                                     <td>{element.lastName}</td>
                                     <td>{element.firstName}</td>
                                     <td>{element.departmentName}</td>
@@ -69,104 +72,17 @@ export default function UserBlock({ data, setState, currentPage, setCurrentPage,
                     <Pagination
                         count={data.pageInformation.totalPages}
                         page={currentPage}
-                        // onChange={handlePageChange}
+                        onChange={handlePageChange}
                         color="primary"
                     />
                 </div>
             </div>
-            <div className='user-information'>
-                {
-                    selectedUser &&
-                    <div className='information-block'>
-                        <div className='input-block'>
-                            <p>Mã giảng viên</p>
-                            <input
-                                type='text'
-                                name='lecturerCode'
-                                value={selectedUser.lecturerCode || ""}
-                                autoComplete='off'
-                            />
-                            <span></span>
-                        </div>
-                        <div className='input-block available'>
-                            <p>Họ</p>
-                            <input
-                                type='text'
-                                name='lastName'
-                                value={selectedUser.lastName || ""}
-                                autoComplete='off'
-                                onChange={(e) => handleChangeInformation({
-                                    e,
-                                    setState: setSelectedUser,
-                                })}
-                                // onBlur={e => checkValidInformation({e})}
-                                // onFocus={e => validElement(e.target)}
-                            />
-                            <span></span>
-                        </div>
-                        <div className='input-block available'>
-                            <p>Tên (1 chữ cuối)</p>
-                            <input
-                                type='text'
-                                name='firstName'
-                                value={selectedUser.firstName || ""}
-                                autoComplete='off'
-                                onChange={(e) => handleChangeInformation({
-                                    e,
-                                    setState: setSelectedUser,
-                                })}
-                                // onBlur={e => checkValidInformation({e})}
-                                // onFocus={e => validElement(e.target)}
-                            />
-                            <span></span>
-                        </div>
-                        <div className='input-block available'>
-                            <p>Email</p>
-                            <input
-                                type='text'
-                                name='email'
-                                value={selectedUser.email || ""}
-                                autoComplete='off'
-                                onChange={(e) => handleChangeInformation({
-                                    e,
-                                    setState: setSelectedUser,
-                                })}
-                                // onBlur={e => checkValidInformation({e})}
-                                // onFocus={e => validElement(e.target)}
-                            />
-                            <span></span>
-                        </div>
-                        <div className='input-block'>
-                            <p>Đơn vị</p>
-                            <input
-                                type='text'
-                                name='departmentName'
-                                value={selectedUser.departmentName || ""}
-                                autoComplete='off'
-                            />
-                            <span></span>
-                        </div>
-                        <div className='input-block'>
-                            <p>Quyền truy cập</p>
-                            <input
-                                type='text'
-                                name='role'
-                                value={selectedUser.role.join(", ") || ""}
-                                autoComplete='off'
-                                readOnly
-                            />
-                            <span></span>
-                        </div>
-                        <button
-                            // onClick={() => handleSavingInformation({
-                            //     api: serverAPI,
-                            //     token,
-                            //     data: userInformation
-                            // })}
-                        >Cập nhật dữ liệu người dùng</button>
-                    </div>
-                }
-            </div>
+            <UserInfo
+                selectedUser={selectedUser}
+                setSelectedUser={setSelectedUser}
+                setState={setState}
+                request={request}
+            />
         </div>
     )
 }

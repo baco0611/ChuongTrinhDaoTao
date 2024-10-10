@@ -6,33 +6,10 @@ import { useQuery } from 'react-query';
 import { getData } from '../../../utils/function';
 // import { searchLecturer, handleChangeRequest } from './authorization-function';
 
-export default function RequestBlock({ request, setRequest, setLecturerList}) {
+export default function RequestBlock({ request, department, setRequest, setLecturerList}) {
 
     const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
     const navigate = useNavigate()
-    const [ department, setDepartment ] = useState([])
-
-    const fetchDepartmentAPI = (api) => {
-        return async () => {
-            let token = document.cookie.split("; ")
-            token = token.filter(element => element.includes("ACCESS_TOKEN"))[0]?.split("=")[1]
-
-            const departmentResult = await getData(api, "/api/department/getAll", token)
-            console.log(departmentResult)
-            setDepartment(departmentResult.data.data)   
-        }
-    }
-
-    const { data , isLoading, isError} = useQuery(`user-manage`, fetchDepartmentAPI(apiURL),{
-        cacheTime: Infinity,
-        refetchOnWindowFocus: false,
-    })
-
-    if(isLoading)
-        return <Loader/>
-
-    if(isError)
-        navigate('/error')
 
     return (
         <div className="search-request mt-2">

@@ -58,14 +58,15 @@ export const checkValidInformation = ({e, newPassword, setState}) => {
             })
         }
     }
+
+    if(name == "email" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) != 1 && value != "") {
+        invalidElement(fatherElement, "Vui lòng nhập email đúng định dạng")
+        return false
+    } else
     if(value == "") {
         invalidElement(fatherElement, "Vui lòng nhập dữ liệu ô này")
         return false
-    } else
-    if(name == "email" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value) != 1) {
-        invalidElement(fatherElement, "Vui lòng nhập email đúng định dạng")
-        return false
-    } 
+    }
     if(name == "confirmPassword" && value != newPassword) {
         invalidElement(fatherElement, "Mật khẩu không trùng khớp")
         return false
