@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { checkValidInformation, handleChangeInformation, handleDeleteUser, handleSavingInformation, validElement } from './user-manage'
 import { UserContext } from '../../../context/ContextProvider'
 
-export default function UserInfo({ selectedUser, setSelectedUser, setState, request }) {
+export default function UserInfo({ selectedUser, setSelectedUser, setState, request, department }) {
     
     const { apiURL, serverAPI, token } = useContext(UserContext)
     
@@ -75,12 +75,25 @@ export default function UserInfo({ selectedUser, setSelectedUser, setState, requ
                 </div>
                 <div className='input-block'>
                     <p>Đơn vị</p>
-                    <input
-                        type='text'
-                        name='departmentName'
-                        value={selectedUser.departmentName || ""}
-                        autoComplete='off'
-                    />
+                    <div className="dropdown">
+                        <button className="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {selectedUser.department && selectedUser.departmentName || "-----"}
+                        </button>
+                        <ul className="dropdown-menu">
+                        {
+                            department.map((element, index) => {
+                                return <li 
+                                    className="dropdown-item cursorPointer" 
+                                    key={index}
+                                    onClick={() => handleChangeInformation({
+                                        element,
+                                        setState: setSelectedUser
+                                    })}
+                                >{element.departmentName}</li>
+                            })
+                        }
+                        </ul>
+                    </div>
                     <span></span>
                 </div>
                 <div className='button-block'>

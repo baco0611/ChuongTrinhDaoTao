@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import Loader from '../../../components/Loader/Loader';
 import { useQuery } from 'react-query';
 import RequestBlock from './RequestBlock';
-import { postData } from '../../../utils/function';
+import { getData, postData } from '../../../utils/function';
 import UserBlock from './UserBlock';
 
 export default function UserManage() {
@@ -34,8 +34,9 @@ export default function UserManage() {
         pageOrder: 1
     })
 
+    const [ selectedUser, setSelectedUser ] = useState()
+
     const [currentPage, setCurrentPage] = useState(lecturerList.pageInformation.pageOrder || 1);
-    console.log(lecturerList)
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -94,6 +95,7 @@ export default function UserManage() {
                 setLecturerList={setLecturerList}
                 department={department}
                 setDepartment={setDepartment}
+                setSelectedUser={setSelectedUser}
             />
             <UserBlock
                 data={lecturerList}
@@ -102,6 +104,9 @@ export default function UserManage() {
                 setCurrentPage={setCurrentPage}
                 setRequest={setRequest}
                 request={request}
+                department={department}
+                selectedUser={selectedUser}
+                setSelectedUser={setSelectedUser}
             />
         </div>
     )

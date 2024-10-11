@@ -1,16 +1,27 @@
 import { alertErrorDataSave, deleteData, getParentElementByClass, postData } from "../../../utils/function"
 import Swal from 'sweetalert2'
 
-export const handleChangeInformation = ({ e, setState }) => {
-    const name = e.target.name
-    const value = e.target.value
-
-    setState(prev => {
-        return {
-            ...prev,
-            [name]: value
-        }
-    })
+export const handleChangeInformation = ({ e, setState, element }) => {
+    console.log(element)
+    if(e) {
+        const name = e.target.name
+        const value = e.target.value
+    
+        setState(prev => {
+            return {
+                ...prev,
+                [name]: value
+            }
+        })
+    } else {
+        setState(prev => {
+            return {
+                ...prev,
+                department: element.departmentId,
+                departmentName: element.departmentName,
+            }
+        })
+    }
 }
 
 const invalidElement = (element, message) => {
@@ -154,4 +165,43 @@ export const handleDeleteUser = async ({ api, token, data, request, setState, se
             }
         }
     });
+}
+
+export const handleChangeRequest = (name, setRequest, element) => {
+
+    if(name == "department")
+        setRequest(prev => {
+            if (element)
+                return {
+                    ...prev,
+                    department: element.departmentId,
+                    departmentName: element.departmentName,
+                }
+            else
+                return {
+                    ...prev,
+                    department: "",
+                    departmentName: "",
+                }
+        })
+    else {
+        setRequest(prev => {
+            return {
+                ...prev,
+                [name]: element
+            }
+        })
+    }
+}
+
+export const searchLecturer = async (api, url, token, payload, setState, setSelectedUser) => {
+    if(!payload.pageOrder) {
+        payload.pageOrder = 1
+    }
+
+    const result = await postData(api, url, token, payload)
+    if(result.status == 200) {
+        setState(result.data)
+        setSelectedUser(null)
+    }
 }

@@ -121,8 +121,6 @@
                         font-weight: 400;
                         padding: 0 10px;
 
-                        background: transparent;
-                        border: none;
                         background-color: $gray-color;
                         border: solid 1px transparent;
                     }
@@ -141,6 +139,29 @@
         
                         input {
                             border: solid 1px $highlight-color;
+                        }
+                    }
+
+                    .dropdown {
+                        width: 100%;
+
+                        button {
+                            width: 100%;
+                            padding-left: 10px;
+                            text-align: left;
+                            background-color: $gray-color;
+                            border: solid 1px transparent;
+                            position: relative;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+
+                            &:after {
+                                position: absolute;
+                                right: 10px;
+                                top: 50%;
+                                transform: translateY(-50%);
+                            }
                         }
                     }
                 }

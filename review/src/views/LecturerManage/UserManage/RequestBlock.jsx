@@ -4,9 +4,10 @@ import { UserContext } from '../../../context/ContextProvider';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { getData } from '../../../utils/function';
+import { handleChangeRequest, searchLecturer } from './user-manage';
 // import { searchLecturer, handleChangeRequest } from './authorization-function';
 
-export default function RequestBlock({ request, department, setRequest, setLecturerList}) {
+export default function RequestBlock({ request, department, setRequest, setLecturerList, setSelectedUser }) {
 
     const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
     const navigate = useNavigate()
@@ -23,14 +24,14 @@ export default function RequestBlock({ request, department, setRequest, setLectu
                         <ul className="dropdown-menu">
                             <li 
                                 className="dropdown-item cursorPointer"
-                                // onClick={() => (handleChangeRequest("department", setRequest))}    
+                                onClick={() => (handleChangeRequest("department", setRequest))}    
                             >-----</li>
                             {
                                 department.map((element, index) => {
                                     return <li 
                                         className="dropdown-item cursorPointer" 
                                         key={index}
-                                        // onClick={() => handleChangeRequest("department", setRequest, element)}
+                                        onClick={() => handleChangeRequest("department", setRequest, element)}
                                     >{element.departmentName}</li>
                                 })
                             }
@@ -43,13 +44,13 @@ export default function RequestBlock({ request, department, setRequest, setLectu
                     <input
                         type="text"
                         placeholder="Nhập từ khóa"
-                        // onChange={(e) => handleChangeRequest("keyword", setRequest, e.target.value)}
+                        onChange={(e) => handleChangeRequest("keyword", setRequest, e.target.value)}
                     />
                 </div>
             </div>
             <div className="submit">
                 <button
-                    // onClick={async () => await searchLecturer(apiURL, "/api/lecturer/getAll", token, request, setLecturerList)}
+                    onClick={async () => await searchLecturer(apiURL, "/api/lecturer/getAll", token, request, setLecturerList, setSelectedUser)}
                 >Tìm kiếm</button>
                 <button
                     // onClick={async () => await searchLecturer(apiURL, "/api/lecturer/getAll", token, request, setLecturerList)}

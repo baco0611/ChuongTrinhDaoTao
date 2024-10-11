@@ -6,8 +6,8 @@ import { postData } from '../../../utils/function'
 import { handleChangeInformation } from './user-manage'
 import UserInfo from './UserInfo'
 
-export default function UserBlock({ data, setState, currentPage, setCurrentPage, request, setRequest }) {
-    const [ selectedUser, setSelectedUser ] = useState()
+export default function UserBlock({ data, setState, currentPage, setCurrentPage, request, setRequest, department, selectedUser, setSelectedUser }) {
+    
     const { user, apiURL, token, serverAPI } = useContext(UserContext)
 
     const handlePageChange = (e, value) => {
@@ -82,6 +82,7 @@ export default function UserBlock({ data, setState, currentPage, setCurrentPage,
                 setSelectedUser={setSelectedUser}
                 setState={setState}
                 request={request}
+                department={department}
             />
         </div>
     )
