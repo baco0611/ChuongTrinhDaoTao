@@ -30,8 +30,8 @@ public class EducationProgramConverter {
         dto.setVietnameseName(trainingProgramEntity.getVietnameseName());
         dto.setEnglishName(trainingProgramEntity.getEnglishName());
         dto.setEducationLevel(trainingProgramEntity.getEducationLevel());
-        dto.setFieldCode(trainingProgramEntity.getFieldOfStudy().getFieldCode());
-        dto.setFieldName(trainingProgramEntity.getFieldOfStudy().getFieldName());
+        dto.setFieldCode(trainingProgramEntity.getFieldOfStudy() != null ? trainingProgramEntity.getFieldOfStudy().getFieldCode() : null);
+        dto.setFieldName(trainingProgramEntity.getFieldOfStudy() != null ? trainingProgramEntity.getFieldOfStudy().getFieldName() : null);
         dto.setAdmissionTarget(trainingProgramEntity.getAdmissionTarget());
         dto.setDuration(trainingProgramEntity.getDuration());
         dto.setTrainingMode(trainingProgramEntity.getTrainingMode());
@@ -155,7 +155,7 @@ public class EducationProgramConverter {
         EducationProgramResponse dto = new EducationProgramResponse();
         dto.setProgramCode(entity.getProgramCode());
         dto.setProgramName(entity.getVietnameseName());
-        dto.setFieldName(entity.getFieldOfStudy().getFieldName());
+        dto.setFieldName(entity.getFieldOfStudy() != null ? entity.getFieldOfStudy().getFieldName() : null);
         dto.setStatus(entity.getStatus().toString()); // Chuyển đổi sang chuỗi
         dto.setProgramId(entity.getProgramId().toString());
         dto.setResponsiblePerson(entity.getLecturer().getLastName() +" "+ entity.getLecturer().getFirstName());
@@ -179,8 +179,8 @@ public class EducationProgramConverter {
 	        dto.setVietnameseName(entity.getVietnameseName());
 	        dto.setEnglishName(entity.getEnglishName());
 	        dto.setEducationLevel(entity.getEducationLevel());
-	        dto.setFieldCode(entity.getFieldOfStudy().getFieldName());
-	        dto.setFieldName(entity.getFieldOfStudy().getFieldCode());
+	        dto.setFieldCode(entity.getFieldOfStudy() != null ? entity.getFieldOfStudy().getFieldCode() : null);
+	        dto.setFieldName(entity.getFieldOfStudy() != null ? entity.getFieldOfStudy().getFieldName() : null);
 	        dto.setAdmissionTarget(entity.getAdmissionTarget());
 	        dto.setDuration(String.valueOf(entity.getDuration()));
 	        dto.setTrainingMode(entity.getTrainingMode());
