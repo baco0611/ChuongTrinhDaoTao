@@ -1,5 +1,6 @@
 package com.laptrinhjavaweb.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -253,30 +254,34 @@ public class LecturersController {
 
 	@PostMapping("/create")
 	public ResponseEntity<?> createLecturer(@Valid @RequestBody LecturerRequestDTO request, BindingResult result) {
-	    if (result.hasErrors()) {
-	    	 Map<String, Object> data = new HashMap<>();
-	 	    data.put("lecturerCode", null);
-	 	    data.put("department", null);
-	 	    data.put("email", null);
-	 	    data.put("firstName", null);
-	 	    data.put("lastName", null);
-	 	    data.put("password", null);
-	 	   
-	    	result.getFieldErrors().forEach(error -> {
-	            data.put(error.getField(), Map.of("message", error.getDefaultMessage()));
-	        });   
-	        return ResponseEntity.badRequest().body(Map.of("data", data, "status", 400));
-	    }
-	    Map<String, Object> response = lecturersService.createLecturer(request);
-	    int status = (int) response.get("status");
-	    return ResponseEntity.status(status).body(response);
-	}
-	
-	@PostMapping("/search")
-    public ResponseEntity<?> searchLecturers(@RequestBody LecturerSearchRequestDTO request) {
-        List<LecturerResponseDTO> lecturers = lecturersService.searchLecturers(request);
-        return ResponseEntity.ok(Map.of("data", lecturers, "status", 200));
-    }
+		if (result.hasErrors()) {
+			Map<String, Object> data = new HashMap<>();
+			data.put("lecturerCode", null);
+			data.put("department", null);
+			data.put("email", null);
+			data.put("firstName", null);
+			data.put("lastName", null);
+			result.getFieldErrors().forEach(error -> {
+				data.put(error.getField(), Map.of("message", error.getDefaultMessage()));
+			});
+			return ResponseEntity.badRequest().body(Map.of("data", data, "status", 400));
+		}
 
+		if (request.getRoles() == null || request.getRoles().isEmpty()) {
+			List<String> defaultRole = new ArrayList<>();
+			defaultRole.add("USER");
+			request.setRoles(defaultRole);
+		}
+
+		Map<String, Object> response = lecturersService.createLecturer(request);
+		int status = (int) response.get("status");
+		return ResponseEntity.status(status).body(response);
+	}
+
+	@PostMapping("/search")
+	public ResponseEntity<?> searchLecturers(@RequestBody LecturerSearchRequestDTO request) {
+		List<LecturerResponseDTO> lecturers = lecturersService.searchLecturers(request);
+		return ResponseEntity.ok(Map.of("data", lecturers, "status", 200));
+	}
 
 }

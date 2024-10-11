@@ -1,5 +1,6 @@
 package com.laptrinhjavaweb.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,6 +76,12 @@ public class LecturerService implements ILecturerService {
 		LecturersEntity lecturer = lecturersRepository.findById(lecturerId)
 				.orElseThrow(() -> new RuntimeException("Lecturer not found"));
 
+		if (roles == null || roles.isEmpty()) {
+			roles = new ArrayList<>();
+			roles.add("USER");
+			System.out.println("AA");
+		}
+
 		List<Role> roleList = roles.stream().map(Role::valueOf).collect(Collectors.toList());
 
 		lecturer.setRoles(roleList);
@@ -105,12 +112,14 @@ public class LecturerService implements ILecturerService {
 			response.put("status", 403);
 			return response;
 		}
-		LecturersEntity lecturersEntity = lecturersRepository.findByLecturersCode(updateRequest.getLecturerCode())
-				.orElse(null);
+		LecturersEntity lecturersEntity = lecturersRepository.findById(updateRequest.getLecturersId()).orElse(null);
 		if (lecturersEntity == null) {
 			response.put("message", "Lecturer not found");
 			response.put("status", 404);
 			return response;
+		}
+		if (!updateRequest.getLecturerCode().equals("")) {
+			lecturersEntity.setLecturersCode(updateRequest.getLecturerCode());
 		}
 		if (!updateRequest.getFirstName().equals("")) {
 			lecturersEntity.setFirstName(updateRequest.getFirstName());
@@ -200,6 +209,7 @@ public class LecturerService implements ILecturerService {
 	public Map<String, Object> createLecturer(LecturerRequestDTO request) {
 		Map<String, Object> response = new HashMap<>();
 		Map<String, Object> data = new HashMap<>();
+		String passWord = "@KhoaHoc123";
 
 		if (lecturersRepository.existsByLecturersCode(request.getLecturerCode())) {
 			data.put("lectureCode", Map.of("message", "Mã giảng viên trùng lặp"));
@@ -237,7 +247,7 @@ public class LecturerService implements ILecturerService {
 			LecturersEntity lecturer = LecturersEntity.builder().lecturersCode(request.getLecturerCode())
 					.firstName(request.getFirstName()).lastName(request.getLastName()).email(request.getEmail())
 					.department(department).deleted(false).departmentManager(false)
-					.password(passwordEncoder.encode("@KhoaHoc123"))
+					.password(passwordEncoder.encode(passWord))
 					.roles(request.getRoles().stream().map(role -> Role.valueOf(role)).collect(Collectors.toList()))
 					.build();
 			lecturersRepository.save(lecturer);
@@ -251,25 +261,23 @@ public class LecturerService implements ILecturerService {
 
 		return response;
 	}
-	
-	public List<LecturerResponseDTO> searchLecturers(LecturerSearchRequestDTO request) {
-        List<LecturersEntity> lecturers;
-        
-        if (request.getDepartment() != null && !request.getDepartment().isEmpty()) {
-            lecturers = lecturersRepository.findByDepartment_DepartmentCode(request.getDepartment());
-        } else {
-            lecturers = lecturersRepository.findByKeyWord(request.getKeyWord());
-        }
-        System.out.println("Số giảng viên tìm được: " + lecturers.size());
 
-        // Sắp xếp giảng viên theo đơn vị nếu có mã đơn vị
-        return lecturers.stream()
-                .filter(l -> l.getFirstName().contains(request.getKeyWord()) || l.getLastName().contains(request.getKeyWord()))
-                .map(l -> new LecturerResponseDTO(
-                        l.getLecturersCode(),
-                        l.getLastName() + " " + l.getFirstName(),
-                        l.getDepartment() != null ? l.getDepartment().getDepartmentName() : ""))
-                .collect(Collectors.toList());
-    }
+	public List<LecturerResponseDTO> searchLecturers(LecturerSearchRequestDTO request) {
+		List<LecturersEntity> lecturers;
+
+		if (request.getDepartment() != null && !request.getDepartment().isEmpty()) {
+			lecturers = lecturersRepository.findByDepartment_DepartmentCode(request.getDepartment());
+		} else {
+			lecturers = lecturersRepository.findByKeyWord(request.getKeyWord());
+		}
+		System.out.println("Số giảng viên tìm được: " + lecturers.size());
+
+		// Sắp xếp giảng viên theo đơn vị nếu có mã đơn vị
+		return lecturers.stream().filter(
+				l -> l.getFirstName().contains(request.getKeyWord()) || l.getLastName().contains(request.getKeyWord()))
+				.map(l -> new LecturerResponseDTO(l.getLecturersCode(), l.getLastName() + " " + l.getFirstName(),
+						l.getDepartment() != null ? l.getDepartment().getDepartmentName() : ""))
+				.collect(Collectors.toList());
+	}
 
 }
