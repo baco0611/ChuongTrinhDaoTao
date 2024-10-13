@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { checkValidInformation, handleChangeInformation, handleDeleteUser, handleSavingInformation, validElement } from './user-manage'
 import { UserContext } from '../../../context/ContextProvider'
 
-export default function UserInfo({ selectedUser, setSelectedUser, setState, request, department }) {
+export default function UserInfo({ selectedUser, setSelectedUser, setState, request, department, originalCode }) {
     
     const { apiURL, serverAPI, token } = useContext(UserContext)
     
@@ -22,6 +22,8 @@ export default function UserInfo({ selectedUser, setSelectedUser, setState, requ
                             e,
                             setState: setSelectedUser,
                         })}
+                        onBlur={e => checkValidInformation({e, api: apiURL, token, originalCode})}
+                        onFocus={e => validElement(e.target)}
                     />
                     <span></span>
                 </div>

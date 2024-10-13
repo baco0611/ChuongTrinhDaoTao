@@ -1,4 +1,5 @@
-import { alertErrorDataSave, deleteData, getParentElementByClass, postData } from "../../../utils/function"
+import { useAsyncError } from "react-router-dom"
+import { alertErrorDataSave, deleteData, getData, getParentElementByClass, postData } from "../../../utils/function"
 import Swal from 'sweetalert2'
 
 export const handleChangeInformation = ({ e, setState, element }) => {
@@ -39,7 +40,7 @@ export const validElement = (element) => {
     spanElement.innerHTML = ""
 }
 
-export const checkValidInformation = ({e, setState}) => {
+export const checkValidInformation = async ({e, setState, api, token, originalCode}) => {
     const element = e.target || e
 
     const name = element.name
@@ -56,6 +57,17 @@ export const checkValidInformation = ({e, setState}) => {
                     lastName: prev.lastName + " " + splitLetter.join(" "),
                 }
             })
+        }
+    }
+
+    if(name == "lecturerCode" && value != originalCode) {
+        console.log(value, originalCode)
+        const result = await getData(api, `/api/lecturer/checkLecturerCode/${value}`, token)
+        console.log(result)
+
+        if(result.status != 200) {
+            invalidElement(fatherElement, "Mã giảng viên đã tồn tại")
+            return false
         }
     }
 

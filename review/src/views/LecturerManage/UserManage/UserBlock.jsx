@@ -9,6 +9,7 @@ import UserInfo from './UserInfo'
 export default function UserBlock({ data, setState, currentPage, setCurrentPage, request, setRequest, department, selectedUser, setSelectedUser }) {
     
     const { user, apiURL, token, serverAPI } = useContext(UserContext)
+    const [ originalCode, setOriginalCode ] = useState("")
 
     const handlePageChange = (e, value) => {
         setCurrentPage(value);
@@ -34,6 +35,10 @@ export default function UserBlock({ data, setState, currentPage, setCurrentPage,
     }, [currentPage])
 
     console.log(selectedUser)
+    const changeLecturer = element => {
+        setOriginalCode(element.lecturerCode)
+        setSelectedUser(element)
+    }
 
     return (
         <div className='content mt-4'>
@@ -55,7 +60,7 @@ export default function UserBlock({ data, setState, currentPage, setCurrentPage,
                                 <tr 
                                     key={index}
                                     className='cursorPointer'    
-                                    onClick={() => setSelectedUser(element)}
+                                    onClick={() => changeLecturer(element)}
                                 >
                                     <td className='center'>{(data.pageInformation.pageOrder-1) * data.pageInformation.numOfElement + index + 1}</td>
                                     <td>{element.lecturerCode}</td>
@@ -83,6 +88,7 @@ export default function UserBlock({ data, setState, currentPage, setCurrentPage,
                 setState={setState}
                 request={request}
                 department={department}
+                originalCode={originalCode}
             />
         </div>
     )

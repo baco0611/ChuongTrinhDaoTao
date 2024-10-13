@@ -11,11 +11,6 @@ function WebDefaultLayout () {
     const navigate = useNavigate()
     const [isTokenChecked, setIsTokenChecked] = useState(false)
 
-    const user_cookie = Cookies.get("USER") || "{}"
-    const decodedString = decodeURIComponent(user_cookie);
-    const user = JSON.parse(decodedString);
-    console.log(user, typeof(user))
-
     useEffect(() => {
         // Check token only once during the initial render
         if (!isTokenChecked) {
@@ -72,6 +67,10 @@ function WebDefaultLayout () {
         // Kiểm tra và cập nhật role
         const checkRole = async () => {
             const token = Cookies.get("ACCESS_TOKEN")
+            const user_cookie = Cookies.get("USER") || "{}"
+            const decodedString = decodeURIComponent(user_cookie);
+            const user = JSON.parse(decodedString);
+            // console.log(user, typeof(user))
             
             if (!token) {
                 return;
@@ -85,13 +84,15 @@ function WebDefaultLayout () {
                 role: result.data.data
             }
 
+            // console.log(data)
+
             setUser(data)
         }
     
         // Thiết lập interval để kiểm tra mỗi 1 phút
         const interval = setInterval(() => {
           checkRole()
-        }, 1 * 60 * 1000);
+        }, 0.5 * 60 * 1000);
     
         // Dọn dẹp khi component unmount
         return () => clearInterval(interval);
