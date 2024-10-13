@@ -3,7 +3,6 @@ import { alertErrorDataSave, deleteData, getData, getParentElementByClass, postD
 import Swal from 'sweetalert2'
 
 export const handleChangeInformation = ({ e, setState, element }) => {
-    console.log(element)
     if(e) {
         const name = e.target.name
         const value = e.target.value
@@ -61,7 +60,11 @@ export const checkValidInformation = async ({e, setState, api, token, originalCo
     }
 
     if(name == "lecturerCode" && value != originalCode) {
-        console.log(value, originalCode)
+        if(value == "") {
+            invalidElement(fatherElement, "Vui lòng nhập mã giảng viên")
+            return false
+        }
+
         const result = await getData(api, `/api/lecturer/checkLecturerCode/${value}`, token)
         console.log(result)
 
@@ -83,6 +86,17 @@ export const checkValidInformation = async ({e, setState, api, token, originalCo
     return true
 }
 
+export const checkValidDepartment = () => {
+    const departmentBlock = document.querySelector(".input-block .dropdown .btn")
+    if(departmentBlock.innerHTML == "-----") {
+        const fatherElement = getParentElementByClass(departmentBlock, "input-block")
+        invalidElement(fatherElement, "Vui lòng chọn đơn vị quản lý")
+        return false
+    }
+
+    return true
+}
+
 const checkUserData = (blockName, newPassword) => {
     const element = document.querySelector(blockName)
     const inputElement = element.querySelectorAll("input")
@@ -93,7 +107,7 @@ const checkUserData = (blockName, newPassword) => {
         return checkValidInformation({e: element, newPassword: newPassword}) && result
     }, 1)
 
-    return result
+    return result && checkValidDepartment()
 }
 
 export const handleSavingInformation = async ({ api, token, data, setState }) => {
@@ -138,6 +152,51 @@ export const handleSavingInformation = async ({ api, token, data, setState }) =>
                         data: update_data
                     }
                 })
+            }
+        }
+    });
+}
+
+export const handleCreateUser = async ({ e, api, token, data, setState, setIsHide }) => {
+    e.preventDefault()
+    data.departmentCode = data.department
+
+    if(checkUserData("#create-user"))
+    await Swal.fire({
+        title: "TẠO NGƯỜI DÙNG MỚI",
+        text: `Bạn có muốn tạo người dùng ${data.lastName} ${data.firstName} không?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Có",
+        cancelButtonText: "Không",
+        confirmButtonColor: '#BE0000', // Màu đỏ cho nút "Có"
+        reverseButtons: true, // Đổi vị trí các nút
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            console.log(data)
+            const result = await postData(api, "/api/lecturer/create", token, data)
+
+            if(result.status != 200) 
+                alertErrorDataSave()
+            else {
+                Swal.fire({
+                    title: "ĐÃ TẠO",
+                    text: `Đã tạo thành công người dùng mới`,
+                    icon: "info",
+                })
+
+                console.log(result.data)
+
+                setState({
+                    firstName: "",
+                    lastName: "",
+                    lecturerCode: "",
+                    email: "",
+                    department: "",
+                    departmentName: ""
+                })
+
+                setIsHide(true)
             }
         }
     });

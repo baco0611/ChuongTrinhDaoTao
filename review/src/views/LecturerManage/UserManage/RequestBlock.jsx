@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { getData } from '../../../utils/function';
 import { handleChangeRequest, searchLecturer } from './user-manage';
+import CreateUserBlock from './CreateUserBlock/CreateUserBlock';
 // import { searchLecturer, handleChangeRequest } from './authorization-function';
 
 export default function RequestBlock({ request, department, setRequest, setLecturerList, setSelectedUser }) {
@@ -12,8 +13,16 @@ export default function RequestBlock({ request, department, setRequest, setLectu
     const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
     const navigate = useNavigate()
 
+    const [ isHide, setIsHide ] = useState(false)
+
     return (
         <div className="search-request mt-2">
+        {
+            !isHide && <CreateUserBlock
+                department={department}
+                setIsHide={setIsHide}
+            />
+        }
             <div className="conditional">
                 <div className="block" style={{width: "30%"}}>
                     <p>Đơn vị</p>
@@ -53,7 +62,7 @@ export default function RequestBlock({ request, department, setRequest, setLectu
                     onClick={async () => await searchLecturer(apiURL, "/api/lecturer/getAll", token, request, setLecturerList, setSelectedUser)}
                 >Tìm kiếm</button>
                 <button
-                    // onClick={async () => await searchLecturer(apiURL, "/api/lecturer/getAll", token, request, setLecturerList)}
+                    onClick={() => setIsHide(false)}
                 >Tạo mới</button>
             </div>
         </div>
