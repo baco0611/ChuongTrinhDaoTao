@@ -18,6 +18,8 @@ import com.laptrinhjavaweb.repository.LecturersRepository;
 import com.laptrinhjavaweb.response.ListLecturersOfDepartmentResponse;
 import com.laptrinhjavaweb.service.IDepartmentService;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class DepartmentService implements IDepartmentService {
 
@@ -119,5 +121,10 @@ public class DepartmentService implements IDepartmentService {
             lecturersRepository.save(lecturer);
         }
     }
+	
+	public DepartmentEntity findByDepartmentCode(String departmentCode) {
+		return departmentRepository.findByDepartmentCode(departmentCode)
+				.orElse(null);
+	}
 
 }

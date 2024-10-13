@@ -1,5 +1,7 @@
 package com.laptrinhjavaweb.request;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +10,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateLecturerRequest {
+	private Long lecturersId;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String lecturerCode;
+	private String department;
+	private List<String> roles;
 }

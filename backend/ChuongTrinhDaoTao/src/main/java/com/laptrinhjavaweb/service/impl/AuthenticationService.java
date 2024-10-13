@@ -51,6 +51,7 @@ public class AuthenticationService {
 				.department(department)
 				.password(passwordEncoder.encode(request.getPassword())).roles(roles) // Cập nhật roles từ request
 				.departmentManager(false)
+				.deleted(false)
 				.build();
 
 		repository.save(lecturers);

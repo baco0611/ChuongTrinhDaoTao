@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Papa from 'papaparse';
-import { UserContext } from '../../../context/ContextProvider';
-import { postData } from '../../../utils/function';
+import { UserContext } from '../../context/ContextProvider';
+import { postData } from '../../utils/function';
 
 export default function InsertUser() {
     const departmentList = {
@@ -61,7 +61,7 @@ export default function InsertUser() {
         "900000": 54
     };
     
-    const [csvData, setCsvData] = useState(null);
+    const [isDone, setIsDone] = useState(false);
     const { apiURL, token } = useContext(UserContext)
 
     // Hàm để xử lý mỗi hàng
@@ -99,6 +99,8 @@ export default function InsertUser() {
                 console.log(selectedColumns);
 
                 selectedColumns.forEach(element => createUser(element))
+
+                setIsDone(true)
             }
         });
     }, []);
@@ -106,6 +108,6 @@ export default function InsertUser() {
 
 
     return (
-        <div>UserManage</div>
+        <div>Import giảng viên ...</div>
     )
 }

@@ -1,5 +1,6 @@
 package com.laptrinhjavaweb.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +11,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -22,16 +26,20 @@ import com.laptrinhjavaweb.dto.LecturersDTO;
 import com.laptrinhjavaweb.dto.PageInformation;
 import com.laptrinhjavaweb.entity.LecturersEntity;
 import com.laptrinhjavaweb.request.ChangePasswordRequest;
+import com.laptrinhjavaweb.request.LecturerRequestDTO;
+import com.laptrinhjavaweb.request.LecturerSearchRequestDTO;
 import com.laptrinhjavaweb.request.LecturersInfoRequest;
 import com.laptrinhjavaweb.request.UpdateLecturerRequest;
 import com.laptrinhjavaweb.request.UpdateRolesRequest;
 import com.laptrinhjavaweb.response.ErrorResponse;
+import com.laptrinhjavaweb.response.LecturerResponseDTO;
 import com.laptrinhjavaweb.response.ListLecturersResponse;
 import com.laptrinhjavaweb.response.RefreshTokenResponse;
 import com.laptrinhjavaweb.service.ILecturerService;
 import com.laptrinhjavaweb.service.impl.JwtService;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/lecturer")
@@ -195,24 +203,85 @@ public class LecturersController {
 					Map.of("message", "An error occurred while updating the lecturer's information", "status", 500));
 		}
 	}
-	
-    @PostMapping("/change-password")
-    public ResponseEntity<?> changePassword(
-            @RequestHeader("Authorization") String token,
-            @RequestBody ChangePasswordRequest changePasswordRequest) {
-        try {
-            if (token.startsWith("Bearer ")) {
-                token = token.substring(7);
-            }
-            Map<String, Object> response = lecturersService.changePassword(token, changePasswordRequest);
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of(
-                    "message", "An error occurred while changing the password",
-                    "status", 500
-            ));
-        }
-    }
+
+	@PostMapping("/change-password")
+	public ResponseEntity<?> changePassword(@RequestHeader("Authorization") String token,
+			@RequestBody ChangePasswordRequest changePasswordRequest) {
+		try {
+			if (token.startsWith("Bearer ")) {
+				token = token.substring(7);
+			}
+			Map<String, Object> response = lecturersService.changePassword(token, changePasswordRequest);
+			return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(Map.of("message", "An error occurred while changing the password", "status", 500));
+		}
+	}
+
+	@GetMapping("/checkLecturerCode/{lecturerCode}")
+	public ResponseEntity<?> checkLecturerCode(@PathVariable("lecturerCode") String lecturerCode) {
+		Map<String, Object> response = new HashMap<>();
+		Boolean check = lecturersService.checLecturerCode(lecturerCode);
+		if (!check) {
+			response.put("status", HttpStatus.OK.value());
+			response.put("message", "OKE");
+			return ResponseEntity.ok(response);
+		} else {
+			response.put("status", HttpStatus.CONFLICT.value());
+			response.put("message", "Đã tồn tại mã giảng viên");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+		}
+
+	}
+
+	@DeleteMapping("/delete/{lecturerCode}")
+	public ResponseEntity<?> deleteLecturer(@RequestHeader("Authorization") String token,
+			@PathVariable("lecturerCode") String lecturerCode) {
+		try {
+			if (token.startsWith("Bearer ")) {
+				token = token.substring(7);
+			}
+			Map<String, Object> response = lecturersService.deleteLecturer(token, lecturerCode);
+			return ResponseEntity.ok(response);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body(Map.of("message", "An error occurred while changing the password", "status", 500));
+		}
+	}
+
+	@PostMapping("/create")
+	public ResponseEntity<?> createLecturer(@Valid @RequestBody LecturerRequestDTO request, BindingResult result) {
+		if (result.hasErrors()) {
+			Map<String, Object> data = new HashMap<>();
+			data.put("lecturerCode", null);
+			data.put("department", null);
+			data.put("email", null);
+			data.put("firstName", null);
+			data.put("lastName", null);
+			result.getFieldErrors().forEach(error -> {
+				data.put(error.getField(), Map.of("message", error.getDefaultMessage()));
+			});
+			return ResponseEntity.badRequest().body(Map.of("data", data, "status", 400));
+		}
+
+		if (request.getRoles() == null || request.getRoles().isEmpty()) {
+			List<String> defaultRole = new ArrayList<>();
+			defaultRole.add("USER");
+			request.setRoles(defaultRole);
+		}
+
+		Map<String, Object> response = lecturersService.createLecturer(request);
+		int status = (int) response.get("status");
+		return ResponseEntity.status(status).body(response);
+	}
+
+	@PostMapping("/search")
+	public ResponseEntity<?> searchLecturers(@RequestBody LecturerSearchRequestDTO request) {
+		List<LecturerResponseDTO> lecturers = lecturersService.searchLecturers(request);
+		return ResponseEntity.ok(Map.of("data", lecturers, "status", 200));
+	}
 
 }

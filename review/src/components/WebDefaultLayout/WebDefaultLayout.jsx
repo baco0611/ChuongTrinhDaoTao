@@ -88,10 +88,10 @@ function WebDefaultLayout () {
             setUser(data)
         }
     
-        // Thiết lập interval để kiểm tra mỗi 5 phút
+        // Thiết lập interval để kiểm tra mỗi 1 phút
         const interval = setInterval(() => {
           checkRole()
-        }, 1.5 * 60 * 1000);
+        }, 1 * 60 * 1000);
     
         // Dọn dẹp khi component unmount
         return () => clearInterval(interval);

@@ -4,35 +4,13 @@ import { UserContext } from '../../../context/ContextProvider';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { getData } from '../../../utils/function';
+import { handleChangeRequest, searchLecturer } from './user-manage';
 // import { searchLecturer, handleChangeRequest } from './authorization-function';
 
-export default function RequestBlock({ request, setRequest, setLecturerList}) {
+export default function RequestBlock({ request, department, setRequest, setLecturerList, setSelectedUser }) {
 
     const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
     const navigate = useNavigate()
-    const [ department, setDepartment ] = useState([])
-
-    const fetchDepartmentAPI = (api) => {
-        return async () => {
-            let token = document.cookie.split("; ")
-            token = token.filter(element => element.includes("ACCESS_TOKEN"))[0]?.split("=")[1]
-
-            const departmentResult = await getData(api, "/api/department/getAll", token)
-            console.log(departmentResult)
-            setDepartment(departmentResult.data.data)   
-        }
-    }
-
-    const { data , isLoading, isError} = useQuery(`user-manage`, fetchDepartmentAPI(apiURL),{
-        cacheTime: Infinity,
-        refetchOnWindowFocus: false,
-    })
-
-    if(isLoading)
-        return <Loader/>
-
-    if(isError)
-        navigate('/error')
 
     return (
         <div className="search-request mt-2">
@@ -46,14 +24,14 @@ export default function RequestBlock({ request, setRequest, setLecturerList}) {
                         <ul className="dropdown-menu">
                             <li 
                                 className="dropdown-item cursorPointer"
-                                // onClick={() => (handleChangeRequest("department", setRequest))}    
+                                onClick={() => (handleChangeRequest("department", setRequest))}    
                             >-----</li>
                             {
                                 department.map((element, index) => {
                                     return <li 
                                         className="dropdown-item cursorPointer" 
                                         key={index}
-                                        // onClick={() => handleChangeRequest("department", setRequest, element)}
+                                        onClick={() => handleChangeRequest("department", setRequest, element)}
                                     >{element.departmentName}</li>
                                 })
                             }
@@ -66,13 +44,13 @@ export default function RequestBlock({ request, setRequest, setLecturerList}) {
                     <input
                         type="text"
                         placeholder="Nhập từ khóa"
-                        // onChange={(e) => handleChangeRequest("keyword", setRequest, e.target.value)}
+                        onChange={(e) => handleChangeRequest("keyword", setRequest, e.target.value)}
                     />
                 </div>
             </div>
             <div className="submit">
                 <button
-                    // onClick={async () => await searchLecturer(apiURL, "/api/lecturer/getAll", token, request, setLecturerList)}
+                    onClick={async () => await searchLecturer(apiURL, "/api/lecturer/getAll", token, request, setLecturerList, setSelectedUser)}
                 >Tìm kiếm</button>
                 <button
                     // onClick={async () => await searchLecturer(apiURL, "/api/lecturer/getAll", token, request, setLecturerList)}
