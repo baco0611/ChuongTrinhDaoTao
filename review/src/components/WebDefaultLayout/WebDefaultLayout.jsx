@@ -41,8 +41,8 @@ function WebDefaultLayout () {
 
             // console.log(payloadBase64)
             // console.log(decodedPayload)
-            console.log(tokenExpiry)
-            console.log(currentTime)
+            // console.log(tokenExpiry)
+            // console.log(currentTime)
             // Giả sử token chứa thông tin về hạn dưới dạng Unix timestamp
             
             if (currentTime > tokenExpiry - (7 * 60 * 1000)) {
@@ -77,7 +77,7 @@ function WebDefaultLayout () {
             }
 
             const result = await getData(apiURL, "/api/lecturer/roles", token)
-            console.log(result, user)
+            // console.log(result, user)
 
             const data = {
                 ...user,
@@ -92,7 +92,7 @@ function WebDefaultLayout () {
         // Thiết lập interval để kiểm tra mỗi 1 phút
         const interval = setInterval(() => {
           checkRole()
-        }, 0.5 * 60 * 1000);
+        }, 5 * 60 * 1000);
     
         // Dọn dẹp khi component unmount
         return () => clearInterval(interval);

@@ -9,5 +9,12 @@
 - &#x2610; Làm gợi ý điều kiện tốt nghiệp
 - &#x2611; UI của phân công phụ trách, bỏ thêm, sửa (chỉnh sang readonly), xóa nếu không có quyền
 - &#x2610; UI của dictionary, bỏ thêm, sửa (chỉnh sang readonly), xóa nếu không có quyền
-- &#x2610; Debounce cho nút create PO
-- &#x2610; Debounce cho nút create PLO
+- &#x2610; Đổi check role thành 30s
+
+
+
+### Các nút create
+- &#x2610; Chỉnh cho nút create PO
+- &#x2610; Chỉnh cho nút create PLO
+- &#x2610; Chỉnh cho nút create 2 từ điển
+- &#x2610; Chỉnh cho nút create chuyên ngành

@@ -9,6 +9,7 @@ import { useQuery } from 'react-query'
 import { getDataSectionC } from '../database/sectionC'
 import { getDataSectionD } from '../database/sectionD'
 import Cookies from "js-cookie"
+import SectionEMain from './SectionEMain'
 
 
 export default function SectionE() {
@@ -124,7 +125,6 @@ export default function SectionE() {
         ...sectionCValue.KIEN_THUC.data, ...sectionCValue.KY_NANG.data, ...sectionCValue.THAI_DO.data
     ].length)
 
-    console.log(sectionCValue, sectionDValue, POSize)
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -202,13 +202,72 @@ export default function SectionE() {
     if (isSectionCError || isSectionDError) 
         navigate('/error');
 
+
+    const splitItem = (data) => {
+        return data.split('-')
+    }
+
     return (
         <>
             <EditorHeader
                 currentSection={4}
             />
             <div id="sectionE" className="wrapper editor-section">
-            
+                <div className="title">
+                    <h1>E. MA TRẬN CHUẨN ĐẦU RA ĐỐI VỚI MỤC TIÊU</h1>
+                    <p className='content'>Hãy bấm vào ô tương ứng với Mục tiêu (PO) theo cột và Chuẩn đầu ra (PLO) theo dòng. Chỉ tick <strong style={{color: "#BE0000"}}>X</strong> vào những ô được chọn.</p>
+                    <p>Lưu ý: Dữ liệu không được lưu tự động, vui lòng bấm nút lưu ở góc phải màn hình.</p>
+                </div>
+                <div className='matrix-wrap'>
+                    <table className='matrix'>
+                        <thead>
+                            <tr>
+                                <th style={{minWidth:"100px"}} rowSpan={3}>Ký hiệu</th>
+                                <th style={{minWidth:"550px"}} rowSpan={3}>Chuẩn đầu ra</th>
+                                <th style={{minWidth:"45%"}} colSpan={POSize}>Mục tiêu</th>
+                            </tr>
+                            <tr>
+                                <th colSpan={sectionCValue.KIEN_THUC.data.length}>Kiến thức</th>
+                                <th colSpan={sectionCValue.KY_NANG.data.length}>Kỹ năng</th>
+                                <th colSpan={sectionCValue.THAI_DO.data.length}>Thái độ</th>
+                            </tr>
+                            <tr>
+                            {
+                                sectionCValue.KIEN_THUC.data.map((element, index) => {
+                                    return <th 
+                                        style={{minWidth:"105px"}} 
+                                        key={index}
+                                        title={element.content || null}
+                                    >{splitItem(element.symbol)[0]} <br/> {splitItem(element.symbol)[1]} </th>
+                                })
+                            }
+                            {
+                                sectionCValue.KY_NANG.data.map((element, index) => {
+                                    return <th 
+                                        style={{minWidth:"105px"}} 
+                                        key={index}
+                                        title={element.content || null}
+                                    >{splitItem(element.symbol)[0]} <br/> {splitItem(element.symbol)[1]} </th>
+                                })
+                            }
+                            {
+                                sectionCValue.THAI_DO.data.map((element, index) => {
+                                    return <th 
+                                        style={{minWidth:"105px"}} 
+                                        key={index}
+                                        title={element.content || null}
+                                    >{splitItem(element.symbol)[0]} <br/> {splitItem(element.symbol)[1]} </th>
+                                })
+                            }
+                            </tr>
+                        </thead>
+                        <SectionEMain
+                            PLOList={sectionDValue}
+                            POSize={POSize}
+                            POList = {sectionCValue}
+                        />
+                    </table>
+                </div>
             </div>
             <EditorFooter
                 currentSection={4}

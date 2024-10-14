@@ -1,0 +1,65 @@
+@import "../../../variable.scss";
+
+#sectionE {
+    .matrix-wrap {
+        width: 100%;
+        overflow-x: auto;
+        table-layout: auto;
+
+        &::-webkit-scrollbar {
+            width: 8px; /* Width of the vertical scrollbar */
+            height: 8px; /* Height of the horizontal scrollbar */
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1; /* Light grey track */
+            border-radius: 4px; /* Optional: roundness of the track */
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #ccc; /* Dark grey thumb */
+            border-radius: 4px; /* Optional: roundness of the thumb */
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #888; /* Darker grey on hover */
+        }
+    }
+
+    .matrix {
+        // width: 100%; 
+        border-collapse: collapse;
+
+        th {
+            text-align: center;
+            color: white;
+            background-color: $primary-color;
+            padding: 5px;
+            border: 1.5px solid white;
+        }
+
+        td {
+            padding: 8px;
+            border: 1.5px solid $primary-color;
+
+            &.input {
+                position: relative;
+            }
+        }
+
+        tr {
+            &.block {
+                &-title {
+                    background: $base-color;
+                    font-weight: 700;
+                    color: $primary-color;
+                }
+                &-subtitle {
+                    // background: $base-color;
+                    font-weight: 700;
+                    color: $primary-color;
+                }
+            }
+        }
+    }
+}

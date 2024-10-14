@@ -12,6 +12,7 @@ import { createGraduationCondition, deleteGraduationCondition, getGraduation, up
 import { createCertificationCondition, deleteCertificationCondition, getCertification, updateCertificationCondition } from './dictionary/certifiction.mjs';
 import { getUser, updateUser } from './user/user.mjs';
 import { getUserManage } from './user/manage.mjs';
+import { getPOPLOMatrix } from './editProgram/sectionE.mjs';
 
 // Để xử lý __dirname trong ES module
 const __filename = fileURLToPath(import.meta.url);
@@ -57,7 +58,6 @@ server.delete('/specialization/delete', deleteSpecialize);
 server.post('/specialization/update', updateSpecialize);
 
 
-
 // SECTION B
 // Routes for Section B
 // Route GET để lấy thông tin sectionB theo id
@@ -82,6 +82,9 @@ server.post('/program-outcome/update', updateProgramLearningOutcome);
 server.post('/program-outcome/create', createProgramLearningOutcome);
 server.delete('/program-outcome/delete', deleteProgramLearningOutcome);
 server.post('/update-program-outcome', updateMultipleProgramLearningOutcomes);
+
+// SECTION E
+server.get('/program/po-plo-matrix', getPOPLOMatrix);
 
 
 // DICTIONARY
