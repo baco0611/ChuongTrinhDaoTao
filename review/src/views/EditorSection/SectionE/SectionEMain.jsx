@@ -7,42 +7,11 @@ import { useQuery } from 'react-query';
 import { UserContext } from '../../../context/ContextProvider';
 import Cookies from "js-cookie"
 
-export default function SectionEMain({ PLOList, POSize, POList }) {
+export default function SectionEMain({ PLOList, POSize, POList, sectionEValue, setSectionEValue }) {
     const { id } = useParams()
-    const [ sectionEValue, setSectionEValue ] = useState({})
+    
     const navigate = useNavigate()
     const { apiURL, serverAPI, token } = useContext(UserContext)
-
-    const fetchSectionEAPI = () => {
-        const token = Cookies.get("ACCESS_TOKEN");
-        return async () => {
-            return await getDataSectionE({
-                id,
-                api: serverAPI,
-                token,
-                setSectionEValue,
-            });
-        };
-    };
-
-    // Use useQuery for fetching section C data
-    const { data, isLoading, isError } = useQuery(
-        `sectionE-${id}`,
-        fetchSectionEAPI(id),
-        {
-            cacheTime: Infinity,
-            refetchOnWindowFocus: false,
-        }
-    );
-
-    if (isLoading) 
-        return <tbody><tr><td><Loader /></td></tr></tbody>;
-
-    // Handle error states
-    if (isError) 
-        navigate('/error');
-
-    // console.log(sectionEValue)
 
     return (
         <tbody>
@@ -54,7 +23,7 @@ export default function SectionEMain({ PLOList, POSize, POList }) {
                 data={PLOList.KIEN_THUC}
                 POSize={POSize}
                 sectionEValue={sectionEValue}
-                setSectionEValue={sectionEValue}
+                setSectionEValue={setSectionEValue}
                 POList={POList}
             />
             <tr className='block-title'>
@@ -65,7 +34,7 @@ export default function SectionEMain({ PLOList, POSize, POList }) {
                 data={PLOList.KY_NANG}
                 POSize={POSize}
                 sectionEValue={sectionEValue}
-                setSectionEValue={sectionEValue}
+                setSectionEValue={setSectionEValue}
                 POList={POList}
             />
             <tr className='block-title'>

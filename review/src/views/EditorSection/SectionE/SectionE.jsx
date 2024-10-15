@@ -10,6 +10,9 @@ import { getDataSectionC } from '../database/sectionC'
 import { getDataSectionD } from '../database/sectionD'
 import Cookies from "js-cookie"
 import SectionEMain from './SectionEMain'
+import { getDataSectionE, handleSavingData } from '../database/sectionE'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
 
 
 export default function SectionE() {
@@ -121,6 +124,9 @@ export default function SectionE() {
         }
     )
 
+    const [ sectionEValue, setSectionEValue ] = useState({})
+    const [ isFetchData, setIsFetchData ] = useState({})
+
     const [ POSize, setPOSize ] = useState([
         ...sectionCValue.KIEN_THUC.data, ...sectionCValue.KY_NANG.data, ...sectionCValue.THAI_DO.data
     ].length)
@@ -174,6 +180,18 @@ export default function SectionE() {
         };
     };
 
+    const fetchSectionEAPI = () => {
+        const token = Cookies.get("ACCESS_TOKEN");
+        return async () => {
+            return await getDataSectionE({
+                id,
+                api: serverAPI,
+                token,
+                setSectionEValue,
+            });
+        };
+    };
+
     // Use useQuery for fetching section C data
     const { data: sectionCData, isLoading: isSectionCLoading, isError: isSectionCError } = useQuery(
         `sectionC-${id}`,
@@ -194,12 +212,23 @@ export default function SectionE() {
         }
     );
 
+    // Use useQuery for fetching section C data
+    const {  data: sectionEData, isLoading: isSectionELoading, isError: isSectionEError } = useQuery(
+        `sectionE-${id}`,
+        fetchSectionEAPI(id),
+        {
+            cacheTime: Infinity,
+            refetchOnWindowFocus: false,
+        }
+    );
+
+
     // Handle loading states
-    if (isSectionCLoading || isSectionDLoading) 
+    if (isSectionCLoading || isSectionDLoading || isSectionELoading) 
         return <Loader />;
 
     // Handle error states
-    if (isSectionCError || isSectionDError) 
+    if (isSectionCError || isSectionDError || isSectionDError) 
         navigate('/error');
 
 
@@ -212,6 +241,18 @@ export default function SectionE() {
             <EditorHeader
                 currentSection={4}
             />
+            <div 
+                className='editor-save-btn cursorPointer'
+                onClick={() => handleSavingData({
+                    api: serverAPI,
+                    token,
+                    data: sectionEValue,
+                    setState: setSectionEValue,
+                    setIsFetchData
+                })}
+            >
+                <FontAwesomeIcon icon={faFloppyDisk} />
+            </div>
             <div id="sectionE" className="wrapper editor-section">
                 <div className="title">
                     <h1>E. MA TRẬN CHUẨN ĐẦU RA ĐỐI VỚI MỤC TIÊU</h1>
@@ -265,6 +306,8 @@ export default function SectionE() {
                             PLOList={sectionDValue}
                             POSize={POSize}
                             POList = {sectionCValue}
+                            sectionEValue={sectionEValue}
+                            setSectionEValue={setSectionEValue}
                         />
                     </table>
                 </div>

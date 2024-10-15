@@ -1,6 +1,33 @@
 @import "../../../variable.scss";
 
+.editor-save-btn {
+    width: 65px;
+    height: 65px;
+    background-color: $primary-color;
+
+    position: fixed;
+    bottom: 50px;
+    right: 5%;
+    z-index: 9;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    opacity: 0.5;
+
+    svg {
+        color: white;
+        font-size: 30px;
+    }
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
 #sectionE {
+
     .matrix-wrap {
         width: 100%;
         overflow-x: auto;
@@ -44,6 +71,11 @@
 
             &.input {
                 position: relative;
+                
+                input[type=checkbox] {
+                    height: 25px;
+                    width: 25px;
+                }
             }
         }
 

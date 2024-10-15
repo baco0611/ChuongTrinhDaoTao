@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
+import { handleChangValueE } from '../database/sectionE';
 
 
 function CheckBoxBlock({ PLOId, POList, setSectionEValue, data }) {
     const [ list, setList ] = useState([])
-
-    // console.log(JSON.stringify(POList), JSON.stringify(data))
+    // console.log(data)
 
     useEffect(() => {
+        console.log(1)
         const updatedList = [];
 
         Object.values(POList).forEach(category => {
@@ -16,15 +17,14 @@ function CheckBoxBlock({ PLOId, POList, setSectionEValue, data }) {
                 updatedList.push({
                     POId,
                     PLOId,
+                    id: data?.[PLOId]?.[POId]?.id || null,
                     isChecked: data?.[PLOId]?.[POId]?.isChecked || false
                 })
             });
         });
 
         setList(updatedList)
-    }, [setSectionEValue])
-
-    // console.log(list)
+    }, [data])
 
     return <>
     {
@@ -36,11 +36,16 @@ function CheckBoxBlock({ PLOId, POList, setSectionEValue, data }) {
                     data-po={element.POId}
                     data-plo={element.PLOId}
                     checked={element.isChecked}
-                    // data-id={dataCheck[data_po].id != '' && dataCheck[data_po].id}
-                    // onChange={() => handleChangValueE(setState, valueList)}
-                    // checked={dataCheck[data_po].isCheck}
-                    // id={`${data_plo}-${data_po}`}
+                    data-id={element.id}
+                    onChange={() => handleChangValueE({
+                        element,
+                        setState: setSectionEValue
+                    })}
+                    id={`${element.PLOId}-${element.POId}`}
                 />
+                <label htmlFor={`${element.PLOId}-${element.POId}`} onClick={() => alert(1)}>
+                    <span></span>
+                </label>
             </td>
         })
     }
@@ -48,6 +53,7 @@ function CheckBoxBlock({ PLOId, POList, setSectionEValue, data }) {
 }
 
 export default function SectionEBlock({ data, POSize, sectionEValue, setSectionEValue, POList }) {
+    console.log(sectionEValue)
 
     return Array.from(Object.keys(data)).map((element, index) => {
         return <React.Fragment key={index}>
