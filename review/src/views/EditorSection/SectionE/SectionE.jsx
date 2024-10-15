@@ -13,6 +13,7 @@ import SectionEMain from './SectionEMain'
 import { getDataSectionE, handleSavingData } from '../database/sectionE'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
+import Loading from '../../../components/Loading/Loading'
 
 
 export default function SectionE() {
@@ -125,7 +126,7 @@ export default function SectionE() {
     )
 
     const [ sectionEValue, setSectionEValue ] = useState({})
-    const [ isFetchData, setIsFetchData ] = useState({})
+    const [ isFetchData, setIsFetchData ] = useState(false)
 
     const [ POSize, setPOSize ] = useState([
         ...sectionCValue.KIEN_THUC.data, ...sectionCValue.KY_NANG.data, ...sectionCValue.THAI_DO.data
@@ -241,6 +242,9 @@ export default function SectionE() {
             <EditorHeader
                 currentSection={4}
             />
+            {
+                isFetchData && <Loading/>
+            }
             <div 
                 className='editor-save-btn cursorPointer'
                 onClick={() => handleSavingData({

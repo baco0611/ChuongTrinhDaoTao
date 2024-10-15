@@ -7,7 +7,6 @@ function CheckBoxBlock({ PLOId, POList, setSectionEValue, data }) {
     // console.log(data)
 
     useEffect(() => {
-        console.log(1)
         const updatedList = [];
 
         Object.values(POList).forEach(category => {
@@ -53,7 +52,7 @@ function CheckBoxBlock({ PLOId, POList, setSectionEValue, data }) {
 }
 
 export default function SectionEBlock({ data, POSize, sectionEValue, setSectionEValue, POList }) {
-    console.log(sectionEValue)
+    // console.log(sectionEValue)
 
     return Array.from(Object.keys(data)).map((element, index) => {
         return <React.Fragment key={index}>
