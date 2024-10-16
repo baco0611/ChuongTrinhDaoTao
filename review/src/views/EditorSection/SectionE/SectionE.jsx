@@ -280,7 +280,7 @@ export default function SectionE() {
                             {
                                 sectionCValue.KIEN_THUC.data.map((element, index) => {
                                     return <th 
-                                        style={{minWidth:"105px"}} 
+                                        style={{minWidth:"65px"}} 
                                         key={index}
                                         title={element.content || null}
                                     >{splitItem(element.symbol)[0]} <br/> {splitItem(element.symbol)[1]} </th>
@@ -289,7 +289,7 @@ export default function SectionE() {
                             {
                                 sectionCValue.KY_NANG.data.map((element, index) => {
                                     return <th 
-                                        style={{minWidth:"105px"}} 
+                                        style={{minWidth:"65px"}} 
                                         key={index}
                                         title={element.content || null}
                                     >{splitItem(element.symbol)[0]} <br/> {splitItem(element.symbol)[1]} </th>
@@ -298,7 +298,7 @@ export default function SectionE() {
                             {
                                 sectionCValue.THAI_DO.data.map((element, index) => {
                                     return <th 
-                                        style={{minWidth:"105px"}} 
+                                        style={{minWidth:"65px"}} 
                                         key={index}
                                         title={element.content || null}
                                     >{splitItem(element.symbol)[0]} <br/> {splitItem(element.symbol)[1]} </th>
