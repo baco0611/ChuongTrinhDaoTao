@@ -57,14 +57,16 @@ export default function SectionEBlock({ data, POSize, sectionEValue, setSectionE
     return Array.from(Object.keys(data)).map((element, index) => {
         return <React.Fragment key={index}>
             <tr className='block-subtitle'>
-                <td>{data[element].typeIndex}</td>
-                <td colSpan={POSize + 1}>{data[element].title}</td>
+                <td className='number'>{data[element].typeIndex}</td>
+                {/* <td className='name' colSpan={POSize + 1}>{data[element].title}</td> */}
+                <td className='name'>{data[element].title}</td>
+                <td colSpan={POSize}></td>
             </tr>
             {
                 data[element].data.map((element, index) => {
                     return <tr key={index}>
-                        <td>{element.symbol}</td>
-                        <td>{element.content}</td>
+                        <td className='number'>{element.symbol}</td>
+                        <td className='name'>{element.content}</td>
                         <CheckBoxBlock
                             PLOId={element.id}
                             POList={POList}

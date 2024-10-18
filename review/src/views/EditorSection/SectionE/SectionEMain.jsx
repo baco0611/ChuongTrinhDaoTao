@@ -16,8 +16,10 @@ export default function SectionEMain({ PLOList, POSize, POList, sectionEValue, s
     return (
         <tbody>
             <tr className='block-title'>
-                <td>1.</td>
-                <td colSpan={POSize + 1}>Kiến thức</td>
+                <td className='number'>1.</td>
+                {/* <td className='name' colSpan={POSize + 1}>Kiến thức</td> */}
+                <td className='name'>Kiến thức</td>
+                <td colSpan={POSize}></td>
             </tr>
             <SectionEBlock
                 data={PLOList.KIEN_THUC}
@@ -27,8 +29,10 @@ export default function SectionEMain({ PLOList, POSize, POList, sectionEValue, s
                 POList={POList}
             />
             <tr className='block-title'>
-                <td>2.</td>
-                <td colSpan={POSize + 1}>Kỹ năng</td>
+                <td className='number'>2.</td>
+                {/* <td className='name' colSpan={POSize + 1}>Kỹ năng</td> */}
+                <td className='name'>Kỹ năng</td>
+                <td colSpan={POSize}></td>
             </tr>
             <SectionEBlock
                 data={PLOList.KY_NANG}
@@ -38,8 +42,10 @@ export default function SectionEMain({ PLOList, POSize, POList, sectionEValue, s
                 POList={POList}
             />
             <tr className='block-title'>
-                <td>3.</td>
-                <td colSpan={POSize + 1}>Thái độ</td>
+                <td className='number'>3.</td>
+                {/* <td className='name' colSpan={POSize + 1}>Thái độ</td> */}
+                <td className='name'>Thái độ</td>
+                <td colSpan={POSize}></td>
             </tr>
             <SectionEBlock
                 data={PLOList.THAI_DO}

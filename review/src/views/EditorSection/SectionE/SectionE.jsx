@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import EditorHeader from '../EditorHeader/EditorHeader'
 import EditorFooter from '../EditorFooter/EditorFooter'
 import "./SectionE.scss"
@@ -132,6 +132,11 @@ export default function SectionE() {
         ...sectionCValue.KIEN_THUC.data, ...sectionCValue.KY_NANG.data, ...sectionCValue.THAI_DO.data
     ].length)
 
+    const tableRef = useRef(null)
+    const headerRef = useRef(null)
+    const [headerY, setHeaderY] = useState(0);
+    const [headerX, setHeaderX] = useState(0);
+
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -152,6 +157,33 @@ export default function SectionE() {
             ...sectionCValue.KIEN_THUC.data, ...sectionCValue.KY_NANG.data, ...sectionCValue.THAI_DO.data
         ].length)
     }, [sectionCValue])
+
+    useEffect(() => {
+        // Kiểm tra vị trí ban đầu của phần tử
+        // if (tableRef.current) {
+        //     setHeaderY(tableRef.current.getBoundingClientRect().top);
+        // }
+
+        // Hàm xử lý khi cuộn hoặc khi kích thước cửa sổ thay đổi
+        const handleScroll = () => {
+            if (tableRef.current) {
+                const rect = tableRef.current.getBoundingClientRect();
+
+                if(rect.top >= 65) 
+                    setHeaderY(0)
+                else   
+                    setHeaderY(65 - rect.top)
+            }
+        };
+
+        // Lắng nghe sự kiện cuộn trang
+        window.addEventListener("scroll", handleScroll);
+
+        // Xóa event listener khi component bị hủy
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
 
     // fetchAPI for section C
     const fetchSectionCAPI = () => {
@@ -264,17 +296,22 @@ export default function SectionE() {
                     <p>Lưu ý: Dữ liệu không được lưu tự động, vui lòng bấm nút lưu ở góc phải màn hình.</p>
                 </div>
                 <div className='matrix-wrap'>
-                    <table className='matrix'>
-                        <thead>
+                    <table 
+                        className='matrix'
+                        ref={tableRef}
+                    >
+                        <thead 
+                            style={{transform: `translateY(${headerY}px)`}}
+                        >
                             <tr>
-                                <th style={{minWidth:"100px"}} rowSpan={3}>Ký hiệu</th>
-                                <th style={{minWidth:"550px"}} rowSpan={3}>Chuẩn đầu ra</th>
-                                <th style={{minWidth:"45%"}} colSpan={POSize}>Mục tiêu</th>
+                                <th className='row-1 number' style={{minWidth:"100px"}} rowSpan={3}>Ký hiệu</th>
+                                <th className='row-1 name' style={{minWidth:"550px"}} rowSpan={3}>Chuẩn đầu ra</th>
+                                <th ref={headerRef} className='row-1' style={{minWidth:"45%"}} colSpan={POSize}>Mục tiêu</th>
                             </tr>
                             <tr>
-                                <th colSpan={sectionCValue.KIEN_THUC.data.length}>Kiến thức</th>
-                                <th colSpan={sectionCValue.KY_NANG.data.length}>Kỹ năng</th>
-                                <th colSpan={sectionCValue.THAI_DO.data.length}>Thái độ</th>
+                                <th className='row-2' colSpan={sectionCValue.KIEN_THUC.data.length}>Kiến thức</th>
+                                <th className='row-2' colSpan={sectionCValue.KY_NANG.data.length}>Kỹ năng</th>
+                                <th className='row-2' colSpan={sectionCValue.THAI_DO.data.length}>Thái độ</th>
                             </tr>
                             <tr>
                             {
@@ -283,6 +320,7 @@ export default function SectionE() {
                                         style={{minWidth:"105px"}} 
                                         key={index}
                                         title={element.content || null}
+                                        className='row-3'
                                     >{splitItem(element.symbol)[0]} <br/> {splitItem(element.symbol)[1]} </th>
                                 })
                             }

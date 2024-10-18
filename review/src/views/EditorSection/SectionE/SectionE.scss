@@ -54,8 +54,17 @@
     }
 
     .matrix {
-        // width: 100%; 
         border-collapse: collapse;
+
+        thead {
+            position: relative;
+            z-index: 20;
+        }
+
+        tbody {
+            position: relative;
+            z-index: 15;
+        }
 
         th {
             text-align: center;
@@ -63,11 +72,28 @@
             background-color: $primary-color;
             padding: 5px;
             border: 1.5px solid white;
+            position: sticky;
+            z-index: 15;
+            font-weight: 900;
+
+            &.number {
+                position: sticky;
+                left: 0;
+                z-index: 20;
+            }
+
+            &.name {
+                position: sticky;
+                left: 100px;
+                z-index: 20;
+            }
         }
 
         td {
             padding: 8px;
             border: 1.5px solid $primary-color;
+            z-index: 8;
+            background-color: white;
 
             &.input {
                 position: relative;
@@ -77,17 +103,28 @@
                     width: 25px;
                 }
             }
+
+            &.number {
+                position: sticky;
+                left: 0;
+                z-index: 10;
+            }
+
+            &.name {
+                position: sticky;
+                left: 100px;
+                z-index: 9;
+            }
         }
 
         tr {
             &.block {
-                &-title {
-                    background: $base-color;
+                &-title td {
+                    background: $primary-color;
                     font-weight: 700;
-                    color: $primary-color;
+                    color: white;
                 }
-                &-subtitle {
-                    // background: $base-color;
+                &-subtitle td {
                     font-weight: 700;
                     color: $primary-color;
                 }
