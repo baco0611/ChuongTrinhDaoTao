@@ -13,6 +13,7 @@ import { createCertificationCondition, deleteCertificationCondition, getCertific
 import { getUser, updateUser } from './user/user.mjs';
 import { getUserManage } from './user/manage.mjs';
 import { getPOPLOMatrix, updatePOPLOMatrix } from './editProgram/sectionE.mjs';
+import { getCourse } from './editProgram/sectionG.mjs';
 
 // Để xử lý __dirname trong ES module
 const __filename = fileURLToPath(import.meta.url);
@@ -84,9 +85,11 @@ server.delete('/program-outcome/delete', deleteProgramLearningOutcome);
 server.post('/update-program-outcome', updateMultipleProgramLearningOutcomes);
 
 // SECTION E
-server.get('/program/po-plo-matrix', getPOPLOMatrix);
+server.get('/program/po-plo-matrix/:id', getPOPLOMatrix);
 server.post('/program/po-plo-matrix/update', updatePOPLOMatrix);
 
+// SECTION G
+server.get("/course/:id", getCourse)
 
 
 // DICTIONARY
