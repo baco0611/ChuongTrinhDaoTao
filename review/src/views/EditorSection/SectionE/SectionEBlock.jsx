@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { handleChangValueE } from '../database/sectionE';
 
 
-function CheckBoxBlock({ PLOId, POList, setSectionEValue, data }) {
+function CheckBoxBlock({ ploId, POList, setSectionEValue, data }) {
     const [ list, setList ] = useState([])
     // console.log(data)
 
@@ -11,13 +11,13 @@ function CheckBoxBlock({ PLOId, POList, setSectionEValue, data }) {
 
         Object.values(POList).forEach(category => {
             category.data.forEach(po => {
-                const POId = po.id
+                const poId = po.id
                 
                 updatedList.push({
-                    POId,
-                    PLOId,
-                    id: data?.[PLOId]?.[POId]?.id || null,
-                    isChecked: data?.[PLOId]?.[POId]?.isChecked || false
+                    poId,
+                    ploId,
+                    id: data?.[ploId]?.[poId]?.id || null,
+                    isChecked: data?.[ploId]?.[poId]?.isChecked || false
                 })
             });
         });
@@ -32,17 +32,17 @@ function CheckBoxBlock({ PLOId, POList, setSectionEValue, data }) {
                 <input 
                     type="checkbox"
                     className='xmark'
-                    data-po={element.POId}
-                    data-plo={element.PLOId}
+                    data-po={element.poId}
+                    data-plo={element.ploId}
                     checked={element.isChecked}
                     data-id={element.id}
                     onChange={() => handleChangValueE({
                         element,
                         setState: setSectionEValue
                     })}
-                    id={`${element.PLOId}-${element.POId}`}
+                    id={`${element.ploId}-${element.poId}`}
                 />
-                <label htmlFor={`${element.PLOId}-${element.POId}`} onClick={() => alert(1)}>
+                <label htmlFor={`${element.ploId}-${element.poId}`} onClick={() => alert(1)}>
                     <span></span>
                 </label>
             </td>
@@ -66,7 +66,7 @@ export default function SectionEBlock({ data, POSize, sectionEValue, setSectionE
                         <td>{element.symbol}</td>
                         <td>{element.content}</td>
                         <CheckBoxBlock
-                            PLOId={element.id}
+                            ploId={element.id}
                             POList={POList}
                             setSectionEValue={setSectionEValue}
                             data={sectionEValue}

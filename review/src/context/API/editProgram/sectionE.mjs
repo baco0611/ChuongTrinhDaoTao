@@ -41,8 +41,8 @@ export const updatePOPLOMatrix = (req, res) => {
             const newId = maxId + index + 1; // Tính id mới là maxId + 1, maxId + 2, ...
             dbContent.sectionE.push({
                 id: newId,
-                POId: newItem.POId,
-                PLOId: newItem.PLOId
+                poId: newItem.poId,
+                ploId: newItem.ploId
             });
         });
 

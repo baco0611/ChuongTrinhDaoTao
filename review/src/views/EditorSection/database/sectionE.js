@@ -4,10 +4,10 @@ export const splitSectionEData = data => {
     const result = {}
 
     data.forEach(item => {
-        if (!result[item.PLOId]) {
-            result[item.PLOId] = {};
+        if (!result[item.ploId]) {
+            result[item.ploId] = {};
         }
-        result[item.PLOId][item.POId] = { 
+        result[item.ploId][item.poId] = { 
             id: item.id,
             isChecked: true
         }
@@ -18,7 +18,7 @@ export const splitSectionEData = data => {
 }
 
 export const getDataSectionE = async ({id, api, token, setSectionEValue}) => {
-    const result = await getData(api, "/program/po-plo-matrix", token)
+    const result = await getData(api, `/program/po-plo-matrix/${id}`, token)
 
     // console.log(splitSectionEData(result.data.data))
     if(result.status == 200)
@@ -28,12 +28,22 @@ export const getDataSectionE = async ({id, api, token, setSectionEValue}) => {
 export const handleChangValueE = ({ element, setState }) => {
     setState(prev => {
         const result = {...prev}
+
+        console.log(result)
         
-        result[element.PLOId][element.POId] = {
-            ...result[element.PLOId][element.POId],
-            isChecked: !element.isChecked
-        }
-        
+        if(result[element.ploId]?.[element.poId])
+            result[element.ploId][element.poId] = {
+                ...result[element.ploId][element.poId],
+                isChecked: !element.isChecked
+            }
+        else
+            result[element.ploId] = {
+                ...result[element.ploId],
+                [element.poId]: {
+                    isChecked: !element.isChecked
+                }
+            }
+
         return result
     })
 }
@@ -56,7 +66,7 @@ export const handleSavingData = async ({ data, setState, setIsFetchData, api, to
         for (const poId in data[ploId]) {
             const item = data[ploId][poId];
             if (!item.id && item.isChecked === true) {
-            createElement.push({ PLOId: ploId, POId: poId });
+            createElement.push({ ploId: ploId, poId: poId });
             }
         }
     }
@@ -77,18 +87,18 @@ export const handleSavingData = async ({ data, setState, setIsFetchData, api, to
     setIsFetchData(false)
 }
 
-// {"id": 1, "POId": 1, "PLOId": 1},
-// {"id": 2, "POId": 1, "PLOId": 2}
-// {"id": 3, "POId": 1, "PLOId": 3},
-// {"id": 4, "POId": 1, "PLOId": 4},
-// {"id": 5, "POId": 1, "PLOId": 5},
-// {"id": 6, "POId": 2, "PLOId": 6},
-// {"id": 7, "POId": 2, "PLOId": 7},
-// {"id": 8, "POId": 2, "PLOId": 8},
-// {"id": 9, "POId": 3, "PLOId": 9},
-// {"id": 10, "POId": 3, "PLOId": 12},
-// {"id": 11, "POId": 2, "PLOId": 1},
-// {"id": 12, "POId": 3, "PLOId": 1},
-// {"id": 13, "POId": 4, "PLOId": 1},
-// {"id": 14, "POId": 4, "PLOId": 2},
-// {"id": 15, "POId": 4, "PLOId": 3}
+// {"id": 1, "poId": 1, "ploId": 1},
+// {"id": 2, "poId": 1, "ploId": 2}
+// {"id": 3, "poId": 1, "ploId": 3},
+// {"id": 4, "poId": 1, "ploId": 4},
+// {"id": 5, "poId": 1, "ploId": 5},
+// {"id": 6, "poId": 2, "ploId": 6},
+// {"id": 7, "poId": 2, "ploId": 7},
+// {"id": 8, "poId": 2, "ploId": 8},
+// {"id": 9, "poId": 3, "ploId": 9},
+// {"id": 10, "poId": 3, "ploId": 12},
+// {"id": 11, "poId": 2, "ploId": 1},
+// {"id": 12, "poId": 3, "ploId": 1},
+// {"id": 13, "poId": 4, "ploId": 1},
+// {"id": 14, "poId": 4, "ploId": 2},
+// {"id": 15, "poId": 4, "ploId": 3}
