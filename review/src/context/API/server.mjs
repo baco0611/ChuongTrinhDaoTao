@@ -14,6 +14,7 @@ import { getUser, updateUser } from './user/user.mjs';
 import { getUserManage } from './user/manage.mjs';
 import { getPOPLOMatrix, updatePOPLOMatrix } from './editProgram/sectionE.mjs';
 import { getCourse } from './editProgram/sectionG.mjs';
+import { getPLOCourse } from './editProgram/sectionH.mjs';
 
 // Để xử lý __dirname trong ES module
 const __filename = fileURLToPath(import.meta.url);
@@ -90,6 +91,9 @@ server.post('/program/po-plo-matrix/update', updatePOPLOMatrix);
 
 // SECTION G
 server.get("/course/:id", getCourse)
+
+// SECTION H
+server.get("/plo-course/:id", getPLOCourse)
 
 
 // DICTIONARY

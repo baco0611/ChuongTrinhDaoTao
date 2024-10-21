@@ -18,7 +18,8 @@ export default function SectionG() {
 
     const { apiURL, serverAPI, user, token, isDataSaved, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
 
-    const [ sectionGValue, setSectionGValue ] = useState({
+    const [ sectionGValue, setSectionGValue ] = useState(
+    {
         GENERAL: {
             data: [],
             type: "GENERAL"
@@ -55,7 +56,16 @@ export default function SectionG() {
         }
     })
 
-    const [ specialization, setSpecialization ] = useState([])
+    const [ specialization, setSpecialization ] = useState(
+        JSON.parse(sessionStorage.getItem(`specialization-${id}`)) || []
+    )
+
+    console.log(specialization)
+    useEffect(() => {
+        sessionStorage.setItem(`sectionG-${id}`, JSON.stringify(sectionGValue))
+        sessionStorage.setItem(`specialization-${id}`, JSON.stringify(specialization))
+
+    }, [sectionGValue, specialization])
 
     useEffect(() => {
         window.scrollTo(0, 0)

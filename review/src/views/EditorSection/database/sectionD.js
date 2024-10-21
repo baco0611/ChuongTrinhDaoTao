@@ -63,7 +63,7 @@ const splitProgramLearningOutcomes = (data) => {
     return result;
 };
 
-export const getDataSectionD = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, setSectionDValue }) => {
+export const getDataSectionD = async ({ id, api, token, completeMessage, errorMessage, setIsDataSaved, setSectionDValue, setPLOSize }) => {
     const result = await getData(api, `/api/programLearningOutcomes/${id}`, token, completeMessage, errorMessage)
     
     if(result.status == 200) {
