@@ -122,7 +122,6 @@ public class EducationProgramEntity {
         this.updatedAt = new Date();
     }
 
-    // Relationship with FieldOfStudyEntity
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "field_of_study_id")
     private FieldOfStudyEntity fieldOfStudy;

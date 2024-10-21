@@ -29,6 +29,6 @@ public class ProgramObjectiveEntity {
     @JoinColumn(name="programId")
     private EducationProgramEntity educationProgram;
 
-    @OneToMany(mappedBy = "objective")
+    @OneToMany(mappedBy = "objective", cascade = CascadeType.ALL)
     private List<LearningOutComesObjectiveMatrixEntity> outputStandardDetailObjectiveMatrixs = new ArrayList<>();
 }

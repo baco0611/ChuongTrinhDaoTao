@@ -33,6 +33,9 @@ public class CourseOutlineEntity {
 
     @Column
     private int internshipHours;
+    
+    @Column
+    private int testHours;
 
     @OneToMany(mappedBy = "courseOutline")
     private List<DetailedProgramEntity> detailedPrograms = new ArrayList<>();

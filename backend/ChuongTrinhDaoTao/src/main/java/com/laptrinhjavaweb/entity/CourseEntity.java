@@ -30,26 +30,19 @@ public class CourseEntity {
     private String courseCode;
 
     @Column
-    private int creditHours;
-
-    @Column(length = 50)
-    private String responsibleDepartment;
+    private int creditNumbers;
 
     @Column(length = 50)
     private String courseStatus;
 
-    @Column(length = 50)
-    private String createdBy;
-
-    @CreationTimestamp
-    private Date createdTime;
-
-    @Column
-    private String modifiedBy;
-
-    @UpdateTimestamp
-    private Date modifiedTime;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "lecturersId")
+    private LecturersEntity responsiblePerson;
 
     @OneToMany(mappedBy = "course")
     private List<CourseOutlineEntity> courseOutlines = new ArrayList<>();
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "departmentId")
+    private DepartmentEntity department;
 }

@@ -33,12 +33,12 @@ public class ProgramLearningOutComesEntity {
     @JoinColumn(name="programId")
     private EducationProgramEntity educationProgram;
 
-    @OneToMany(mappedBy = "learningOutcome")
+    @OneToMany(mappedBy = "learningOutcome", cascade = CascadeType.ALL)
     private List<LearningOutComesObjectiveMatrixEntity> learningOutcomeObjectiveMatrixs = new ArrayList<>();
 
-    @OneToMany(mappedBy = "learningOutcome")
+    @OneToMany(mappedBy = "learningOutcome", cascade = CascadeType.ALL)
     private List<CourseLearningOutcomeMatrixEntity> courseLearningOutcomeMatrixs = new ArrayList<>();
 
-    @OneToMany(mappedBy = "learningOutcome")
+    @OneToMany(mappedBy = "learningOutcome", cascade = CascadeType.ALL)
     private List<CertificationLearningOutcomeMatrixEntity> certificationLearningOutcomeMatrixs = new ArrayList<>();
 }

@@ -23,6 +23,6 @@ public class SpecializationTrainingEntity {
     @JoinColumn(name="programId")
     private EducationProgramEntity educationProgram;
 
-    @OneToMany(mappedBy = "specializationTraining")
+    @OneToMany(mappedBy = "specializationTraining", cascade = CascadeType.ALL)
     private List<DetailedProgramEntity> detailedPrograms = new ArrayList<>();
 }

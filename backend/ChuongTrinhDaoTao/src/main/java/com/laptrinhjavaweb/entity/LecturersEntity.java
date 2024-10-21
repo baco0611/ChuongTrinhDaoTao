@@ -66,6 +66,9 @@ public class LecturersEntity implements UserDetails {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "departmentId")
 	private DepartmentEntity department;
+	
+	@OneToMany(mappedBy = "responsiblePerson")
+	private List<CourseEntity> courses;
 
 	@OneToMany(mappedBy = "lecturer")
 	private List<EducationProgramEntity> educationPrograms = new ArrayList<>();

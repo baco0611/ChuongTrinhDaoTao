@@ -3,6 +3,7 @@ package com.laptrinhjavaweb.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -42,4 +43,7 @@ public class DepartmentEntity {
 	
 	@OneToMany(mappedBy = "department")
 	private List<EducationProgramEntity> educationPrograms = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "department")
+	private List<CourseEntity> courses;
 }
