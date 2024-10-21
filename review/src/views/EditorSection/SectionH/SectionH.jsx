@@ -10,6 +10,10 @@ import Loader from '../../../components/Loader/Loader'
 import Cookies from "js-cookie"
 import { getDataSectionD } from '../database/sectionD'
 import { getDataSectionH } from '../database/sectionH'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleInfo, faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
+import Competency from '../Competency/Competency'
+import SectionHMain from './SectionHMain'
 
 export default function SectionH() {
 
@@ -139,11 +143,17 @@ export default function SectionH() {
 
     const [ sectionHValue, setSectionHValue ] = useState(JSON.parse(sessionStorage.getItem(`sectionD-${id}`)) || [])
 
-    const [ PLOSize, setPLOSize ] = useState(0)
+    const [ PLOSize, setPLOSize ] = useState({
+        KIEN_THUC: 1,
+        KY_NANG: 1,
+        THAI_DO: 1
+    })
 
-    const [ isFetch, setIsFetch ] = useState(false)
+    const [ isFetchData, setIsFetchData ] = useState(false)
 
-    const [ specialization, setSpecialization ] = useState([])
+    const [ specialization, setSpecialization ] = useState(JSON.parse(sessionStorage.getItem(`specialization-${id}`)) || [])
+    const [ isShowCompetency, setIsShowCompetency ] = useState(false)
+
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -164,18 +174,24 @@ export default function SectionH() {
         sessionStorage.setItem(`sectionD-${id}`, JSON.stringify(sectionDValue))
         sessionStorage.setItem(`specialization-${id}`, JSON.stringify(specialization))
 
-        setPLOSize([
-            ...sectionDValue.KIEN_THUC.KIEN_THUC_DAI_HOC_HUE.data,
-            ...sectionDValue.KIEN_THUC.KIEN_THUC_DAI_HOC_KHOA_HOC.data,
-            ...sectionDValue.KIEN_THUC.KIEN_THUC_LINH_VUC.data,
-            ...sectionDValue.KIEN_THUC.KIEN_THUC_NGANH.data,
-            ...sectionDValue.KIEN_THUC.KIEN_THUC_NHOM_NGANH.data,
-            ...sectionDValue.KY_NANG.KY_NANG_MEM.data,
-            ...sectionDValue.KY_NANG.KY_NANG_CHUYEN_MON.data,
-            ...sectionDValue.THAI_DO.THAI_DO_CA_NHAN.data,
-            ...sectionDValue.THAI_DO.THAI_DO_NGHE_NGHIEP.data,
-            ...sectionDValue.THAI_DO.THAI_DO_XA_HOI.data,
-        ].length)
+        setPLOSize({
+            KIEN_THUC: [
+                ...sectionDValue.KIEN_THUC.KIEN_THUC_DAI_HOC_HUE.data,
+                ...sectionDValue.KIEN_THUC.KIEN_THUC_DAI_HOC_KHOA_HOC.data,
+                ...sectionDValue.KIEN_THUC.KIEN_THUC_LINH_VUC.data,
+                ...sectionDValue.KIEN_THUC.KIEN_THUC_NGANH.data,
+                ...sectionDValue.KIEN_THUC.KIEN_THUC_NHOM_NGANH.data,
+            ].length,
+            KY_NANG: [
+                ...sectionDValue.KY_NANG.KY_NANG_MEM.data,
+                ...sectionDValue.KY_NANG.KY_NANG_CHUYEN_MON.data,
+            ].length,
+            THAI_DO: [
+                ...sectionDValue.THAI_DO.THAI_DO_CA_NHAN.data,
+                ...sectionDValue.THAI_DO.THAI_DO_NGHE_NGHIEP.data,
+                ...sectionDValue.THAI_DO.THAI_DO_XA_HOI.data,
+            ].length
+        })
     }, [sectionDValue, sectionGValue, specialization])
 
 
@@ -252,16 +268,90 @@ export default function SectionH() {
     if(isSectionGError || isSectionDError || isSectionHError)
         navigate('/error')
 
+    const splitItem = (data) => {
+        return data.split('-')
+    }
+
     return (
         <>
             <EditorHeader
                 currentSection={6}
             />
+
+            <div 
+                className='editor-btn info-btn cursorPointer'
+                onClick={() => setIsShowCompetency(true)}
+                style={{bottom: "125px"}}
+            >
+                <FontAwesomeIcon icon={faCircleInfo} />
+            </div>
+            <div 
+                className='editor-btn info-btn cursorPointer'
+                // onClick={() => setIsShowCompetency(true)}
+                style={{bottom: "50px"}}
+            >
+                <FontAwesomeIcon icon={faFloppyDisk} />
+            </div>
+            {
+                isShowCompetency && <Competency setState={setIsShowCompetency}/>
+            }
             <div id="sectionH" className="wrapper editor-section">
                 <div className="title">
                     <h1>H. MA TRẬN HỌC PHẦN ĐỐI VỚI CHUẨN ĐẦU RA</h1>
                     <p className='content'>Hãy điền mức độ đáp ứng vào ô ứng với chuẩn đầu ra (PLO) mà học phầ đó đáp ứng.</p>
                     <p>Lưu ý: Dữ liệu không được lưu tự động, vui lòng bấm nút lưu ở góc phải màn hình.</p>
+                </div>
+
+                <div className='matrix-wrap'>
+                    <table className='matrix'>
+                        <thead>
+                            <tr>
+                                <th style={{minWidth: "45px"}} rowSpan={3}>STT</th>
+                                <th style={{minWidth: "100px"}} rowSpan={3}>Mã HP</th>
+                                <th style={{minWidth: "325px"}} rowSpan={3}>Tên HP</th>
+                                <th style={{minWidth: "45px"}} rowSpan={3}>STC</th>
+                                <th colSpan={PLOSize.KIEN_THUC}>Chuẩn về kiến thức</th>
+                                <th colSpan={PLOSize.KY_NANG}>Chuẩn về kỹ năng</th>
+                                <th colSpan={PLOSize.THAI_DO}>Chuẩn về thái độ</th>
+                            </tr>
+                            <tr>
+                            {
+                                Array.from(Object.keys(sectionDValue)).map((overallKey) => {
+                                    return Array.from(Object.keys(sectionDValue[overallKey])).map(key => {
+                                        return sectionDValue[overallKey][key].data.map((element, index) => {
+                                            return <th style={{minWidth: "50px"}} key={index}>
+                                            {splitItem(element.symbol)[0]} <br/> {splitItem(element.symbol)[1]}
+                                            </th>
+                                        })
+                                    })
+                                })
+                            }
+                            </tr>
+                            <tr>
+                            {
+                                Array.from(Object.keys(sectionDValue)).map((overallKey) => {
+                                    return Array.from(Object.keys(sectionDValue[overallKey])).map(key => {
+                                        return sectionDValue[overallKey][key].data.map((element, index) => {
+                                            return <th key={index}>
+                                                {element.competency}
+                                            </th>
+                                        })
+                                    })
+                                })
+                            }
+                            </tr>
+                        </thead>
+                        <SectionHMain
+                            sectionDValue={sectionDValue}
+                            sectionGValue={sectionGValue}
+                            sectionHValue={sectionHValue}
+                            specialization={specialization}
+                            setSectionDValue={setSectionDValue}
+                            setSectionGValue={setSectionGValue}
+                            setSectionHValue={setSectionHValue}
+                            PLOSize={PLOSize}
+                        />
+                    </table>
                 </div>
             </div>
             <EditorFooter

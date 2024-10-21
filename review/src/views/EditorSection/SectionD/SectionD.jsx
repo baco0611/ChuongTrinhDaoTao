@@ -105,7 +105,7 @@ export default function SectionD() {
         }
     )
 
-    const [ isShowCompetency, setIsShowCompetency ] = useState(true)
+    const [ isShowCompetency, setIsShowCompetency ] = useState(false)
 
     useEffect(() => {
         window.scrollTo(0, 0)
