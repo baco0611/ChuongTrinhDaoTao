@@ -250,7 +250,7 @@ export default function SectionE() {
                 isFetchData && <Loading/>
             }
             <div 
-                className='editor-save-btn cursorPointer'
+                className='editor-btn save-btn cursorPointer'
                 onClick={() => handleSavingData({
                     api: serverAPI,
                     token,
@@ -258,6 +258,7 @@ export default function SectionE() {
                     setState: setSectionEValue,
                     setIsFetchData
                 })}
+                style={{bottom: "50px"}}
             >
                 <FontAwesomeIcon icon={faFloppyDisk} />
             </div>

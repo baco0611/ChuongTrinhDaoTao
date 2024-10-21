@@ -11,6 +11,9 @@ import SectionDModule from './SectionDModule'
 import { DragDropContext } from "react-beautiful-dnd"
 import { handleDragEnd } from './handleDragDrop'
 import Cookies from "js-cookie"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import Competency from '../Competency/Competency'
 
 
 export default function SectionD() {
@@ -102,6 +105,8 @@ export default function SectionD() {
         }
     )
 
+    const [ isShowCompetency, setIsShowCompetency ] = useState(true)
+
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
@@ -157,6 +162,18 @@ export default function SectionD() {
                     <p className='content'>Viết theo từng chuẩn đầu ra, bao gồm các chủ đề chuẩn đầu ra và trình độ năng lực (TĐNL – tham khảo thêm tài liệu và thang trình độ năng lực kèm theo) mà chuẩn đầu ra yêu cầu khi sinh viên tốt nghiệp, PLO = Program Learning Outcomes.</p>
                     <p>Lưu ý: Dữ liệu sẽ được lưu tự động khi click chuột ra khỏi ô nhập dữ liệu hoặc chuyển đổi giữa các phần. Vui lòng không reload hay thoát khỏi trang khi dữ liệu chưa được lưu. Khi đã xóa một chuẩn đầu ra thì dữ liệu về mục tiêu đó ở ma trận mục tiêu - chuẩn đầu ra sẽ bị xóa. Vì vậy, hãy cẩn trọng trước khi thực hiện thao tác xóa!</p>
                 </div>
+
+                <div 
+                    className='editor-btn info-btn cursorPointer'
+                    onClick={() => setIsShowCompetency(true)}
+                    style={{bottom: "50px"}}
+                >
+                    <FontAwesomeIcon icon={faCircleInfo} />
+                </div>
+
+                {
+                    isShowCompetency && <Competency setState={setIsShowCompetency}/>
+                }
 
                 <div className='content'>
                     <DragDropContext onDragEnd={e => handleDragEnd({

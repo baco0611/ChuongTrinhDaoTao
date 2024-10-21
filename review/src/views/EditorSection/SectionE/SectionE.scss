@@ -1,15 +1,14 @@
 @import "../../../variable.scss";
 
-.editor-save-btn {
-    width: 65px;
-    height: 65px;
+.editor-btn {
+    width: 55px;
+    height: 55px;
     background-color: $primary-color;
-
     position: fixed;
-    bottom: 50px;
     right: 5%;
     z-index: 9;
 
+    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -18,7 +17,7 @@
 
     svg {
         color: white;
-        font-size: 30px;
+        font-size: 28px;
     }
 
     &:hover {
