@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.laptrinhjavaweb.converter.StringListConverter;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -29,21 +30,24 @@ public class DetailedProgramEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long detailedProgramId;
-
+    
+    @Column(name = "`index`") 
+    private Integer index;
+    
     @Column
     private Boolean mandatory;
-
+    
     @Column 
     private Boolean replacesThesis;
-
+    
     @Convert(converter = StringListConverter.class)
     @Column(name = "prerequisite_course")
     private List<String> prerequisiteCourse = new ArrayList<>();
-
+    
     @Convert(converter = StringListConverter.class)
     @Column(name = "prior_course")
     private List<String> priorCourse = new ArrayList<>();
-
+    
     @Convert(converter = StringListConverter.class)
     @Column(name = "concurrent_course")
     private List<String> concurrentCourse = new ArrayList<>();
@@ -69,12 +73,12 @@ public class DetailedProgramEntity {
     @JoinColumn(name="programId")
     private EducationProgramEntity educationProgram;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "detailedProgram_certificationRequirement", joinColumns = @JoinColumn(name = "detailedProgramId"), 
                                   inverseJoinColumns = @JoinColumn(name = "certificationId"))
     private List<CertificationRequirementEntity> certificationRequirements = new ArrayList<>();
 
-    @OneToMany(mappedBy = "detailedProgram")
+    @OneToMany(mappedBy = "detailedProgram", cascade = CascadeType.ALL)
     private List<CourseLearningOutcomeMatrixEntity> courseOutputStandardMatrixs = new ArrayList<>();
 }
 
