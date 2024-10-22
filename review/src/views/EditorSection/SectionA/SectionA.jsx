@@ -56,13 +56,13 @@ export default function SectionA() {
     )
 
     const [ specialization, setSpecialization ] = useState(
-        JSON.parse(sessionStorage.getItem(`sectionA-specialization-${id}`)) ||
+        JSON.parse(sessionStorage.getItem(`specialization-${id}`)) ||
         []
     )
 
     useEffect(() => {
         sessionStorage.setItem(`sectionA-${id}`, JSON.stringify(sectionAValue))
-        sessionStorage.setItem(`sectionA-specialization-${id}`, JSON.stringify(specialization))
+        sessionStorage.setItem(`specialization-${id}`, JSON.stringify(specialization))
     }, [sectionAValue, specialization])
 
     // Lấy dữ liệu từ db

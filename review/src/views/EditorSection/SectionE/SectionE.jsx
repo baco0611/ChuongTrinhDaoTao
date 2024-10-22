@@ -125,7 +125,7 @@ export default function SectionE() {
         }
     )
 
-    const [ sectionEValue, setSectionEValue ] = useState({})
+    const [ sectionEValue, setSectionEValue ] = useState(JSON.parse(sessionStorage.getItem(`sectionE-${id}`)) ||  {})
     const [ isFetchData, setIsFetchData ] = useState(false)
 
     const [ POSize, setPOSize ] = useState([
@@ -156,7 +156,11 @@ export default function SectionE() {
         setPOSize([
             ...sectionCValue.KIEN_THUC.data, ...sectionCValue.KY_NANG.data, ...sectionCValue.THAI_DO.data
         ].length)
-    }, [sectionCValue])
+        sessionStorage.setItem(`sectionC-${id}`, JSON.stringify(sectionCValue))
+        sessionStorage.setItem(`sectionD-${id}`, JSON.stringify(sectionDValue))
+        sessionStorage.setItem(`sectionE-${id}`, JSON.stringify(sectionEValue))
+
+    }, [sectionCValue, sectionDValue, sectionEValue])
 
     useEffect(() => {
         // Kiểm tra vị trí ban đầu của phần tử
@@ -278,7 +282,7 @@ export default function SectionE() {
                 isFetchData && <Loading/>
             }
             <div 
-                className='editor-save-btn cursorPointer'
+                className='editor-btn save-btn cursorPointer'
                 onClick={() => handleSavingData({
                     api: serverAPI,
                     token,
@@ -286,6 +290,7 @@ export default function SectionE() {
                     setState: setSectionEValue,
                     setIsFetchData
                 })}
+                style={{bottom: "50px"}}
             >
                 <FontAwesomeIcon icon={faFloppyDisk} />
             </div>

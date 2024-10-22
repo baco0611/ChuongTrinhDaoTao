@@ -1,0 +1,52 @@
+{
+    "sectionH": [
+        {
+            "id": 1,
+            "ploId": 2,
+            "courseId": 8,
+            "competency": 3
+        },
+        {
+            "id": 2,
+            "ploId": 3,
+            "courseId": 8,
+            "competency": 2
+        },
+        {
+            "id": 3,
+            "ploId": 4,
+            "courseId": 8,
+            "competency": 3
+        },
+        {
+            "id": 4,
+            "ploId": 5,
+            "courseId": 8,
+            "competency": 3
+        },
+        {
+            "id": 5,
+            "ploId": 2,
+            "courseId": 9,
+            "competency": 3
+        },
+        {
+            "id": 6,
+            "ploId": 2,
+            "courseId": 10,
+            "competency": 1
+        },
+        {
+            "id": 7,
+            "ploId": 3,
+            "courseId": 10,
+            "competency": 2
+        },
+        {
+            "id": 8,
+            "ploId": 1,
+            "courseId": 9,
+            "competency": 4
+        }
+    ]
+}

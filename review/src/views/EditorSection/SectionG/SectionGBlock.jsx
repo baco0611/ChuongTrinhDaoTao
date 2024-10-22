@@ -13,6 +13,7 @@ export default function SectionGBlock({ symbol, title, data, setState, idSpecial
             </tr>
         }
         {
+            data &&
             data.data.map((element, index) => {
                 return <tr key={index}>
                     <td className='center'>{element.index}</td>
