@@ -110,7 +110,7 @@ export default function Header() {
                             <li className="primary">Chương trình đào tạo</li>
                             <li><Link to={"/program/manage"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý chương trình đào tạo</Link></li>
                             <li><Link to={"/program/search"} onClick={() => setMenuOpen(!menuOpen)}>Tra cứu chương trình đào tạo</Link></li>
-                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý ngành đào tạo</Link></li>
+                            <li><Link to={"/program/field"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý ngành đào tạo</Link></li>
                         </ul>
                         <ul className="header-component">
                             <li className="primary">Quản trị</li>

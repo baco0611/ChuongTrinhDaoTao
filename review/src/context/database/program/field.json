@@ -1,0 +1,29 @@
+{
+    "field": [
+        {
+            "id" : 1,
+            "fieldCode": "728120",
+            "fieldName": "Công nghệ thông tin"
+        },
+        {
+            "id" : 2,
+            "fieldCode": "728121",
+            "fieldName": "Kỹ thuật phần mềm"
+        }
+    ],
+    "getField": {
+        "data": [
+            {
+                "id" : 1,
+                "fieldCode": "728120",
+                "fieldName": "Công nghệ thông tin"
+            },
+            {
+                "id" : 1,
+                "fieldCode": "728120",
+                "fieldName": "Công nghệ thông tin"
+            }
+        ],
+        "status": 200
+    }
+}

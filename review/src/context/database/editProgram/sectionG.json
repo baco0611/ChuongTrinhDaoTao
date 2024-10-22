@@ -2283,5 +2283,60 @@
           "specializationId": 3,
           "specializationName": "Mạng máy tính"
         }
+    ],
+    "create-sectionG": {
+        "programId": 1,
+        "courseOutlineId": 512,
+        "index": 13,
+        "mandatory": true,
+        "prerequisiteCourse": [],
+        "priorCourse": [],
+        "concurrentCourse": [],
+        "knowledgeModule": "GENERAL",
+        "detailedKnowledgeModule": "",
+        "specializationId": null,
+        "replacesThesis": false,
+        "semester": 1
+    },
+    "searchCourse": {
+        "courseCode": "",
+        "courseName": "",
+
+        "result": [
+            {
+                "courseName": "",
+                "courseCode": "",
+                "courseOutlineId": 1
+            },
+            {
+                "courseName": "",
+                "courseCode": "",
+                "courseOutlineId": 1
+            }
+        ]
+    },
+    "upDateCourse": [
+        {
+            "programId": 1,
+            "courseOutlineId": 512,
+            "index": 13,
+            "mandatory": true,
+            "prerequisiteCourse": [],
+            "priorCourse": [],
+            "concurrentCourse": [],
+            "replacesThesis": false,
+            "semester": 1
+        },
+        {
+            "programId": 1,
+            "courseOutlineId": 512,
+            "index": 13,
+            "mandatory": true,
+            "prerequisiteCourse": [],
+            "priorCourse": [],
+            "concurrentCourse": [],
+            "replacesThesis": false,
+            "semester": 1
+        }
     ]
 }

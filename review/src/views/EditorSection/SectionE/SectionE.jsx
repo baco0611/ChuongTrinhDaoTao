@@ -227,7 +227,7 @@ export default function SectionE() {
 
     // Use useQuery for fetching section C data
     const { data: sectionCData, isLoading: isSectionCLoading, isError: isSectionCError } = useQuery(
-        `sectionC-${id}`,
+        `sectionC-E-${id}`,
         fetchSectionCAPI(id),
         {
             cacheTime: Infinity,
@@ -237,7 +237,7 @@ export default function SectionE() {
 
     // Use useQuery for fetching section D data
     const { data: sectionDData, isLoading: isSectionDLoading, isError: isSectionDError } = useQuery(
-        `sectionD-${id}`,
+        `sectionD-E-${id}`,
         fetchSectionDAPI(id),
         {
             cacheTime: Infinity,

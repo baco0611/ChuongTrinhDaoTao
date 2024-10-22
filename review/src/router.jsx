@@ -20,6 +20,7 @@ import GraduationRequirement from './views/Dictionary/GraduationRequirement/Grad
 import ConditionalCertification from './views/Dictionary/ConditionalCertification/ConditionalCertification'
 import User from './views/User/User'
 import InsertUser from './views/InsertUser/InsertUser'
+import FieldManage from './views/FieldManage/FieldManage'
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             {
                 path: '/program/manage',
                 element: <EducationManage/>
+            },
+            {
+                path: '/program/field',
+                element: <FieldManage/>
             },
             {
                 path: "/view/program/:id",
@@ -103,7 +108,7 @@ const router = createBrowserRouter([
             {
                 path: '/dictionary/certification',
                 element: <ConditionalCertification/>
-            },
+            }
         ]
     },
     {

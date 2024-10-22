@@ -75,6 +75,22 @@ const splitCourse = (data, specializations) => {
         }
     });
 
+    // Sắp xếp các phần tử theo thuộc tính index trong từng nhóm
+    Object.keys(result.PROFESSIONAL).forEach(group => {
+        if (group === 'SPECIALIZE' || group === 'REPLACE_THESIS') {
+            // Sắp xếp các nhóm SPECIALIZE và REPLACE_THESIS theo specializationId
+            Object.keys(result.PROFESSIONAL[group].data).forEach(specializationId => {
+                result.PROFESSIONAL[group].data[specializationId].data.sort((a, b) => a.index - b.index);
+            });
+        } else {
+            // Sắp xếp các nhóm khác như BASIC, MAJOR, ... theo index
+            result.PROFESSIONAL[group].data.sort((a, b) => a.index - b.index);
+        }
+    });
+
+    // Sắp xếp nhóm GENERAL theo index
+    result.GENERAL.data.sort((a, b) => a.index - b.index);
+
     return result
 }
 
