@@ -9,6 +9,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -35,7 +37,10 @@ public class FieldOfStudyEntity {
 	@Column(name = "field_name", columnDefinition = "nvarchar(255)", nullable = false)
 	private String fieldName;
 
-	// One field of study can have many education programs
 	@OneToMany(mappedBy = "fieldOfStudy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<EducationProgramEntity> educationPrograms;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "departmentId")
+    private DepartmentEntity department;
 }

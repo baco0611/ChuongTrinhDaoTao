@@ -46,4 +46,7 @@ public class DepartmentEntity {
 	
 	@OneToMany(mappedBy = "department")
 	private List<CourseEntity> courses;
+	
+	@OneToMany(mappedBy = "department")
+	private List<FieldOfStudyEntity> fieldOfStudyEntities;
 }
