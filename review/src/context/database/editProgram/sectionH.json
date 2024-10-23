@@ -48,5 +48,30 @@
             "courseId": 9,
             "competency": 4
         }
-    ]
+    ],
+    "updateSectionH": {
+        "deleteElement": [1,2,3],
+        "createElement": [
+            {
+                "ploId": 3,
+                "courseId": 10,
+                "competency": 2
+            },
+            {
+                "ploId": 1,
+                "courseId": 9,
+                "competency": 4
+            }
+        ],
+        "updateElement": [
+            {
+                "id": 5,
+                "competency": 3
+            },
+            {
+                "id": 6,
+                "competency": 1
+            }
+        ]
+    }
 }

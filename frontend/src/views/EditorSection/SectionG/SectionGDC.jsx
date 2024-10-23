@@ -13,6 +13,7 @@ function SectionGDC({ data, setState}) {
             setIsCreate(true)
         }
     }
+    console.log(data)
     
     return (
         <>

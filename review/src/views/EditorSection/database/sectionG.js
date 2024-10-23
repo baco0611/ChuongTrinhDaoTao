@@ -104,21 +104,23 @@ export const getDataSectionG = async ({id, api, token, setSectionGValue, setSpec
     setSectionGValue(splitCourse(result.data.data, specialization.data.data))
 }
 
-export const handleChangeDataBox = ({e, setState, id}) => {
+export const handleChangeDataBox = async ({e, setState, id, setIsSearch, setSearchValue, typingTimeOutRef}) => {
     const {name, value, type, checked, readOnly} = e.target
     
     if(readOnly)
         return
 
     if(type == 'text') {
-        if(name != "semester")
+        if(name != "semester") {
+            
             setState(prev => ({
                 ...prev,
                 [name]: value
             }))
+        }
         else {
             let result = Number.parseInt(value)
-            const duration = Number.parseInt(sessionStorage.getItem(`duration-${6}`))
+            const duration = Number.parseInt(sessionStorage.getItem(`duration-${id}`))
     
             if(result>=1 && result <= duration)
                 result = result

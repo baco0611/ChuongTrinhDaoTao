@@ -113,7 +113,6 @@
     
     .data-block {
         width: 1000px;
-        // height: 500px;
         background-color: white;
         border-radius: 30px;
         padding: 30px;
@@ -158,6 +157,7 @@
                 align-items: center;
                 justify-content: space-between;
                 padding-top: 15px;
+                position: relative;
 
                 .save-btn {
                     width: 350px;
@@ -216,6 +216,45 @@
             }
         }
 
+        .search-value {
+            position: absolute;
+            width: 100%;
+            background-color: $base-color;
+            left: 0;
+            top: 100%;
+            margin: 0;
+            padding: 0;
+            z-index: 25;
+            max-height: 150px;
+            overflow-y: scroll;
+
+            li {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 20px;
+                padding-left: 10px;
+                padding-right: 10px;
+                color: black;
+                cursor: pointer;
+
+                &:nth-child(even) {
+                    background-color: white;
+                }
+
+                &:hover {
+                    background-color: $primary-color;
+                    color: white;
+                }
+
+                p {
+                    color: inherit;
+                    margin: 0;
+                    font-weight: 400;
+                }
+            }
+        }
+
         .course-list {
             width: 30%;
 
@@ -238,10 +277,6 @@
                 height: 25px;
                 font-weight: 400;
                 line-height: 25px;
-            }
-
-            button {
-
             }
         }
     }

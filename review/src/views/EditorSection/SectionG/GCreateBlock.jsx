@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { handleChangeDataBox } from '../database/sectionG'
 import { getParentElementByClass } from '../../../utils/function'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
+import SearchElement from './SearchElement'
 
 export default function SectionGCreateBlock({ knowledgeModule, detailedKnowledgeModule, specializationId, index, setIsHide }) {
     const { id } = useParams()
@@ -61,7 +62,13 @@ export default function SectionGCreateBlock({ knowledgeModule, detailedKnowledge
                                 style={{width: "65%"}}
                                 autoComplete='off'
                                 id='courseCode'
-                                onChange={e => handleChangeDataBox({e, setState: setCourseDetail})}
+                                onChange={e => handleChangeDataBox({
+                                    e, 
+                                    setState: setCourseDetail,
+                                    setIsSearch,
+                                    setSearchValue,
+                                    typingTimeOutRef
+                                })}
                             />
                         </div>
                         <div 
@@ -80,6 +87,15 @@ export default function SectionGCreateBlock({ knowledgeModule, detailedKnowledge
                                 onChange={e => handleChangeDataBox({e, setState: setCourseDetail})}
                             />
                         </div>
+                        {
+                            isSearch &&
+                            <SearchElement
+                                data={searchValue}
+                                setState={setCourseDetail}
+                                setIsSearch={setIsSearch}
+                                setSearchValue={setSearchValue}
+                            />
+                        }
                     </div>
                     <div className='input-row'>
                         <div className='input-block'>
