@@ -79,11 +79,9 @@ public class LecturerService implements ILecturerService {
 		if (roles == null || roles.isEmpty()) {
 			roles = new ArrayList<>();
 			roles.add("USER");
-			System.out.println("AA");
 		}
 
 		List<Role> roleList = roles.stream().map(Role::valueOf).collect(Collectors.toList());
-
 		lecturer.setRoles(roleList);
 		lecturersRepository.save(lecturer);
 	}
@@ -112,7 +110,12 @@ public class LecturerService implements ILecturerService {
 			response.put("status", 403);
 			return response;
 		}
+<<<<<<< HEAD
 		LecturersEntity lecturersEntity = lecturersRepository.findById(updateRequest.getLecturerId()).orElse(null);
+=======
+		LecturersEntity lecturersEntity = lecturersRepository.findById(updateRequest.getLecturersId()).orElse(null);
+		DepartmentEntity departmentEntity = departmentRepository.findByDepartmentCode(updateRequest.getDepartment()).orElse(null);
+>>>>>>> Manage
 		if (lecturersEntity == null) {
 			response.put("message", "Lecturer not found");
 			response.put("status", 404);
@@ -129,6 +132,9 @@ public class LecturerService implements ILecturerService {
 		}
 		if (!updateRequest.getEmail().equals("")) {
 			lecturersEntity.setEmail(updateRequest.getEmail());
+		}
+		if (departmentEntity != null) {
+			lecturersEntity.setDepartment(departmentEntity);
 		}
 		updateLecturerRoles(lecturersEntity.getLecturersId(), updateRequest.getRoles());
 		lecturersRepository.save(lecturersEntity);

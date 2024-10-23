@@ -19,10 +19,10 @@ public class CertificationRequirementEntity {
     @Column(length = 500, columnDefinition = "nvarchar(255)")
     private String certificationName;
 
-    @ManyToMany(mappedBy = "certificationRequirements")
+    @ManyToMany(mappedBy = "certificationRequirements", cascade = CascadeType.ALL)
     private List<DetailedProgramEntity> detailedPrograms = new ArrayList<>();
 
-    @OneToMany(mappedBy = "certificationRequirement")
+    @OneToMany(mappedBy = "certificationRequirement", cascade = CascadeType.ALL)
     private List<CertificationLearningOutcomeMatrixEntity> certificationOutputStandardMatrixs = new ArrayList<>();
 
 }
