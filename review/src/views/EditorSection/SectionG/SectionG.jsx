@@ -87,7 +87,7 @@ export default function SectionG() {
         return async () => {
             getDataSectionG({
                 id,
-                api: serverAPI,
+                api: apiURL,
                 token,
                 setSectionGValue,
                 setSpecialization

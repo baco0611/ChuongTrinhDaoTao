@@ -92,3 +92,39 @@
         }
     }   
 }
+
+.sectionG-create {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba($color: #000000, $alpha: 0.3);
+    z-index: 21;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .create-block {
+        width: 700px;
+        height: 500px;
+        background-color: white;
+        border-radius: 30px;
+        padding: 30px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h3 {
+            text-align: center;
+            color: $primary-color;
+            font-weight: 700;
+            font-size: 28px;
+            padding-bottom: 5px;
+
+            border-bottom: 1px $primary-color solid;
+        }
+    }
+}

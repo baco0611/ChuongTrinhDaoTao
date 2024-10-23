@@ -110,12 +110,10 @@ public class LecturerService implements ILecturerService {
 			response.put("status", 403);
 			return response;
 		}
-<<<<<<< HEAD
+
 		LecturersEntity lecturersEntity = lecturersRepository.findById(updateRequest.getLecturerId()).orElse(null);
-=======
-		LecturersEntity lecturersEntity = lecturersRepository.findById(updateRequest.getLecturersId()).orElse(null);
-		DepartmentEntity departmentEntity = departmentRepository.findByDepartmentCode(updateRequest.getDepartment()).orElse(null);
->>>>>>> Manage
+		DepartmentEntity departmentEntity = departmentRepository.findByDepartmentCode(updateRequest.getDepartment())
+				.orElse(null);
 		if (lecturersEntity == null) {
 			response.put("message", "Lecturer not found");
 			response.put("status", 404);

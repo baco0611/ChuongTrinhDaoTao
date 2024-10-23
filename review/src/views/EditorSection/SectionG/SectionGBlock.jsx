@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
+import SectionGCreateBlock from './GCreateBlock'
 
 export default function SectionGBlock({ symbol, title, data, setState, idSpecialization = null }) {
-    console.log(data, idSpecialization)
+    // console.log(data, idSpecialization)
+
+    const [ isHide, setIsHide ] = useState(false)
     
     return (
         <>
@@ -64,7 +67,11 @@ export default function SectionGBlock({ symbol, title, data, setState, idSpecial
         }
             <tr className='add-btn'>
                 <td colSpan={16}>
-                    <button>Thêm học phần</button>
+                    <button onClick={() => setIsHide(false)}>Thêm học phần</button>
+                    {
+                        !isHide && !symbol &&
+                        <SectionGCreateBlock/>
+                    }
                 </td>
             </tr>
         </>

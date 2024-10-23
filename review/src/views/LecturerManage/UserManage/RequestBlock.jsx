@@ -13,7 +13,7 @@ export default function RequestBlock({ request, department, setRequest, setLectu
     const { apiURL, fakeAPI, token, serverAPI } = useContext(UserContext); 
     const navigate = useNavigate()
 
-    const [ isHide, setIsHide ] = useState(false)
+    const [ isHide, setIsHide ] = useState(true)
 
     return (
         <div className="search-request mt-2">

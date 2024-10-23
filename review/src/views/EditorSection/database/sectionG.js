@@ -95,9 +95,9 @@ const splitCourse = (data, specializations) => {
 }
 
 export const getDataSectionG = async ({id, api, token, setSectionGValue, setSpecialization }) => {
-    const result = await getData(api, `/course/${id}`, token)
+    const result = await getData(api, `/api/programs/${id}/details`, token)
     // const specialization = await getData(api, `/api/specialization/${id}`, token)
-    const specialization = await getData("http://localhost:8081", `/api/specialization/${id}`, token)
+    const specialization = await getData(api, `/api/specialization/${id}`, token)
 
     setSpecialization(specialization.data.data)
     setSectionGValue(splitCourse(result.data.data, specialization.data.data))
