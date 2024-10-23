@@ -10,6 +10,7 @@
 - &#x2611; UI của phân công phụ trách, bỏ thêm, sửa (chỉnh sang readonly), xóa nếu không có quyền
 - &#x2610; UI của dictionary, bỏ thêm, sửa (chỉnh sang readonly), xóa nếu không có quyền
 - &#x2610; Đổi check role thành 30s
+- &#x2610; Check học kì ở tạo học phần
 
 
 

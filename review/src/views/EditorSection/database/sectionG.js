@@ -96,9 +96,46 @@ const splitCourse = (data, specializations) => {
 
 export const getDataSectionG = async ({id, api, token, setSectionGValue, setSpecialization }) => {
     const result = await getData(api, `/api/programs/${id}/details`, token)
-    // const specialization = await getData(api, `/api/specialization/${id}`, token)
     const specialization = await getData(api, `/api/specialization/${id}`, token)
+    const sectionAValue = await getData(api, `/api/education-programs/sectionA/${id}`, token)
 
+    sessionStorage.setItem(`duration-${id}`, sectionAValue.data.data.duration)
     setSpecialization(specialization.data.data)
     setSectionGValue(splitCourse(result.data.data, specialization.data.data))
+}
+
+export const handleChangeDataBox = ({e, setState, id}) => {
+    const {name, value, type, checked, readOnly} = e.target
+    
+    if(readOnly)
+        return
+
+    if(type == 'text') {
+        if(name != "semester")
+            setState(prev => ({
+                ...prev,
+                [name]: value
+            }))
+        else {
+            let result = Number.parseInt(value)
+            const duration = Number.parseInt(sessionStorage.getItem(`duration-${6}`))
+    
+            if(result>=1 && result <= duration)
+                result = result
+            else
+                result = ''
+    
+            setState(prev => ({
+                ...prev,
+                [name]: result
+            }))
+        }
+
+    }
+    if(type == "checkbox") {
+        setState(prev => ({
+            ...prev,
+            [name]: checked
+        }));
+    }
 }

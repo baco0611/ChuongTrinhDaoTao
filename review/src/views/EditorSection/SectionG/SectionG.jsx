@@ -151,6 +151,7 @@ export default function SectionG() {
                             <SectionGBlock
                                 data={sectionGValue.GENERAL}
                                 setState={setSectionGValue}
+                                knowledgeModule={"GENERAL"}
                             />
                             <tr className='block-title'>
                                 <td className='center'>II.</td>
@@ -161,12 +162,14 @@ export default function SectionG() {
                                 title="Kiến thức cơ sở ngành"
                                 data={sectionGValue.PROFESSIONAL.BASIC}
                                 setState={setSectionGValue}
+                                detailedKnowledgeModule="BASIC"
                             />
                             <SectionGBlock
                                 symbol="B"
                                 title="Kiến thức ngành"
                                 data={sectionGValue.PROFESSIONAL.MAJOR}
                                 setState={setSectionGValue}
+                                detailedKnowledgeModule="MAJOR"
                             />
                             {
                                 specialization.map((element, index) => {
@@ -177,6 +180,7 @@ export default function SectionG() {
                                         data={sectionGValue.PROFESSIONAL.SPECIALIZE.data[element.specializationId]}
                                         setState={setSectionGValue}
                                         idSpecialization={element.specializationId}
+                                        detailedKnowledgeModule="SPECIALIZE"
                                     />
                                 })
                             }
@@ -185,18 +189,21 @@ export default function SectionG() {
                                 title="Kiến thức bổ trợ"
                                 data={sectionGValue.PROFESSIONAL.SUPPLEMENTARY}
                                 setState={setSectionGValue}
+                                detailedKnowledgeModule="SUPPLEMENTARY"
                             />
                             <SectionGBlock
                                 symbol="D"
                                 title="Kiến thức thực tập thực tế"
                                 data={sectionGValue.PROFESSIONAL.INTERN}
                                 setState={setSectionGValue}
+                                detailedKnowledgeModule='INTERN'
                             />
                             <SectionGBlock
                                 symbol="E"
                                 title="ĐATN, KLTN hoặc học phần thay thế KLTN"
                                 data={sectionGValue.PROFESSIONAL.THESIS_PROJECT}
                                 setState={setSectionGValue}
+                                detailedKnowledgeModule='THESIS_PROJECT'
                             />
                             {
                                 specialization.map((element, index) => {
@@ -207,6 +214,7 @@ export default function SectionG() {
                                         data={sectionGValue.PROFESSIONAL.REPLACE_THESIS.data[element.specializationId]}
                                         setState={setSectionGValue}
                                         idSpecialization={element.specializationId}
+                                        detailedKnowledgeModule="THESIS_PROJECT"
                                     />
                                 })
                             }

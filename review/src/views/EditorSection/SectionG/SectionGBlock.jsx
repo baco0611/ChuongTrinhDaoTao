@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import SectionGCreateBlock from './GCreateBlock'
 
-export default function SectionGBlock({ symbol, title, data, setState, idSpecialization = null }) {
+export default function SectionGBlock({ symbol, title, data, setState, idSpecialization = null, knowledgeModule="PROFESSIONAL", detailedKnowledgeModule = null }) {
     // console.log(data, idSpecialization)
 
-    const [ isHide, setIsHide ] = useState(false)
+    const [ isHide, setIsHide ] = useState(true)
     
     return (
         <>
@@ -69,8 +69,15 @@ export default function SectionGBlock({ symbol, title, data, setState, idSpecial
                 <td colSpan={16}>
                     <button onClick={() => setIsHide(false)}>Thêm học phần</button>
                     {
-                        !isHide && !symbol &&
-                        <SectionGCreateBlock/>
+                        //!isHide && !symbol &&
+                        !isHide &&
+                        <SectionGCreateBlock
+                            knowledgeModule={knowledgeModule}
+                            detailedKnowledgeModule={detailedKnowledgeModule}
+                            specializationId={idSpecialization}
+                            index={data.data.length + 1}
+                            setIsHide={setIsHide}
+                        />
                     }
                 </td>
             </tr>
