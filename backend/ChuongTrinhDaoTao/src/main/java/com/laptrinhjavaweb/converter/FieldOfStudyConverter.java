@@ -12,7 +12,7 @@ public class FieldOfStudyConverter {
         dto.setId(entity.getId());
         dto.setFieldCode(entity.getFieldCode());
         dto.setFieldName(entity.getFieldName());
-        dto.setDepartmentCode(entity.getDepartment() != null ? entity.getDepartment().getDepartmentCode() : null);
+        dto.setDepartment(entity.getDepartment() != null ? entity.getDepartment().getDepartmentCode() : null);
         return dto;
     }
 }

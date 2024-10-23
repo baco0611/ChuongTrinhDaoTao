@@ -7,5 +7,5 @@ public class FieldOfStudyDTO {
 	private Long id;
     private String fieldCode;
     private String fieldName;
-    private String departmentCode;
+    private String department;
 }
