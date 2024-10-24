@@ -21,9 +21,9 @@ public class LearningOutComesObjectiveMatrixService {
     @Autowired
     private LearningOutComesObjectiveMatrixRepository repository;
 
-    public List<LearningOutComesObjectiveMatrixDTO> getAllMatrices() {
-        List<LearningOutComesObjectiveMatrixEntity> entities = repository.findAll();
-        return entities.stream().map(this::convertToDTO).collect(Collectors.toList());
+    public List<LearningOutComesObjectiveMatrixDTO> getAllMatrices(Long programId) {
+    	 List<LearningOutComesObjectiveMatrixEntity> entities = repository.findByEducationProgramProgramId(programId);
+    	    return entities.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
     private LearningOutComesObjectiveMatrixDTO convertToDTO(LearningOutComesObjectiveMatrixEntity entity) {

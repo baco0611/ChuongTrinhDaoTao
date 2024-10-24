@@ -116,4 +116,21 @@ public class DetailedProgramConverter {
 		dto.setConcurrentCourse(entity.getConcurrentCourse());
 		return dto;
 	}
+	
+	public CreateDetailedProgramDTO convertToGetDetailedProgramDTO(DetailedProgramEntity entity) {
+	    CreateDetailedProgramDTO dto = new CreateDetailedProgramDTO();
+	    dto.setProgramId(entity.getEducationProgram().getProgramId());
+	    dto.setCourseOutlineId(entity.getCourseOutline() != null ? entity.getCourseOutline().getIdCourseOutline() : null);
+	    dto.setIndex(entity.getIndex());
+	    dto.setMandatory(entity.getMandatory());
+	    dto.setPrerequisiteCourse(entity.getPrerequisiteCourse());
+	    dto.setPriorCourse(entity.getPriorCourse());
+	    dto.setConcurrentCourse(entity.getConcurrentCourse());
+	    dto.setKnowledgeModule(entity.getKnowledgeModule());
+	    dto.setDetailedKnowledgeModule(entity.getDetailedKnowledgeModule());
+	    dto.setSpecializationId(entity.getSpecializationTraining() != null ? entity.getSpecializationTraining().getSpecializationId() : null);
+	    dto.setReplacesThesis(entity.getReplacesThesis());
+	    dto.setSemester(entity.getSemester());
+	    return dto;
+	}
 }

@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,12 +23,13 @@ public class LearningOutComesObjectiveMatrixController {
 	@Autowired
 	private LearningOutComesObjectiveMatrixService service;
 
-	@GetMapping("/getAll")
-	public ResponseEntity<LearningOutComesObjectiveMatrixResponse> getAllMatrices() {
-		List<LearningOutComesObjectiveMatrixDTO> data = service.getAllMatrices();
-		LearningOutComesObjectiveMatrixResponse response = new LearningOutComesObjectiveMatrixResponse(data, 200);
-		return ResponseEntity.ok(response);
+	@GetMapping("/getAll/{programId}")
+	public ResponseEntity<LearningOutComesObjectiveMatrixResponse> getAllMatricesByProgramId(@PathVariable Long programId) {
+	    List<LearningOutComesObjectiveMatrixDTO> data = service.getAllMatrices(programId);
+	    LearningOutComesObjectiveMatrixResponse response = new LearningOutComesObjectiveMatrixResponse(data, 200);
+	    return ResponseEntity.ok(response);
 	}
+
 
 	@PostMapping("/update")
 	public ResponseEntity<?> updateMatrix(@RequestBody UpdateMatrixRequestDTO request) {

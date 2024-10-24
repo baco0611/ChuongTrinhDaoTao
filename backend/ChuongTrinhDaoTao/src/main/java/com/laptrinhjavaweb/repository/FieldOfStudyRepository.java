@@ -10,4 +10,5 @@ import com.laptrinhjavaweb.entity.FieldOfStudyEntity;
 @Repository
 public interface FieldOfStudyRepository extends JpaRepository<FieldOfStudyEntity, Long> {
     Optional<FieldOfStudyEntity> findByFieldCode(String fieldCode);
+    boolean existsByFieldCode(String fieldCode);
 }

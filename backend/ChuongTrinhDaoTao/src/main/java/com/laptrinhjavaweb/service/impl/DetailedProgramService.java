@@ -2,6 +2,7 @@ package com.laptrinhjavaweb.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,16 @@ public class DetailedProgramService {
     @Autowired
     private DetailedProgramConverter detailedProgramConverter;
 
+    public CreateDetailedProgramDTO getDetailedProgramById(Long id) {
+        Optional<DetailedProgramEntity> entityOpt = detailedProgramRepository.findById(id);
+        
+        if (entityOpt.isPresent()) {
+            return detailedProgramConverter.convertToGetDetailedProgramDTO(entityOpt.get());
+        } else {
+            throw new RuntimeException("Detailed Program not found for ID: " + id);
+        }
+    }
+    
     public List<DetailedProgramDTO> getProgramsByProgramId(Long programId) {
         List<DetailedProgramEntity> entities = detailedProgramRepository.findByEducationProgramProgramId(programId);
 
