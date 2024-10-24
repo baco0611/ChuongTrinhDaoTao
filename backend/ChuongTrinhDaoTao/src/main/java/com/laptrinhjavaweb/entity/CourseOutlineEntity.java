@@ -17,25 +17,25 @@ public class CourseOutlineEntity {
     private Long idCourseOutline;
 
     @Column
-    private int version;
+    private Integer version;
 
     @Column
-    private int theoryHours;
+    private Integer theoryHours;
 
     @Column
-    private int exerciseHours;
+    private Integer exerciseHours;
 
     @Column
-    private int discussionHours;
+    private Integer discussionHours;
 
     @Column 
-    private int practicalHours;
+    private Integer practicalHours;
 
     @Column
-    private int internshipHours;
+    private Integer internshipHours;
     
     @Column
-    private int testHours;
+    private Integer testHours;
 
     @OneToMany(mappedBy = "courseOutline")
     private List<DetailedProgramEntity> detailedPrograms = new ArrayList<>();

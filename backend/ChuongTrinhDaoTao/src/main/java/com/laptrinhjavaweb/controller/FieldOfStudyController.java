@@ -108,16 +108,16 @@ public class FieldOfStudyController {
 
 	@DeleteMapping("/delete")
 	public ResponseEntity<?> deleteFieldOfStudy(@RequestBody DeleteFieldOfStudyRequest request) {
-		Map<String, Object> response = new HashMap<>();
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		boolean isAdmin = authentication.getAuthorities().stream()
-				.anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
+	    Map<String, Object> response = new HashMap<>();
+	    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    boolean isAdmin = authentication.getAuthorities().stream()
+	            .anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
 
-		if (!isAdmin) {
-			response.put("message", "Bạn không có quyền cập nhật thông tin");
-			response.put("status", 403);
-			return ResponseEntity.ok(response);
-		}
-		return fieldOfStudyService.deleteFieldOfStudy(request);
+	    if (!isAdmin) {
+	        response.put("message", "Bạn không có quyền cập nhật thông tin");
+	        response.put("status", 403);
+	        return ResponseEntity.ok(response);
+	    }
+	    return fieldOfStudyService.deleteFieldOfStudy(request);
 	}
 }

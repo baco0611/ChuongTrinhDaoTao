@@ -65,33 +65,48 @@ public class FieldOfStudyService {
 
 	@Transactional
 	public ResponseEntity<?> deleteFieldOfStudy(DeleteFieldOfStudyRequest request) {
-		FieldOfStudyEntity fieldOfStudy = fieldOfStudyRepository.findById(request.getId())
-				.orElseThrow(() -> new EntityNotFoundException("FieldOfStudy not found"));
-		Map<String, Object> response = new HashMap<>();
-		List<EducationProgramEntity> educationPrograms = fieldOfStudy.getEducationPrograms();
-		int totalPrograms = educationPrograms.size();
+	    FieldOfStudyEntity fieldOfStudy = fieldOfStudyRepository.findById(request.getId())
+	            .orElseThrow(() -> new EntityNotFoundException("FieldOfStudy not found"));
 
-		if (totalPrograms == 0) {
-			fieldOfStudyRepository.delete(fieldOfStudy);
-		} else {
-			long unassignedCount = educationPrograms.stream()
-	                .filter(program -> program.getLecturer() == null) 
+	    List<EducationProgramEntity> educationPrograms = fieldOfStudy.getEducationPrograms();
+	    int totalPrograms = educationPrograms.size();
+
+	    Map<String, Object> response = new HashMap<>();
+	    Map<String, Object> data = new HashMap<>();
+	    
+	    if (totalPrograms == 0) {
+	        fieldOfStudyRepository.delete(fieldOfStudy);
+	    } else {
+	        long unassignedCount = educationPrograms.stream()
+	                .filter(program -> program.getLecturer() == null)
 	                .count();
-			if (request.isConfirm()) {
-				fieldOfStudyRepository.delete(fieldOfStudy);
-				
-			} else if (unassignedCount > 0) {
-				// Nếu có chương trình chưa phân công, trả về status 428
-				return ResponseEntity.status(HttpStatus.PRECONDITION_REQUIRED)
-						.body("There are " + unassignedCount + " unassigned programs.");
-			} else {
-				// Nếu có chương trình đã phân công, trả về status 403
-				return ResponseEntity.status(HttpStatus.FORBIDDEN)
-						.body("There are programs assigned. Total programs by status: " + totalPrograms);
-			}
-		}
-		List<FieldOfStudyEntity> remainingFieldsOfStudy = fieldOfStudyRepository.findAll();
-		List<FieldOfStudyDTO> result = remainingFieldsOfStudy.stream().map(fieldOfStudyConverter::convertToDTO).collect(Collectors.toList());
+	        long assignedCount = totalPrograms - unassignedCount;
+
+	        if (request.isConfirm()) {
+	            fieldOfStudyRepository.delete(fieldOfStudy);
+	        } else if (unassignedCount > 0 && unassignedCount==totalPrograms) {
+	            data.put("unassigned", unassignedCount);
+	            response.put("data", data);
+	            response.put("status", 428);
+//	            return ResponseEntity.status(HttpStatus.OK).body(response);
+	            return ResponseEntity.status(HttpStatus.PRECONDITION_REQUIRED).body(response);
+	        } else if (assignedCount > 0) {
+	            data.put("unassigned", unassignedCount);
+	            data.put("assigned", assignedCount);
+	            data.put("total", totalPrograms);
+	            response.put("data", data);
+	            response.put("status", 403);
+//	            return ResponseEntity.status(HttpStatus.OK).body(response);
+	            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+	        }
+	    }
+
+	    List<FieldOfStudyEntity> remainingFieldsOfStudy = fieldOfStudyRepository.findAll();
+	    List<FieldOfStudyDTO> result = remainingFieldsOfStudy.stream()
+	            .map(fieldOfStudyConverter::convertToDTO)
+	            .collect(Collectors.toList());
+	    
 	    return ResponseEntity.ok(result);
 	}
+
 }
