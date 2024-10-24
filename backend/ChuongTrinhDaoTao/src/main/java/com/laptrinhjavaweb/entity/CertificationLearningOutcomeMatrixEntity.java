@@ -14,7 +14,7 @@ public class CertificationLearningOutcomeMatrixEntity {
     private Long matrixId;
 
     @Column
-    private int competencyLevel;
+    private Integer competencyLevel;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="certificationId")
