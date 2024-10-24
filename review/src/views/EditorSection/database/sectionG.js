@@ -1,4 +1,4 @@
-import { getData } from "../../../utils/function"
+import { getData, postData } from "../../../utils/function"
 
 const splitCourse = (data, specializations) => {
     const result = {
@@ -104,19 +104,41 @@ export const getDataSectionG = async ({id, api, token, setSectionGValue, setSpec
     setSectionGValue(splitCourse(result.data.data, specialization.data.data))
 }
 
-export const handleChangeDataBox = async ({e, setState, id, setIsSearch, setSearchValue, typingTimeOutRef}) => {
+const searchCourse = async ({api, token, data, setIsSearch, setSearchValue, typingTimeOutRef }) => {
+    if(typingTimeOutRef.current)
+        clearTimeout(typingTimeOutRef.current)
+
+    typingTimeOutRef.current = setTimeout(async () => {
+        const searchData = await postData(api, "/api/courses/search", token, data)
+
+        console.log(searchData)
+    }, 500)
+}
+
+export const handleChangeDataBox = async ({e, setState, id, data, api, token, setIsSearch, setSearchValue, typingTimeOutRef}) => {
     const {name, value, type, checked, readOnly} = e.target
     
+    console.log(data)
     if(readOnly)
         return
 
     if(type == 'text') {
         if(name != "semester") {
-            
-            setState(prev => ({
-                ...prev,
+            const result = {
+                ...data,
                 [name]: value
-            }))
+            }
+            
+            setState(result)
+
+            searchCourse({
+                api,
+                token,
+                setIsSearch,
+                setSearchValue,
+                typingTimeOutRef,
+                data: result,
+            })
         }
         else {
             let result = Number.parseInt(value)

@@ -1,13 +1,15 @@
-import React, { useRef, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { handleChangeDataBox } from '../database/sectionG'
 import { getParentElementByClass } from '../../../utils/function'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import SearchElement from './SearchElement'
+import { UserContext } from '../../../context/ContextProvider'
 
 export default function SectionGCreateBlock({ knowledgeModule, detailedKnowledgeModule, specializationId, index, setIsHide }) {
     const { id } = useParams()
+    const { apiURL, serverAPI, token } = useContext(UserContext)
     
     const [ courseDetail, setCourseDetail ] = useState({
         programId: id,
@@ -21,7 +23,7 @@ export default function SectionGCreateBlock({ knowledgeModule, detailedKnowledge
         detailedKnowledgeModule,
         specializationId,
         replacesThesis: detailedKnowledgeModule == "THESIS_PROJECT" && specializationId!=null,
-        semester: 0,
+        semester: 1,
         courseCode: "",
         courseName: ""
     })
@@ -29,7 +31,7 @@ export default function SectionGCreateBlock({ knowledgeModule, detailedKnowledge
     const [ isSearch, setIsSearch ] = useState(false)
     const [ searchValue, setSearchValue ] = useState([])
     const typingTimeOutRef = useRef(null)
-    // console.log(courseDetail)
+    console.log(courseDetail)
 
     const handleClose = e => {
         const parent = getParentElementByClass(e.target, "data-block")
@@ -37,6 +39,13 @@ export default function SectionGCreateBlock({ knowledgeModule, detailedKnowledge
         if(!parent)
             setIsHide(true)
     }
+
+    const setOffSearch = () => {
+        setIsSearch(false)
+        setSearchValue([])
+    }
+
+    // console.log(isSearch)
 
     return (
         <div 
@@ -67,8 +76,13 @@ export default function SectionGCreateBlock({ knowledgeModule, detailedKnowledge
                                     setState: setCourseDetail,
                                     setIsSearch,
                                     setSearchValue,
-                                    typingTimeOutRef
+                                    typingTimeOutRef,
+                                    data: courseDetail,
+                                    api: apiURL,
+                                    token,
                                 })}
+                                onFocus={() => setIsSearch(true)}
+                                onBlur={setOffSearch}
                             />
                         </div>
                         <div 
@@ -84,7 +98,18 @@ export default function SectionGCreateBlock({ knowledgeModule, detailedKnowledge
                                 autoComplete='off'
                                 name='courseName'
                                 id='courseName'
-                                onChange={e => handleChangeDataBox({e, setState: setCourseDetail})}
+                                onChange={e => handleChangeDataBox({
+                                    e, 
+                                    setState: setCourseDetail,
+                                    setIsSearch,
+                                    setSearchValue,
+                                    typingTimeOutRef,
+                                    data: courseDetail,
+                                    api: apiURL,
+                                    token,
+                                })}
+                                onFocus={() => setIsSearch(true)}
+                                onBlur={setOffSearch}
                             />
                         </div>
                         {

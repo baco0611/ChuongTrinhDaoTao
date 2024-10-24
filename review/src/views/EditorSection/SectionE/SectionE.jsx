@@ -222,7 +222,7 @@ export default function SectionE() {
         return async () => {
             return await getDataSectionE({
                 id,
-                api: serverAPI,
+                api: apiURL,
                 token,
                 setSectionEValue,
             });
@@ -284,11 +284,12 @@ export default function SectionE() {
             <div 
                 className='editor-btn save-btn cursorPointer'
                 onClick={() => handleSavingData({
-                    api: serverAPI,
+                    api: apiURL,
                     token,
                     data: sectionEValue,
                     setState: setSectionEValue,
-                    setIsFetchData
+                    setIsFetchData,
+                    id
                 })}
                 style={{bottom: "50px"}}
             >

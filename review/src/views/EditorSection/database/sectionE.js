@@ -18,7 +18,7 @@ export const splitSectionEData = data => {
 }
 
 export const getDataSectionE = async ({id, api, token, setSectionEValue}) => {
-    const result = await getData(api, `/program/po-plo-matrix/${id}`, token)
+    const result = await getData(api, `/api/learning-objectives/getAll/${id}`, token)
 
     // console.log(splitSectionEData(result.data.data))
     if(result.status == 200)
@@ -48,7 +48,7 @@ export const handleChangValueE = ({ element, setState }) => {
     })
 }
 
-export const handleSavingData = async ({ data, setState, setIsFetchData, api, token }) => {
+export const handleSavingData = async ({ data, setState, setIsFetchData, api, token, id }) => {
     const deleteElement = [];
 
     for (const ploId in data) {
@@ -74,14 +74,15 @@ export const handleSavingData = async ({ data, setState, setIsFetchData, api, to
     setIsFetchData(true)
     const payload = {
         deleteElement,
-        createElement
+        createElement,
+        programId: id,
     }
 
-    const result = await postData(api, "/program/po-plo-matrix/update", token, payload)
+    const result = await postData(api, "/api/learning-objectives/update", token, payload)
 
     console.log(result)
     if(result.status == 200) {
-        setState(splitSectionEData(result.data.data))
+        setState(splitSectionEData(result.data))
     }
     
     setIsFetchData(false)
