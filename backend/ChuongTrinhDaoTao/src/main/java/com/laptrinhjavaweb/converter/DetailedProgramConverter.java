@@ -31,7 +31,7 @@ public class DetailedProgramConverter {
 		dto.setPracticalHours(entity.getCourseOutline().getPracticalHours());
 		dto.setInternshipHours(entity.getCourseOutline().getInternshipHours());
 		dto.setTestHours(entity.getCourseOutline().getTestHours());
-		dto.setSemesterHours(entity.getSemester());
+		dto.setSemester(entity.getSemester());
 		dto.setIndex(entity.getIndex());
 		dto.setPrerequisiteCourse(
 				entity.getPrerequisiteCourse() != null ? entity.getPrerequisiteCourse() : new ArrayList<>());

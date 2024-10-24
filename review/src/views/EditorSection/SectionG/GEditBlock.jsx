@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { handleChangeDataBox, saveCourse } from '../database/sectionG'
+import { deleteCourse, handleChangeDataBox, saveCourse, updateCourse } from '../database/sectionG'
 import { getParentElementByClass } from '../../../utils/function'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
@@ -265,20 +265,28 @@ export default function SectionGEditBlock({ knowledgeModule,
                     <div className='input-row' style={{justifyContent: "center", gap: "15px"}}>
                         <button
                             className='off-btn'
-                            onClick={() => setIsHide(true)}
-                        >Xóa học phần</button>
-                        <button 
-                            className='save-btn'
-                            onClick={() => saveCourse({
+                            onClick={() => deleteCourse({
                                 id,
                                 api: apiURL,
                                 token,
-                                setState,
                                 data: courseDetail,
                                 setIsHide,
-                                setIsDataSaved
+                                setIsDataSaved,
+                                setState
                             })}
-                        >Lưu học phần</button>
+                        >Xóa học phần</button>
+                        <button 
+                            className='save-btn'
+                            onClick={() => updateCourse({
+                                id,
+                                api: apiURL,
+                                token,
+                                data: courseDetail,
+                                setIsHide,
+                                setIsDataSaved,
+                                setState
+                            })}
+                        >Lưu chỉnh sửa</button>
                     </div>
                 </div>
             </div>

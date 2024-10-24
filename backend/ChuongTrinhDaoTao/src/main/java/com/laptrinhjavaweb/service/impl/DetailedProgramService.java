@@ -119,7 +119,7 @@ public class DetailedProgramService {
 
 		for (UpdateIndexDTO update : updates) {
 			DetailedProgramEntity entity = detailedProgramRepository
-					.findByDetailedProgramId(update.getDetailedProgramId());
+					.findByDetailedProgramId(update.getId());
 			entity.setIndex(update.getIndex());
 			detailedProgramRepository.save(entity);
 			updatedPrograms.add(detailedProgramConverter.convertToDTO(entity));

@@ -22,7 +22,7 @@ public class DetailedProgramDTO {
     private List<String> prerequisiteCourse; 
     private List<String> priorCourse; 
     private List<String> concurrentCourse; 
-    private Integer semesterHours; 
+    private Integer semester; 
     private String knowledgeModule;
     private String detailedKnowledgeModule;
     private Long specializationId;

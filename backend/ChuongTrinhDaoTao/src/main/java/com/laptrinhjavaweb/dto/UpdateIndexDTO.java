@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class UpdateIndexDTO {
-	private Long detailedProgramId; 
+	private Long id; 
     private Integer index;
 }

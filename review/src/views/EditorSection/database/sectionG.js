@@ -1,4 +1,4 @@
-import { getData, postData } from "../../../utils/function"
+import { deleteData, getData, postData } from "../../../utils/function"
 import Swal from 'sweetalert2'
 
 // Hàm để đảm bảo mỗi specialization luôn tồn tại trong SPECIALIZE và REPLACE_THESIS
@@ -152,7 +152,7 @@ const splitCourse = (data, specializations, api, token) => {
     const finalArray = filterFinalArray(result);
 
     // Gửi dữ liệu cập nhật lên API
-    // updateIndicesAPI(api, token, finalArray);
+    updateIndicesAPI(api, token, finalArray);
 
     return result;
 };
@@ -168,7 +168,7 @@ export const getDataSectionG = async ({id, api, token, setSectionGValue, setSpec
     setSectionGValue(splitCourse(result.data.data, specialization.data.data, api, token))
 }
 
-const searchCourse = async ({api, token, data, setIsSearch, setSearchValue, typingTimeOutRef }) => {
+const searchCourse = async ({api, token, data, setSearchValue, typingTimeOutRef }) => {
     if(typingTimeOutRef.current)
         clearTimeout(typingTimeOutRef.current)
 
@@ -254,3 +254,39 @@ export const saveCourse = async ({id, api, token, setState, data, setIsHide, set
         setIsHide(true)
     }
 } 
+
+export const updateCourse = async({id, api, token, data, setIsDataSaved, setState, setIsHide}) => {
+    setIsDataSaved(false)
+
+    const result = await postData(api, `/api/programs/update/${data.id}`, token, data)
+    
+    const specialization = JSON.parse(sessionStorage.getItem(`specialization-${id}`))
+    setState(splitCourse(result.data.data, specialization, api, token))
+    setIsHide(true)
+    setIsDataSaved(true)
+}
+
+export const deleteCourse = async({id, api, token, data, setIsDataSaved, setState, setIsHide}) => {
+    
+    await Swal.fire({
+        title: "XÓA HỌC PHẦN",
+        text: `Bạn có muốn xóa học phần ${data.courseName} không?`,
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Có",
+        cancelButtonText: "Không",
+        confirmButtonColor: '#BE0000', // Màu đỏ cho nút "Có"
+        reverseButtons: true, // Đổi vị trí các nút
+    }).then(async (result) => {
+        if(result.isConfirmed) {
+            setIsDataSaved(false)
+            const result = await deleteData(api, `/api/programs/delete/${data.id}`, token, data)
+    
+            const specialization = JSON.parse(sessionStorage.getItem(`specialization-${id}`))
+            setState(splitCourse(result.data.data, specialization, api, token))
+            setIsHide(true)
+            setIsDataSaved(true)
+        }
+    });
+}
+
