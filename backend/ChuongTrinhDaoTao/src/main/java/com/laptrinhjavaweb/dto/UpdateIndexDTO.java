@@ -4,7 +4,6 @@ import lombok.Data;
 
 @Data
 public class UpdateIndexDTO {
-	private Long programId;
-    private Long courseOutlineId;
+	private Long detailedProgramId; 
     private Integer index;
 }

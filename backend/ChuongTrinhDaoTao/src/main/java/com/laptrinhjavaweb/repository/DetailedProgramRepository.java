@@ -1,7 +1,6 @@
 package com.laptrinhjavaweb.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -13,5 +12,7 @@ public interface DetailedProgramRepository extends JpaRepository<DetailedProgram
 	List<DetailedProgramEntity> findByEducationProgramProgramId(Long programId);
 
 	List<DetailedProgramEntity> findByCourseOutlineIdCourseOutlineAndEducationProgramProgramId(Long programId,Long courseOutlineId);
+
+    DetailedProgramEntity findByDetailedProgramId(Long detailedProgramId);
 
 }
