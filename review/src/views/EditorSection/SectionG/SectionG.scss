@@ -97,7 +97,7 @@
     }   
 }
 
-.sectionG-data-box {
+.sectionG-data-box, .search-relate {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -159,16 +159,37 @@
                 padding-top: 15px;
                 position: relative;
 
-                .save-btn {
+                .save-btn, .off-btn {
                     width: 350px;
                     height: 35px;
-                    border: solid 1.5px $primary-color;
                     border-radius: 15px;
 
                     &:hover {
-                        background-color: $primary-color;
                         color: white;
                     }
+                }
+
+                .save-btn {
+                    border: solid 1.5px $primary-color;
+                    &:hover {
+                        background-color: $primary-color;
+                    }
+                }
+
+                .off-btn {
+                    color: $highlight-color;
+                    border: solid 1.5px $highlight-color;
+                    &:hover {
+                        background-color: $highlight-color;
+                    }
+                }
+
+                p {
+                    padding: 0;
+                    margin: 0;
+                    font-size: 12px;
+                    font-weight: 600;
+                    color: $highlight-color;
                 }
             }
 
@@ -277,6 +298,12 @@
                 height: 25px;
                 font-weight: 400;
                 line-height: 25px;
+
+                cursor: pointer;
+
+                &:hover {
+                    background-color: $base-color;
+                }
             }
         }
     }

@@ -1,19 +1,21 @@
 import React, { useContext, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { handleChangeDataBox } from '../database/sectionG'
+import { handleChangeDataBox, saveCourse } from '../database/sectionG'
 import { getParentElementByClass } from '../../../utils/function'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import SearchElement from './SearchElement'
 import { UserContext } from '../../../context/ContextProvider'
+import SearchRelate from './SearchRelate'
 
-export default function SectionGCreateBlock({ knowledgeModule, detailedKnowledgeModule, specializationId, index, setIsHide }) {
+export default function SectionGCreateBlock({ knowledgeModule, 
+    detailedKnowledgeModule, specializationId, index, setIsHide, setState }) {
     const { id } = useParams()
-    const { apiURL, serverAPI, token } = useContext(UserContext)
+    const { apiURL, serverAPI, token, setIsDataSaved } = useContext(UserContext)
     
     const [ courseDetail, setCourseDetail ] = useState({
         programId: id,
-        courseOutlineId: "",
+        courseOutlineId: null,
         index,
         mandatory: false,
         prerequisiteCourse: [],
@@ -23,15 +25,17 @@ export default function SectionGCreateBlock({ knowledgeModule, detailedKnowledge
         detailedKnowledgeModule,
         specializationId,
         replacesThesis: detailedKnowledgeModule == "THESIS_PROJECT" && specializationId!=null,
-        semester: 1,
+        semester: "",
         courseCode: "",
         courseName: ""
     })
 
     const [ isSearch, setIsSearch ] = useState(false)
     const [ searchValue, setSearchValue ] = useState([])
+    const [ isPrerequisiteHidden, setIsPrerequisiteHidden ] = useState(false)
+    const [ isPriorHidden, setIsPriorHidden ] = useState(false)
+    const [ isConcurrentHidden, setIsConcurrentHidden ] = useState(false)
     const typingTimeOutRef = useRef(null)
-    console.log(courseDetail)
 
     const handleClose = e => {
         const parent = getParentElementByClass(e.target, "data-block")
@@ -40,19 +44,49 @@ export default function SectionGCreateBlock({ knowledgeModule, detailedKnowledge
             setIsHide(true)
     }
 
-    const setOffSearch = () => {
-        setIsSearch(false)
-        setSearchValue([])
+    const setOffSearch = (e) => {
+        if(e.target.tagName === 'INPUT')
+            return
+
+        const parent = getParentElementByClass(e.target, "search-value")
+
+        if(!parent) {
+            setIsSearch(false)
+            setSearchValue([])
+        }
     }
 
-    // console.log(isSearch)
+    const setValue = (data) => {
+        // console.log(data)
+        setCourseDetail(prev => ({
+            ...prev,
+            courseOutlineId: data.courseOutlineId,
+            courseCode: data.courseCode,
+            courseName: data.courseName
+        }))
+
+        setSearchValue([])
+
+        setIsSearch(false)
+    }
+
+    const deleteCourseRelate = (type, value) => {
+        const result = courseDetail[type].filter(element => element != value)
+
+        setCourseDetail(prev => ({
+            ...prev,
+            [type]: result
+        }))
+    }
 
     return (
         <div 
             className='sectionG-data-box'
             onClick={handleClose}
         >
-            <div className='data-block'>
+            <div className='data-block'
+                onClick={setOffSearch}
+            >
                 <FontAwesomeIcon icon={faXmark} onClick={() => setIsHide(true)}/>
                 <h3>Thêm học phần</h3>
                 <div className='form'> 
@@ -119,6 +153,7 @@ export default function SectionGCreateBlock({ knowledgeModule, detailedKnowledge
                                 setState={setCourseDetail}
                                 setIsSearch={setIsSearch}
                                 setSearchValue={setSearchValue}
+                                setValue={setValue}
                             />
                         }
                     </div>
@@ -166,11 +201,23 @@ export default function SectionGCreateBlock({ knowledgeModule, detailedKnowledge
                             <ul>
                             {
                                 courseDetail.prerequisiteCourse.map((element, index) => {
-                                    return <li key={index}>{element}</li>
+                                    return <li 
+                                        key={index}
+                                        onDoubleClick={() => deleteCourseRelate("prerequisiteCourse", element)}
+                                    >{element}</li>
                                 })
                             }
                                 <li>
-                                    <button>Thêm học phần</button>
+                                    <button onClick={() => setIsPrerequisiteHidden(true)}>Thêm học phần</button>
+                                    {
+                                        isPrerequisiteHidden && 
+                                        <SearchRelate
+                                            type="prerequisiteCourse"
+                                            title="tiên quyết"
+                                            setState={setCourseDetail}
+                                            setOff={setIsPrerequisiteHidden}
+                                        />
+                                    }
                                 </li>
                             </ul>
                         </div>
@@ -179,11 +226,23 @@ export default function SectionGCreateBlock({ knowledgeModule, detailedKnowledge
                             <ul>
                             {
                                 courseDetail.priorCourse.map((element, index) => {
-                                    return <li key={index}>{element}</li>
+                                    return <li 
+                                        key={index}
+                                        onDoubleClick={() => deleteCourseRelate("priorCourse", element)}
+                                    >{element}</li>
                                 })
                             }
                                 <li>
-                                    <button>Thêm học phần</button>
+                                    <button onClick={() => setIsPriorHidden(true)}>Thêm học phần</button>
+                                    {
+                                        isPriorHidden && 
+                                        <SearchRelate
+                                            type="priorCourse"
+                                            title="học trước"
+                                            setState={setCourseDetail}
+                                            setOff={setIsPriorHidden}
+                                        />
+                                    }
                                 </li>
                             </ul>
                         </div>
@@ -192,17 +251,47 @@ export default function SectionGCreateBlock({ knowledgeModule, detailedKnowledge
                             <ul>
                             {
                                 courseDetail.concurrentCourse.map((element, index) => {
-                                    return <li key={index}>{element}</li>
+                                    return <li 
+                                        key={index}
+                                        onDoubleClick={() => deleteCourseRelate("concurrentCourse", element)}
+                                    >{element}</li>
                                 })
                             }
                                 <li>
-                                    <button>Thêm học phần</button>
+                                    <button onClick={() => setIsConcurrentHidden(true)}>Thêm học phần</button>
+                                    {
+                                        isConcurrentHidden && 
+                                        <SearchRelate
+                                            type="concurrentCourse"
+                                            title="song hành"
+                                            setState={setCourseDetail}
+                                            setOff={setIsConcurrentHidden}
+                                        />
+                                    }
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div className='input-row' style={{justifyContent: "center"}}>
-                        <button className='save-btn'>Lưu học phần</button>
+                        <p>Nháy đôi (double click) vào mã học phần mà bạn muốn xóa</p>
+                    </div>
+                    <div className='input-row' style={{justifyContent: "center", gap: "15px"}}>
+                        <button
+                            className='off-btn'
+                            onClick={() => setIsHide(true)}
+                        >Hủy bỏ</button>
+                        <button 
+                            className='save-btn'
+                            onClick={() => saveCourse({
+                                id,
+                                api: apiURL,
+                                token,
+                                setState,
+                                data: courseDetail,
+                                setIsHide,
+                                setIsDataSaved
+                            })}
+                        >Lưu học phần</button>
                     </div>
                 </div>
             </div>

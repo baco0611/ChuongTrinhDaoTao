@@ -77,6 +77,7 @@ export default function SectionGBlock({ symbol, title, data, setState, idSpecial
                             specializationId={idSpecialization}
                             index={data.data.length + 1}
                             setIsHide={setIsHide}
+                            setState={setState}
                         />
                     }
                 </td>

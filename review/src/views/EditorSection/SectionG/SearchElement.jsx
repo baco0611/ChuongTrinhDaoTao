@@ -1,18 +1,7 @@
 import React from 'react'
 
-export default function SearchElement({data, setState, setIsSearch, setSearchValue}) {
-    const setValue = (data) => {
-        setState(prev => ({
-            ...prev,
-            courseOutlineId: data.courseOutlineId,
-            courseCode: data.courseCode,
-            courseName: data.courseName
-        }))
-
-        setSearchValue([])
-
-        setIsSearch(false)
-    }
+export default function SearchElement({data, setValue}) {
+   
     
     return (
         <ul className='search-value'>

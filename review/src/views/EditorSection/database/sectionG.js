@@ -1,4 +1,5 @@
 import { getData, postData } from "../../../utils/function"
+import Swal from 'sweetalert2'
 
 const splitCourse = (data, specializations) => {
     const result = {
@@ -111,7 +112,7 @@ const searchCourse = async ({api, token, data, setIsSearch, setSearchValue, typi
     typingTimeOutRef.current = setTimeout(async () => {
         const searchData = await postData(api, "/api/courses/search", token, data)
 
-        console.log(searchData)
+        setSearchValue(searchData.data)
     }, 500)
 }
 
@@ -126,7 +127,14 @@ export const handleChangeDataBox = async ({e, setState, id, data, api, token, se
         if(name != "semester") {
             const result = {
                 ...data,
-                [name]: value
+            }
+
+            if(name == "courseName"){
+                result.courseName = value,
+                result.courseCode = ""
+            } else {
+                result.courseName = "",
+                result.courseCode = value
             }
             
             setState(result)
@@ -163,3 +171,23 @@ export const handleChangeDataBox = async ({e, setState, id, data, api, token, se
         }));
     }
 }
+
+export const saveCourse = async ({id, api, token, setState, data, setIsHide, setIsDataSaved}) => {
+    if(data.courseOutlineId == null || data.semester == "")
+        Swal.fire({
+            title: 'Chưa điền thông tin',
+            text: 'Vui lòng chọn học phần và học kỳ tương ứng!',
+            icon: "error",
+            confirmButtonColor: "#BE0000"
+        });
+    else {
+        setIsDataSaved(false)
+        const result = await postData(api, "/api/programs/create", token, data)
+        
+        const specialization = JSON.parse(sessionStorage.getItem(`specialization-${id}`))
+        // console.log(specialization)
+        setState(splitCourse(result.data.data, specialization))
+        setIsDataSaved(true)
+        setIsHide(true)
+    }
+} 
