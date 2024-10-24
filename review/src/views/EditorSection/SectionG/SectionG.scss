@@ -85,7 +85,7 @@
                     border: none;
                     background-color: transparent;
                     font-weight: 600;
-                    color: #043C6C;
+                    color: $primary-color;
                     opacity: 0.4;
 
                     &:hover {
@@ -303,6 +303,20 @@
 
                 &:hover {
                     background-color: $base-color;
+                }
+
+                button {
+                    width: 100%;
+                    height: 100%;
+                    border: none;
+                    background-color: transparent;
+                    font-weight: 600;
+                    color: $primary-color;
+                    opacity: 0.4;
+
+                    &:hover {
+                        opacity: 1;
+                    }
                 }
             }
         }

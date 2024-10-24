@@ -1,7 +1,104 @@
 import { getData, postData } from "../../../utils/function"
 import Swal from 'sweetalert2'
 
-const splitCourse = (data, specializations) => {
+// Hàm để đảm bảo mỗi specialization luôn tồn tại trong SPECIALIZE và REPLACE_THESIS
+const initializeSpecializations = (result, specializations) => {
+    specializations.forEach(specialization => {
+        result.PROFESSIONAL.SPECIALIZE.data[specialization.specializationId] = {
+            specializationName: specialization.specializationName,
+            data: []
+        };
+
+        result.PROFESSIONAL.REPLACE_THESIS.data[specialization.specializationId] = {
+            specializationName: specialization.specializationName,
+            data: []
+        };
+    });
+};
+
+// Hàm phân loại phần tử theo nhóm GENERAL và PROFESSIONAL
+const categorizeData = (data, result) => {
+    data.forEach(item => {
+        if (item.knowledgeModule === "PROFESSIONAL") {
+            const detailedModule = item.detailedKnowledgeModule;
+
+            if (detailedModule === "SPECIALIZE") {
+                result.PROFESSIONAL.SPECIALIZE.data[item.specializationId].data.push(item);
+            } else if (detailedModule === "THESIS_PROJECT" && item.replacesThesis) {
+                result.PROFESSIONAL.REPLACE_THESIS.data[item.specializationId].data.push(item);
+            } else if (detailedModule === "THESIS_PROJECT") {
+                result.PROFESSIONAL.THESIS_PROJECT.data.push(item);
+            } else if (result.PROFESSIONAL[detailedModule]) {
+                result.PROFESSIONAL[detailedModule].data.push(item);
+            }
+        } else if (item.knowledgeModule === "GENERAL") {
+            result.GENERAL.data.push(item);
+        }
+    });
+};
+
+// Hàm sắp xếp phần tử theo nhóm PROFESSIONAL (bao gồm SPECIALIZE và REPLACE_THESIS)
+const sortProfessionalGroups = (result) => {
+    Object.keys(result.PROFESSIONAL).forEach(group => {
+        if (group === 'SPECIALIZE' || group === 'REPLACE_THESIS') {
+            Object.keys(result.PROFESSIONAL[group].data).forEach(specializationId => {
+                result.PROFESSIONAL[group].data[specializationId].data.sort((a, b) => a.index - b.index);
+
+                result.PROFESSIONAL[group].data[specializationId].data.forEach((item, idx) => {
+                    item.index = idx + 1;
+                });
+            });
+        } else {
+            result.PROFESSIONAL[group].data.sort((a, b) => a.index - b.index);
+
+            result.PROFESSIONAL[group].data.forEach((item, idx) => {
+                item.index = idx + 1;
+            });
+        }
+    });
+};
+
+// Hàm sắp xếp nhóm GENERAL và gán lại thứ tự
+const sortGeneralGroup = (result) => {
+    result.GENERAL.data.sort((a, b) => a.index - b.index);
+
+    result.GENERAL.data.forEach((item, idx) => {
+        item.index = idx + 1;
+    });
+};
+
+// Hàm lọc các phần tử ra thành mảng finalArray
+const filterFinalArray = (result) => {
+    let finalArray = [];
+
+    // Lọc phần tử trong nhóm PROFESSIONAL
+    Object.keys(result.PROFESSIONAL).forEach(group => {
+        if (group === 'SPECIALIZE' || group === 'REPLACE_THESIS') {
+            Object.keys(result.PROFESSIONAL[group].data).forEach(specializationId => {
+                finalArray = finalArray.concat(result.PROFESSIONAL[group].data[specializationId].data);
+            });
+        } else {
+            finalArray = finalArray.concat(result.PROFESSIONAL[group].data);
+        }
+    });
+
+    // Lọc phần tử trong nhóm GENERAL
+    finalArray = finalArray.concat(result.GENERAL.data);
+
+    return finalArray;
+};
+
+// Hàm để gửi payload lên API
+const updateIndicesAPI = (api, token, finalArray) => {
+    const payload = {
+        data: finalArray
+    };
+
+    return postData(api, "/api/programs/updateIndices", token, payload);
+};
+
+// Hàm chính splitCourse
+const splitCourse = (data, specializations, api, token) => {
     const result = {
         GENERAL: {
             data: [],
@@ -38,62 +135,28 @@ const splitCourse = (data, specializations) => {
             }
         }
     };
-        
-    // Đảm bảo mỗi specialization luôn tồn tại trong SPECIALIZE
-    specializations.forEach(specialization => {
-        result.PROFESSIONAL.SPECIALIZE.data[specialization.specializationId] = {
-            specializationName: specialization.specializationName,
-            data: []
-        };
-        
-        result.PROFESSIONAL.REPLACE_THESIS.data[specialization.specializationId] = {
-            specializationName: specialization.specializationName,
-            data: []
-        };
-    });
-    
-    // Phân loại các phần tử dựa trên detailedKnowledgeModule và specialization
-    data.forEach(item => {
-        if (item.knowledgeModule === "PROFESSIONAL") {
-            const detailedModule = item.detailedKnowledgeModule;
-        
-            if (detailedModule === "SPECIALIZE") {
-                // Thêm vào SPECIALIZE với specializationId
-                result.PROFESSIONAL.SPECIALIZE.data[item.specializationId].data.push(item);
-            } else if (detailedModule === "THESIS_PROJECT" && item.replacesThesis) {
-                // Thêm vào REPLACE_THESIS với specializationId
-                result.PROFESSIONAL.REPLACE_THESIS.data[item.specializationId].data.push(item);
-            } else if (detailedModule === "THESIS_PROJECT") {
-                // Nếu là THESIS_PROJECT nhưng không cần replacesThesis, chỉ đẩy vào THESIS_PROJECT
-                result.PROFESSIONAL.THESIS_PROJECT.data.push(item);
-            } else if (result.PROFESSIONAL[detailedModule]) {
-                // Đẩy phần tử vào các nhóm PROFESSIONAL khác như BASIC, MAJOR, ...
-                result.PROFESSIONAL[detailedModule].data.push(item);
-            }
-        } else if (item.knowledgeModule === "GENERAL") {
-        // Nếu knowledgeModule là GENERAL
-        result.GENERAL.data.push(item);
-        }
-    });
 
-    // Sắp xếp các phần tử theo thuộc tính index trong từng nhóm
-    Object.keys(result.PROFESSIONAL).forEach(group => {
-        if (group === 'SPECIALIZE' || group === 'REPLACE_THESIS') {
-            // Sắp xếp các nhóm SPECIALIZE và REPLACE_THESIS theo specializationId
-            Object.keys(result.PROFESSIONAL[group].data).forEach(specializationId => {
-                result.PROFESSIONAL[group].data[specializationId].data.sort((a, b) => a.index - b.index);
-            });
-        } else {
-            // Sắp xếp các nhóm khác như BASIC, MAJOR, ... theo index
-            result.PROFESSIONAL[group].data.sort((a, b) => a.index - b.index);
-        }
-    });
+    // Đảm bảo mỗi specialization tồn tại
+    initializeSpecializations(result, specializations);
 
-    // Sắp xếp nhóm GENERAL theo index
-    result.GENERAL.data.sort((a, b) => a.index - b.index);
+    // Phân loại dữ liệu
+    categorizeData(data, result);
 
-    return result
-}
+    // Sắp xếp và gán lại index trong nhóm PROFESSIONAL
+    sortProfessionalGroups(result);
+
+    // Sắp xếp và gán lại index trong nhóm GENERAL
+    sortGeneralGroup(result);
+
+    // Lọc các phần tử vào mảng finalArray
+    const finalArray = filterFinalArray(result);
+
+    // Gửi dữ liệu cập nhật lên API
+    // updateIndicesAPI(api, token, finalArray);
+
+    return result;
+};
+
 
 export const getDataSectionG = async ({id, api, token, setSectionGValue, setSpecialization }) => {
     const result = await getData(api, `/api/programs/${id}/details`, token)
@@ -102,7 +165,7 @@ export const getDataSectionG = async ({id, api, token, setSectionGValue, setSpec
 
     sessionStorage.setItem(`duration-${id}`, sectionAValue.data.data.duration)
     setSpecialization(specialization.data.data)
-    setSectionGValue(splitCourse(result.data.data, specialization.data.data))
+    setSectionGValue(splitCourse(result.data.data, specialization.data.data, api, token))
 }
 
 const searchCourse = async ({api, token, data, setIsSearch, setSearchValue, typingTimeOutRef }) => {
