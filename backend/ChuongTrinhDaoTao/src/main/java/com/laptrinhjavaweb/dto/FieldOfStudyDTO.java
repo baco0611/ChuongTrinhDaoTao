@@ -8,4 +8,5 @@ public class FieldOfStudyDTO {
     private String fieldCode;
     private String fieldName;
     private String department;
+    private String departmentName;
 }

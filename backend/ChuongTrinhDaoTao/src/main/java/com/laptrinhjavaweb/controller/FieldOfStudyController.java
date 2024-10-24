@@ -44,7 +44,7 @@ public class FieldOfStudyController {
 		boolean isAdmin = authentication.getAuthorities().stream()
 				.anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
 		if (!isAdmin) {
-			response.put("message", "Bạn không có quyền delete thông tin");
+			response.put("message", "Bạn không có quyền chỉnh sửa thông tin");
 			response.put("status", 403);
 			return ResponseEntity.ok(response);
 		}
