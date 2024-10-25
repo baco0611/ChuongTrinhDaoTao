@@ -11,6 +11,7 @@ public class EducationProgramResponse {
 	private String programId;
 	private String responsiblePerson;
 	private String responsiblePersonCode;
+	private String version;
 	private String department;
 	private String createdAt;
 	private String updatedAt;
