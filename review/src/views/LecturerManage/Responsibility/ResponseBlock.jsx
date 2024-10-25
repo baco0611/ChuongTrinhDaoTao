@@ -27,8 +27,8 @@ export default function ResponseBlock({ data, setState, index }) {
                         {data.responsibleLecturer && data.responsibleLecturer.lecturerName || "-----"}
                     </button>
                     {
-                        user.role.includes("ASSIGN_RESPONSIBILITY")
-                        &&
+                        //user.role.includes("ASSIGN_RESPONSIBILITY")
+                        //&&
                         <ul className="dropdown-menu">
                             <li className="sticky-top p-2 bg-white">
                                 <input 

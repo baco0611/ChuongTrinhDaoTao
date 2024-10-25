@@ -1,4 +1,4 @@
-import { getData } from "../../../utils/function"
+import { getData, postData } from "../../../utils/function"
 
 export const getDataSectionH = async ({ id, api, token, setSectionHValue }) => {
     const result = await getData(api, `/api/course-outcome-matrix/getAll/${id}`, token)
@@ -41,7 +41,7 @@ export const handleChangeValue = ({ e, element, setState }) => {
     });
 };
 
-export const handleSaveData = ({api, token, setState, data, id}) => {
+export const handleSaveData = async ({api, token, setState, data, id}) => {
     const updateElement = [];
     const deleteElement = [];
     const createElement = [];
@@ -63,8 +63,11 @@ export const handleSaveData = ({api, token, setState, data, id}) => {
         updateElement,
         deleteElement,
         createElement,
-        id
+        programId: id
     }
 
     console.log(payload)
+
+    const result = await postData(api, "/api/course-outcome-matrix/process", token, payload)
+    console.log(result)
 }

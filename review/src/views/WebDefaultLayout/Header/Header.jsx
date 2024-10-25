@@ -100,12 +100,15 @@ export default function Header() {
                             <li><Link to={"/dictionary/graduation"} onClick={() => setMenuOpen(!menuOpen)}>Điều kiện tốt nghiệp</Link></li>
                             <li><Link to={"/dictionary/certification"} onClick={() => setMenuOpen(!menuOpen)}>Chứng chỉ điều kiện</Link></li>
                         </ul>
-                        {/* <ul className="header-component">
+                        <ul className="header-component">
                             <li className="primary">Học phần</li>
                             <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý đề cương</Link></li>
                             <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Tra cứu đề cương</Link></li>
-                            <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý học phần</Link></li>
-                        </ul> */}
+                            {
+                                user && user.role.includes("ADMIN") &&
+                                <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý học phần</Link></li>
+                            }
+                        </ul>
                         <ul className="header-component">
                             <li className="primary">Chương trình đào tạo</li>
                             <li><Link to={"/program/manage"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý chương trình đào tạo</Link></li>
