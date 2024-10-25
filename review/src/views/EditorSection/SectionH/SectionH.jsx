@@ -9,7 +9,7 @@ import { getDataSectionG } from '../database/sectionG'
 import Loader from '../../../components/Loader/Loader'
 import Cookies from "js-cookie"
 import { getDataSectionD } from '../database/sectionD'
-import { getDataSectionH } from '../database/sectionH'
+import { getDataSectionH, handleSaveData } from '../database/sectionH'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo, faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
 import Competency from '../Competency/Competency'
@@ -201,7 +201,7 @@ export default function SectionH() {
         return async () => {
             getDataSectionG({
                 id,
-                api: serverAPI,
+                api: apiURL,
                 token,
                 setSectionGValue,
                 setSpecialization,
@@ -227,7 +227,7 @@ export default function SectionH() {
         return async () => {
             return await getDataSectionH({
                 id,
-                api: serverAPI,
+                api: apiURL,
                 token,
                 setSectionHValue
             });
@@ -287,7 +287,13 @@ export default function SectionH() {
             </div>
             <div 
                 className='editor-btn info-btn cursorPointer'
-                // onClick={() => setIsShowCompetency(true)}
+                onClick={() => handleSaveData({
+                    api: apiURL,
+                    token,
+                    setState: setSectionHValue,
+                    data: sectionHValue,
+                    id: id,
+                })}
                 style={{bottom: "50px"}}
             >
                 <FontAwesomeIcon icon={faFloppyDisk} />

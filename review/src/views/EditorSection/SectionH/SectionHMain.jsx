@@ -11,72 +11,88 @@ export default function SectionHMain({sectionDValue, sectionGValue, sectionHValu
                 <td colSpan={colSpanSize}>KIẾN THỨC GIÁO DỤC ĐẠI CƯƠNG</td>
             </tr>
             <SectionHBlock
-                data={sectionGValue.GENERAL}
-                setState={setSectionGValue}
+                data={sectionHValue}
+                courseData={sectionGValue.GENERAL}
+                setState={setSectionHValue}
                 colSpanSize={colSpanSize}
+                PLOList={sectionDValue}
             />
             <tr className='block-title'>
                 <td className='center'>II.</td>
                 <td colSpan={colSpanSize}>KIẾN THỨC GIÁO DỤC CHUYÊN NGHIỆP</td>
             </tr>
             <SectionHBlock
+                data={sectionHValue}
                 symbol="A"
                 title="Kiến thức cơ sở ngành"
-                data={sectionGValue.PROFESSIONAL.BASIC}
-                setState={setSectionGValue}
+                courseData={sectionGValue.PROFESSIONAL.BASIC}
+                setState={setSectionHValue}
                 colSpanSize={colSpanSize}
+                PLOList={sectionDValue}
             />
             <SectionHBlock
+                data={sectionHValue}
                 symbol="B"
                 title="Kiến thức ngành"
-                data={sectionGValue.PROFESSIONAL.MAJOR}
-                setState={setSectionGValue}
+                courseData={sectionGValue.PROFESSIONAL.MAJOR}
+                setState={setSectionHValue}
                 colSpanSize={colSpanSize}
+                PLOList={sectionDValue}
             />
             {
                 specialization.map((element, index) => {
                     return <SectionHBlock
+                        data={sectionHValue}
                         key={index}
                         symbol={`B.${index + 1}`}
                         title={element.specializationName}
-                        data={sectionGValue.PROFESSIONAL.SPECIALIZE.data[element.specializationId]}
-                        setState={setSectionGValue}
+                        courseData={sectionGValue.PROFESSIONAL.SPECIALIZE.data[element.specializationId]}
+                        setState={setSectionHValue}
                         idSpecialization={element.specializationId}
                         colSpanSize={colSpanSize}
+                        PLOList={sectionDValue}
                     />
                 })
             }
             <SectionHBlock
+                data={sectionHValue}
                 symbol="C"
                 title="Kiến thức bổ trợ"
-                data={sectionGValue.PROFESSIONAL.SUPPLEMENTARY}
-                setState={setSectionGValue}
+                courseData={sectionGValue.PROFESSIONAL.SUPPLEMENTARY}
+                setState={setSectionHValue}
                 colSpanSize={colSpanSize}
+                PLOList={sectionDValue}
             />
             <SectionHBlock
+                data={sectionHValue}
                 symbol="D"
                 title="Kiến thức thực tập thực tế"
-                data={sectionGValue.PROFESSIONAL.INTERN}
-                setState={setSectionGValue}
+                courseData={sectionGValue.PROFESSIONAL.INTERN}
+                setState={setSectionHValue}
                 colSpanSize={colSpanSize}
+                PLOList={sectionDValue}
             />
             <SectionHBlock
+                data={sectionHValue}
                 symbol="E"
                 title="ĐATN, KLTN hoặc học phần thay thế KLTN"
-                data={sectionGValue.PROFESSIONAL.THESIS_PROJECT}
-                setState={setSectionGValue}
+                courseData={sectionGValue.PROFESSIONAL.THESIS_PROJECT}
+                setState={setSectionHValue}
                 colSpanSize={colSpanSize}
+                PLOList={sectionDValue}
             />
             {
                 specialization.map((element, index) => {
                     return <SectionHBlock
+                        data={sectionHValue}
                         key={index}
                         symbol={`E.${index + 1}`}
                         title={element.specializationName}
-                        data={sectionGValue.PROFESSIONAL.REPLACE_THESIS.data[element.specializationId]}
-                        setState={setSectionGValue}
+                        courseData={sectionGValue.PROFESSIONAL.REPLACE_THESIS.data[element.specializationId]}
+                        setState={setSectionHValue}
                         idSpecialization={element.specializationId}
                         colSpanSize={colSpanSize}
+                        PLOList={sectionDValue}
                     />
                 })
             }

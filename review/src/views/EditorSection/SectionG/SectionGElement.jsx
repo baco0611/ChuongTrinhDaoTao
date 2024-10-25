@@ -16,7 +16,7 @@ export default function SectionGElement({data, element, knowledgeModule, detaile
     const { apiURL, serverAPI, user, token, setIsDataSaved, handleBeforeUnload } = useContext(UserContext)
     
     return (
-        <tr>
+        <tr className='cursorPointer course'>
             <td className='center'>
                 {element.index}
                 {
@@ -32,47 +32,47 @@ export default function SectionGElement({data, element, knowledgeModule, detaile
                     />
                 }
             </td>
-            <td onClick={() => handleEditElement(element)}>{element.courseCode}</td>
-            <td onClick={() => handleEditElement(element)}>{element.courseName}</td>
-            <td onClick={() => handleEditElement(element)} className='input'>
+            <td onDoubleClick={() => handleEditElement(element)}>{element.courseCode}</td>
+            <td onDoubleClick={() => handleEditElement(element)}>{element.courseName}</td>
+            <td onDoubleClick={() => handleEditElement(element)} className='input'>
                 <input
                     type='checkbox'
                     readOnly
                     checked={element.mandatory}
                 />
             </td>
-            <td onClick={() => handleEditElement(element)} className='center'>{element.creditNumber || ""}</td>
-            <td onClick={() => handleEditElement(element)} className='center'>{element.theoryHours || ""}</td>
-            <td onClick={() => handleEditElement(element)} className='center'>{element.exerciseHours || ""}</td>
-            <td onClick={() => handleEditElement(element)} className='center'>{element.discussionHours || ""}</td>
-            <td onClick={() => handleEditElement(element)} className='center'>{element.practicalHours  || ""}</td>
-            <td onClick={() => handleEditElement(element)} className='center'>{element.internshipHours  || ""}</td>
-            <td onClick={() => handleEditElement(element)} className='center'>{element.testHours || ""}</td>
-            <td onClick={() => handleEditElement(element)} className='center'>
+            <td onDoubleClick={() => handleEditElement(element)} className='center'>{element.creditNumber || ""}</td>
+            <td onDoubleClick={() => handleEditElement(element)} className='center'>{element.theoryHours || ""}</td>
+            <td onDoubleClick={() => handleEditElement(element)} className='center'>{element.exerciseHours || ""}</td>
+            <td onDoubleClick={() => handleEditElement(element)} className='center'>{element.discussionHours || ""}</td>
+            <td onDoubleClick={() => handleEditElement(element)} className='center'>{element.practicalHours  || ""}</td>
+            <td onDoubleClick={() => handleEditElement(element)} className='center'>{element.internshipHours  || ""}</td>
+            <td onDoubleClick={() => handleEditElement(element)} className='center'>{element.testHours || ""}</td>
+            <td onDoubleClick={() => handleEditElement(element)} className='center'>
             {
                 element.prerequisiteCourse.map((course, index) => {
                     return <React.Fragment key={index}>{course}<br/></React.Fragment>
                 })
             }</td>
-            <td onClick={() => handleEditElement(element)} className='center'>
+            <td onDoubleClick={() => handleEditElement(element)} className='center'>
             {
                 element.priorCourse.map((course, index) => {
                     return <React.Fragment key={index}>{course}<br/></React.Fragment>
                 })
             }</td>
-            <td onClick={() => handleEditElement(element)} className='center'>
+            <td onDoubleClick={() => handleEditElement(element)} className='center'>
             {
                 element.concurrentCourse.map((course, index) => {
                     return <React.Fragment key={index}>{course}<br/></React.Fragment>
                 })
             }</td>
-            <td onClick={() => handleEditElement(element)} className='center'>{element.semester}</td>
+            <td onDoubleClick={() => handleEditElement(element)} className='center'>{element.semester}</td>
             <td className='index-edit'>
                 <div>
                     {
                         element.index != 1 &&
                         <button 
-                            onClick={() => handleUp({
+                            onDoubleClick={() => handleUp({
                                 id,
                                 data: data.data,
                                 api: apiURL,
@@ -86,7 +86,7 @@ export default function SectionGElement({data, element, knowledgeModule, detaile
                     {
                         element.index != data.data.length &&
                         <button 
-                            onClick={() => handleDown({
+                            onDoubleClick={() => handleDown({
                                 id,
                                 data: data.data,
                                 api: apiURL,

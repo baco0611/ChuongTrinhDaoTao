@@ -4,6 +4,10 @@
     table {
         width: 100%;
 
+        tr.course:hover {
+            background-color: $base-color;
+        }
+
         th, td {
             font-size: 12px;
             line-height: 16px;

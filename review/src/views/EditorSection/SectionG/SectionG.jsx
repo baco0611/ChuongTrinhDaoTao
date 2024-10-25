@@ -114,7 +114,7 @@ export default function SectionG() {
             <div id="sectionG" className="wrapper editor-section">
                 <div className="title">
                     <h1>G. KHUNG CHƯƠNG TRÌNH ĐÀO TẠO</h1>
-                    <p className='content'>Hãy nháy kép vào học phần muốn chỉnh sửa</p>
+                    <p className='content'>Hãy nháy kép vào học phần muốn chỉnh sửa, hay các nút mũi tên nếu muốn thay đổi vị trí học phần.</p>
                     <p>Lưu ý: Dữ liệu sẽ được cập nhật sau mỗi bước thực hiện.</p>
                 </div>
                 <div className='sectionG-main'>
