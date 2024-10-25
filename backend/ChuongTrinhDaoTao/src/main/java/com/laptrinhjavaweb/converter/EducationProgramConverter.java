@@ -154,25 +154,10 @@ public class EducationProgramConverter {
 	}
 
 	public EducationProgramResponse convertToDTO(EducationProgramEntity entity) {
-<<<<<<< HEAD
-        EducationProgramResponse dto = new EducationProgramResponse();
-        dto.setProgramCode(entity.getProgramCode());
-        dto.setProgramName(entity.getVietnameseName());
-        dto.setFieldName(entity.getFieldOfStudy() != null ? entity.getFieldOfStudy().getFieldName() : null);
-        dto.setStatus(entity.getStatus().toString()); // Chuyển đổi sang chuỗi
-        dto.setProgramId(entity.getProgramId().toString());
-        dto.setResponsiblePerson(entity.getLecturer().getLastName() +" "+ entity.getLecturer().getFirstName());
-        dto.setResponsiblePersonCode(entity.getLecturer().getLecturersCode().toString());
-        dto.setDepartment(entity.getDepartment().getDepartmentName());
-        
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        dto.setCreatedAt(dateFormat.format(entity.getCreatedAt()));
-        dto.setUpdatedAt(dateFormat.format(entity.getUpdatedAt()));
-=======
 		EducationProgramResponse dto = new EducationProgramResponse();
 		dto.setProgramCode(entity.getProgramCode());
 		dto.setProgramName(entity.getVietnameseName());
-		dto.setFieldName(entity.getFieldOfStudy().getFieldName());
+		dto.setFieldName(entity.getFieldOfStudy()!=null ? entity.getFieldOfStudy().getFieldName() : null);
 		dto.setStatus(entity.getStatus().toString()); // Chuyển đổi sang chuỗi
 		dto.setProgramId(entity.getProgramId().toString());
 		dto.setResponsiblePerson(entity.getLecturer().getLastName() + " " + entity.getLecturer().getFirstName());
@@ -182,20 +167,14 @@ public class EducationProgramConverter {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		dto.setCreatedAt(dateFormat.format(entity.getCreatedAt()));
 		dto.setUpdatedAt(dateFormat.format(entity.getUpdatedAt()));
->>>>>>> manage_what
 
 		return dto;
 	}
-
-	<<<<<<<
-
-	HEAD SimplifiedTrainingProgramDTO dto=new SimplifiedTrainingProgramDTO();dto.setProgramId(entity.getProgramId());dto.setVietnameseName(entity.getVietnameseName());dto.setEnglishName(entity.getEnglishName());dto.setEducationLevel(entity.getEducationLevel());dto.setFieldCode(entity.getFieldOfStudy()!=null?entity.getFieldOfStudy().getFieldCode():null);dto.setFieldName(entity.getFieldOfStudy()!=null?entity.getFieldOfStudy().getFieldName():null);dto.setAdmissionTarget(entity.getAdmissionTarget());dto.setDuration(String.valueOf(entity.getDuration()));dto.setTrainingMode(entity.getTrainingMode());dto.setRequiredCredits(String.valueOf(entity.getRequiredCredits()));dto.setGraduationConditional(entity.getGraduationConditions());dto.setDiploma(entity.getDiploma());dto.setEmploymentPositionAfterGraduation(entity.getEmploymentPositionAfterGraduation());dto.setAdvancedSkillsDevelopment(entity.getAdvancedSkillsDevelopment());dto.setReferenceProgram(entity.getReferenceProgram());dto.setManagingDepartment(entity.getDepartment().getDepartmentName());=======
 
 	public SimplifiedTrainingProgramDTO toSimplifiedOutput(EducationProgramEntity entity) {
 		if (entity == null) {
 			return null;
 		}
->>>>>>> manage_what
 
 		SimplifiedTrainingProgramDTO dto = new SimplifiedTrainingProgramDTO();
 		dto.setProgramId(entity.getProgramId());
