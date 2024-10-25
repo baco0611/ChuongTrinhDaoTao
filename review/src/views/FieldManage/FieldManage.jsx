@@ -133,13 +133,13 @@ export default function FieldManage() {
                             <td>
                                 <button 
                                     className='delete-btn form-btn'
-                                    // onClick={() => deleteField({
-                                    //     api: apiURL, 
-                                    //     token,
-                                    //     data: element,
-                                    //     setFieldValue,
-                                    //     setIsDataSaved
-                                    // })}
+                                    onClick={() => deleteField({
+                                        api: apiURL, 
+                                        token,
+                                        data: element,
+                                        setFieldValue,
+                                        setIsDataSaved
+                                    })}
                                 >
                                     <i className="iconoir-minus-square"></i>
                                 </button>

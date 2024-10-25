@@ -88,16 +88,16 @@ public class FieldOfStudyService {
 	            data.put("unassigned", unassignedCount);
 	            response.put("data", data);
 	            response.put("status", 428);
-//	            return ResponseEntity.status(HttpStatus.OK).body(response);
-	            return ResponseEntity.status(HttpStatus.PRECONDITION_REQUIRED).body(response);
+	            return ResponseEntity.status(HttpStatus.OK).body(response);
+//	            return ResponseEntity.status(HttpStatus.PRECONDITION_REQUIRED).body(response);
 	        } else if (assignedCount > 0) {
 	            data.put("unassigned", unassignedCount);
 	            data.put("assigned", assignedCount);
 	            data.put("total", totalPrograms);
 	            response.put("data", data);
 	            response.put("status", 403);
-//	            return ResponseEntity.status(HttpStatus.OK).body(response);
-	            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+	            return ResponseEntity.status(HttpStatus.OK).body(response);
+//	            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
 	        }
 	    }
 

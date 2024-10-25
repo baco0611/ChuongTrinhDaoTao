@@ -31,7 +31,8 @@ public class FieldOfStudyEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "field_code", length = 50, nullable = false, unique = true)
+//	@Column(name = "field_code", length = 50, nullable = false, unique = true)
+	@Column(name = "field_code", length = 50, nullable = false)
 	private String fieldCode;
 
 	@Column(name = "field_name", columnDefinition = "nvarchar(255)", nullable = false)

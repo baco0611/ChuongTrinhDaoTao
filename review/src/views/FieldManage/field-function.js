@@ -77,8 +77,8 @@ export const updateField = async ({api, token, data, setIsDataSaved, oldElement,
             setIsDataSaved(true)
     
             Swal.fire({
-                title: "MÃ GIẢNG VIÊN ĐÃ TỒN TẠI",
-                text: "Mã giảng viên đã tồn tại, vui lòng nhập mã giảng viên khác",
+                title: "MÃ NGÀNH ĐÀO TẠO ĐÃ TỒN TẠI",
+                text: "Mã ngành đào tạo đã tồn tại, vui lòng nhập mã giảng viên khác",
                 icon: "error",
                 confirmButtonColor: "#BE0000"
             });
@@ -130,14 +130,33 @@ export const deleteField = async({api, token, data, setFieldValue, setIsDataSave
             }
 
             const result_1 = await deleteData(api, "/api/fields/delete", token, payload)
-            console.log(result_1)
-            // const result = await deleteData(api, url, token, payload)
-            // console.log(result)
+            // console.log(result_1)
 
-            // if(result.status == 200)
-            //     setState(result.data.data)
-            // else
-            //     alertErrorDataSave()
+            if(result_1.data.status) {
+                await Swal.fire({
+                    title: "XÓA NGÀNH ĐÀO TẠO",
+                    text: `Ngành ${data.fieldName} đang có ${result_1.data.data.total} chương trình đang được thực hiện và lưu hành. Bạn có muốn xóa ngành ${data.fieldName} không?`,
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Có",
+                    cancelButtonText: "Không",
+                    confirmButtonColor: '#BE0000', // Màu đỏ cho nút "Có"
+                    reverseButtons: true, // Đổi vị trí các nút
+                }).then(async (result) => {
+                    if (result.isConfirmed) {
+                        payload.confirm = true
+                        // console.log(payload)
+                           
+                        setIsDataSaved(false)
+                        const result_2 = await deleteData(api, "/api/fields/delete", token, payload)
+                        
+                        setFieldValue(result_2.data)
+                        setIsDataSaved(true)
+                    }
+                });
+            }
+
+            else setFieldValue(result_1.data)
         }
     });
 }
