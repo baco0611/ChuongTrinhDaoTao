@@ -24,7 +24,8 @@ const categorizeData = (data, result) => {
 
             if (detailedModule === "SPECIALIZE") {
                 result.PROFESSIONAL.SPECIALIZE.data[item.specializationId].data.push(item);
-            } else if (detailedModule === "THESIS_PROJECT" && item.replacesThesis) {
+            } else if (detailedModule === "THESIS_PROJECT" && item.replacesThesis && item.specializationId) {
+                console.log(result.PROFESSIONAL.REPLACE_THESIS.data, item.specializationId, item)
                 result.PROFESSIONAL.REPLACE_THESIS.data[item.specializationId].data.push(item);
             } else if (detailedModule === "THESIS_PROJECT") {
                 result.PROFESSIONAL.THESIS_PROJECT.data.push(item);
@@ -290,3 +291,51 @@ export const deleteCourse = async({id, api, token, data, setIsDataSaved, setStat
     });
 }
 
+export const handleUp = async ({id, data, api, token, setState, index, setIsDataSaved}) => {
+    const currentPos = data.findIndex(item => item.index === index);
+
+    // console.log(currentPos)
+
+    if (currentPos > 0) {
+        const prevPos = currentPos - 1;
+
+        [data[currentPos].index, data[prevPos].index] = [data[prevPos].index, data[currentPos].index];
+        // console.log(data)
+    
+        const payload = {
+            data
+        }
+    
+        setIsDataSaved(false)
+        const specialization = JSON.parse(sessionStorage.getItem(`specialization-${id}`))
+        const saveIndexResult = await postData(api, "/api/programs/updateIndices", token, payload);
+        console.log(saveIndexResult)
+        setState(splitCourse(saveIndexResult.data, specialization, api, token))
+        setIsDataSaved(true)
+    }
+}
+
+export const handleDown = async ({id, data, api, token, setState, index, setIsDataSaved}) => {
+    const currentPos = data.findIndex(item => item.index === index);
+
+    // Kiểm tra xem có phần tử phía sau để hoán đổi hay không
+    if (currentPos < data.length - 1) {
+        const nextPos = currentPos + 1;
+
+        // Hoán đổi giá trị index của hai phần tử
+        [data[currentPos].index, data[nextPos].index] = [data[nextPos].index, data[currentPos].index];
+
+        const payload = {
+            data
+        };
+
+        setIsDataSaved(false);
+        const specialization = JSON.parse(sessionStorage.getItem(`specialization-${id}`));
+        const saveIndexResult = await postData(api, "/api/programs/updateIndices", token, payload);
+        console.log(saveIndexResult);
+
+        // Cập nhật state sau khi hoán đổi và lưu thành công
+        setState(splitCourse(saveIndexResult.data, specialization, api, token));
+        setIsDataSaved(true);
+    }
+};
