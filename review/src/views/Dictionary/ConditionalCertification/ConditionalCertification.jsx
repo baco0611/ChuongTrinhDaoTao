@@ -55,7 +55,8 @@ export default function ConditionalCertification() {
     if(isError)
         navigate('/error')
 
-    console.log(dataDictionary)
+    // console.log(dataDictionary)
+    console.log(user)
 
     return (
         <div id='dictionary-section' className='wrapper body-container dictionary-section'>

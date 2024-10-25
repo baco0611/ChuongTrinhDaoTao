@@ -28,6 +28,10 @@ const router = createBrowserRouter([
         element: <WebDefaultLayout/>,
         children: [
             {
+                path: '/',
+                element: <Navigate to={"/user"}/>
+            },
+            {
                 path: '/login',
                 element: <Login/>
             },

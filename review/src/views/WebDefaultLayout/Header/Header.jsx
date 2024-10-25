@@ -51,7 +51,7 @@ export default function Header() {
         });
     };
 
-    // console.log(user)
+    console.log(user)
 
     return (
         <>
@@ -100,23 +100,29 @@ export default function Header() {
                             <li><Link to={"/dictionary/graduation"} onClick={() => setMenuOpen(!menuOpen)}>Điều kiện tốt nghiệp</Link></li>
                             <li><Link to={"/dictionary/certification"} onClick={() => setMenuOpen(!menuOpen)}>Chứng chỉ điều kiện</Link></li>
                         </ul>
-                        <ul className="header-component">
+                        {/* <ul className="header-component">
                             <li className="primary">Học phần</li>
                             <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý đề cương</Link></li>
                             <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Tra cứu đề cương</Link></li>
                             <li><Link to={"#"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý học phần</Link></li>
-                        </ul>
+                        </ul> */}
                         <ul className="header-component">
                             <li className="primary">Chương trình đào tạo</li>
                             <li><Link to={"/program/manage"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý chương trình đào tạo</Link></li>
                             <li><Link to={"/program/search"} onClick={() => setMenuOpen(!menuOpen)}>Tra cứu chương trình đào tạo</Link></li>
-                            <li><Link to={"/program/field"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý ngành đào tạo</Link></li>
+                            {
+                                user && user.role.includes("ADMIN") &&
+                                <li><Link to={"/program/field"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý ngành đào tạo</Link></li>
+                            }
                         </ul>
                         <ul className="header-component">
                             <li className="primary">Quản trị</li>
                             <li><Link to={"/user/responsibility"} onClick={() => setMenuOpen(!menuOpen)}>Phân công phụ trách</Link></li>
                             <li><Link to={"/user/authorization"} onClick={() => setMenuOpen(!menuOpen)}>Phân quyền</Link></li>
-                            <li><Link to={"/user/manage"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý người dùng</Link></li>
+                            {
+                                user && user.role.includes("ADMIN") &&
+                                <li><Link to={"/user/manage"} onClick={() => setMenuOpen(!menuOpen)}>Quản lý người dùng</Link></li>
+                            }
                         </ul>
                     </div> 
                 </div>
