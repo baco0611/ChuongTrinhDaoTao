@@ -11,9 +11,11 @@ import com.laptrinhjavaweb.dto.CourseLearningOutcomeMatrixDTO;
 import com.laptrinhjavaweb.dto.CourseMatrixRequestDTO;
 import com.laptrinhjavaweb.entity.CourseLearningOutcomeMatrixEntity;
 import com.laptrinhjavaweb.entity.DetailedProgramEntity;
+import com.laptrinhjavaweb.entity.EducationProgramEntity;
 import com.laptrinhjavaweb.entity.ProgramLearningOutComesEntity;
 import com.laptrinhjavaweb.repository.CourseLearningOutcomeMatrixRepository;
 import com.laptrinhjavaweb.repository.DetailedProgramRepository;
+import com.laptrinhjavaweb.repository.EducationProgramRepository;
 import com.laptrinhjavaweb.repository.ProgramLearningOutComesRepository;
 
 import jakarta.transaction.Transactional;
@@ -29,6 +31,9 @@ public class CourseLearningOutcomeMatrixService {
     
     @Autowired
     private DetailedProgramRepository  detailedProgramRepository;
+    
+    @Autowired
+    private EducationProgramRepository educationProgramRepository;
     
     public List<CourseLearningOutcomeMatrixDTO> getCourseLearningOutcomeMatrixByProgramId(Long programId) {
         return courseLearningOutcomeMatrixRepository.findByEducationProgram_ProgramId(programId)
@@ -52,10 +57,13 @@ public class CourseLearningOutcomeMatrixService {
                         .orElseThrow(() -> new IllegalArgumentException("Invalid Detailed Program ID: " + element.getCourseId()));
                 ProgramLearningOutComesEntity learningOutcome = programLearningOutComesRepository.findById(element.getPloId())
                         .orElseThrow(() -> new IllegalArgumentException("Invalid Learning Outcome ID: " + element.getPloId()));
-
+                EducationProgramEntity educationProgramEntity = educationProgramRepository.findById(request.getProgramId())
+                		.orElseThrow(() -> new IllegalArgumentException("Invalid Program ID: " + element.getPloId()));
+                
                 entity.setDetailedProgram(detailedProgram);
                 entity.setLearningOutcome(learningOutcome);
                 entity.setComplianceLevel(element.getCompetency());
+                entity.setEducationProgram(educationProgramEntity);
 
                 courseLearningOutcomeMatrixRepository.save(entity);
             }

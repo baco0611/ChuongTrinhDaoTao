@@ -9,6 +9,7 @@ public class CourseMatrixRequestDTO {
 	private List<Long> deleteElement;
 	private List<CreateElementDTO> createElement;
 	private List<UpdateElementDTO> updateElement;
+	private Long programId;
 
 	@Data
 	public static class CreateElementDTO {
